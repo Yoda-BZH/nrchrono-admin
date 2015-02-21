@@ -19,10 +19,9 @@
         "sensio/distribution-bundle": "~3.0,>=3.0.12",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
-        "twitter/bootstrap": "~3.3",
-        "frameworks/jquery": "~2.1",
         "datatables/datatables": "~1.10",
-        "drmonty/datatables-plugins": "~1.0"
+        "drmonty/datatables-plugins": "~1.0",
+        "symfony-bundle/bootstrap-bundle": "~3.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
