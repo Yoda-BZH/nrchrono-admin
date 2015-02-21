@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Pause list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <th>{% trans %}Porder{% endtrans %}</th>
+                <th>{% trans %}Hourstart{% endtrans %}</th>
+                <th>{% trans %}Hourstop{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('pause_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.porder }}</td>
+                <td>{{ entity.hourStart|date('H:i') }}</td>
+                <td>{{ entity.hourStop|date('H:i') }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('pause_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('pause_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('pause_new') }}">
+                {% trans %}Create a new entry{% endtrans %}
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

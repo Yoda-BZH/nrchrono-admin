@@ -36,11 +36,126 @@ class Team
     private $nbHeurePause;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="nb_person", type="boolean", nullable=true)
+     * @ORM\Column(name="nb_person", type="integer", nullable=true)
      */
     private $nbPerson;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_reference", type="integer", nullable=true)
+     */
+    private $idReference;
+
+    /**
+     * Return the value of
+     *
+     *
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Return the value of
+     *
+     *
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set the value of
+     *
+     *
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Return the value of
+     *
+     *
+     */
+    public function getNbHeurePause()
+    {
+        return $this->nbHeurePause;
+    }
+
+    /**
+     * Set the value of
+     *
+     *
+     */
+    public function setNbHeurePause($nbHeurePause)
+    {
+        $this->nbHeurePause = $nbHeurePause;
+
+        return $this;
+    }
+
+    /**
+     * Return the value of
+     *
+     *
+     */
+    public function getNbPerson()
+    {
+        return $this->nbPerson;
+    }
+
+    /**
+     * Set the value of
+     *
+     *
+     */
+    public function setNbPerson($nbPerson)
+    {
+        $this->nbPerson = $nbPerson;
+
+        return $this;
+    }
+
+    /**
+     * Return the value of
+     *
+     *
+     */
+    public function getIdReference()
+    {
+        return $this->idReference;
+    }
+
+    /**
+     * Set the value of
+     *
+     *
+     */
+    public function setIdReference($idReference)
+    {
+        $this->idReference = $idReference;
+
+        return $this;
+    }
+
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
 }

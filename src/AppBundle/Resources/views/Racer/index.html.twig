@@ -1,0 +1,53 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>{% trans %}Racer list{% endtrans %}</h1>
+
+    <table class="records_list table table-condensed table-stripped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <th>{% trans %}Firstname{% endtrans %}</th>
+                <th>{% trans %}Lastname{% endtrans %}</th>
+                <th>{% trans %}Nickname{% endtrans %}</th>
+                <th>{% trans %}Timingmin{% endtrans %}</th>
+                <th>{% trans %}Timingmax{% endtrans %}</th>
+                <th>{% trans %}Timingavg{% endtrans %}</th>
+                <th>{% trans %}Position{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('racer_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.firstname }}</td>
+                <td>{{ entity.lastname }}</td>
+                <td>{{ entity.nickname }}</td>
+                <td>{{ entity.timingMin }}</td>
+                <td>{{ entity.timingMax }}</td>
+                <td>{{ entity.timingAvg }}</td>
+                <td>{{ entity.position }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('racer_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('racer_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+    <li>
+        <a href="{{ path('racer_new') }}">
+            {% trans %}Create a new entry{% endtrans %}
+        </a>
+    </li>
+</ul>
+{% endblock %}

@@ -11,3 +11,11 @@ services:
         class: Anezi\Bundle\BootstrapBundle\Twig\BootstrapExtension
         tags:
             - { name: twig.extension }
+
+    timer.provider.matsport:
+        class: AppBundle\Timer\Provider\Matsport
+
+    timer.timer:
+        class: AppBundle\Timer\Timer
+        calls:
+            - [ setEm, [ "@doctrine.orm.entity_manager" ] ]

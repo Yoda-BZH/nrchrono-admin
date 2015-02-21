@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * RacerPause
  *
- * @ORM\Table(name="racer_pause", indexes={@ORM\Index(name="fk_racer_pause_1", columns={"id_racer"}), @ORM\Index(name="fk_racer_pause_2", columns={"id_pause"})})
+ * @ORM\Table(name="racer_pause", indexes={@ORM\Index(name="fk_racer_pause_1_idx", columns={"id_racer"}), @ORM\Index(name="fk_racer_pause_2_idx", columns={"id_pause"})})
  * @ORM\Entity
  */
 class RacerPause
@@ -22,11 +22,11 @@ class RacerPause
     private $id;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="order", type="boolean", nullable=true)
+     * @ORM\Column(name="porder", type="integer", nullable=true)
      */
-    private $order;
+    private $porder;
 
     /**
      * @var \Racer

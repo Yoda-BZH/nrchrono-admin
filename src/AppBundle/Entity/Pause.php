@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Pause
  *
- * @ORM\Table(name="pause", indexes={@ORM\Index(name="fk_pause_1", columns={"id_team"})})
+ * @ORM\Table(name="pause", indexes={@ORM\Index(name="fk_pause_1_idx", columns={"id_team"}), @ORM\Index(name="ind_index_1", columns={"porder"})})
  * @ORM\Entity
  */
 class Pause
@@ -22,11 +22,11 @@ class Pause
     private $id;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="index", type="boolean", nullable=true)
+     * @ORM\Column(name="porder", type="integer", nullable=true)
      */
-    private $index;
+    private $porder;
 
     /**
      * @var \DateTime
@@ -53,4 +53,106 @@ class Pause
     private $idTeam;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set porder
+     *
+     * @param integer $porder
+     * @return Pause
+     */
+    public function setPorder($porder)
+    {
+        $this->porder = $porder;
+
+        return $this;
+    }
+
+    /**
+     * Get porder
+     *
+     * @return integer 
+     */
+    public function getPorder()
+    {
+        return $this->porder;
+    }
+
+    /**
+     * Set hourStart
+     *
+     * @param \DateTime $hourStart
+     * @return Pause
+     */
+    public function setHourStart($hourStart)
+    {
+        $this->hourStart = $hourStart;
+
+        return $this;
+    }
+
+    /**
+     * Get hourStart
+     *
+     * @return \DateTime 
+     */
+    public function getHourStart()
+    {
+        return $this->hourStart;
+    }
+
+    /**
+     * Set hourStop
+     *
+     * @param \DateTime $hourStop
+     * @return Pause
+     */
+    public function setHourStop($hourStop)
+    {
+        $this->hourStop = $hourStop;
+
+        return $this;
+    }
+
+    /**
+     * Get hourStop
+     *
+     * @return \DateTime 
+     */
+    public function getHourStop()
+    {
+        return $this->hourStop;
+    }
+
+    /**
+     * Set idTeam
+     *
+     * @param \AppBundle\Entity\Team $idTeam
+     * @return Pause
+     */
+    public function setIdTeam(\AppBundle\Entity\Team $idTeam = null)
+    {
+        $this->idTeam = $idTeam;
+
+        return $this;
+    }
+
+    /**
+     * Get idTeam
+     *
+     * @return \AppBundle\Entity\Team 
+     */
+    public function getIdTeam()
+    {
+        return $this->idTeam;
+    }
 }

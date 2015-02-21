@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Timing
  *
- * @ORM\Table(name="timing", indexes={@ORM\Index(name="fk_timing_1", columns={"id_racer"})})
- * @ORM\Entity
+ * @ORM\Table(name="timing", indexes={@ORM\Index(name="fk_timing_1_idx", columns={"id_racer"})})
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\TimingRepository")
  */
 class Timing
 {
@@ -53,4 +53,106 @@ class Timing
     private $idRacer;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set timing
+     *
+     * @param integer $timing
+     * @return Timing
+     */
+    public function setTiming($timing)
+    {
+        $this->timing = $timing;
+
+        return $this;
+    }
+
+    /**
+     * Get timing
+     *
+     * @return integer
+     */
+    public function getTiming()
+    {
+        return $this->timing;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Timing
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set isRelay
+     *
+     * @param boolean $isRelay
+     * @return Timing
+     */
+    public function setIsRelay($isRelay)
+    {
+        $this->isRelay = $isRelay;
+
+        return $this;
+    }
+
+    /**
+     * Get isRelay
+     *
+     * @return boolean
+     */
+    public function getIsRelay()
+    {
+        return $this->isRelay;
+    }
+
+    /**
+     * Set idRacer
+     *
+     * @param \AppBundle\Entity\Racer $idRacer
+     * @return Timing
+     */
+    public function setIdRacer(\AppBundle\Entity\Racer $idRacer = null)
+    {
+        $this->idRacer = $idRacer;
+
+        return $this;
+    }
+
+    /**
+     * Get idRacer
+     *
+     * @return \AppBundle\Entity\Racer
+     */
+    public function getIdRacer()
+    {
+        return $this->idRacer;
+    }
 }
