@@ -7,3 +7,7 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    bootstrap.twig.bootstrap_extension:
+        class: Anezi\Bundle\BootstrapBundle\Twig\BootstrapExtension
+        tags:
+            - { name: twig.extension }

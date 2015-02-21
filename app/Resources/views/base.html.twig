@@ -4,10 +4,27 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bootstrap/css/bootstrap.css') }}">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<body>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div id="menu">
+            <ul class="nav nav-tabs">
+                <li><a href="">Index</a></li>
+                <li><a href="">Racer</a></li>
+                <li><a href="">Team</a></li>
+                <li><a href="">Pause</a></li>
+                <li><a href="">Timing</a></li>
+            </ul>
+            </div>
+{% block body %}{% endblock %}
+        </div> <!-- end row fluid -->
+    </div> <!-- container-fluid -->
+    {% block javascripts %}{% endblock %}
+
+<script type="text/javascript" src="{{ asset('bundles/jquery-extra/jquery.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/bootstrap/js/bootstrap.min.js') }}"></script>
+</body>
 </html>
