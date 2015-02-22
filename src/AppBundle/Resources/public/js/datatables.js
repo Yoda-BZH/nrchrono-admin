@@ -13,10 +13,8 @@ $(document).ready(function() {
     sortingCol = tables.data('datatable-sorting-col');
     if (sortingCol != '')
     {
-        console.log('setting order to ' + sortingCol);
         options.order = [ sortingCol, 'asc' ];
     }
-    console.log(options);
 
     tables.DataTable(options);
     //new $.fn.dataTable.FixedHeader( tables );

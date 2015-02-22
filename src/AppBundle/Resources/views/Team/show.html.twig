@@ -141,7 +141,6 @@ $(document).ready(function() {
 
     $('#reorder').submit(function() {
         event.preventDefault();
-        //console.log('catched');
         orderData = []
         tbody.find('tr').each(function(index) {
             $tr = $(this);
@@ -161,9 +160,7 @@ $(document).ready(function() {
             ui.find('.modal-body').html(data.data);
             ui.modal();
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.log('failed.');
             ui = $('#uiPosition');
-            //console.log($.parseJSON(jqXHR.responseText));
             ui.find('.modal-body').html($.parseJSON(jqXHR.responseText).data);
             ui.find('button').removeClass('btn-default').addClass('btn-danger');
             ui.modal();
