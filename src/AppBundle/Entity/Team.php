@@ -3,12 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Team
  *
  * @ORM\Table(name="team")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\TeamRepository")
  */
 class Team
 {
@@ -48,6 +49,24 @@ class Team
      * @ORM\Column(name="id_reference", type="integer", nullable=true)
      */
     private $idReference;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Racer", mappedBy="idTeam")
+     */
+    private $racers;
+
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->racers = new ArrayCollection();
+    }
 
     /**
      * Return the value of

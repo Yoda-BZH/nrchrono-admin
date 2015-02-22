@@ -29,7 +29,7 @@ class TimingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Timing')->findAllWithRacer();
+        $entities = $em->getRepository('AppBundle:Timing')->findAllWithRacerTeam();
 
         return array(
             'entities' => $entities,

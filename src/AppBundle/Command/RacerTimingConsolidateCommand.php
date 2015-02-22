@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
-class RacerTimingCommand extends ContainerAwareCommand
+class RacerTimingConsolidateCommand extends ContainerAwareCommand
 {
     protected function configure()
     {

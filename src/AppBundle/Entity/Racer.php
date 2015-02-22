@@ -73,7 +73,7 @@ class Racer
     /**
      * @var \Team
      *
-     * @ORM\ManyToOne(targetEntity="Team")
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="racers")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_team", referencedColumnName="id")
      * })
