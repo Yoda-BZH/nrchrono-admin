@@ -11,7 +11,7 @@ $(document).ready(function() {
         "pagingType": "full_numbers",
     };
     sortingCol = tables.data('datatable-sorting-col');
-    if (sortingCol != '')
+    if (sortingCol != undefined)
     {
         options.order = [ sortingCol, 'asc' ];
     }
