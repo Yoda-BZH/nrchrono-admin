@@ -3,11 +3,12 @@
 {% block body -%}
     <h1>Pause list</h1>
 
-    <table class="records_list table table-hover table-condensed table-stripped table-bordered">
+    <table class="records_list table table-hover table-condensed table-stripped table-bordered table-datatable">
         <thead>
             <tr>
                 <th>{% trans %}Id{% endtrans %}</th>
                 <th>{% trans %}Porder{% endtrans %}</th>
+                <th>{% trans %}IdTeam{% endtrans %}</th>
                 <th>{% trans %}Hourstart{% endtrans %}</th>
                 <th>{% trans %}Hourstop{% endtrans %}</th>
                 <th>{% trans %}Actions{% endtrans %}</th>
@@ -18,6 +19,7 @@
             <tr>
                 <td><a href="{{ path('pause_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.porder }}</td>
+                <td><a href="{{ path('team_show', { 'id': entity.idTeam.id }) }}">{{ entity.idTeam.name }}</a></td>
                 <td>{{ entity.hourStart|date('H:i') }}</td>
                 <td>{{ entity.hourStop|date('H:i') }}</td>
                 <td>
@@ -42,4 +44,6 @@
             </a>
         </li>
     </ul>
-    {% endblock %}
+{% include 'AppBundle::datatables/table.html.twig' %}
+{% endblock %}
+

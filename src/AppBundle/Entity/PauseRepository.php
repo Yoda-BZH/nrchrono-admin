@@ -5,15 +5,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 
-class RacerRepository extends EntityRepository
+class PauseRepository extends EntityRepository
 {
-    public function getAll()
-    {
-        return $this->createQueryBuilder('r')
-            ->getQuery()
-            ->getResult()
-            ;
-    }
 
     /**
      * description
@@ -23,10 +16,10 @@ class RacerRepository extends EntityRepository
      */
     public function findAllWithTeam()
     {
-        $qb = $this->createQueryBuilder('r');
+        $qb = $this->createQueryBuilder('p');
         $qb
             ->addSelect('t')
-            ->leftJoin('r.idTeam', 't')
+            ->leftJoin('p.idTeam', 't')
             ;
 
         return $qb->getQuery()->getResult();

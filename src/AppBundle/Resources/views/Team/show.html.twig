@@ -3,7 +3,7 @@
 {% block body -%}
     <h1>Team</h1>
 
-    <table class="record_properties">
+    <table class="record_properties table table-condensed table-stripped table-hover">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -39,6 +39,161 @@
             Edit
         </a>
     </li>
+    <li>
+        <a href="{{ path('team_pauses', { 'id': entity.id }) }}">Pauses</a>
+    </li>
     <li>{{ form(delete_form) }}</li>
 </ul>
+
+<table class="records_list table table-condensed table-stripped table-bordered table-hover table-datatable" data-datatable-sorting-col="5">
+    <thead>
+        <tr>
+            <th>{% trans %}Id{% endtrans %}</th>
+            <th>{% trans %}Firstname{% endtrans %}</th>
+            <th>{% trans %}Lastname{% endtrans %}</th>
+            <th>{% trans %}Nickname{% endtrans %}</th>
+            <th>{% trans %}idTeam{% endtrans %}</th>
+            <th>{% trans %}Position{% endtrans %}</th>
+            <th>{% trans %}Timingmin{% endtrans %}</th>
+            <th>{% trans %}Timingmax{% endtrans %}</th>
+            <th>{% trans %}Timingavg{% endtrans %}</th>
+            <th>{% trans %}Actions{% endtrans %}</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <td colspan="5">&nbsp;</td>
+        <td>
+            <div>
+                <form id="reorder" method="post" action="{{ path('racer_order') }}"><button class="first-hidden btn btn-primary" type="submit">Valider</button></form>
+            </div>
+        </td>
+        <td colspan="4">&nbsp;</td>
+
+    </tfoot>
+    <tbody class="sortable">
+    {% for racer in racers %}
+        <tr>
+            <td class="racer-id" data-racerid="{{ racer.id }}"><a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.id }}</a></td>
+            <td><a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.firstname }}</a></td>
+            <td><a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.lastname }}</a></td>
+            <td><a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.nickname }}</a></td>
+            <td><a href="{{ path('team_show', { 'id': racer.idTeam.id }) }}">{{ racer.idTeam.name }}</a></td>
+            <td class="position" data-position="{{ racer.position }}" data-newpos="">{{ racer.position }}</td>
+            <td>{{ racer.timingMin }}</td>
+            <td>{{ racer.timingMax }}</td>
+            <td>{{ racer.timingAvg }}</td>
+            <td>
+            <ul>
+                <li>
+                    <a href="{{ path('racer_show', { 'id': racer.id }) }}">{% trans %}show{% endtrans %}</a>
+                </li>
+                <li>
+                    <a href="{{ path('racer_edit', { 'id': racer.id }) }}">{% trans %}edit{% endtrans %}</a>
+                </li>
+            </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="uiPosition" tabindex="-1" role="dialog" aria-labelledby="uiPositionSavedLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="uiPositionSavedLabel">Gestion des positions dans l'équipe</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="modal fade" id="uiPositionError" tabindex="-1" role="dialog" aria-labelledby="uiPositionErrorLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="uiPositionErrorLabel">Gestion des positions dans l'équipe</h4>
+            </div>
+            <div class="modal-body">
+                ERROR
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="danger btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+    $('button.first-hidden').hide();
+
+    $('#reorder').submit(function() {
+        event.preventDefault();
+        //console.log('catched');
+        orderData = []
+        tbody.find('tr').each(function(index) {
+            $tr = $(this);
+            racerId = $tr.find('td.racer-id').data('racerid');
+
+            tdPosition = $tr.find('td.position');
+            newpos = tdPosition.data('newpos');
+            if(newpos != '') {
+                orderData[racerId] = newpos;
+            }
+        });
+        postData = [];
+        postData['order'] = orderData;
+
+        $.post(this.action, {'order': orderData}, function(data) {
+            ui = $('#uiPosition');
+            ui.find('.modal-body').html(data.data);
+            ui.modal();
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.log('failed.');
+            ui = $('#uiPosition');
+            //console.log($.parseJSON(jqXHR.responseText));
+            ui.find('.modal-body').html($.parseJSON(jqXHR.responseText).data);
+            ui.find('button').removeClass('btn-default').addClass('btn-danger');
+            ui.modal();
+        })
+    });
+});
+tbody = $(".sortable");
+tbody.sortable({
+    axis: "y",
+    stop: function(event, ui) {
+
+        $('button.first-hidden').show();
+        tbody.find('td.position').each(function(index) {
+            $this = $(this);
+            currentIndex = $this.data('position');
+            newIndex = index + 1;
+            if(currentIndex != newIndex) {
+                $this.addClass('danger')
+                $this.data('newpos', newIndex);
+                content = newIndex + ' <span class="overline">(' + currentIndex + ')</span>';
+                if(newIndex > currentIndex) {
+                    glyph = 'glyphicon-arrow-down';
+                } else {
+                    glyph = 'glyphicon-arrow-up';
+                }
+                content += ' <span class="glyphicon ' + glyph + '"></span>';
+                $this.html(content);
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

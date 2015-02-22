@@ -1,0 +1,135 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:TeamPause:index{% endblock %}
+
+{% block body -%}
+<h1>Welcome to the TeamPause:index page</h1>
+
+
+<table class="records_list table table-condensed table-bordered table-stripped table-hover table-datatable" data-datatable-sorting-col="4">
+    <thead>
+        <tr>
+            <th>{% trans %}id{% endtrans %}</th>
+            <th>firstname</th>
+            <th>lastname</th>
+            <th>nickname</th>
+            <th>{% trans %}porder{% endtrans %}</th>
+            <th>hourstart</th>
+            <th>hourstop</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <td colspan="4">&nbsp;</td>
+        <td>
+            <div>
+                <form id="reorder" method="post" action="{{ path('teampause_order') }}"><button class="first-hidden btn btn-primary" type="submit">Valider</button></form>
+            </div>
+        </td>
+        <td colspan="2">&nbsp;</td>
+
+    </tfoot>
+    <tbody class="sortable">
+    {% if teamPauses %}
+        {% set latestTP = teamPauses[0] %}
+    {% endif %}
+    {% for teamPause in teamPauses %}
+        {% set trStyle = latestTP.idPause.hourStop|date('H:i') != teamPause.idPause.hourStop|date('H:i') ? 'table-line-separator' : '' %}
+        <tr class="{{ trStyle }}">
+            <td class="teampause-id" data-teampauseid="{{ teamPause.id }}"><a href="{{ path('racerpause_show', { 'id': teamPause.id }) }}">{{ teamPause.id }}</a></td>
+            <td><a href="{{ path('racer_show', { 'id': teamPause.idRacer.id }) }}">{{ teamPause.idRacer.firstname }}</a></td>
+            <td><a href="{{ path('racer_show', { 'id': teamPause.idRacer.id }) }}">{{ teamPause.idRacer.lastname }}</a></td>
+            <td><a href="{{ path('racer_show', { 'id': teamPause.idRacer.id }) }}">{{ teamPause.idRacer.nickname }}</a></td>
+            <td class="position" data-position="{{ teamPause.porder }}" data-newpos="">{{ teamPause.porder }}</td>
+            <td><a href="{{ path('racerpause_edit', { 'id': teamPause.id }) }}">{{ teamPause.idPause.hourstart|date('H:i') }}</a></td>
+            <td>{{ teamPause.idPause.hourstop|date('H:i') }}</a></td>
+        </tr>
+        {% set latestTP = teamPause %}
+    {% endfor %}
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="uiPosition" tabindex="-1" role="dialog" aria-labelledby="uiPositionSavedLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="uiPositionSavedLabel">Gestion des positions dans l'équipe</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+
+    $('button.first-hidden').hide();
+
+    $('#reorder').submit(function() {
+        event.preventDefault();
+        //console.log('catched');
+        orderData = []
+        tbody.find('tr').each(function(index) {
+            $tr = $(this);
+            racerId = $tr.find('td.teampause-id').data('teampauseid');
+
+            tdPosition = $tr.find('td.position');
+            newpos = tdPosition.data('newpos');
+            if(newpos != '') {
+                orderData[racerId] = newpos;
+            }
+        });
+        postData = [];
+        postData['order'] = orderData;
+        console.log('action', this.action);
+        console.log('data', postData);
+
+        $.post(this.action, {'order': orderData}, function(data) {
+            ui = $('#uiPosition');
+            ui.find('.modal-body').html(data.data);
+            ui.modal();
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.log('failed.');
+            ui = $('#uiPosition');
+            //console.log($.parseJSON(jqXHR.responseText));
+            ui.find('.modal-body').html($.parseJSON(jqXHR.responseText).data);
+            ui.find('button').removeClass('btn-default').addClass('btn-danger');
+            ui.modal();
+        })
+    });
+});
+tbody = $(".sortable");
+tbody.sortable({
+    axis: "y",
+    stop: function(event, ui) {
+
+        $('button.first-hidden').show();
+        tbody.find('td.position').each(function(index) {
+            $this = $(this);
+            currentIndex = $this.data('position');
+            newIndex = index + 1;
+            if(currentIndex != newIndex) {
+                $this.addClass('danger')
+                $this.data('newpos', newIndex);
+                content = newIndex + ' <span class="overline">(' + currentIndex + ')</span>';
+                if(newIndex > currentIndex) {
+                    glyph = 'glyphicon-arrow-down';
+                } else {
+                    glyph = 'glyphicon-arrow-up';
+                }
+                content += ' <span class="glyphicon ' + glyph + '"></span>';
+                $this.html(content);
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

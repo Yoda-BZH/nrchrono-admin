@@ -7,21 +7,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Pause;
-use AppBundle\Form\PauseType;
+use AppBundle\Entity\RacerPause;
+use AppBundle\Form\RacerPauseType;
 
 /**
- * Pause controller.
+ * RacerPause controller.
  *
- * @Route("/pause")
+ * @Route("/racerpause")
  */
-class PauseController extends Controller
+class RacerPauseController extends Controller
 {
 
     /**
-     * Lists all Pause entities.
+     * Lists all RacerPause entities.
      *
-     * @Route("/", name="pause")
+     * @Route("/", name="racerpause")
      * @Method("GET")
      * @Template()
      */
@@ -29,22 +29,22 @@ class PauseController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Pause')->findAllWithTeam();
+        $entities = $em->getRepository('AppBundle:RacerPause')->findAllWithRacerTeamPause();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Pause entity.
+     * Creates a new RacerPause entity.
      *
-     * @Route("/", name="pause_create")
+     * @Route("/", name="racerpause_create")
      * @Method("POST")
-     * @Template("AppBundle:Pause:new.html.twig")
+     * @Template("AppBundle:RacerPause:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Pause();
+        $entity = new RacerPause();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -53,7 +53,7 @@ class PauseController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('pause_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('racerpause_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -63,16 +63,16 @@ class PauseController extends Controller
     }
 
     /**
-     * Creates a form to create a Pause entity.
+     * Creates a form to create a RacerPause entity.
      *
-     * @param Pause $entity The entity
+     * @param RacerPause $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Pause $entity)
+    private function createCreateForm(RacerPause $entity)
     {
-        $form = $this->createForm(new PauseType(), $entity, array(
-            'action' => $this->generateUrl('pause_create'),
+        $form = $this->createForm(new RacerPauseType(), $entity, array(
+            'action' => $this->generateUrl('racerpause_create'),
             'method' => 'POST',
         ));
 
@@ -82,15 +82,15 @@ class PauseController extends Controller
     }
 
     /**
-     * Displays a form to create a new Pause entity.
+     * Displays a form to create a new RacerPause entity.
      *
-     * @Route("/new", name="pause_new")
+     * @Route("/new", name="racerpause_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Pause();
+        $entity = new RacerPause();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -100,9 +100,9 @@ class PauseController extends Controller
     }
 
     /**
-     * Finds and displays a Pause entity.
+     * Finds and displays a RacerPause entity.
      *
-     * @Route("/{id}", name="pause_show")
+     * @Route("/{id}", name="racerpause_show")
      * @Method("GET")
      * @Template()
      */
@@ -110,10 +110,10 @@ class PauseController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Pause')->find($id);
+        $entity = $em->getRepository('AppBundle:RacerPause')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Pause entity.');
+            throw $this->createNotFoundException('Unable to find RacerPause entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -125,9 +125,9 @@ class PauseController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Pause entity.
+     * Displays a form to edit an existing RacerPause entity.
      *
-     * @Route("/{id}/edit", name="pause_edit")
+     * @Route("/{id}/edit", name="racerpause_edit")
      * @Method("GET")
      * @Template()
      */
@@ -135,10 +135,10 @@ class PauseController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Pause')->find($id);
+        $entity = $em->getRepository('AppBundle:RacerPause')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Pause entity.');
+            throw $this->createNotFoundException('Unable to find RacerPause entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -152,16 +152,16 @@ class PauseController extends Controller
     }
 
     /**
-    * Creates a form to edit a Pause entity.
+    * Creates a form to edit a RacerPause entity.
     *
-    * @param Pause $entity The entity
+    * @param RacerPause $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Pause $entity)
+    private function createEditForm(RacerPause $entity)
     {
-        $form = $this->createForm(new PauseType(), $entity, array(
-            'action' => $this->generateUrl('pause_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new RacerPauseType(), $entity, array(
+            'action' => $this->generateUrl('racerpause_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -170,20 +170,20 @@ class PauseController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Pause entity.
+     * Edits an existing RacerPause entity.
      *
-     * @Route("/{id}", name="pause_update")
+     * @Route("/{id}", name="racerpause_update")
      * @Method("PUT")
-     * @Template("AppBundle:Pause:edit.html.twig")
+     * @Template("AppBundle:RacerPause:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Pause')->find($id);
+        $entity = $em->getRepository('AppBundle:RacerPause')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Pause entity.');
+            throw $this->createNotFoundException('Unable to find RacerPause entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -193,7 +193,7 @@ class PauseController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('pause_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('racerpause_edit', array('id' => $id)));
         }
 
         return array(
@@ -203,9 +203,9 @@ class PauseController extends Controller
         );
     }
     /**
-     * Deletes a Pause entity.
+     * Deletes a RacerPause entity.
      *
-     * @Route("/{id}", name="pause_delete")
+     * @Route("/{id}", name="racerpause_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -215,21 +215,21 @@ class PauseController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Pause')->find($id);
+            $entity = $em->getRepository('AppBundle:RacerPause')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Pause entity.');
+                throw $this->createNotFoundException('Unable to find RacerPause entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('pause'));
+        return $this->redirect($this->generateUrl('racerpause'));
     }
 
     /**
-     * Creates a form to delete a Pause entity by id.
+     * Creates a form to delete a RacerPause entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -238,7 +238,7 @@ class PauseController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('pause_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('racerpause_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Pause</h1>
+    <h1>RacerPause</h1>
 
     <table class="record_properties table table-condensed table-stripped table-hover">
         <tbody>
@@ -13,25 +13,17 @@
                 <th>Porder</th>
                 <td>{{ entity.porder }}</td>
             </tr>
-            <tr>
-                <th>Hourstart</th>
-                <td>{{ entity.hourStart|date('H:i') }}</td>
-            </tr>
-            <tr>
-                <th>Hourstop</th>
-                <td>{{ entity.hourStop|date('H:i') }}</td>
-            </tr>
         </tbody>
     </table>
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('pause') }}">
+        <a href="{{ path('racerpause') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('pause_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('racerpause_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>

@@ -3,17 +3,18 @@
 {% block body -%}
     <h1>{% trans %}Racer list{% endtrans %}</h1>
 
-    <table class="records_list table table-condensed table-stripped table-bordered table-hover">
+    <table class="records_list table table-condensed table-stripped table-bordered table-hover table-datatable">
         <thead>
             <tr>
                 <th>{% trans %}Id{% endtrans %}</th>
                 <th>{% trans %}Firstname{% endtrans %}</th>
                 <th>{% trans %}Lastname{% endtrans %}</th>
                 <th>{% trans %}Nickname{% endtrans %}</th>
+                <th>{% trans %}idTeam{% endtrans %}</th>
+                <th>{% trans %}Position{% endtrans %}</th>
                 <th>{% trans %}Timingmin{% endtrans %}</th>
                 <th>{% trans %}Timingmax{% endtrans %}</th>
                 <th>{% trans %}Timingavg{% endtrans %}</th>
-                <th>{% trans %}Position{% endtrans %}</th>
                 <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
@@ -21,13 +22,14 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('racer_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.firstname }}</td>
-                <td>{{ entity.lastname }}</td>
-                <td>{{ entity.nickname }}</td>
+                <td><a href="{{ path('racer_show', { 'id': entity.id }) }}">{{ entity.firstname }}</a></td>
+                <td><a href="{{ path('racer_show', { 'id': entity.id }) }}">{{ entity.lastname }}</a></td>
+                <td><a href="{{ path('racer_show', { 'id': entity.id }) }}">{{ entity.nickname }}</a></td>
+                <td><a href="{{ path('team_show', { 'id': entity.idTeam.id }) }}">{{ entity.idTeam.name }}</a></td>
+                <td>{{ entity.position }}</td>
                 <td>{{ entity.timingMin }}</td>
                 <td>{{ entity.timingMax }}</td>
                 <td>{{ entity.timingAvg }}</td>
-                <td>{{ entity.position }}</td>
                 <td>
                 <ul>
                     <li>
@@ -50,4 +52,5 @@
         </a>
     </li>
 </ul>
+{% include 'AppBundle::datatables/table.html.twig' %}
 {% endblock %}

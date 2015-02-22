@@ -118,9 +118,12 @@ class TeamController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
+        $racers = $em->getRepository('AppBundle:Racer')->findByIdTeam($entity);
+
         return array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'racers'      => $racers,
         );
     }
 

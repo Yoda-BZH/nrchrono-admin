@@ -29,7 +29,7 @@ class RacerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Racer')->findAll();
+        $entities = $em->getRepository('AppBundle:Racer')->findAllWithTeam();
 
         return array(
             'entities' => $entities,

@@ -19,6 +19,8 @@ class AppKernel extends Kernel
             new Anezi\Bundle\BootstrapBundle\BootstrapBundle(),
             new Anezi\Bundle\JQueryBundle\JQueryBundle(),
             new AppBundle\AppBundle(),
+            new Bmatzner\JQueryUIBundle\BmatznerJQueryUIBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

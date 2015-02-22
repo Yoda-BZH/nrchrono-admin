@@ -4,8 +4,100 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6d0c1a8256f4c80551d8e3473b7249c3",
+    "hash": "8fe2f5b84f2389598feaeadb2685c813",
     "packages": [
+        {
+            "name": "bmatzner/jquery-bundle",
+            "version": "2.1.1",
+            "target-dir": "Bmatzner/JQueryBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bmatzner/BmatznerJQueryBundle.git",
+                "reference": "c47ebfd993782560d425081d6866393274537953"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bmatzner/BmatznerJQueryBundle/zipball/c47ebfd993782560d425081d6866393274537953",
+                "reference": "c47ebfd993782560d425081d6866393274537953",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Bmatzner\\JQueryBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Bernd Matzner",
+                    "email": "bernd@matznermatzner.de",
+                    "homepage": "http://berndmatzner.de"
+                }
+            ],
+            "description": "jQuery Bundle for Symfony2",
+            "homepage": "http://jquery.com/",
+            "keywords": [
+                "javascript",
+                "jquery",
+                "symfony"
+            ],
+            "time": "2014-05-05 16:19:00"
+        },
+        {
+            "name": "bmatzner/jquery-ui-bundle",
+            "version": "1.10.3",
+            "target-dir": "Bmatzner/JQueryUIBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bmatzner/BmatznerJQueryUIBundle.git",
+                "reference": "43d66b83d0b1a8e080134a6f73fab380ee20d978"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bmatzner/BmatznerJQueryUIBundle/zipball/43d66b83d0b1a8e080134a6f73fab380ee20d978",
+                "reference": "43d66b83d0b1a8e080134a6f73fab380ee20d978",
+                "shasum": ""
+            },
+            "require": {
+                "bmatzner/jquery-bundle": "*",
+                "symfony/framework-bundle": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Bmatzner\\JQueryUIBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Bernd Matzner",
+                    "email": "bernd@matznermatzner.de",
+                    "homepage": "http://berndmatzner.de"
+                }
+            ],
+            "description": "jQuery UI Bundle for Symfony2",
+            "homepage": "http://jqueryui.com/",
+            "keywords": [
+                "javascript",
+                "jquery",
+                "symfony",
+                "ui"
+            ],
+            "time": "2013-05-19 14:33:38"
+        },
         {
             "name": "components/jquery",
             "version": "2.1.3",
@@ -892,6 +984,135 @@
             "time": "2014-12-16 13:45:01"
         },
         {
+            "name": "drmonty/datatables",
+            "version": "v1.10.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/drmonty/datatables.git",
+                "reference": "7740f4fb1e2877f15bbe7e38aaf06abd22772666"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/drmonty/datatables/zipball/7740f4fb1e2877f15bbe7e38aaf06abd22772666",
+                "reference": "7740f4fb1e2877f15bbe7e38aaf06abd22772666",
+                "shasum": ""
+            },
+            "require": {
+                "components/jquery": ">=1.7"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "js/jquery.dataTables.js"
+                    ],
+                    "files": [
+                        "js/jquery.dataTables.min.js",
+                        "images/*.png",
+                        "css/jquery.dataTables.min.css",
+                        "css/jquery.dataTables_themeroller.css"
+                    ],
+                    "shim": {
+                        "deps": [
+                            "jquery"
+                        ]
+                    }
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, which will add advanced interaction controls to any HTML table.",
+            "homepage": "http://www.datatables.net/",
+            "keywords": [
+                "datatable",
+                "datatables",
+                "filter",
+                "grid",
+                "internationalisable",
+                "page",
+                "sort",
+                "table"
+            ],
+            "time": "2014-12-08 11:40:44"
+        },
+        {
+            "name": "drmonty/datatables-fixedcolumns",
+            "version": "v3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/drmonty/datatables-fixedcolumns.git",
+                "reference": "68507bbe6f3ee0665f0e3f1f51792e5499a5a49c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/drmonty/datatables-fixedcolumns/zipball/68507bbe6f3ee0665f0e3f1f51792e5499a5a49c",
+                "reference": "68507bbe6f3ee0665f0e3f1f51792e5499a5a49c",
+                "shasum": ""
+            },
+            "require": {
+                "components/jquery": ">=1.7"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "js/dataTables.fixedColumns.js"
+                    ],
+                    "files": [
+                        "js/dataTables.fixedColumns.min.js",
+                        "css/dataTables.fixedColumns.min.css"
+                    ],
+                    "shim": {
+                        "deps": [
+                            "jquery"
+                        ]
+                    }
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "FixedColumns Plugin for DataTables",
+            "homepage": "http://www.datatables.net/",
+            "time": "2014-07-14 11:59:51"
+        },
+        {
+            "name": "drmonty/datatables-fixedheader",
+            "version": "v2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/drmonty/datatables-fixedheader.git",
+                "reference": "8e1c2af30748cef96e6de0ce1c772a003121726b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/drmonty/datatables-fixedheader/zipball/8e1c2af30748cef96e6de0ce1c772a003121726b",
+                "reference": "8e1c2af30748cef96e6de0ce1c772a003121726b",
+                "shasum": ""
+            },
+            "require": {
+                "components/jquery": ">=1.7"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "js/dataTables.fixedHeader.js"
+                    ],
+                    "files": [
+                        "js/dataTables.fixedHeader.min.js",
+                        "css/dataTables.fixedHeader.min.css"
+                    ],
+                    "shim": {
+                        "deps": [
+                            "jquery"
+                        ]
+                    }
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "FixedHeader Plugin for DataTables",
+            "homepage": "http://www.datatables.net/",
+            "time": "2014-07-14 11:50:31"
+        },
+        {
             "name": "drmonty/datatables-plugins",
             "version": "1.0.1",
             "source": {
@@ -965,6 +1186,86 @@
                 "table"
             ],
             "time": "2014-12-22 14:19:04"
+        },
+        {
+            "name": "drmonty/datatables-responsive",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/drmonty/datatables-responsive.git",
+                "reference": "c78453534a95eee3cdf1e515c6e3ef6736050373"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/drmonty/datatables-responsive/zipball/c78453534a95eee3cdf1e515c6e3ef6736050373",
+                "reference": "c78453534a95eee3cdf1e515c6e3ef6736050373",
+                "shasum": ""
+            },
+            "require": {
+                "components/jquery": ">=1.7.0"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "js/dataTables.responsive.js"
+                    ],
+                    "files": [
+                        "js/dataTables.responsive.min.js",
+                        "css/dataTables.responsive.min.css"
+                    ],
+                    "shim": {
+                        "deps": [
+                            "jquery"
+                        ]
+                    }
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Responsive extension for DataTables, providing support for complex tables on all device screen sizes",
+            "homepage": "http://www.datatables.net/",
+            "time": "2014-12-08 11:49:31"
+        },
+        {
+            "name": "drmonty/datatables-tabletools",
+            "version": "v2.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/drmonty/datatables-tabletools.git",
+                "reference": "75d0cf86cc3157ed262da40068a9a50102e2224c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/drmonty/datatables-tabletools/zipball/75d0cf86cc3157ed262da40068a9a50102e2224c",
+                "reference": "75d0cf86cc3157ed262da40068a9a50102e2224c",
+                "shasum": ""
+            },
+            "require": {
+                "components/jquery": ">=1.7"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "js/dataTables.tableTools.js"
+                    ],
+                    "files": [
+                        "js/dataTables.tableTools.min.js",
+                        "css/dataTables.tableTools.min.css",
+                        "images/*.png",
+                        "swf/*.swf"
+                    ],
+                    "shim": {
+                        "deps": [
+                            "jquery"
+                        ]
+                    }
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "TableTools Plugin for DataTables",
+            "homepage": "http://www.datatables.net/",
+            "time": "2014-10-06 11:10:09"
         },
         {
             "name": "fzaninotto/faker",

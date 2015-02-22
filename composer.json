@@ -22,7 +22,13 @@
         "datatables/datatables": "~1.10",
         "drmonty/datatables-plugins": "~1.0",
         "symfony-bundle/bootstrap-bundle": "~3.2",
-	"fzaninotto/faker": "1.5.*@dev"
+        "fzaninotto/faker": "1.5.*@dev",
+        "drmonty/datatables": "~1.10",
+        "drmonty/datatables-tabletools": "~2.2",
+        "drmonty/datatables-fixedheader": "~2.1",
+        "drmonty/datatables-fixedcolumns": "~3.0",
+        "drmonty/datatables-responsive": "~1.0",
+        "bmatzner/jquery-ui-bundle": "~1.10"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Pause
  *
  * @ORM\Table(name="pause", indexes={@ORM\Index(name="fk_pause_1_idx", columns={"id_team"}), @ORM\Index(name="ind_index_1", columns={"porder"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\PauseRepository")
  */
 class Pause
 {
@@ -57,7 +57,7 @@ class Pause
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -80,7 +80,7 @@ class Pause
     /**
      * Get porder
      *
-     * @return integer 
+     * @return integer
      */
     public function getPorder()
     {
@@ -103,7 +103,7 @@ class Pause
     /**
      * Get hourStart
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getHourStart()
     {
@@ -126,7 +126,7 @@ class Pause
     /**
      * Get hourStop
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getHourStop()
     {
@@ -149,10 +149,24 @@ class Pause
     /**
      * Get idTeam
      *
-     * @return \AppBundle\Entity\Team 
+     * @return \AppBundle\Entity\Team
      */
     public function getIdTeam()
     {
         return $this->idTeam;
+    }
+
+    /**
+     * Return the value of
+     *
+     *
+     */
+    public function getName()
+    {
+        return sprintf('%s de %s à %s',
+            $this->idTeam->getName(),
+            $this->hourStart->format('H:i'),
+            $this->hourStop->format('H:i')
+        );
     }
 }

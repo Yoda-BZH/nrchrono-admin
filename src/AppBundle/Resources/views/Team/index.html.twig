@@ -18,7 +18,7 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('team_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.name }}</td>
+                <td><a href="{{ path('team_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
                 <td>{{ entity.nbHeurePause }}</td>
                 <td>{{ entity.nbPerson }}</td>
                 <td>{{ entity.idReference }}</td>
@@ -29,6 +29,9 @@
                     </li>
                     <li>
                         <a href="{{ path('team_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('team_pauses', { 'id': entity.id }) }}">Pauses</a>
                     </li>
                 </ul>
                 </td>
