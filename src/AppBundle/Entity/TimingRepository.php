@@ -21,4 +21,21 @@ class TimingRepository extends EntityRepository
 
         return $qb->getQuery()->getSingleResult();
     }
+
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function findAllWithRacer()
+    {
+        $qb = $this->createQueryBuilder('t');
+        $qb
+            ->addSelect('r')
+            ->leftJoin('t.idRacer', 'r')
+            ;
+
+        return $qb->getQuery()->getResult();
+    }
 }
