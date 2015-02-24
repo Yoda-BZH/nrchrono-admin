@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -30,8 +31,11 @@ class TimingController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Timing')->findAllWithRacerTeam();
+        
+        $teams = $em->getRepository('AppBundle:Team')->findAll();
 
         return array(
+            'teams' => $teams,
             'entities' => $entities,
         );
     }
@@ -110,7 +114,7 @@ class TimingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Timing')->find($id);
+        $entity = $em->getRepository('AppBundle:Timing')->findLatests($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Timing entity.');
@@ -227,6 +231,41 @@ class TimingController extends Controller
 
         return $this->redirect($this->generateUrl('timing'));
     }
+    
+    /**
+     * get next racer
+     * 
+     * @Route("/next/{id}", name="timing_next")
+     * @Method("GET")
+     */
+     public function getNextAction($id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $repoTeam = $em->getRepository('AppBundle:Team');
+        $team = $repoTeam->find($id);
+        
+        $nextGuesser = $this->get('racer.next');
+        $nextRacer = $nextGuesser
+            ->setTeam($team)
+            ->getNext()
+            ;
+        
+        if(!$nextRacer) {
+            return new JsonResponse(array(), 404);
+        }
+        
+        $d = array(
+            'firstname' => $nextRacer->getFirstname(),
+            'lastname' => $nextRacer->getLastname(),
+            'nickname' => $nextRacer->getNickname(),
+            'position' => $nextRacer->getPosition(),
+            'team' => array(
+                'name' => $team->getName(),
+            ),
+        );
+        
+        return new JsonResponse($d);
+     }
 
     /**
      * Creates a form to delete a Timing entity by id.

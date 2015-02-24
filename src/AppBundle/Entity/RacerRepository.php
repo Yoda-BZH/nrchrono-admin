@@ -42,15 +42,18 @@ class RacerRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('r');
         $qb
-            ->addSelect('(((position - 1 + :position) % 10) + 1) as nextPosition')
+            //->addSelect('(((position - 1 + :position) % 10) + 1) as nextPosition')
+            ->addSelect('(MOD((r.position - 1 + :position), :nbPerson) + 1) AS HIDDEN nextPositions')
             ->where('r.idTeam = :idTeam')
-            ->orderBy('nextPositions')
+            ->orderBy('nextPositions', 'asc')
             ->setParameter('idTeam', $team)
             ->setParameter('position', $position)
+            ->setParameter('nbPerson', $team->getNbPerson())
             ->setMaxResults(1)
             ;
+        var_dump($qb->getQuery()->getSQL());
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getSingleResult();
     }
 }
 

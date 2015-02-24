@@ -19,3 +19,9 @@ services:
         class: AppBundle\Timer\Timer
         calls:
             - [ setEm, [ "@doctrine.orm.entity_manager" ] ]
+
+    racer.next:
+        class: AppBundle\Service\NextRacerGuesser
+        calls:
+            - [ setEm, [ "@doctrine.orm.entity_manager" ] ]
+        

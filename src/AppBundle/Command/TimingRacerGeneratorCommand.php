@@ -8,6 +8,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use AppBundle\Entity\Timing;
+
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 class TimingRacerGeneratorCommand extends ContainerAwareCommand
@@ -29,18 +31,41 @@ class TimingRacerGeneratorCommand extends ContainerAwareCommand
 
         $repoTeam = $em->getRepository('AppBundle:Team');
         $repoTiming = $em->getRepository('AppBundle:Timing');
-        $repoRacer = $em->getRepository('AppBundle:Racer');
 
         $team = $repoTeam->find($teamId);
-
-        $latestRacer = $repoTiming->getLatestRacer($teamId);
-
+        
+        $nextGuesser = $this->getContainer()->get('racer.next');
+        //$output->writeln('<info>getting latest racer</info>');
+        /*$latestRacer = $repoTiming->getLatestRacer($teamId);
+        
         $position = $latestRacer->getPosition();
+        //var_dump('latest', $position, $latestRacer->getNickname());
+        
+        //$output->writeln('<info>getting next racer available</info>');
+        $repoRacer = $em->getRepository('AppBundle:Racer');
+        $nextRacer = $repoRacer->getNextRacerAvailable($team, $position);*/
+        $nextRacer = $nextGuesser
+            ->setTeam($team)
+            ->getNext()
+            ;
 
-        $nextRacer = $repoRacer->getNextRacerAvailable($team, $position);
-
-        var_dump($nextRacer->getNickname(), $nextRacer->getPosition());
+        //var_dump($nextRacer->getNickname(), $nextRacer->getPosition());
 
         //$racer = $repoTeam->getNextRacer($teamId);
+        $timeToWait = rand(3 * 60, 4 * 60);
+        sleep($timeToWait);
+        
+        $timing = new Timing;
+        $timing
+            ->setCreatedAt(new \Datetime)
+            ->setIdRacer($nextRacer)
+            ->setIsRelay(0)
+            ->setTiming($timeToWait)
+            ;
+        
+        $em->persist($timing);
+        $em->flush();
+        
+        return 0;
     }
 }
