@@ -21,13 +21,13 @@ class TimingRepository extends EntityRepository
 
         return $qb->getQuery()->getSingleResult();
     }
-    
+
     public function getLatests() {
         $qb = $this->createQueryBuilder('t');
         $qb
             ->orderBy('t.id', 'DESC')
             ;
-        
+
         $qb->getQuery()->getResult();
     }
 
@@ -74,5 +74,25 @@ class TimingRepository extends EntityRepository
         $r = $qb->getQuery()->getSingleResult();
 
         return $r->getIdRacer();
+    }
+
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function getRotations($team)
+    {
+        $qb = $this->createQueryBuilder('ti');
+        $qb
+            ->leftJoin('ti.idRacer', 'r')
+            ->where('r.idTeam = :idTeam')
+            ->setParameter('idTeam', $team)
+            ->orderBy('ti.id', 'DESC')
+            ->setMaxResults($team->getNbPerson() * 50)
+            ;
+
+        return $qb->getQuery()->getResult();
     }
 }

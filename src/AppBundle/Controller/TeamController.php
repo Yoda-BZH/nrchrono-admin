@@ -232,6 +232,34 @@ class TeamController extends Controller
     }
 
     /**
+     * description
+     *
+     * @Route("/{id}/rotation", name="team_rotation")
+     * @Method("GET")
+     * @Template("AppBundle:Team:rotation.html.twig")
+     *
+     * @param void
+     * @return void
+     */
+    public function rotationAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $team = $em->getRepository('AppBundle:Team')->find($id);
+
+        if (!$team) {
+            throw $this->createNotFoundException('Unable to find Team entity.');
+        }
+
+        $timings = $em->getRepository('AppBundle:Timing')->getRotations($team);
+
+        return array(
+            'team' => $team,
+            'timing' => $timings,
+        );
+    }
+
+    /**
      * Creates a form to delete a Team entity by id.
      *
      * @param mixed $id The entity id

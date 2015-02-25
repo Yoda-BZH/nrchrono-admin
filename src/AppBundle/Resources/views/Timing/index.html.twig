@@ -29,8 +29,13 @@
                 <td>{{ entity.timing }}</td>
                 <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ entity.isRelay ? '1' : '0' }}</td>
-                <td><a href="{{ path('racer_show', { 'id': entity.idRacer.id }) }}">{{ entity.idRacer.nickname }}</a></td>
-                <td><a href="{{ path('team_show', { 'id': entity.idRacer.idTeam.id }) }}">{{ entity.idRacer.idTeam.name }}</a></td>
+                {% if entity.idRacer %}
+                    <td><a href="{{ path('racer_show', { 'id': entity.idRacer.id }) }}">{{ entity.idRacer.nickname }}</a></td>
+                    <td><a href="{{ path('team_show', { 'id': entity.idRacer.idTeam.id }) }}">{{ entity.idRacer.idTeam.name }}</a></td>
+                {% else %}
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                {% endif %}
                 <td>
                 <ul>
                     <li>
@@ -54,7 +59,7 @@
         </li>
     </ul>
     {% endblock %}
-    
+
 {% block javascripts %}
 <script type="text/javascript">
 $(document).ready(function() {

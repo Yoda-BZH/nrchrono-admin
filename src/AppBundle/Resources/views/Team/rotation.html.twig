@@ -1,0 +1,33 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Rotation list</h1>
+
+    <p>Team <a href="{{ path('team_show', { 'id': team.id }) }}">{{ team.name }}</a></p>
+
+    <table class="records_list table table-condensed table-hover table-stripped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>firstname</th>
+                <th>lastname</th>
+                <th>nickname</th>
+                <th>position</th>
+                <th>date</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for timing in timing %}
+            <tr>
+                <td><a href="">{{ timing.id }}</a></td>
+                <td><a href="{{ path('racer_show', { 'id': timing.idRacer.id }) }}">{{ timing.idRacer.firstname }}</a></td>
+                <td><a href="{{ path('racer_show', { 'id': timing.idRacer.id }) }}">{{ timing.idRacer.lastname }}</a></td>
+                <td><a href="{{ path('racer_show', { 'id': timing.idRacer.id }) }}">{{ timing.idRacer.nickname }}</a></td>
+                <td>{{ timing.idRacer.position }}</td>
+                <td>{{ timing.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% endblock %}
