@@ -86,6 +86,7 @@ class TimingRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('ti');
         $qb
+            ->addSelect('r')
             ->leftJoin('ti.idRacer', 'r')
             ->where('r.idTeam = :idTeam')
             ->setParameter('idTeam', $team)
