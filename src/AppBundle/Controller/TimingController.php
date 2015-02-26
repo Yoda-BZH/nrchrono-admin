@@ -39,6 +39,20 @@ class TimingController extends Controller
             'entities' => $entities,
         );
     }
+    
+     /**
+      * 
+      * @Route("/status", name="timing_status")
+      * Method("GET")
+      * @Template("AppBundle:Timing:status.html.twig")
+      */
+     public function statusAction() 
+     {
+         return array(
+         
+         );
+     }
+     
     /**
      * Creates a new Timing entity.
      *

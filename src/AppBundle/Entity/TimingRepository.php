@@ -57,7 +57,7 @@ class TimingRepository extends EntityRepository
      * @param void
      * @return void
      */
-    public function getLatestRacer($teamId)
+    public function getLatestRacerQuery($teamId)
     {
         $qb = $this->createQueryBuilder('ti');
         $qb
@@ -67,13 +67,28 @@ class TimingRepository extends EntityRepository
             ->where('r.idTeam = :idTeam')
             ->setParameter('idTeam', $teamId)
             ->orderBy('ti.id', 'DESC')
+            ;
+        
+        
+        return $qb;
+    }
+    
+    public function getLatestRacer($teamId)
+    {
+        $qb = $this->getLatestRacerQuery($teamId)
             ->setMaxResults(1)
             ;
-
 
         $r = $qb->getQuery()->getSingleResult();
 
         return $r->getIdRacer();
+    }
+    
+    public function getLatestRacers($teamId) {
+        return $this->getLatestRacerQuery($teamId)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     /**
