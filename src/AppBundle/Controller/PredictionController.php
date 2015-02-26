@@ -49,6 +49,7 @@ class PredictionController extends Controller
         
         $racersEnd = array();
         $previousRacer = $latestRacer;
+        // fixme, must start at latestRacer->latestTiming->getCreatedAt + timingAvg()
         $dt = new \Datetime();
         foreach($racersEndOfRotation as $racer) {
             $dt->modify(sprintf('+%d seconds', $previousRacer->getTimingAvg()));
