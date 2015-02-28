@@ -31,6 +31,14 @@ class PredictionController extends Controller
         $repoPause = $em->getRepository('AppBundle:RacerPause');
 
         $team = $repoTeam->find($id);
+        if(!$team) {
+            throw $this->createNotFoundException(
+                sprintf(
+                    'Impossible de trouver la team n°%d',
+                    $id)
+                )
+                ;
+        }
 
         try {
             $latestRacer = $repoTiming->getLatestRacer($team->getId());
