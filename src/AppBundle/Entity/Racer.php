@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Racer
  *
  * @ORM\Table(name="racer", indexes={@ORM\Index(name="fk_racer_1_idx", columns={"id_team"})})
- * @ORM\Entity(repositoryClass="AppBundle\Entity\RacerRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RacerRepository")
  */
 class Racer
 {
@@ -43,23 +43,23 @@ class Racer
     private $nickname;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
-     * @ORM\Column(name="timing_min", type="integer", nullable=true)
+     * @ORM\Column(name="timing_min", type="time", nullable=true)
      */
     private $timingMin;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
-     * @ORM\Column(name="timing_max", type="integer", nullable=true)
+     * @ORM\Column(name="timing_max", type="time", nullable=true)
      */
     private $timingMax;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
-     * @ORM\Column(name="timing_avg", type="integer", nullable=true)
+     * @ORM\Column(name="timing_avg", type="time", nullable=true)
      */
     private $timingAvg;
 
@@ -80,10 +80,12 @@ class Racer
      */
     private $idTeam;
 
+
+
     /**
-     * Return the value of
+     * Get id
      *
-     *
+     * @return integer 
      */
     public function getId()
     {
@@ -91,19 +93,10 @@ class Racer
     }
 
     /**
-     * Return the value of
+     * Set firstname
      *
-     *
-     */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * Set the value of
-     *
-     *
+     * @param string $firstname
+     * @return Racer
      */
     public function setFirstname($firstname)
     {
@@ -113,19 +106,20 @@ class Racer
     }
 
     /**
-     * Return the value of
+     * Get firstname
      *
-     *
+     * @return string 
      */
-    public function getLastname()
+    public function getFirstname()
     {
-        return $this->lastname;
+        return $this->firstname;
     }
 
     /**
-     * Set the value of
+     * Set lastname
      *
-     *
+     * @param string $lastname
+     * @return Racer
      */
     public function setLastname($lastname)
     {
@@ -135,19 +129,20 @@ class Racer
     }
 
     /**
-     * Return the value of
+     * Get lastname
      *
-     *
+     * @return string 
      */
-    public function getNickname()
+    public function getLastname()
     {
-        return $this->nickname;
+        return $this->lastname;
     }
 
     /**
-     * Set the value of
+     * Set nickname
      *
-     *
+     * @param string $nickname
+     * @return Racer
      */
     public function setNickname($nickname)
     {
@@ -157,41 +152,20 @@ class Racer
     }
 
     /**
-     * Return the value of
+     * Get nickname
      *
-     *
+     * @return string 
      */
-    public function getTimingMax()
+    public function getNickname()
     {
-        return $this->timingMax;
+        return $this->nickname;
     }
 
     /**
-     * Set the value of
+     * Set timingMin
      *
-     *
-     */
-    public function setTimingMax($timingMax)
-    {
-        $this->timingMax = $timingMax;
-
-        return $this;
-    }
-
-    /**
-     * Return the value of
-     *
-     *
-     */
-    public function getTimingMin()
-    {
-        return $this->timingMin;
-    }
-
-    /**
-     * Set the value of
-     *
-     *
+     * @param \DateTime $timingMin
+     * @return Racer
      */
     public function setTimingMin($timingMin)
     {
@@ -201,19 +175,43 @@ class Racer
     }
 
     /**
-     * Return the value of
+     * Get timingMin
      *
-     *
+     * @return \DateTime 
      */
-    public function getTimingAvg()
+    public function getTimingMin()
     {
-        return $this->timingAvg;
+        return $this->timingMin;
     }
 
     /**
-     * Set the value of
+     * Set timingMax
      *
+     * @param \DateTime $timingMax
+     * @return Racer
+     */
+    public function setTimingMax($timingMax)
+    {
+        $this->timingMax = $timingMax;
+
+        return $this;
+    }
+
+    /**
+     * Get timingMax
      *
+     * @return \DateTime 
+     */
+    public function getTimingMax()
+    {
+        return $this->timingMax;
+    }
+
+    /**
+     * Set timingAvg
+     *
+     * @param \DateTime $timingAvg
+     * @return Racer
      */
     public function setTimingAvg($timingAvg)
     {
@@ -223,19 +221,20 @@ class Racer
     }
 
     /**
-     * Return the value of
+     * Get timingAvg
      *
-     *
+     * @return \DateTime 
      */
-    public function getPosition()
+    public function getTimingAvg()
     {
-        return $this->position;
+        return $this->timingAvg;
     }
 
     /**
-     * Set the value of
+     * Set position
      *
-     *
+     * @param integer $position
+     * @return Racer
      */
     public function setPosition($position)
     {
@@ -245,24 +244,35 @@ class Racer
     }
 
     /**
-     * Return the value of
+     * Get position
      *
-     *
+     * @return integer 
      */
-    public function getIdTeam()
+    public function getPosition()
     {
-        return $this->idTeam;
+        return $this->position;
     }
 
     /**
-     * Set the value of
+     * Set idTeam
      *
-     *
+     * @param \AppBundle\Entity\Team $idTeam
+     * @return Racer
      */
-    public function setIdTeam($idTeam)
+    public function setIdTeam(\AppBundle\Entity\Team $idTeam = null)
     {
         $this->idTeam = $idTeam;
 
         return $this;
+    }
+
+    /**
+     * Get idTeam
+     *
+     * @return \AppBundle\Entity\Team 
+     */
+    public function getIdTeam()
+    {
+        return $this->idTeam;
     }
 }

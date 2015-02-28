@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Timing
  *
  * @ORM\Table(name="timing", indexes={@ORM\Index(name="fk_timing_1_idx", columns={"id_racer"})})
- * @ORM\Entity(repositoryClass="AppBundle\Entity\TimingRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TimingRepository")
  */
 class Timing
 {
@@ -57,7 +57,7 @@ class Timing
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -80,7 +80,7 @@ class Timing
     /**
      * Get timing
      *
-     * @return integer
+     * @return integer 
      */
     public function getTiming()
     {
@@ -103,7 +103,7 @@ class Timing
     /**
      * Get createdAt
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreatedAt()
     {
@@ -126,7 +126,7 @@ class Timing
     /**
      * Get isRelay
      *
-     * @return boolean
+     * @return boolean 
      */
     public function getIsRelay()
     {
@@ -149,7 +149,7 @@ class Timing
     /**
      * Get idRacer
      *
-     * @return \AppBundle\Entity\Racer
+     * @return \AppBundle\Entity\Racer 
      */
     public function getIdRacer()
     {

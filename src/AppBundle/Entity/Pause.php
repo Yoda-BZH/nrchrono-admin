@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Pause
  *
  * @ORM\Table(name="pause", indexes={@ORM\Index(name="fk_pause_1_idx", columns={"id_team"}), @ORM\Index(name="ind_index_1", columns={"porder"})})
- * @ORM\Entity(repositoryClass="AppBundle\Entity\PauseRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PauseRepository")
  */
 class Pause
 {
@@ -31,14 +31,14 @@ class Pause
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="hour_start", type="time", nullable=true)
+     * @ORM\Column(name="hour_start", type="datetime", nullable=true)
      */
     private $hourStart;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="hour_stop", type="time", nullable=true)
+     * @ORM\Column(name="hour_stop", type="datetime", nullable=true)
      */
     private $hourStop;
 
@@ -57,7 +57,7 @@ class Pause
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -80,7 +80,7 @@ class Pause
     /**
      * Get porder
      *
-     * @return integer
+     * @return integer 
      */
     public function getPorder()
     {
@@ -103,7 +103,7 @@ class Pause
     /**
      * Get hourStart
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getHourStart()
     {
@@ -126,7 +126,7 @@ class Pause
     /**
      * Get hourStop
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getHourStop()
     {
@@ -149,12 +149,13 @@ class Pause
     /**
      * Get idTeam
      *
-     * @return \AppBundle\Entity\Team
+     * @return \AppBundle\Entity\Team 
      */
     public function getIdTeam()
     {
         return $this->idTeam;
     }
+
 
     /**
      * Return the value of
@@ -169,4 +170,5 @@ class Pause
             $this->hourStop->format('H:i')
         );
     }
+
 }

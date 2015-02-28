@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Team
  *
  * @ORM\Table(name="team")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\TeamRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TeamRepository")
  */
 class Team
 {
@@ -51,6 +51,13 @@ class Team
     private $idReference;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="color", type="string", length=10, nullable=true)
+     */
+    private $color;
+
+    /**
      * @var Collection
      *
      * @ORM\OneToMany(targetEntity="Racer", mappedBy="idTeam")
@@ -69,9 +76,9 @@ class Team
     }
 
     /**
-     * Return the value of
+     * Get id
      *
-     *
+     * @return integer 
      */
     public function getId()
     {
@@ -79,19 +86,10 @@ class Team
     }
 
     /**
-     * Return the value of
+     * Set name
      *
-     *
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set the value of
-     *
-     *
+     * @param string $name
+     * @return Team
      */
     public function setName($name)
     {
@@ -101,19 +99,20 @@ class Team
     }
 
     /**
-     * Return the value of
+     * Get name
      *
-     *
+     * @return string 
      */
-    public function getNbHeurePause()
+    public function getName()
     {
-        return $this->nbHeurePause;
+        return $this->name;
     }
 
     /**
-     * Set the value of
+     * Set nbHeurePause
      *
-     *
+     * @param integer $nbHeurePause
+     * @return Team
      */
     public function setNbHeurePause($nbHeurePause)
     {
@@ -123,19 +122,20 @@ class Team
     }
 
     /**
-     * Return the value of
+     * Get nbHeurePause
      *
-     *
+     * @return integer 
      */
-    public function getNbPerson()
+    public function getNbHeurePause()
     {
-        return $this->nbPerson;
+        return $this->nbHeurePause;
     }
 
     /**
-     * Set the value of
+     * Set nbPerson
      *
-     *
+     * @param integer $nbPerson
+     * @return Team
      */
     public function setNbPerson($nbPerson)
     {
@@ -145,19 +145,20 @@ class Team
     }
 
     /**
-     * Return the value of
+     * Get nbPerson
      *
-     *
+     * @return interger 
      */
-    public function getIdReference()
+    public function getNbPerson()
     {
-        return $this->idReference;
+        return $this->nbPerson;
     }
 
     /**
-     * Set the value of
+     * Set idReference
      *
-     *
+     * @param integer $idReference
+     * @return Team
      */
     public function setIdReference($idReference)
     {
@@ -167,14 +168,44 @@ class Team
     }
 
     /**
-     * description
+     * Get idReference
      *
-     * @param void
-     * @return void
+     * @return integer 
      */
-    public function __toString()
+    public function getIdReference()
     {
-        return $this->getName();
+        return $this->idReference;
     }
 
+    /**
+     * Set color
+     *
+     * @param string $color
+     * @return Team
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string 
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * description
+     *
+     * @return string
+     */
+    public function __toString() {
+        return $this->getName();
+    }
 }

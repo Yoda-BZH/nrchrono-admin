@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * RacerPause
  *
  * @ORM\Table(name="racer_pause", indexes={@ORM\Index(name="fk_racer_pause_1_idx", columns={"id_racer"}), @ORM\Index(name="fk_racer_pause_2_idx", columns={"id_pause"})})
- * @ORM\Entity(repositoryClass="AppBundle\Entity\RacerPauseRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RacerPauseRepository")
  */
 class RacerPause
 {
@@ -53,7 +53,7 @@ class RacerPause
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -76,7 +76,7 @@ class RacerPause
     /**
      * Get porder
      *
-     * @return integer
+     * @return integer 
      */
     public function getPorder()
     {
@@ -99,7 +99,7 @@ class RacerPause
     /**
      * Get idRacer
      *
-     * @return \AppBundle\Entity\Racer
+     * @return \AppBundle\Entity\Racer 
      */
     public function getIdRacer()
     {
@@ -122,7 +122,7 @@ class RacerPause
     /**
      * Get idPause
      *
-     * @return \AppBundle\Entity\Pause
+     * @return \AppBundle\Entity\Pause 
      */
     public function getIdPause()
     {
