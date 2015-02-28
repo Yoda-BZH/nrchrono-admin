@@ -20,6 +20,7 @@
                 <th>{% trans %}Isrelay{% endtrans %}</th>
                 <th>{% trans %}IdRacer{% endtrans %}</th>
                 <th>{% trans %}IdTeam{% endtrans %}</th>
+                <th>position</th>
                 <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
@@ -31,17 +32,18 @@
                 <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td></td>
                 <td>{{ entity.isRelay ? '1' : '0' }}</td>
-                    <td><a href="{{ path('racer_show', { 'id': entity.idRacer.id }) }}">{{ entity.idRacer.nickname }}</a></td>
-                    <td><a href="{{ path('team_show', { 'id': entity.idRacer.idTeam.id }) }}">{{ entity.idRacer.idTeam.name }}</a></td>
+                <td><a href="{{ path('racer_show', { 'id': entity.idRacer.id }) }}">{{ entity.idRacer.nickname }}</a></td>
+                <td><a href="{{ path('team_show', { 'id': entity.idRacer.idTeam.id }) }}">{{ entity.idRacer.idTeam.name }}</a></td>
+                <td>{{ entity.idRacer.position }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('timing_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('timing_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                    <ul>
+                        <li>
+                            <a href="{{ path('timing_show', { 'id': entity.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('timing_edit', { 'id': entity.id }) }}">edit</a>
+                        </li>
+                    </ul>
                 </td>
             </tr>
         {% endfor %}

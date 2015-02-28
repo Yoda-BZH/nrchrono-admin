@@ -19,6 +19,7 @@ class TeamType extends AbstractType
             ->add('nbHeurePause')
             ->add('nbPerson')
             ->add('idReference')
+            ->add('color')
         ;
     }
     

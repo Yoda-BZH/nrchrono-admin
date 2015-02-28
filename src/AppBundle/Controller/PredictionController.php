@@ -68,14 +68,6 @@ class PredictionController extends Controller
             $pauses[$hour][] = $pauseData->getIdRacer();
             $pausesInfos[$hour] = $pauseData;
         }
-        foreach($pausesInfos as $k => $v) {
-            $p = $v->getIdPause();
-            if($p->getHourStop()->format('Hi') < $p->getHourStart()->format('Hi')) {
-                $p->getHourStop()->modify('+1 day');
-                var_dump($p->getHourStop()->format('r'));
-            }
-        }
-        //var_dump($pauses);
 
         /**
          * end ordering
@@ -91,8 +83,8 @@ class PredictionController extends Controller
         // fixme, must start at latestRacer->latestTiming->getCreatedAt + timingAvg()
         $dt = new \Datetime();
         foreach($racersEndOfRotation as $racer) {
-            $dt->modify(sprintf('+%d seconds', $previousRacer->getTimingAvg()));
-
+            //$dt->modify(sprintf('+%d seconds', $previousRacer->getTimingAvg()));
+            $dt->add(new \DateInterval($previousRacer->getTimingAvg()->format('\P\TH\Hi\Ms\S')));
             $d = clone $dt;
             $racersEnd[] = array(
                 'racer' => $racer,
@@ -117,7 +109,8 @@ class PredictionController extends Controller
             foreach($pauses as $hourPause => $racers)
             {
                 $dtCheck = clone $dt;
-                $dtCheck->modify(sprintf('+%d seconds', $previousRacer->getTimingAvg()));
+                //$dtCheck->modify(sprintf('+%d seconds', $previousRacer->getTimingAvg()));
+                $dtCheck->add(new \DateInterval($previousRacer->getTimingAvg()->format('\P\TH\Hi\Ms\S')));
                 $hourStart = $dtCheck->format('YmdHi');
                 $hourStop = $pausesInfos[$hourPause]->getIdPause()->getHourStop()->format('YmdHi');
 
@@ -139,7 +132,8 @@ class PredictionController extends Controller
                 }
 
                 foreach($racers as $racer) {
-                    $dt->modify(sprintf('+%d seconds', $previousRacer->getTimingAvg()));
+                    //$dt->modify(sprintf('+%d seconds', $previousRacer->getTimingAvg()));
+                    $dt->add(new \DateInterval($previousRacer->getTimingAvg()->format('\P\TH\Hi\Ms\S')));
                     $d = clone $dt;
 
                     $nextRacers[] = array(

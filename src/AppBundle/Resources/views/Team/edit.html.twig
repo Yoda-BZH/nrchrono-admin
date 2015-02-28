@@ -14,3 +14,11 @@
     <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}
+
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+    $('#appbundle_team_color').attr('type', 'color');
+});
+</script>
+{% endblock %}
