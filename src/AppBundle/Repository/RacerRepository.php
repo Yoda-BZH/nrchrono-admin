@@ -5,6 +5,8 @@ namespace AppBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 
+use AppBundle\Entity\Team;
+
 class RacerRepository extends EntityRepository
 {
     public function getAll()
