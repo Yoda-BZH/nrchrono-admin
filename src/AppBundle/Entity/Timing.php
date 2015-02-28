@@ -24,7 +24,7 @@ class Timing
     /**
      * @var integer
      *
-     * @ORM\Column(name="timing", type="integer", nullable=true)
+     * @ORM\Column(name="timing", type="time", nullable=true)
      */
     private $timing;
 

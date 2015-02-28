@@ -49,18 +49,25 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             ->getNext()
             ;
 
+        if(!$nextRacer) {
+            $repoRacer = $em->getRepository('AppBundle:Racer');
+            $nextRacer = $repoRacer->getFirstOfTeam($team);
+        }
+
         //var_dump($nextRacer->getNickname(), $nextRacer->getPosition());
 
         //$racer = $repoTeam->getNextRacer($teamId);
         $timeToWait = rand(3 * 60, 4 * 60);
         sleep($timeToWait);
+        $t = new \Datetime('00:00:00');
+        $t->modify(sprintf('+%d seconds', $timeToWait));
         
         $timing = new Timing;
         $timing
             ->setCreatedAt(new \Datetime)
             ->setIdRacer($nextRacer)
             ->setIsRelay(0)
-            ->setTiming($timeToWait)
+            ->setTiming($t)
             ;
         
         $em->persist($timing);

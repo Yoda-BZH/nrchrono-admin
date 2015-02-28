@@ -201,6 +201,15 @@ class Team
     }
 
     /**
+     * Return racers
+     *
+     * @return Collection
+     */
+    public function getRacers() {
+        return $this->racers;
+    }
+
+    /**
      * description
      *
      * @return string

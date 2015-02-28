@@ -27,9 +27,9 @@
                 <td><a href="{{ path('racer_show', { 'id': entity.id }) }}">{{ entity.nickname }}</a></td>
                 <td><a href="{{ path('team_show', { 'id': entity.idTeam.id }) }}">{{ entity.idTeam.name }}</a></td>
                 <td>{{ entity.position }}</td>
-                <td>{{ entity.timingMin }}</td>
-                <td>{{ entity.timingMax }}</td>
-                <td>{{ entity.timingAvg }}</td>
+                <td>{{ entity.timingMin|date('i:s') }}</td>
+                <td>{{ entity.timingMax|date('i:s') }}</td>
+                <td>{{ entity.timingAvg|date('i:s') }}</td>
                 <td>
                 <ul>
                     <li>

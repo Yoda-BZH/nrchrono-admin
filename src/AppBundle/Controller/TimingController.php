@@ -265,7 +265,9 @@ class TimingController extends Controller
             ;
         
         if(!$nextRacer) {
-            return new JsonResponse(array(), 404);
+            $repoRacer = $em->getRepository('AppBundle:Racer');
+            $nextRacer = $repoRacer->getFirstOfTeam($team);
+            //return new JsonResponse(array(), 404);
         }
         
         $d = array(

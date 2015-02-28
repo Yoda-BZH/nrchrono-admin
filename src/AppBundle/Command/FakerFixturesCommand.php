@@ -37,15 +37,33 @@ class FakerFixturesCommand extends ContainerAwareCommand
 
         $repoRacer = $em->getRepository('AppBundle:Racer');
 
+        $today = date('Y-m-d');
+        $tomorrow = date('Y-m-d', time() + 3600 * 24 + 1);
+
+        $pausesTeam = array();
+        $pausesTeam[10] = array(
+            array(new \Datetime($today . ' 22:00'), new \Datetime($tomorrow . ' 03:00')),
+            array(new \Datetime($tomorrow . ' 03:00'), new \Datetime($tomorrow . ' 08:00')),
+        );
+        $pausesTeam[5] = array(
+            array(new \Datetime($tomorrow . ' 00:00'), new \Datetime($tomorrow . ' 03:00')),
+            array(new \Datetime($tomorrow . ' 03:00'), new \Datetime($tomorrow . ' 06:00')),
+        );
+        $pausesTeam[2] = array(
+            array(new \Datetime($today . ' 22:00'), new \Datetime($tomorrow . ' 00:00')),
+            array(new \Datetime($tomorrow . ' 00:00'), new \Datetime($tomorrow . ' 02:00')),
+            array(new \Datetime($tomorrow . ' 02:00'), new \Datetime($tomorrow . ' 04:00')),
+            array(new \Datetime($tomorrow . ' 04:00'), new \Datetime($tomorrow . ' 06:00')),
+        );
+        
         $teamsTypes = array(
-            array(2, 0,  0, array()),
-            array(5, 3,  2, array(array('00:00', '03:00'), array('03:00', '06:00'))),
-            array(10, 5, 2, array(array('22:00', '03:00'), array('03:00', '08:00'))),
-            array(10, 5, 2, array(array('22:00', '03:00'), array('03:00', '08:00'))),
-            array(10, 5, 2, array(array('22:00', '03:00'), array('03:00', '08:00'))),
+            array(2, 1,  1, $pausesTeam[2]),
+            array(5, 3,  2, $pausesTeam[5]),
+            array(10, 5, 2, $pausesTeam[10]),
+            array(10, 5, 2, $pausesTeam[10]),
+            array(10, 5, 2, $pausesTeam[10]),
         );
 
-        $pauseHeurePivot = new \Datetime('03:00');
         foreach($teamsTypes as $teamType) {
             $team = new Team;
             $name = sprintf('NR %s', $faker->city);
@@ -71,8 +89,8 @@ class FakerFixturesCommand extends ContainerAwareCommand
                 $pause = new Pause;
                 $pause
                     ->setPorder($i + 1)
-                    ->setHourStart(new \Datetime($p[0]))
-                    ->setHourStop(new \Datetime($p[1]))
+                    ->setHourStart($p[0])
+                    ->setHourStop($p[1])
                     ->setIdTeam($team)
                     ;
 

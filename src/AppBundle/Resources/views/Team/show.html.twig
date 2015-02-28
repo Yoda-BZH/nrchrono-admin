@@ -85,9 +85,9 @@
             <td><a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.nickname }}</a></td>
             <td><a href="{{ path('team_show', { 'id': racer.idTeam.id }) }}">{{ racer.idTeam.name }}</a></td>
             <td class="position" data-position="{{ racer.position }}" data-newpos="">{{ racer.position }}</td>
-            <td>{{ racer.timingMin }}</td>
-            <td>{{ racer.timingMax }}</td>
-            <td>{{ racer.timingAvg }}</td>
+            <td>{{ racer.timingMin|date('i:s') }}</td>
+            <td>{{ racer.timingMax|date('i:s') }}</td>
+            <td>{{ racer.timingAvg|date('i:s') }}</td>
             <td>
             <ul>
                 <li>

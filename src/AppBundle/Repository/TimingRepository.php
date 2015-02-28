@@ -6,6 +6,8 @@ namespace AppBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 
+use AppBundle\Entity\Racer;
+
 class TimingRepository extends EntityRepository
 {
     public function getStats(Racer $racer)

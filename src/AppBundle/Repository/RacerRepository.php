@@ -67,7 +67,7 @@ class RacerRepository extends EntityRepository
     }
 
     public function getNextRacerAvailable(Team $team, $position) {
-        return $this->getNextRacerAvailableQuery($team, $position)
+        $qb = $this->getNextRacerAvailableQuery($team, $position)
             ->setMaxResults(1)
             ;
         //var_dump($qb->getQuery()->getSQL(), $position, $team->getNbPerson(), $team->getId());
@@ -81,5 +81,21 @@ class RacerRepository extends EntityRepository
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    public function getFirstOfTeam($team) {
+        $qb = $this->createQueryBuilder('r');
+
+        $qb
+            ->where('r.idTeam = :team')
+            ->andWhere('r.position = :position')
+            ->setParameter('team', $team)
+            ->setParameter('position', 1)
+            ;
+
+        $racer = $qb->getQuery()->getSingleResult();
+
+        return $racer;
+        
     }
 }

@@ -13,11 +13,12 @@ $(document).ready(function() {
     sortingCol = tables.data('datatable-sorting-col');
     if (sortingCol != undefined)
     {
-        sortingType = tables.data('datatable-sorting-col');
+        sortingType = tables.data('datatable-sorting-type');
         if (!sortingType)
         {
             sortingType = 'asc';
         }
+        console.log('sorting col ' + sortingCol + ' ' + sortingType);
         
         options.order = [ sortingCol, sortingType ];
     }

@@ -30,16 +30,22 @@ class RacerTimingConsolidateCommand extends ContainerAwareCommand
         $racers = $repoRacer->getAll();
         foreach($racers as $racer)
         {
-            $output->writeln('Consolidating '.$racer->getNickname());
+            //$output->writeln('Consolidating '.$racer->getNickname());
             $stats = $repoTiming->getStats($racer);
             if (!$stats)
             {
                 $output->writeln(sprintf('It seems %s has no timing, skipping', $racer->getNickname()));
                 continue;
             }
-            $racer->setTimingMin($stats[1]);
-            $racer->setTimingMax($stats[2]);
-            $racer->setTimingAvg($stats[3]);
+            $tMin = new \Datetime('00:00:00');
+            $tMin->modify(sprintf('%d seconds', $stats[1]));
+            $tMax = new \Datetime('00:00:00');
+            $tMax->modify(sprintf('%d seconds', $stats[2]));
+            $tAvg = new \Datetime('00:00:00');
+            $tAvg->modify(sprintf('%d seconds', $stats[3]));
+            $racer->setTimingMin($tMin);
+            $racer->setTimingMax($tMax);
+            $racer->setTimingAvg($tAvg);
             $em->persist($racer);
             $em->flush();
         }
