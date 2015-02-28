@@ -20,7 +20,7 @@ class RacerGeneratorCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('timer:generator:racer')
+            ->setName('faker:timer:racer')
             ->setDescription('Generate racers')
             //->addArgument('provider', InputArgument::REQUIRED, 'Provider to use')
             //->addOption('yell', null, InputOption::VALUE_NONE, 'Si définie, la tâche criera en majuscules')

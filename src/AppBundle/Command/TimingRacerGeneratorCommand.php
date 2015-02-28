@@ -17,7 +17,7 @@ class TimingRacerGeneratorCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('racer:timing:generator')
+            ->setName('faker:racer:timing')
             ->setDescription('Create new timing for a team')
             ->addArgument('team', InputArgument::REQUIRED, 'team to use')
         ;
