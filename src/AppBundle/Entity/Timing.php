@@ -87,6 +87,11 @@ class Timing
         return $this->timing;
     }
 
+    public function getTimingToSec() {
+        $min = $this->timing->format('i');
+        $sec = $this->timing->format('s');
+        return $min * 60 + $sec;
+    }
     /**
      * Set createdAt
      *

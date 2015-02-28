@@ -114,4 +114,18 @@ class TimingRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function getRacerStats($racer) {
+        $qb = $this->createQueryBuilder('ti');
+
+        $qb
+            ->where('ti.idRacer = :racer')
+            ->setParameter('racer', $racer)
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

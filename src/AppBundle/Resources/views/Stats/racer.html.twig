@@ -1,0 +1,88 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+
+<div id="chart" width="400" height="400"></div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script src="{{ asset('highcharts/js/highcharts.js') }}"></script>
+<script>
+$(document).ready(function() {
+    chart = $('#chart');
+    options = {
+        chart: {
+            type: 'spline',
+        },
+        title: {
+            text: "foo abr",
+        },
+        xAxis: {
+            title: {
+                text: "Temps"
+            },
+            type: "datetime",
+            /*dateTimeLabelFormats: {
+                millisecond: '%H:%M:%S.%L'
+            },*/
+            dateTimeLabelFormats: {
+                millisecond: '%H:%M:%S.%L'
+            },
+            //min: Date.UTC(2014, 5, 28, 14),
+            //tickInterval: 6000000,
+            categories: ["Tour"],
+            //min: Date.UTC(2014, 6, 28, 15),
+            //max: Date.UTC(2014, 6, 29, 17)
+            /*dateTimeLabelFormats: {
+                millisecond: '%H:%M:%S',
+                second:      '%H:%M:%S',
+                minute:      '%H:%M:%S',
+                hour:        '%H:%M:%S',
+                day:         '%H:%M:%S',
+                week:        '%H:%M:%S',
+                month:       '%H:%M:%S',
+                year:        '%H:%M:%S',
+            },*/
+        },
+        yAxis: {
+            title: {
+                text: 'Temps au tour'
+            },
+            /*type: "datetime",
+            dateTimeLabelFormats: {
+                millisecond: '%H:%M:%S',
+                second:      '%H:%M:%S',
+                minute:      '%H:%M:%S',
+                hour:        '%H:%M:%S',
+                day:         '%H:%M:%S',
+                week:        '%H:%M:%S',
+                month:       '%H:%M:%S',
+                year:        '%H:%M:%S',
+            }*/
+        },
+        
+        plotOptions: {
+            spline: {
+                marker: {
+                    enabled: true
+                }
+            }
+        },
+
+        series: [{
+            name: "foo",
+            data: [
+{% for timing in timings %}
+    [Date.UTC({{ timing.createdAt|date('Y, m, d, H, i, s') }}), {{ timing.timingToSec }}],
+{% endfor %}
+            ],
+        }]
+    };
+    chart.highcharts(options);
+    console.log(chart);
+});
+</script>
+{% endblock %}
