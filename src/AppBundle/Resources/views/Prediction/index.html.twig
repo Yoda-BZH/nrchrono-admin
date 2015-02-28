@@ -29,11 +29,11 @@
         </tr>
         {% for racerData in nextRacers %}
         <tr>
-            <td>{{ racerData.racer.id }}</td>
-            <td>{{ racerData.racer.position }}</td>
-            <td>{{ racerData.racer.firstname }}</td>
-            <td>{{ racerData.racer.lastname }}</td>
-            <td>{{ racerData.racer.nickname }}</td>
+            <td><a href="{{ path('racer_show', { 'id': racerData.racer.id }) }}">{{ racerData.racer.id }}</a></td>
+            <td><a href="{{ path('racer_show', { 'id': racerData.racer.id }) }}">{{ racerData.racer.position }}</a></td>
+            <td><a href="{{ path('racer_show', { 'id': racerData.racer.id }) }}">{{ racerData.racer.firstname }}</a></td>
+            <td><a href="{{ path('racer_show', { 'id': racerData.racer.id }) }}">{{ racerData.racer.lastname }}</a></td>
+            <td><a href="{{ path('racer_show', { 'id': racerData.racer.id }) }}">{{ racerData.racer.nickname }}</a></td>
             <td>{{ racerData.hour }}</td>
         </tr>
         {% endfor %}

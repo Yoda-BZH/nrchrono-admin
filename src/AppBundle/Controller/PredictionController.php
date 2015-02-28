@@ -51,9 +51,19 @@ class PredictionController extends Controller
          */
         //var_dump($pausesData[0]);
         $pauses = array();
+        $pausesInfos = array();
         foreach($pausesData as $pauseData) {
-            $hour = $pauseData->getIdPause()->getHourStart()->format('Hi');
+            $p = $pauseData->getIdPause();
+            $hour = $p->getHourStart()->format('YmdHi');
             $pauses[$hour][] = $pauseData->getIdRacer();
+            $pausesInfos[$hour] = $pauseData;
+        }
+        foreach($pausesInfos as $k => $v) {
+            $p = $v->getIdPause();
+            if($p->getHourStop()->format('Hi') < $p->getHourStart()->format('Hi')) {
+                $p->getHourStop()->modify('+1 day');
+                var_dump($p->getHourStop()->format('r'));
+            }
         }
         //var_dump($pauses);
 
@@ -81,7 +91,7 @@ class PredictionController extends Controller
             $previousRacer = $racer;
         }
         //do {
-        for($i = 0; $i < 10; $i++) {
+        for($i = 0; $i < 50; $i++) {
             /*foreach($racers as $racer) {
 
                 $dt->modify(sprintf('+%d seconds', $previousRacer->getTimingAvg()));
@@ -98,10 +108,23 @@ class PredictionController extends Controller
             {
                 $dtCheck = clone $dt;
                 $dtCheck->modify(sprintf('+%d seconds', $previousRacer->getTimingAvg()));
-                $hourStart = $dtCheck->format('Hi');
+                $hourStart = $dtCheck->format('YmdHi');
+                $hourStop = $pausesInfos[$hourPause]->getIdPause()->getHourStop()->format('YmdHi');
 
-                if($hourStart > $hourPause) {
-                    echo sprintf('stopping as %d > %d', $hourStart, $hourPause).PHP_EOL;
+                //$hourStopFixed = ($hourStop < $hourPause) ? $hourStop + 10000 : $hourStop;
+                /*echo sprintf('checking if %d > %d AND %d < %d <br />',
+                    $hourStart,
+                    $hourPause,
+                    $hourStart,
+                    $hourStop
+                ).PHP_EOL;*/
+                if($hourStart > $hourPause && $hourStart < $hourStop) {
+                    /*echo sprintf('stopping as %d > %d AND %d < %d <br />',
+                        $hourStart,
+                        $hourPause,
+                        $hourStart,
+                        $hourStop
+                    ).PHP_EOL;*/
                     continue;
                 }
 
