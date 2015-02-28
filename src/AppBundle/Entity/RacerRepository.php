@@ -14,12 +14,13 @@ class RacerRepository extends EntityRepository
             ->getResult()
             ;
     }
-    
+
     public function getAllByTeam($team)
     {
         return $this->createQueryBuilder('r')
             ->where('r.idTeam = :idTeam')
             ->setParameter('idTeam', $team)
+            ->orderBy('r.position', 'ASC')
             ->getQuery()
             ->getResult()
             ;
@@ -59,10 +60,10 @@ class RacerRepository extends EntityRepository
             ->setParameter('nbPerson', $team->getNbPerson())
             ->setParameter('idTeam', $team)
             ;
-        
+
         return $qb;
     }
-    
+
     public function getNextRacerAvailable(Team $team, $position) {
         return $this->getNextRacerAvailableQuery($team, $position)
             ->setMaxResults(1)
@@ -71,7 +72,7 @@ class RacerRepository extends EntityRepository
 
         return $qb->getQuery()->getSingleResult();
     }
-    
+
     public function getNextRacersAvailable(Team $team, $position) {
         return $this->getNextRacerAvailableQuery($team, $position)
             ->andWhere('r.position > :position')

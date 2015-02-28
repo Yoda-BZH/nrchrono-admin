@@ -46,6 +46,7 @@ class TimingRepository extends EntityRepository
             ->leftJoin('t.idRacer', 'r')
             ->leftJoin('r.idTeam', 'te')
             ->orderBy('t.id', 'DESC')
+            ->setMaxResults(200)
             ;
 
         return $qb->getQuery()->getResult();
