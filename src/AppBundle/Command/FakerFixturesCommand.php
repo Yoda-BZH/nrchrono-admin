@@ -15,13 +15,13 @@ use AppBundle\Entity\RacerPause;
 
 use Faker;
 
-class RacerGeneratorCommand extends ContainerAwareCommand
+class FakerFixturesCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('faker:timer:racer')
-            ->setDescription('Generate racers')
+            ->setName('faker:fixtures')
+            ->setDescription('Generate fixtures')
             //->addArgument('provider', InputArgument::REQUIRED, 'Provider to use')
             //->addOption('yell', null, InputOption::VALUE_NONE, 'Si définie, la tâche criera en majuscules')
         ;
