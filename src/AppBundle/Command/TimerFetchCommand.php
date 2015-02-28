@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
-class TimerCommand extends ContainerAwareCommand
+class TimerFetchCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
