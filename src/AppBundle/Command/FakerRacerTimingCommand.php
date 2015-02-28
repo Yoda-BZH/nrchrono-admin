@@ -12,7 +12,7 @@ use AppBundle\Entity\Timing;
 
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
-class TimingRacerGeneratorCommand extends ContainerAwareCommand
+class FakerRacerTimingCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
