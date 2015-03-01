@@ -65,7 +65,14 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
-
+        dql:
+            string_functions:
+                time_to_sec: AppBundle\Doctrine\Mysql\TimeToSec
+            #    second_string: Acme\HelloBundle\DQL\SecondStringFunction
+            #numeric_functions:
+            #    test_numeric: Acme\HelloBundle\DQL\NumericFunction
+            #datetime_functions:
+            #    test_datetime: Acme\HelloBundle\DQL\DatetimeFunction
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"

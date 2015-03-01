@@ -1,0 +1,27 @@
+
+<tr>
+    <td><a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.id }}</a></td>
+    <td>
+        <a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.firstname }}</a>
+        <a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.lastname }}</a>
+    </td>
+    <td><a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.nickname }}</a></td>
+    <td><a href="{{ path('team_show', { 'id': racer.idTeam.id }) }}">{{ racer.idTeam.name }}</a></td>
+    <td>{{ racer.position }}</td>
+    <td>{{ racer.timingMin|date('i:s') }}</td>
+    <td>{{ racer.timingMax|date('i:s') }}</td>
+    <td>{{ racer.timingAvg|date('i:s') }}</td>
+    <td>
+    <ul>
+        <li>
+            <a href="{{ path('racer_show', { 'id': racer.id }) }}">{% trans %}show{% endtrans %}</a>
+        </li>
+        <li>
+            <a href="{{ path('racer_edit', { 'id': racer.id }) }}">{% trans %}edit{% endtrans %}</a>
+        </li>
+        <li>
+            <a href="{{ path('stats_racer', { 'id': racer.id }) }}">{% trans %}Stats{% endtrans %}</a>
+        </li>
+    </ul>
+    </td>
+</tr>

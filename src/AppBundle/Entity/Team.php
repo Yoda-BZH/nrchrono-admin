@@ -65,6 +65,20 @@ class Team
     private $racers;
 
     /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Ranking", mappedBy="idTeam")
+     */
+    private $rankings;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Pause", mappedBy="idTeam")
+     */
+    private $pauses;
+
+    /**
      * description
      *
      * @param void
@@ -73,6 +87,8 @@ class Team
     public function __construct()
     {
         $this->racers = new ArrayCollection();
+        $this->rankins = new ArrayCollection();
+        $this->pauses = new ArrayCollection();
     }
 
     /**

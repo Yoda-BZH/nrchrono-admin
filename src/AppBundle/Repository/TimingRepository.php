@@ -16,12 +16,27 @@ class TimingRepository extends EntityRepository
         $qb
             ->select($qb->expr()->min('t.timing'))
             ->addSelect($qb->expr()->max('t.timing'))
-            ->addSelect($qb->expr()->avg('t.timing'))
+            //->addSelect($qb->expr()->avg('t.timing'))
+            ->addSelect('AVG(TIME_TO_SEC(t.timing))')
+            //->addSelect('AVG(UNIX_TIMESTAMP(t.timing))')
             ->where('t.idRacer = :idRacer')
             ->setParameter('idRacer', $racer)
             ;
 
         return $qb->getQuery()->getSingleResult();
+        /*$q = '
+SELECT
+    MIN(t.timing),
+    MAX(t.timing),
+    AVG(UNIX_TIMESTAMP(t.timing)
+FROM AppBundle:Timing t
+WHERE
+    t.idRacer = :idRacer';
+        $query = $this->getEntityManager()->createQuery($q)
+            ->setParameter('idRacer', $racer)
+            ;
+
+        return $query->getResult();*/
     }
 
     public function getLatests() {

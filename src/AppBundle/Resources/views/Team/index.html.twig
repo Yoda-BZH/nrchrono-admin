@@ -16,32 +16,7 @@
         </thead>
         <tbody>
         {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('team_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td><a href="{{ path('team_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
-                <td>{{ entity.nbHeurePause }}</td>
-                <td>{{ entity.nbPerson }}</td>
-                <td>{{ entity.idReference }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('team_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('team_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('team_pauses', { 'id': entity.id }) }}">Pauses</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('team_rotation', { 'id': entity.id }) }}">Rotations</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('prediction_index', { 'id': entity.id }) }}">Predictions</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
+            {% include "AppBundle:Team:line.html.twig" with { "team": entity } %}
         {% endfor %}
         </tbody>
     </table>

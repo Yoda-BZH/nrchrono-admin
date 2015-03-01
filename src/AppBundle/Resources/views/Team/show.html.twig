@@ -57,18 +57,7 @@
 
 <table class="records_list table table-condensed table-stripped table-bordered table-hover table-datatable" data-datatable-sorting-col="5">
     <thead>
-        <tr>
-            <th>{% trans %}Id{% endtrans %}</th>
-            <th>{% trans %}Firstname{% endtrans %}</th>
-            <th>{% trans %}Lastname{% endtrans %}</th>
-            <th>{% trans %}Nickname{% endtrans %}</th>
-            <th>{% trans %}idTeam{% endtrans %}</th>
-            <th>{% trans %}Position{% endtrans %}</th>
-            <th>{% trans %}Timingmin{% endtrans %}</th>
-            <th>{% trans %}Timingmax{% endtrans %}</th>
-            <th>{% trans %}Timingavg{% endtrans %}</th>
-            <th>{% trans %}Actions{% endtrans %}</th>
-        </tr>
+        {% include "AppBundle:Racer:header.html.twig" %}
     </thead>
     <tfoot>
         <td colspan="5">&nbsp;</td>
@@ -82,27 +71,7 @@
     </tfoot>
     <tbody class="sortable">
     {% for racer in racers %}
-        <tr>
-            <td class="racer-id" data-racerid="{{ racer.id }}"><a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.id }}</a></td>
-            <td><a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.firstname }}</a></td>
-            <td><a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.lastname }}</a></td>
-            <td><a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.nickname }}</a></td>
-            <td><a href="{{ path('team_show', { 'id': racer.idTeam.id }) }}">{{ racer.idTeam.name }}</a></td>
-            <td class="position" data-position="{{ racer.position }}" data-newpos="">{{ racer.position }}</td>
-            <td>{{ racer.timingMin|date('i:s') }}</td>
-            <td>{{ racer.timingMax|date('i:s') }}</td>
-            <td>{{ racer.timingAvg|date('i:s') }}</td>
-            <td>
-            <ul>
-                <li>
-                    <a href="{{ path('racer_show', { 'id': racer.id }) }}">{% trans %}show{% endtrans %}</a>
-                </li>
-                <li>
-                    <a href="{{ path('racer_edit', { 'id': racer.id }) }}">{% trans %}edit{% endtrans %}</a>
-                </li>
-            </ul>
-            </td>
-        </tr>
+        {% include "AppBundle:Racer:line.html.twig" with {"racer": racer } %}
     {% endfor %}
     </tbody>
 </table>
@@ -124,22 +93,6 @@
         </div>
     </div>
 </div>
-<!--<div class="modal fade" id="uiPositionError" tabindex="-1" role="dialog" aria-labelledby="uiPositionErrorLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="uiPositionErrorLabel">Gestion des positions dans l'équipe</h4>
-            </div>
-            <div class="modal-body">
-                ERROR
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="danger btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>-->
 
 {% endblock %}
 

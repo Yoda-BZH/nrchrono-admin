@@ -37,12 +37,11 @@ class RacerTimingConsolidateCommand extends ContainerAwareCommand
                 $output->writeln(sprintf('It seems %s has no timing, skipping', $racer->getNickname()));
                 continue;
             }
-            $tMin = new \Datetime('00:00:00');
-            $tMin->modify(sprintf('%d seconds', $stats[1]));
-            $tMax = new \Datetime('00:00:00');
-            $tMax->modify(sprintf('%d seconds', $stats[2]));
+            //var_dump($stats);
+            $tMin = new \Datetime($stats[1]);
+            $tMax = new \Datetime($stats[2]);
             $tAvg = new \Datetime('00:00:00');
-            $tAvg->modify(sprintf('%d seconds', $stats[3]));
+            $tAvg->modify(sprintf('+%d seconds', $stats[3]));
             $racer->setTimingMin($tMin);
             $racer->setTimingMax($tMax);
             $racer->setTimingAvg($tAvg);

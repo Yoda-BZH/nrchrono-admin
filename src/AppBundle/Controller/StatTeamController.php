@@ -22,6 +22,17 @@ class StatTeamController extends Controller
      * @Route("/{id}", name="stats_team")
      */
     public function teamAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $repoTiming = $em->getRepository('AppBundle:Timing');
+        $repoTeam = $em->getRepository('AppBundle:Team');
+        $team = $repoRacer->find($id);
+        
+        //$timings = $repoTiming->getRacerStats($racer);
+
+        return array(
+            'racer' => $racer,
+            'timings' => $timings,
+        );
         
     }
 }

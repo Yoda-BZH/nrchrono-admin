@@ -45,7 +45,7 @@ class Timing
     /**
      * @var \Racer
      *
-     * @ORM\ManyToOne(targetEntity="Racer")
+     * @ORM\ManyToOne(targetEntity="Racer", inversedBy="timings")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_racer", referencedColumnName="id")
      * })
@@ -87,11 +87,12 @@ class Timing
         return $this->timing;
     }
 
-    public function getTimingToSec() {
+    /*public function getTimingToSec() {
         $min = $this->timing->format('i');
         $sec = $this->timing->format('s');
         return $min * 60 + $sec;
-    }
+    }*/
+    
     /**
      * Set createdAt
      *

@@ -5,42 +5,11 @@
 
     <table class="records_list table table-condensed table-stripped table-bordered table-hover table-datatable">
         <thead>
-            <tr>
-                <th>{% trans %}Id{% endtrans %}</th>
-                <th>{% trans %}Firstname{% endtrans %}</th>
-                <th>{% trans %}Lastname{% endtrans %}</th>
-                <th>{% trans %}Nickname{% endtrans %}</th>
-                <th>{% trans %}idTeam{% endtrans %}</th>
-                <th>{% trans %}Position{% endtrans %}</th>
-                <th>{% trans %}Timingmin{% endtrans %}</th>
-                <th>{% trans %}Timingmax{% endtrans %}</th>
-                <th>{% trans %}Timingavg{% endtrans %}</th>
-                <th>{% trans %}Actions{% endtrans %}</th>
-            </tr>
+            {% include "AppBundle:Racer:header.html.twig" %}
         </thead>
         <tbody>
         {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('racer_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td><a href="{{ path('racer_show', { 'id': entity.id }) }}">{{ entity.firstname }}</a></td>
-                <td><a href="{{ path('racer_show', { 'id': entity.id }) }}">{{ entity.lastname }}</a></td>
-                <td><a href="{{ path('racer_show', { 'id': entity.id }) }}">{{ entity.nickname }}</a></td>
-                <td><a href="{{ path('team_show', { 'id': entity.idTeam.id }) }}">{{ entity.idTeam.name }}</a></td>
-                <td>{{ entity.position }}</td>
-                <td>{{ entity.timingMin|date('i:s') }}</td>
-                <td>{{ entity.timingMax|date('i:s') }}</td>
-                <td>{{ entity.timingAvg|date('i:s') }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('racer_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('racer_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
+            {% include "AppBundle:Racer:line.html.twig" with {"racer": entity } %}
         {% endfor %}
         </tbody>
     </table>

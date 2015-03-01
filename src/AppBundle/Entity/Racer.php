@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Racer
@@ -80,7 +81,23 @@ class Racer
      */
     private $idTeam;
 
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Timing", mappedBy="idRacer")
+     */
+    private $timings;
 
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->timings = new ArrayCollection();
+    }
 
     /**
      * Get id

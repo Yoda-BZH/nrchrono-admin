@@ -87,7 +87,7 @@ class Ranking
     /**
      * @var \Team
      *
-     * @ORM\ManyToOne(targetEntity="Team")
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="rankings")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_team", referencedColumnName="id")
      * })

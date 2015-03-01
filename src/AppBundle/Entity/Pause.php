@@ -45,7 +45,7 @@ class Pause
     /**
      * @var \Team
      *
-     * @ORM\ManyToOne(targetEntity="Team")
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="pauses")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_team", referencedColumnName="id")
      * })

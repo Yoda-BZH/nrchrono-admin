@@ -31,6 +31,7 @@ class StatRacerController extends Controller
         $timings = $repoTiming->getRacerStats($racer);
 
         return array(
+            'racer' => $racer,
             'timings' => $timings,
         );
     }
