@@ -1,6 +1,6 @@
 
 <tr>
-    <td><a href="{{ path('team_show', { 'id': team.id }) }}">{{ team.id }}</a></td>
+    <td class="team-color-grad-{{ team.id }}"><a href="{{ path('team_show', { 'id': team.id }) }}">{{ team.id }}</a></td>
     <td><a href="{{ path('team_show', { 'id': team.id }) }}">{{ team.name }}</a></td>
     <td>{{ team.nbHeurePause }}</td>
     <td>{{ team.nbPerson }}</td>

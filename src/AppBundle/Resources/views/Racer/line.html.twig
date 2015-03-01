@@ -6,7 +6,7 @@
         <a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.lastname }}</a>
     </td>
     <td><a href="{{ path('racer_show', { 'id': racer.id }) }}">{{ racer.nickname }}</a></td>
-    <td><a href="{{ path('team_show', { 'id': racer.idTeam.id }) }}">{{ racer.idTeam.name }}</a></td>
+    <td class="team-color-grad-{{ racer.idTeam.id }}"><a href="{{ path('team_show', { 'id': racer.idTeam.id }) }}">{{ racer.idTeam.name }}</a></td>
     <td>{{ racer.position }}</td>
     <td>{{ racer.timingMin|date('i:s') }}</td>
     <td>{{ racer.timingMax|date('i:s') }}</td>

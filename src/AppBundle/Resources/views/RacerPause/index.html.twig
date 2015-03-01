@@ -20,7 +20,7 @@
             <tr>
                 <td><a href="{{ path('racerpause_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.porder }}</td>
-                <td><a href="{{ path('team_show', { 'id': entity.idRacer.idTeam.id }) }}">{{ entity.idRacer.idTeam.name }}</a></td>
+                <td class="team-color-grad-{{ entity.idRacer.idTeam.id }}"><a href="{{ path('team_show', { 'id': entity.idRacer.idTeam.id }) }}">{{ entity.idRacer.idTeam.name }}</a></td>
                 <td><a href="{{ path('racer_show', { 'id': entity.idRacer.id }) }}">{{ entity.idRacer.nickname }}</a></td>
                 <td>{{ entity.idPause.hourStart|date('H:i') }}</td>
                 <td>{{ entity.idPause.hourStop|date('H:i') }}</td>

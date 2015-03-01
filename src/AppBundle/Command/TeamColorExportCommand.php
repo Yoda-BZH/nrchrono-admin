@@ -30,8 +30,9 @@ class TeamColorExportCommand extends ContainerAwareCommand
 
         $colors = array();
 
-        $declarationBgTemplate = '.team-bg-color-%d { background-color: %s !important; }'.PHP_EOL;
-        $declarationFgTemplate = '.team-color-%d { color: %s !important; }'.PHP_EOL;
+        $declarationBgTemplate = '.team-bg-color-%d { background-color: %s !important; }';
+        $declarationFgTemplate = '.team-color-%d { color: %s !important; }';
+        $declarationGradient   = '.team-color-grad-%d { background-image: linear-gradient(to left, %s, #FFFFFF 30%%); }';
         
         foreach($teams as $team) {
             if(!$team->getColor()) {
@@ -46,10 +47,15 @@ class TeamColorExportCommand extends ContainerAwareCommand
                 $team->getId(),
                 $team->getColor()
             );
+
+            $colors[] = sprintf($declarationGradient,
+                $team->getId(),
+                $team->getColor()
+            );
                 
         }
 
-        return file_put_contents('web/teams.css', implode('', $colors)) > 0;
+        return file_put_contents('web/teams.css', implode(PHP_EOL, $colors)) > 0;
 
         
     }
