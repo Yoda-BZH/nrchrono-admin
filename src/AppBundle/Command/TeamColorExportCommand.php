@@ -30,8 +30,8 @@ class TeamColorExportCommand extends ContainerAwareCommand
 
         $colors = array();
 
-        $declarationBgTemplate = '.team-bg-color-%d { background-color: %s; }'.PHP_EOL;
-        $declarationFgTemplate = '.team-color-%d { color: %s; }'.PHP_EOL;
+        $declarationBgTemplate = '.team-bg-color-%d { background-color: %s !important; }'.PHP_EOL;
+        $declarationFgTemplate = '.team-color-%d { color: %s !important; }'.PHP_EOL;
         
         foreach($teams as $team) {
             if(!$team->getColor()) {
