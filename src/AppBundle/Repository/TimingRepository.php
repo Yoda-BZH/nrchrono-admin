@@ -86,11 +86,11 @@ WHERE
             ->setParameter('idTeam', $teamId)
             ->orderBy('ti.id', 'DESC')
             ;
-        
-        
+
+
         return $qb;
     }
-    
+
     public function getLatestRacer($teamId)
     {
         $qb = $this->getLatestRacerQuery($teamId)
@@ -101,7 +101,7 @@ WHERE
 
         return $r->getIdRacer();
     }
-    
+
     public function getLatestRacers($teamId) {
         return $this->getLatestRacerQuery($teamId)
             ->getQuery()

@@ -31,7 +31,7 @@ class TimingController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Timing')->findAllWithRacerTeam();
-        
+
         $teams = $em->getRepository('AppBundle:Team')->findAll();
 
         return array(
@@ -39,20 +39,42 @@ class TimingController extends Controller
             'entities' => $entities,
         );
     }
-    
-     /**
-      * 
-      * @Route("/status", name="timing_status")
-      * Method("GET")
-      * @Template("AppBundle:Timing:status.html.twig")
-      */
-     public function statusAction() 
-     {
-         return array(
-         
-         );
-     }
-     
+
+    /**
+     *
+     * @Route("/status", name="timing_status")
+     * Method("GET")
+     * @Template("AppBundle:Timing:status.html.twig")
+     */
+    public function statusAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repoTeam = $em->getRepository('AppBundle:Team');
+        $repoRacer = $em->getRepository('AppBundle:Racer');
+        $teams = $repoTeam->findAll();
+
+        $latestTimings = array();
+        foreach($teams as $team) {
+            $nextGuesser = $this->get('racer.next');
+            $nextRacer = $nextGuesser
+                ->setTeam($team)
+                ->getNext()
+                ;
+            $latestRacer = $nextGuesser->getLatest();
+
+            if(!$nextRacer) {
+                $nextRacer = $repoRacer->getFirstOfTeam($team);
+                //return new JsonResponse(array(), 404);
+            }
+            $latestTimings[$team->getId()] = array(
+                'racer' => $nextRacer,
+            );
+        }
+        return array(
+
+        );
+    }
+
     /**
      * Creates a new Timing entity.
      *
@@ -245,10 +267,10 @@ class TimingController extends Controller
 
         return $this->redirect($this->generateUrl('timing'));
     }
-    
+
     /**
      * get next racer
-     * 
+     *
      * @Route("/next/{id}", name="timing_next")
      * @Method("GET")
      */
@@ -257,19 +279,19 @@ class TimingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repoTeam = $em->getRepository('AppBundle:Team');
         $team = $repoTeam->find($id);
-        
+
         $nextGuesser = $this->get('racer.next');
         $nextRacer = $nextGuesser
             ->setTeam($team)
             ->getNext()
             ;
-        
+
         if(!$nextRacer) {
             $repoRacer = $em->getRepository('AppBundle:Racer');
             $nextRacer = $repoRacer->getFirstOfTeam($team);
             //return new JsonResponse(array(), 404);
         }
-        
+
         $d = array(
             'firstname' => $nextRacer->getFirstname(),
             'lastname' => $nextRacer->getLastname(),
@@ -279,7 +301,7 @@ class TimingController extends Controller
                 'name' => $team->getName(),
             ),
         );
-        
+
         return new JsonResponse($d);
      }
 

@@ -102,7 +102,7 @@ class Racer
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -125,7 +125,7 @@ class Racer
     /**
      * Get firstname
      *
-     * @return string 
+     * @return string
      */
     public function getFirstname()
     {
@@ -148,7 +148,7 @@ class Racer
     /**
      * Get lastname
      *
-     * @return string 
+     * @return string
      */
     public function getLastname()
     {
@@ -171,7 +171,7 @@ class Racer
     /**
      * Get nickname
      *
-     * @return string 
+     * @return string
      */
     public function getNickname()
     {
@@ -194,7 +194,7 @@ class Racer
     /**
      * Get timingMin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getTimingMin()
     {
@@ -217,7 +217,7 @@ class Racer
     /**
      * Get timingMax
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getTimingMax()
     {
@@ -240,7 +240,7 @@ class Racer
     /**
      * Get timingAvg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getTimingAvg()
     {
@@ -263,7 +263,7 @@ class Racer
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -286,7 +286,7 @@ class Racer
     /**
      * Get idTeam
      *
-     * @return \AppBundle\Entity\Team 
+     * @return \AppBundle\Entity\Team
      */
     public function getIdTeam()
     {
