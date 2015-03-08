@@ -21,6 +21,12 @@ fi
 
 unzip -d web/jqcountdown $countdown
 
+
+if [ ! -d web/js/sprintf ]
+then
+    git clone https://github.com/alexei/sprintf.js web/js/sprintf
+fi
+
 app/console ca:cl --env=dev
 app/console ca:cl --env=prod
 app/console team:color
