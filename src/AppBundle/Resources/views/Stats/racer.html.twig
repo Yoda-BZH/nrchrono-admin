@@ -2,8 +2,11 @@
 
 {% block body %}
 
-
+{% if not timings %}
+<p>Aucune donnée à afficher</p>
+{% else %}
 <div id="chart" width="400" height="400"></div>
+{% endif %}
 
 {% endblock %}
 
@@ -31,7 +34,7 @@ $(document).ready(function() {
                 text: 'Temps au tour'
             },
             //type: "datetime",
-            //min: Date.parse("{{ timings[0].createdAt|date('Y-m-d H:i:s') }}"),
+            {#//min: Date.parse("{{ timings[0].createdAt|date('Y-m-d H:i:s') }}"),#}
             min: 0,
             tickInterval: 30,
             labels: {
