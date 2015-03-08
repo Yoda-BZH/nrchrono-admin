@@ -2,4 +2,17 @@
 
 {% block body -%}
 
+<h1>Statut</h1>
+<p>now: {{ "now"|date('H:i:s') }}</p>
+{% for timingData in latestTimings %}
+    <p>Timing for {{ timingData.team.name }}</p>
+    <ul>
+        <li>clock: {{ timingData.clock|date('Y-m-d H:i:s') }}</li>
+        <li>current: {{ timingData.latest.nickname }}</li>
+        <li>next: {{ timingData.racer.nickname }}</li>
+        <li>Arrival: {{ timingData.arrival|date('Y-m-d H:i:s') }}</li>
+        <li>delta: {{ timingData.delta.format('%R %H:%I:%S') }}</li>
+    </ul>
+{% endfor %}
+
 {% endblock %}
