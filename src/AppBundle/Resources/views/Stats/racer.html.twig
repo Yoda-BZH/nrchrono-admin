@@ -43,7 +43,7 @@ $(document).ready(function() {
                     minutes = parseInt(nbSeconds / 60);
                     seconds = nbSeconds % 60;
                     //return minutes + " min " + seconds + " secondes";
-                    return minutes + ":" + seconds;
+                    return sprintf('%02d:%02d', minutes,  seconds);
                 }
             },
             dateTimeLabelFormats: {
