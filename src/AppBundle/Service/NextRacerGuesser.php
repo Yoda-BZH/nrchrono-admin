@@ -53,7 +53,7 @@ class NextRacerGuesser {
         return $nextRacer;
     }
 
-    public getLatest() {
+    public function getLatest() {
         return $this->latestRacer;
     }
 }
