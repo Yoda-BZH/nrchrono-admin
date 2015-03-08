@@ -58,6 +58,13 @@ class Team
     private $color;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_race", type="integer", nullable=true)
+     */
+    private $idRace;
+
+    /**
      * @var Collection
      *
      * @ORM\OneToMany(targetEntity="Racer", mappedBy="idTeam")
@@ -94,7 +101,7 @@ class Team
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -117,7 +124,7 @@ class Team
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -140,7 +147,7 @@ class Team
     /**
      * Get nbHeurePause
      *
-     * @return integer 
+     * @return integer
      */
     public function getNbHeurePause()
     {
@@ -163,7 +170,7 @@ class Team
     /**
      * Get nbPerson
      *
-     * @return interger 
+     * @return interger
      */
     public function getNbPerson()
     {
@@ -186,7 +193,7 @@ class Team
     /**
      * Get idReference
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdReference()
     {
@@ -207,13 +214,36 @@ class Team
     }
 
     /**
+     * Set race
+     *
+     * @param string $idRace
+     * @return Team
+     */
+    public function setIdRace($idRace)
+    {
+        $this->idRace = $idRace;
+
+        return $this;
+    }
+
+    /**
      * Get color
      *
-     * @return string 
+     * @return string
      */
     public function getColor()
     {
         return $this->color;
+    }
+
+    /**
+     * Get race
+     *
+     * @return string
+     */
+    public function getIdRace()
+    {
+        return $this->idRace;
     }
 
     /**

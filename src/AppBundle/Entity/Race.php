@@ -35,12 +35,17 @@ class Race
      */
     private $start;
 
-
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Team", mappedBy="idRace")
+     */
+    private $teams;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -63,7 +68,7 @@ class Race
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -86,7 +91,7 @@ class Race
     /**
      * Get start
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getStart()
     {

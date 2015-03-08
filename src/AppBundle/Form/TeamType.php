@@ -20,9 +20,10 @@ class TeamType extends AbstractType
             ->add('nbPerson')
             ->add('idReference')
             ->add('color')
+            ->add('idRace')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
