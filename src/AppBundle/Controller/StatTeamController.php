@@ -20,19 +20,27 @@ class StatTeamController extends Controller
 
     /**
      * @Route("/{id}", name="stats_team")
+     * @Template("AppBundle:Stats:team.html.twig")
      */
     public function teamAction($id) {
         $em = $this->getDoctrine()->getManager();
         $repoTiming = $em->getRepository('AppBundle:Timing');
         $repoTeam = $em->getRepository('AppBundle:Team');
-        $team = $repoRacer->find($id);
-        
-        //$timings = $repoTiming->getRacerStats($racer);
+        $team = $repoTeam->find($id);
+
+        $timings = $repoTiming->getTeamStats($team);
+
+        $t = array();
+
+        foreach($timings as $timing) {
+            $racerId = $timing->getIdRacer()->getId();
+            $t[$racerId][] = $timing;
+        }
 
         return array(
-            'racer' => $racer,
-            'timings' => $timings,
+            'team' => $team,
+            'timings' => $t,
         );
-        
+
     }
 }

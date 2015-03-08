@@ -136,8 +136,25 @@ WHERE
         $qb
             ->where('ti.idRacer = :racer')
             ->setParameter('racer', $racer)
-            ->andWhere('ti.createdAt > :yesterday')
-            ->setParameter('yesterday', date('Y-m-d', time() - 3600 * 24))
+            //->andWhere('ti.createdAt > :yesterday')
+            //->setParameter('yesterday', date('Y-m-d', time() - 3600 * 24))
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function getTeamStats($team) {
+        $qb = $this->createQueryBuilder('ti');
+
+        $qb
+            ->leftJoin('ti.idRacer', 'r')
+            ->where('r.idTeam = :team')
+            ->setParameter('team', $team)
+            //->andWhere('ti.createdAt > :yesterday')
+            //->setParameter('yesterday', date('Y-m-d', time() - 3600 * 24))
             ;
 
         return $qb
