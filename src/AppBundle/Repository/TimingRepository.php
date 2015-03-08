@@ -136,6 +136,8 @@ WHERE
         $qb
             ->where('ti.idRacer = :racer')
             ->setParameter('racer', $racer)
+            ->andWhere('ti.createdAt > :yesterday')
+            ->setParameter('yesterday', date('Y-m-d', time() - 3600 * 24))
             ;
 
         return $qb

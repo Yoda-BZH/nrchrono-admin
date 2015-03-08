@@ -57,7 +57,7 @@ class Timing
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -80,7 +80,7 @@ class Timing
     /**
      * Get timing
      *
-     * @return integer 
+     * @return integer
      */
     public function getTiming()
     {
@@ -92,7 +92,7 @@ class Timing
         $sec = $this->timing->format('s');
         return $min * 60 + $sec;
     }*/
-    
+
     /**
      * Set createdAt
      *
@@ -109,7 +109,7 @@ class Timing
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -132,7 +132,7 @@ class Timing
     /**
      * Get isRelay
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsRelay()
     {
@@ -155,10 +155,17 @@ class Timing
     /**
      * Get idRacer
      *
-     * @return \AppBundle\Entity\Racer 
+     * @return \AppBundle\Entity\Racer
      */
     public function getIdRacer()
     {
         return $this->idRacer;
+    }
+
+    public function getTimingToSec() {
+        $hours = $this->timing->format('H');
+        $minutes = $this->timing->format('i');
+        $secondes = $this->timing->format('s');
+        return $hours * 3600 + $minutes * 60 + $secondes;
     }
 }

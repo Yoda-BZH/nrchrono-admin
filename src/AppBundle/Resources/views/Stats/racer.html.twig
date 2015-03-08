@@ -30,8 +30,19 @@ $(document).ready(function() {
             title: {
                 text: 'Temps au tour'
             },
-            type: "datetime",
-            min: Date.UTC({{ timings[0].createdAt|date('Y, m, d, 0, 0,0') }}),
+            //type: "datetime",
+            //min: Date.parse("{{ timings[0].createdAt|date('Y-m-d H:i:s') }}"),
+            min: 0,
+            tickInterval: 30,
+            labels: {
+                formatter: function() {
+                    nbSeconds = this.value;
+                    minutes = parseInt(nbSeconds / 60);
+                    seconds = nbSeconds % 60;
+                    //return minutes + " min " + seconds + " secondes";
+                    return minutes + ":" + seconds;
+                }
+            },
             dateTimeLabelFormats: {
                 millisecond: '%H:%M:%S',
                 second:      '%H:%M:%S',
@@ -42,7 +53,7 @@ $(document).ready(function() {
                 month:       '%H:%M:%S',
             }
         },
-        
+
         plotOptions: {
             spline: {
                 marker: {
@@ -55,13 +66,15 @@ $(document).ready(function() {
             name: "foo",
             data: [
 {% for timing in timings %}
-    [Date.UTC({{ timing.createdAt|date('Y, m, d, H, i, s') }}), Date.UTC({{ timing.timing|date('Y, m, d, H, i, s') }})],
+                [
+                    Date.parse("{{ timing.createdAt|date('Y-m-d H:i:s') }}"),
+                    {{ timing.timingToSec }}
+                ],
 {% endfor %}
-            ],
+            ]
         }]
     };
     chart.highcharts(options);
-    console.log(chart);
 });
 </script>
 {% endblock %}
