@@ -12,6 +12,7 @@ use AppBundle\Entity\Team;
 use AppBundle\Entity\Racer;
 use AppBundle\Entity\Pause;
 use AppBundle\Entity\RacerPause;
+use AppBundle\Entity\Race;
 
 use Faker;
 
@@ -37,6 +38,14 @@ class FakerFixturesCommand extends ContainerAwareCommand
 
         $repoRacer = $em->getRepository('AppBundle:Racer');
 
+        $race = new Race;
+        $race
+            ->setName('24H du Mans Roller 2015')
+            ->setStart(new \Datetime)
+            ;
+
+        $em->persist($race);
+
         $today = date('Y-m-d');
         $tomorrow = date('Y-m-d', time() + 3600 * 24 + 1);
 
@@ -55,13 +64,13 @@ class FakerFixturesCommand extends ContainerAwareCommand
             array(new \Datetime($tomorrow . ' 02:00'), new \Datetime($tomorrow . ' 04:00')),
             array(new \Datetime($tomorrow . ' 04:00'), new \Datetime($tomorrow . ' 06:00')),
         );
-        
+
         $teamsTypes = array(
-            array(2, 1,  1, $pausesTeam[2]),
-            array(5, 3,  2, $pausesTeam[5]),
-            array(10, 5, 2, $pausesTeam[10]),
-            array(10, 5, 2, $pausesTeam[10]),
-            array(10, 5, 2, $pausesTeam[10]),
+            array(2, 1,  1, $pausesTeam[2], '#c71e1e'),
+            array(5, 3,  2, $pausesTeam[5], '#e2ff00'),
+            array(10, 5, 2, $pausesTeam[10], '#3928c7'),
+            array(10, 5, 2, $pausesTeam[10], '#10d21a'),
+            array(10, 5, 2, $pausesTeam[10], '#c820be'),
         );
 
         foreach($teamsTypes as $teamType) {
@@ -71,6 +80,8 @@ class FakerFixturesCommand extends ContainerAwareCommand
                 ->setName($name)
                 ->setNbHeurePause($teamType[1])
                 ->setNbPerson($teamType[0])
+                ->setIdRace($race)
+                ->setColor($teamType[4])
                 ;
             $em->persist($team);
 

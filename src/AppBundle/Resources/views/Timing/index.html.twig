@@ -15,6 +15,7 @@
             <tr>
                 <th>{% trans %}Id{% endtrans %}</th>
                 <th>{% trans %}Timing{% endtrans %}</th>
+                <th>{% trans %}Clock{% endtrans %}</th>
                 <th>{% trans %}Createdat{% endtrans %}</th>
                 <th>{% trans %}Since{% endtrans %}</th>
                 <th>{% trans %}Isrelay{% endtrans %}</th>
@@ -29,6 +30,7 @@
             <tr>
                 <td><a href="{{ path('timing_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.timing|date('i:s') }}</td>
+                <td>{{ entity.clock|date('Y-m-d H:i:s') }}</td>
                 <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td></td>
                 <td>{{ entity.isRelay ? '1' : '0' }}</td>

@@ -97,4 +97,8 @@ class Race
     {
         return $this->start;
     }
+
+    public function __toString() {
+        return $this->name;
+    }
 }

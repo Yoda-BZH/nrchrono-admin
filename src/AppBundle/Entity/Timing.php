@@ -43,6 +43,13 @@ class Timing
     private $isRelay;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="clock", type="datetime", nullable=true)
+     */
+    private $clock;
+
+    /**
      * @var \Racer
      *
      * @ORM\ManyToOne(targetEntity="Racer", inversedBy="timings")
@@ -102,6 +109,29 @@ class Timing
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get clock
+     *
+     * @return \DateTime
+     */
+    public function getClock()
+    {
+        return $this->clock;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $clock
+     * @return Timing
+     */
+    public function setClock($clock)
+    {
+        $this->clock = $clock;
 
         return $this;
     }

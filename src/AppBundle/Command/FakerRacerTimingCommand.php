@@ -33,17 +33,19 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
         $repoTiming = $em->getRepository('AppBundle:Timing');
 
         $team = $repoTeam->find($teamId);
-        
+
         $nextGuesser = $this->getContainer()->get('racer.next');
         //$output->writeln('<info>getting latest racer</info>');
-        /*$latestRacer = $repoTiming->getLatestRacer($teamId);
-        
-        $position = $latestRacer->getPosition();
-        //var_dump('latest', $position, $latestRacer->getNickname());
-        
-        //$output->writeln('<info>getting next racer available</info>');
-        $repoRacer = $em->getRepository('AppBundle:Racer');
-        $nextRacer = $repoRacer->getNextRacerAvailable($team, $position);*/
+        try {
+            $latestTeamTiming = $repoTiming->getLatestTeamTiming($team);
+            $clock = clone $latestTeamTiming->getClock();
+            $output->writeln('Using latest team timing clock');
+        } catch(\Exception $e) {
+            $race = $em->getRepository('AppBundle:Race')->find(1);
+            $clock = clone $race->getStart();
+            $output->writeln('Seems le first one, using the start of race');
+        }
+
         $nextRacer = $nextGuesser
             ->setTeam($team)
             ->getNext()
@@ -54,25 +56,29 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             $nextRacer = $repoRacer->getFirstOfTeam($team);
         }
 
-        //var_dump($nextRacer->getNickname(), $nextRacer->getPosition());
-
         //$racer = $repoTeam->getNextRacer($teamId);
         $timeToWait = rand(3 * 60, 4 * 60);
         sleep($timeToWait);
         $t = new \Datetime('00:00:00');
-        $t->modify(sprintf('+%d seconds', $timeToWait));
-        
+        $t->modify($s = sprintf('+%d seconds', $timeToWait));
+
+        $clock->modify($s);
+
         $timing = new Timing;
         $timing
             ->setCreatedAt(new \Datetime)
             ->setIdRacer($nextRacer)
             ->setIsRelay(0)
             ->setTiming($t)
+            ->setClock($clock)
             ;
-        
+
+        $interval = $clock->diff($timing->getCreatedAt());
+        $output->writeln(sprintf('Interval: %s', $interval->format('%R %H:%I:%S')));
+
         $em->persist($timing);
         $em->flush();
-        
+
         return 0;
     }
 }

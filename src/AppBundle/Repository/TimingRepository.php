@@ -93,13 +93,9 @@ WHERE
 
     public function getLatestRacer($teamId)
     {
-        $qb = $this->getLatestRacerQuery($teamId)
-            ->setMaxResults(1)
+        return $this->getLatestTeamTiming($teamId)
+            ->getIdRacer()
             ;
-
-        $r = $qb->getQuery()->getSingleResult();
-
-        return $r->getIdRacer();
     }
 
     public function getLatestRacers($teamId) {
@@ -107,6 +103,14 @@ WHERE
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    public function getLatestTeamTiming($teamId) {
+        $qb = $this->getLatestRacerQuery($teamId)
+            ->setMaxResults(1)
+            ;
+
+        return $qb->getQuery()->getSingleResult();
     }
 
     /**

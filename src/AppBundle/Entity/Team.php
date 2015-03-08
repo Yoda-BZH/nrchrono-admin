@@ -58,9 +58,12 @@ class Team
     private $color;
 
     /**
-     * @var integer
+     * @var Race
      *
-     * @ORM\Column(name="id_race", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Race", inversedBy="teams")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_race", referencedColumnName="id")
+     * })
      */
     private $idRace;
 
