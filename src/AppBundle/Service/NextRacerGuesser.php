@@ -41,6 +41,8 @@ class NextRacerGuesser {
             $this->latestTiming = $repoTiming->getLatestTeamTiming($this->team->getId());
             $this->latestRacer = $this->latestTiming->getIdRacer();
         } catch(NoResultException $e) {
+            $this->latestTiming = null;
+            $this->latestRacer = null;
             return null;
         }
 
