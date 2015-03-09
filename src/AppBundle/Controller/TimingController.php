@@ -77,12 +77,12 @@ $teams = array($teams[0]);
                 $clock = clone $race->getStart();
             }
 
-            if(!$nextRacer) {
-                $nextRacer = $repoRacer->getFirstOfTeam($team);
-                //return new JsonResponse(array(), 404);
-            }
+            //if(!$latestRacer) {
+            //    $latestRacer = $repoRacer->getFirstOfTeam($team);
+            //    //return new JsonResponse(array(), 404);
+            //}
             $arrival = clone $clock;
-            $interval = new \DateInterval($latestRacer->getTimingAvg()->format('\P\TH\Hi\Ms\S'));
+            $interval = new \DateInterval($nextRacer->getTimingAvg()->format('\P\TH\Hi\Ms\S'));
             $arrival->add($interval);
 
             $delta = $arrival->diff(new \Datetime());

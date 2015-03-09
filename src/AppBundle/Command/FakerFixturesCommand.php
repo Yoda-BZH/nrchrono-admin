@@ -84,6 +84,7 @@ class FakerFixturesCommand extends ContainerAwareCommand
                 ->setColor($teamType[4])
                 ;
             $em->persist($team);
+            $output->writeln('Adding team '.$team->getName());
 
 
             $pauseData = $teamType[3];
@@ -112,14 +113,26 @@ class FakerFixturesCommand extends ContainerAwareCommand
 
             for($i = 0; $i < $teamType[0]; $i++) {
                 $racer = new Racer;
+                $tmin = new \Datetime('00:00:00');
+                $tmin->modify(sprintf('+ %s seconds', $tmn = rand(9 * 60, 11 * 60)));
+
+                $tmax = new \Datetime('00:00:00');
+                $tmax->modify(sprintf('+ %s seconds', $tmx = rand(11 * 60, 13 * 60)));
+
+                $tavg = new \Datetime('00:00:00');
+                $tavg->modify(sprintf('+ %d seconds', ($tmn + $tmx) / 2));
                 $racer
                     ->setFirstname($firstname = $faker->firstname)
                     ->setLastName($faker->lastname)
                     ->setNickname($firstname)
                     ->setPosition($i + 1)
                     ->setIdTeam($team)
+                    ->setTimingAvg($tavg)
+                    ->setTimingMin($tmin)
+                    ->setTimingMax($tmax)
                     ;
 
+                $output->writeln(sprintf('Adding %s in team %s', $racer->getNickname(), $team->getName()));
                 $em->persist($racer);
 
                 // fixme, only works with 2 pauses
@@ -136,7 +149,11 @@ class FakerFixturesCommand extends ContainerAwareCommand
 
 
         }
+        $output->writeln('Saving data ...');
         $em->flush();
 
+        $output->writeln('done.');
+
+        return 0;
     }
 }

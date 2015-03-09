@@ -8,7 +8,11 @@
     <p>Timing for {{ timingData.team.name }}</p>
     <ul>
         <li>clock: {{ timingData.clock|date('Y-m-d H:i:s') }}</li>
-        <li>current: {{ timingData.latest.nickname }}</li>
+        {% if timingData.latest %}
+            <li>current: {{ timingData.latest.nickname }}</li>
+        {% else %}
+            <li>...</li>
+        {% endif %}
         <li>next: {{ timingData.racer.nickname }}</li>
         <li>Arrival: {{ timingData.arrival|date('Y-m-d H:i:s') }}</li>
         <li>delta: {{ timingData.delta.format('%R %H:%I:%S') }}</li>

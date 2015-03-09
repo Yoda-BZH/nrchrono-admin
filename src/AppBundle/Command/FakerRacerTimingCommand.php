@@ -57,7 +57,7 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
         }
 
         //$racer = $repoTeam->getNextRacer($teamId);
-        $timeToWait = rand(3 * 60, 4 * 60);
+        $timeToWait = rand(9 * 60, 13 * 60);
         sleep($timeToWait);
         $t = new \Datetime('00:00:00');
         $t->modify($s = sprintf('+%d seconds', $timeToWait));
