@@ -20,12 +20,14 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             ->setName('faker:racer:timing')
             ->setDescription('Create new timing for a team')
             ->addArgument('team', InputArgument::REQUIRED, 'team to use')
+            ->addArgument('timing', InputArgument::OPTIONAL, 'timing to use')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $teamId = $input->getArgument('team');
+        $mediumTiming = $input->getArgument('timing');
 
         $em = $this->getContainer()->get('doctrine')->getManager();
 
@@ -57,7 +59,13 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
         }
 
         //$racer = $repoTeam->getNextRacer($teamId);
-        $timeToWait = rand(9 * 60, 13 * 60);
+        if($mediumTiming == 12) {
+            $timeToWait = rand(9 * 60, 13 * 60);
+        } elseif($mediumTiming == 3) {
+            $timeToWait = rand(2.8 * 60, 4 * 60);
+        } else {
+            throw new \Exception('Bad --timing');
+        }
         sleep($timeToWait);
         $t = new \Datetime('00:00:00');
         $t->modify($s = sprintf('+%d seconds', $timeToWait));

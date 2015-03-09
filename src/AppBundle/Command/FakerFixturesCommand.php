@@ -24,12 +24,14 @@ class FakerFixturesCommand extends ContainerAwareCommand
             ->setName('faker:fixtures')
             ->setDescription('Generate fixtures')
             //->addArgument('provider', InputArgument::REQUIRED, 'Provider to use')
+            ->addArgument('timing', InputArgument::OPTIONAL, 'timing', 12)
             //->addOption('yell', null, InputOption::VALUE_NONE, 'Si définie, la tâche criera en majuscules')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $mediumTiming = $input->getArgument('timing');
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         //$repoRanking = $em->getRepository('AppBundle:Ranking');
@@ -114,11 +116,17 @@ class FakerFixturesCommand extends ContainerAwareCommand
             for($i = 0; $i < $teamType[0]; $i++) {
                 $racer = new Racer;
                 $tmin = new \Datetime('00:00:00');
-                $tmin->modify(sprintf('+ %s seconds', $tmn = rand(9 * 60, 11 * 60)));
-
                 $tmax = new \Datetime('00:00:00');
-                $tmax->modify(sprintf('+ %s seconds', $tmx = rand(11 * 60, 13 * 60)));
 
+                if($mediumTiming == 12) {
+                    $tmin->modify(sprintf('+ %s seconds', $tmn = rand(9 * 60, 11 * 60)));
+                    $tmax->modify(sprintf('+ %s seconds', $tmx = rand(11 * 60, 13 * 60)));
+                } elseif($mediumTiming == 3) {
+                    $tmin->modify(sprintf('+ %s seconds', $tmn = rand(2.5 * 60, 4 * 60)));
+                    $tmax->modify(sprintf('+ %s seconds', $tmx = rand(3.5 * 60, 4.5 * 60)));
+                } else {
+                    throw new \Exception('Bad --timing');
+                }
                 $tavg = new \Datetime('00:00:00');
                 $tavg->modify(sprintf('+ %d seconds', ($tmn + $tmx) / 2));
                 $racer
