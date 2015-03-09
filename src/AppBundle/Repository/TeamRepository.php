@@ -10,10 +10,17 @@ class TeamRepository extends EntityRepository
 {
     public function getTeamWithRacers($team) {
         $qb = $this->createQueryBuilder('t');
-        
+
         $qb
             ->addSelect('r')
             ->leftJoin('t.racers', 't')
+            ;
+    }
+    public function getAll()
+    {
+        return $this->createQueryBuilder('t')
+            ->getQuery()
+            ->getResult()
             ;
     }
 }

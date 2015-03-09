@@ -9,6 +9,7 @@ class NextRacerGuesser {
     private $em;
     private $team;
     private $latestRacer;
+    private $latestTiming;
 
     public function __construct() {
 
@@ -36,7 +37,9 @@ class NextRacerGuesser {
         $repoTiming = $this->em->getRepository('AppBundle:Timing');
 
         try {
-            $this->latestRacer = $repoTiming->getLatestRacer($this->team->getId());
+            //$this->latestRacer = $repoTiming->getLatestRacer($this->team->getId());
+            $this->latestTiming = $repoTiming->getLatestTeamTiming($this->team->getId());
+            $this->latestRacer = $this->latestTiming->getIdRacer();
         } catch(NoResultException $e) {
             return null;
         }
@@ -55,5 +58,9 @@ class NextRacerGuesser {
 
     public function getLatest() {
         return $this->latestRacer;
+    }
+
+    public function getLatestTiming() {
+        return $this->latestTiming;
     }
 }

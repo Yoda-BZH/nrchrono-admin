@@ -51,10 +51,11 @@ class TimingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repoTeam = $em->getRepository('AppBundle:Team');
         $repoRacer = $em->getRepository('AppBundle:Racer');
-        $repoTiming = $em->getRepository('AppBundle:Timing');
-        $teams = $repoTeam->findAll();
-$teams = array($teams[0]);
+        //$repoTiming = $em->getRepository('AppBundle:Timing');
+        $teams = $repoTeam->getAll();
+//$teams = array($teams[0]);
         $latestTimings = array();
+        $now = new \Datetime();
         foreach($teams as $team) {
             $nextGuesser = $this->get('racer.next');
             $nextRacer = $nextGuesser
@@ -70,7 +71,8 @@ $teams = array($teams[0]);
             $latestRacer = $nextGuesser->getLatest();
 
             try {
-                $latestTeamTiming = $repoTiming->getLatestTeamTiming($team);
+                //$latestTeamTiming = $repoTiming->getLatestTeamTiming($team);
+                $latestTeamTiming = $nextGuesser->getLatestTiming();
                 $clock = clone $latestTeamTiming->getClock();
             } catch(\Exception $e) {
                 $race = $em->getRepository('AppBundle:Race')->find(1);
@@ -81,14 +83,14 @@ $teams = array($teams[0]);
             //    $latestRacer = $repoRacer->getFirstOfTeam($team);
             //    //return new JsonResponse(array(), 404);
             //}
-            $arrival = clone $clock;
+            $arrival = $clock;
             $interval = new \DateInterval($nextRacer->getTimingAvg()->format('\P\TH\Hi\Ms\S'));
             $arrival->add($interval);
 
-            $delta = $arrival->diff(new \Datetime());
+            $delta = $arrival->diff($now);
             $latestTimings[$team->getId()] = array(
                 'racer' => $nextRacer,
-                'latest' => $latestRacer,
+                //'latest' => $latestRacer,
                 'clock' => $clock,
                 'team'  => $team,
                 'arrival' => $arrival,
