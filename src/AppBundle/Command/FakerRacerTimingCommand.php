@@ -20,14 +20,14 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             ->setName('faker:racer:timing')
             ->setDescription('Create new timing for a team')
             ->addArgument('team', InputArgument::REQUIRED, 'team to use')
-            ->addArgument('timing', InputArgument::OPTIONAL, 'timing to use')
+            ->addArgument('timing', InputArgument::OPTIONAL, 'timing to use', 12)
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $teamId = $input->getArgument('team');
-        $mediumTiming = $input->getArgument('timing');
+        $mediumTiming = $input->getArgument('timing', 12);
 
         $em = $this->getContainer()->get('doctrine')->getManager();
 
