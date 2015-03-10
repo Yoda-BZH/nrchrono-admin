@@ -73,6 +73,9 @@ class TimingController extends Controller
             try {
                 //$latestTeamTiming = $repoTiming->getLatestTeamTiming($team);
                 $latestTeamTiming = $nextGuesser->getLatestTiming();
+                if(!$latestTeamTiming) {
+                    throw new \Exception();
+                }
                 $clock = clone $latestTeamTiming->getClock();
             } catch(\Exception $e) {
                 $race = $em->getRepository('AppBundle:Race')->find(1);

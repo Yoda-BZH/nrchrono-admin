@@ -11,7 +11,31 @@
         <li>en train d'arriver: <a href="{{ path('racer', { 'id': timingData.racer.id }) }}">{{ timingData.racer.nickname }}</a></li>
         <li>Arrival: {{ timingData.arrival|date('Y-m-d H:i:s') }}</li>
         <li>delta: {{ timingData.delta.format('%R %H:%I:%S') }}</li>
+        <li id="clock-team-{{ timingData.team.id }}"></li>
     </ul>
 {% endfor %}
 
+{% endblock %}
+
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('jqcountdown/jquery.plugin.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('jqcountdown/jquery.countdown.js') }}"></script>
+
+<script>
+$(document).ready(function() {
+{% for timingData in latestTimings %}
+    console.log('creating clock for team {{ timingData.team.id }}');
+    $('#clock-team-{{ timingData.team.id }}').countdown({
+        until: new Date({{ timingData.arrival|date('Y, m - 1, d, H, i, s') }}),
+        compact: true
+    });
+
+{% endfor %}
+});
+</script>
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="{{ asset('jqcountdown/jquery.countdown.css') }}" />
 {% endblock %}
