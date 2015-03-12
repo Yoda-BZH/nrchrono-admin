@@ -1,0 +1,57 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Ranking list</h1>
+
+    <table class="records_list table table-condensed table-stripped table-hover ">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Position</th>
+                <th>Createdat</th>
+                <th>Time</th>
+                <th>Tour</th>
+                <th>Ecart</th>
+                <th>Distance</th>
+                <th>Speed</th>
+                <th>Bestlap</th>
+                <th>Poscat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('ranking_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.position }}</td>
+                <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.time|date('H:i:s') }}</td>
+                <td>{{ entity.tour }}</td>
+                <td>{{ entity.ecart|date('H:i:s') }}</td>
+                <td>{{ entity.distance }}</td>
+                <td>{{ entity.speed }}</td>
+                <td>{{ entity.bestlap|date('H:i:s') }}</td>
+                <td>{{ entity.poscat }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('ranking_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('ranking_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('ranking_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}
