@@ -89,6 +89,13 @@ class Team
     private $pauses;
 
     /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Prediction", mappedBy="idTeam")
+     */
+    private $predictions;
+
+    /**
      * description
      *
      * @param void

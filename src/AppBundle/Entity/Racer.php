@@ -89,6 +89,13 @@ class Racer
     private $timings;
 
     /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Prediction", mappedBy="idRacer")
+     */
+    private $predictions;
+
+    /**
      * description
      *
      * @param void
