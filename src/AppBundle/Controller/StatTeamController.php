@@ -27,6 +27,9 @@ class StatTeamController extends Controller
         $repoTiming = $em->getRepository('AppBundle:Timing');
         $repoTeam = $em->getRepository('AppBundle:Team');
         $team = $repoTeam->find($id);
+        if(!$team) {
+            throw $this->createNotFoundException(sprintf('Team %d not found', $id));
+        }
 
         $timings = $repoTiming->getTeamStats($team);
 

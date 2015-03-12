@@ -27,7 +27,10 @@ class StatRacerController extends Controller
         $repoTiming = $em->getRepository('AppBundle:Timing');
         $repoRacer = $em->getRepository('AppBundle:Racer');
         $racer = $repoRacer->find($id);
-        
+        if(!$racer) {
+            throw $this->createNotFoundException(sprintf('Racer %d not found', $id))
+        }
+
         $timings = $repoTiming->getRacerStats($racer);
 
         return array(
