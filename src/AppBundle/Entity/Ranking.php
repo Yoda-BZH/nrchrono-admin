@@ -99,7 +99,7 @@ class Ranking
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -122,7 +122,7 @@ class Ranking
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -145,7 +145,7 @@ class Ranking
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -168,7 +168,7 @@ class Ranking
     /**
      * Get time
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getTime()
     {
@@ -191,7 +191,7 @@ class Ranking
     /**
      * Get tour
      *
-     * @return integer 
+     * @return integer
      */
     public function getTour()
     {
@@ -214,7 +214,7 @@ class Ranking
     /**
      * Get ecart
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getEcart()
     {
@@ -237,7 +237,7 @@ class Ranking
     /**
      * Get distance
      *
-     * @return integer 
+     * @return integer
      */
     public function getDistance()
     {
@@ -260,7 +260,7 @@ class Ranking
     /**
      * Get speed
      *
-     * @return integer 
+     * @return integer
      */
     public function getSpeed()
     {
@@ -283,7 +283,7 @@ class Ranking
     /**
      * Get bestlap
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getBestlap()
     {
@@ -306,7 +306,7 @@ class Ranking
     /**
      * Get poscat
      *
-     * @return integer 
+     * @return integer
      */
     public function getPoscat()
     {
@@ -329,7 +329,7 @@ class Ranking
     /**
      * Get idTeam
      *
-     * @return \AppBundle\Entity\Team 
+     * @return \AppBundle\Entity\Team
      */
     public function getIdTeam()
     {

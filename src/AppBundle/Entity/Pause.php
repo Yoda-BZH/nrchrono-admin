@@ -57,7 +57,7 @@ class Pause
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -80,7 +80,7 @@ class Pause
     /**
      * Get porder
      *
-     * @return integer 
+     * @return integer
      */
     public function getPorder()
     {
@@ -103,7 +103,7 @@ class Pause
     /**
      * Get hourStart
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getHourStart()
     {
@@ -126,7 +126,7 @@ class Pause
     /**
      * Get hourStop
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getHourStop()
     {
@@ -149,7 +149,7 @@ class Pause
     /**
      * Get idTeam
      *
-     * @return \AppBundle\Entity\Team 
+     * @return \AppBundle\Entity\Team
      */
     public function getIdTeam()
     {
@@ -170,5 +170,6 @@ class Pause
             $this->hourStop->format('H:i')
         );
     }
+
 
 }

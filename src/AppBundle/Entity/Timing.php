@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Timing
  *
- * @ORM\Table(name="timing", indexes={@ORM\Index(name="fk_timing_1_idx", columns={"id_racer"})})
+ * @ORM\Table(name="timing", indexes={@ORM\Index(name="fk_timing_1_idx", columns={"id_racer"}), @ORM\Index(name="fk_timing_2_type", columns={"type"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TimingRepository")
  */
 class Timing
@@ -22,7 +22,7 @@ class Timing
     private $id;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
      * @ORM\Column(name="timing", type="time", nullable=true)
      */
@@ -50,6 +50,13 @@ class Timing
     private $clock;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="type", type="boolean", nullable=true)
+     */
+    private $type;
+
+    /**
      * @var \Racer
      *
      * @ORM\ManyToOne(targetEntity="Racer", inversedBy="timings")
@@ -74,7 +81,7 @@ class Timing
     /**
      * Set timing
      *
-     * @param integer $timing
+     * @param \DateTime $timing
      * @return Timing
      */
     public function setTiming($timing)
@@ -87,18 +94,12 @@ class Timing
     /**
      * Get timing
      *
-     * @return integer
+     * @return \DateTime
      */
     public function getTiming()
     {
         return $this->timing;
     }
-
-    /*public function getTimingToSec() {
-        $min = $this->timing->format('i');
-        $sec = $this->timing->format('s');
-        return $min * 60 + $sec;
-    }*/
 
     /**
      * Set createdAt
@@ -109,29 +110,6 @@ class Timing
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get clock
-     *
-     * @return \DateTime
-     */
-    public function getClock()
-    {
-        return $this->clock;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $clock
-     * @return Timing
-     */
-    public function setClock($clock)
-    {
-        $this->clock = $clock;
 
         return $this;
     }
@@ -170,6 +148,52 @@ class Timing
     }
 
     /**
+     * Set clock
+     *
+     * @param \DateTime $clock
+     * @return Timing
+     */
+    public function setClock($clock)
+    {
+        $this->clock = $clock;
+
+        return $this;
+    }
+
+    /**
+     * Get clock
+     *
+     * @return \DateTime
+     */
+    public function getClock()
+    {
+        return $this->clock;
+    }
+
+    /**
+     * Set type
+     *
+     * @param boolean $type
+     * @return Timing
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return boolean
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * Set idRacer
      *
      * @param \AppBundle\Entity\Racer $idRacer
@@ -192,10 +216,11 @@ class Timing
         return $this->idRacer;
     }
 
-    public function getTimingToSec() {
-        $hours = $this->timing->format('H');
-        $minutes = $this->timing->format('i');
-        $secondes = $this->timing->format('s');
-        return $hours * 3600 + $minutes * 60 + $secondes;
-    }
+    /*public function getTimingToSec() {
+        $min = $this->timing->format('i');
+        $sec = $this->timing->format('s');
+        return $min * 60 + $sec;
+    }*/
+
+
 }

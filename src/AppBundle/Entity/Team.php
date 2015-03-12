@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Team
  *
- * @ORM\Table(name="team")
+ * @ORM\Table(name="team", indexes={@ORM\Index(name="fk_team_1", columns={"id_race"}), @ORM\Index(name="fk_team_reference", columns={"id_reference"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TeamRepository")
  */
 class Team
@@ -58,7 +58,7 @@ class Team
     private $color;
 
     /**
-     * @var Race
+     * @var \Race
      *
      * @ORM\ManyToOne(targetEntity="Race", inversedBy="teams")
      * @ORM\JoinColumns({
@@ -173,7 +173,7 @@ class Team
     /**
      * Get nbPerson
      *
-     * @return interger
+     * @return integer
      */
     public function getNbPerson()
     {
@@ -217,19 +217,6 @@ class Team
     }
 
     /**
-     * Set race
-     *
-     * @param string $idRace
-     * @return Team
-     */
-    public function setIdRace($idRace)
-    {
-        $this->idRace = $idRace;
-
-        return $this;
-    }
-
-    /**
      * Get color
      *
      * @return string
@@ -240,9 +227,22 @@ class Team
     }
 
     /**
-     * Get race
+     * Set idRace
      *
-     * @return string
+     * @param \AppBundle\Entity\Race $idRace
+     * @return Team
+     */
+    public function setIdRace(\AppBundle\Entity\Race $idRace = null)
+    {
+        $this->idRace = $idRace;
+
+        return $this;
+    }
+
+    /**
+     * Get idRace
+     *
+     * @return \AppBundle\Entity\Race
      */
     public function getIdRace()
     {
@@ -266,4 +266,5 @@ class Team
     public function __toString() {
         return $this->getName();
     }
+
 }
