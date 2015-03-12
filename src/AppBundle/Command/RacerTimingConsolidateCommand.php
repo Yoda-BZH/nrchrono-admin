@@ -34,7 +34,7 @@ class RacerTimingConsolidateCommand extends ContainerAwareCommand
             $stats = $repoTiming->getStats($racer);
             if (!$stats || $stats[1] == null)
             {
-                $output->writeln(sprintf('It seems %s has no timing, skipping', $racer->getNickname()));
+                //$output->writeln(sprintf('It seems %s has no timing, skipping', $racer->getNickname()));
                 continue;
             }
             //var_dump($stats);
