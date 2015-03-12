@@ -4,10 +4,13 @@
 
 <h1>Statut</h1>
 
+<div class="row">
 {% for team in teams %}
-    <div class="timing-status-teams" id="timing-status-team-{{ team.id }}">Statut de {{ team.name }}</div>
+    <div class="col-xs-6 col-sm-3 team-color-grad-{{ team.id }}">
+        <div class="timing-status-teams" id="timing-status-team-{{ team.id }}">Statut de {{ team.name }}</div>
+    </div>
 {% endfor %}
-
+</div>
 {% endblock %}
 
 
@@ -21,11 +24,9 @@ $(document).ready(function() {
         $selector = $(selector);
         $selector.find('.clock').countdown('destroy');
         $selector.load(url, function() {
-            //console.log(this, $(this));
             $this = $(this);
             $clock = $this.find('.clock');
-            //console.log('clock', $clock);
-            //console.log('clock data', $clock.data('until'));
+
             var clockOptions = {
                 compact: true
             }
@@ -43,14 +44,11 @@ $(document).ready(function() {
                 clockOptions.until = arrival;
             }
             $clock.countdown(clockOptions);
-            //console.log(clockOptions);
-            //console.log('clock is activated');
         });
     }
 {% for team in teams %}
     loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
     setInterval(function() {
-        //console.log('loading from interval');
         loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
     }, 30000);
 

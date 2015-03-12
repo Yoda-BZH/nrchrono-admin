@@ -12,8 +12,7 @@
 
 
 {% block javascripts %}
-<script src="{{ asset('highcharts/js/highcharts.js') }}"></script>
-<script src="{{ asset('highcharts/js/themes/dark-blue.js') }}"></script>
+{% include "AppBundle:Stats:stats.js.html.twig" %}
 <script>
 $(document).ready(function() {
     chart = $('#chart');
