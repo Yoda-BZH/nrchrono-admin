@@ -5,15 +5,23 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bootstrap/css/bootstrap.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/datatables/css/jquery.dataTables.min.css') }}">
+{% if app.session.get('theme') %}
+        <link rel="stylesheet" type="text/css" href="{{ asset(app.session.get('theme')) }}">
+{% endif %}
 
-        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/datatables-fixedcolumns/css/dataTables.fixedColumns.min.css') }}" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/datatables-fixedheader/css/dataTables.fixedHeader.min.css') }}" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/KeyTable-1.2.1/css/dataTables.keyTable.css') }}" />
-<link rel="stylesheet" type="text/css" href="{{ asset('bundles/bmatznerjqueryui/css/smoothness/jquery-ui.css') }}" />
-<link rel="stylesheet" type="text/css" href="{{ asset('bundles/bmatznerjqueryui/css/smoothness/jquery.ui.theme.css') }}" />
-<link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/app.css') }}" />
-<link rel="stylesheet" type="text/css" href="{{ asset('teams.css') }}" />
+{% stylesheets
+    'bundles/datatables/css/jquery.dataTables.min.css'
+    'bundles/datatables-fixedcolumns/css/dataTables.fixedColumns.min.css'
+    'bundles/datatables-fixedheader/css/dataTables.fixedHeader.min.css'
+    'bundles/KeyTable-1.2.1/css/dataTables.keyTable.css'
+    'bundles/bmatznerjqueryui/css/smoothness/jquery-ui.css'
+    'bundles/bmatznerjqueryui/css/smoothness/jquery.ui.theme.css'
+    'bundles/app/css/app.css'
+    'teams.css'
+%}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
 <body>
@@ -24,30 +32,43 @@
                 <li><a href="{{ path('homepage') }}">Index</a></li>
                 <li><a href="{{ path('racer') }}">Racer</a></li>
                 <li><a href="{{ path('team') }}">Team</a></li>
-                <li><a href="{{ path('pause') }}">Pause</a></li>
-                <li><a href="{{ path('racerpause') }}">RacerPause</a></li>
                 <li><a href="{{ path('timing') }}">Timing</a></li>
+                <li><a href="{{ path('racerpause') }}">RacerPause</a></li>
                 <li><a href="">Manual Timing</a></li>
                 <li><a href="{{ path('timing_status') }}">Timing Status</a></li>
-                <li><a href="{{ path('race') }}">Race</a></li>
+                <li><a href="{{ path('ranking') }}">Ranking</a></li>
+                <li><a href="{{ path('css_list') }}">Theme</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+                        role="button" aria-expanded="false">
+                        Admin <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ path('race') }}">Race</a></li>
+                        <li><a href="{{ path('pause') }}">Pause</a></li>
+                    </ul>
+                </li>
             </ul>
             </div>
 {% block body %}{% endblock %}
         </div> <!-- end row fluid -->
     </div> <!-- container-fluid -->
 
+{% javascripts
+    'bundles/jquery-extra/jquery.min.js'
+    'bundles/bootstrap/js/bootstrap.min.js'
+    'bundles/datatables/js/jquery.dataTables.min.js'
+    'bundles/app/js/datatables.js'
+    'bundles/app/js/dataTables.bootstrap.js'
+    'bundles/datatables-fixedcolumns/js/dataTables.fixedColumns.min.js'
+    'bundles/datatables-fixedheader/js/dataTables.fixedHeader.min.js'
+    'bundles/KeyTable-1.2.1/js/dataTables.keyTable.min.js'
+    'bundles/bmatznerjqueryui/js/minified/jquery-ui.min.js'
+    'js/sprintf/dist/sprintf.min.js'
+%}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 
-<script type="text/javascript" src="{{ asset('bundles/jquery-extra/jquery.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/bootstrap/js/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/datatables/js/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/app/js/datatables.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/app/js/dataTables.bootstrap.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/datatables-fixedcolumns/js/dataTables.fixedColumns.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/datatables-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/KeyTable-1.2.1/js/dataTables.keyTable.min.js') }}"></script>
-
-<script type="text/javascript" src="{{ asset('bundles/bmatznerjqueryui/js/minified/jquery-ui.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/sprintf/dist/sprintf.min.js') }}"></script>
     {% block javascripts %}{% endblock %}
 
 </body>

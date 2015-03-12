@@ -30,4 +30,4 @@ fi
 app/console ca:cl --env=dev
 app/console ca:cl --env=prod
 app/console team:color
-
+app/console assetic:dump --env=prod --no-debug
