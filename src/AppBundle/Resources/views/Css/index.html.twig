@@ -1,0 +1,10 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<ul>
+{% for theme in list %}
+    <li><a href="{{ path('css_set', { 'name': theme }) }}">{{ theme }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}
