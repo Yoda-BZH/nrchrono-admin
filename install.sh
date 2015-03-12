@@ -5,7 +5,7 @@ composer install
 app/console assets:install --symlink web
 
 highcharts="Highcharts-4.1.3.zip"
-if [ ! -f $highcharts ]
+if [ ! -d web/highcharts ]
 then
     wget http://code.highcharts.com/zips/$highcharts
 fi
@@ -14,7 +14,7 @@ unzip -d web/highcharts $highcharts
 
 countdown="jquery.countdown.package-2.0.2.zip"
 
-if [ ! -f $countdown ]
+if [ ! -d web/jqcountdown ]
 then
     wget http://keith-wood.name/zip/$countdown
 fi
