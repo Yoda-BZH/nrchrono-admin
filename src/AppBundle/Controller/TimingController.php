@@ -40,6 +40,7 @@ class TimingController extends Controller
         );
     }
 
+
     /**
      *
      * @Route("/status", name="timing_status")
@@ -53,56 +54,73 @@ class TimingController extends Controller
         $repoRacer = $em->getRepository('AppBundle:Racer');
         //$repoTiming = $em->getRepository('AppBundle:Timing');
         $teams = $repoTeam->getAll();
-//$teams = array($teams[0]);
-        $latestTimings = array();
-        $now = new \Datetime();
-        foreach($teams as $team) {
-            $nextGuesser = $this->get('racer.next');
-            $nextRacer = $nextGuesser
-                ->setTeam($team)
-                ->getNext()
-                ;
-
-            if(!$nextRacer) {
-                $repoRacer = $em->getRepository('AppBundle:Racer');
-                $nextRacer = $repoRacer->getFirstOfTeam($team);
-            }
-
-            $latestRacer = $nextGuesser->getLatest();
-
-            try {
-                //$latestTeamTiming = $repoTiming->getLatestTeamTiming($team);
-                $latestTeamTiming = $nextGuesser->getLatestTiming();
-                if(!$latestTeamTiming) {
-                    throw new \Exception();
-                }
-                $clock = clone $latestTeamTiming->getClock();
-            } catch(\Exception $e) {
-                $race = $em->getRepository('AppBundle:Race')->find(1);
-                $clock = clone $race->getStart();
-            }
-
-            //if(!$latestRacer) {
-            //    $latestRacer = $repoRacer->getFirstOfTeam($team);
-            //    //return new JsonResponse(array(), 404);
-            //}
-            $arrival = $clock;
-            $interval = new \DateInterval($nextRacer->getTimingAvg()->format('\P\TH\Hi\Ms\S'));
-            $arrival->add($interval);
-
-            $delta = $arrival->diff($now);
-            $latestTimings[$team->getId()] = array(
-                'racer' => $nextRacer,
-                //'latest' => $latestRacer,
-                'clock' => $clock,
-                'team'  => $team,
-                'arrival' => $arrival,
-                'delta' => $delta,
-            );
-        }
 
         return array(
-            'latestTimings' => $latestTimings,
+            'teams' => $teams,
+        );
+    }
+
+    /**
+     *
+     * @Route("/status/{id}", name="timing_status_team")
+     * Method("GET")
+     * @Template("AppBundle:Timing:statusTeam.html.twig")
+     */
+    public function statusTeamAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repoTeam = $em->getRepository('AppBundle:Team');
+        $repoRacer = $em->getRepository('AppBundle:Racer');
+        //$repoTiming = $em->getRepository('AppBundle:Timing');
+        $team = $repoTeam->find($id);
+        $latestTimings = array();
+        $now = new \Datetime();
+
+        $nextGuesser = $this->get('racer.next');
+        $nextRacer = $nextGuesser
+            ->setTeam($team)
+            ->getNext()
+            ;
+
+        if(!$nextRacer) {
+            $repoRacer = $em->getRepository('AppBundle:Racer');
+            $nextRacer = $repoRacer->getFirstOfTeam($team);
+        }
+
+        $latestRacer = $nextGuesser->getLatest();
+
+        try {
+            //$latestTeamTiming = $repoTiming->getLatestTeamTiming($team);
+            $latestTeamTiming = $nextGuesser->getLatestTiming();
+            if(!$latestTeamTiming) {
+                throw new \Exception();
+            }
+            $clock = clone $latestTeamTiming->getClock();
+        } catch(\Exception $e) {
+            $race = $em->getRepository('AppBundle:Race')->find(1);
+            $clock = clone $race->getStart();
+        }
+
+        //if(!$latestRacer) {
+        //    $latestRacer = $repoRacer->getFirstOfTeam($team);
+        //    //return new JsonResponse(array(), 404);
+        //}
+        $arrival = clone $clock;
+        $interval = new \DateInterval($nextRacer->getTimingAvg()->format('\P\TH\Hi\Ms\S'));
+        $arrival->add($interval);
+
+        $delta = $arrival->diff($now);
+        $timingData = array(
+            'racer' => $nextRacer,
+            //'latest' => $latestRacer,
+            'clock' => $clock,
+            'team'  => $team,
+            'arrival' => $arrival,
+            'delta' => $delta,
+        );
+
+        return array(
+            'timingData' => $timingData,
         );
     }
 

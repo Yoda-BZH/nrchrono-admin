@@ -13,10 +13,12 @@
 
 {% block javascripts %}
 <script src="{{ asset('highcharts/js/highcharts.js') }}"></script>
+<script src="{{ asset('highcharts/js/themes/dark-blue.js') }}"></script>
 <script>
 $(document).ready(function() {
     chart = $('#chart');
     options = {
+        theme: Highcharts.theme,
         chart: {
             type: 'spline',
         },

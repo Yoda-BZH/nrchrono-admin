@@ -3,16 +3,9 @@
 {% block body -%}
 
 <h1>Statut</h1>
-<p>now: {{ "now"|date('H:i:s') }}</p>
-{% for timingData in latestTimings %}
-    <p>Timing for {{ timingData.team.name }}</p>
-    <ul>
-        <li>clock: {{ timingData.clock|date('Y-m-d H:i:s') }}</li>
-        <li>en train d'arriver: <a href="{{ path('racer', { 'id': timingData.racer.id }) }}">{{ timingData.racer.nickname }}</a></li>
-        <li>Arrival: {{ timingData.arrival|date('Y-m-d H:i:s') }}</li>
-        <li>delta: {{ timingData.delta.format('%R %H:%I:%S') }}</li>
-        <li id="clock-team-{{ timingData.team.id }}"></li>
-    </ul>
+
+{% for team in teams %}
+    <div class="timing-status-teams" id="timing-status-team-{{ team.id }}">Statut de {{ team.name }}</div>
 {% endfor %}
 
 {% endblock %}
@@ -24,12 +17,42 @@
 
 <script>
 $(document).ready(function() {
-{% for timingData in latestTimings %}
-    console.log('creating clock for team {{ timingData.team.id }}');
-    $('#clock-team-{{ timingData.team.id }}').countdown({
-        until: new Date({{ timingData.arrival|date('Y, m - 1, d, H, i, s') }}),
-        compact: true
-    });
+    loadTeam = function(selector, url) {
+        $selector = $(selector);
+        $selector.find('.clock').countdown('destroy');
+        $selector.load(url, function() {
+            //console.log(this, $(this));
+            $this = $(this);
+            $clock = $this.find('.clock');
+            //console.log('clock', $clock);
+            //console.log('clock data', $clock.data('until'));
+            var clockOptions = {
+                compact: true
+            }
+            var arrival = new Date($clock.data('arrival'));
+
+            if(arrival < new Date()) {
+                /**
+                 * il est déjà censé être arrivé
+                 */
+                clockOptions.since = arrival;
+            } else {
+                /**
+                 * pas encore arrivé
+                 */
+                clockOptions.until = arrival;
+            }
+            $clock.countdown(clockOptions);
+            //console.log(clockOptions);
+            //console.log('clock is activated');
+        });
+    }
+{% for team in teams %}
+    loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
+    setInterval(function() {
+        //console.log('loading from interval');
+        loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
+    }, 30000);
 
 {% endfor %}
 });
