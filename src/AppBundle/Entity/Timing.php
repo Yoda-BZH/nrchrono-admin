@@ -222,5 +222,10 @@ class Timing
         return $min * 60 + $sec;
     }*/
 
-
+    public function getTimingToSec() {
+        $hours = $this->timing->format('H');
+        $minutes = $this->timing->format('i');
+        $secondes = $this->timing->format('s');
+        return $hours * 3600 + $minutes * 60 + $secondes;
+    }
 }
