@@ -12,3 +12,11 @@
 /composer.phar
 *.php~
 /web/highcharts/*
+/web/jqcountdown/
+/web/jquery-stopwatch/
+/web/js/
+/web/css/
+/web/teams.css
+/added
+/data
+/*.zip
