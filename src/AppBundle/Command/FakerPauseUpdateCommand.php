@@ -27,15 +27,11 @@ class FakerPauseUpdateCommand extends ContainerAwareCommand
 
         $pauses = $repoPause->findAll();
         foreach($pauses as $pause) {
-            $str = sprintf('Changing pause ID %d from %s to ',
-                $pause->getId(),
-                $pause->getHourStart()->format('Y-m-d H:i:s')
-            );
             $pause->getHourStart()->modify('+1 day');
+            $pause->setHourStart(clone $pause->getHourStart());
             $pause->getHourStop()->modify('+1 day');
+            $pause->setHourStop(clone $pause->getHourStop());
             $em->persist($pause);
-            $str += $pause->getHourStart()->format('Y-m-d H:i:s');
-            $output->writeln($str);
         }
 
         $em->flush();
