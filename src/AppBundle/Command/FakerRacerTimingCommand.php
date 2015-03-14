@@ -68,7 +68,7 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
         }
         sleep($timeToWait);
         $t = new \Datetime('00:00:00');
-        $t->modify($s = sprintf('+%d seconds', $timeToWait));
+        $t->modify($s = sprintf('+%d seconds', $timeToWait + 1)); // +1 to compensate drift
 
         $clock->modify($s);
 
