@@ -33,7 +33,7 @@ class NextRacerGuesser {
         return $this;
     }
 
-    public function getNext() {
+    public function computeNexts() {
         $repoTiming = $this->em->getRepository('AppBundle:Timing');
 
         try {
@@ -50,12 +50,22 @@ class NextRacerGuesser {
 
         $repoRacer = $this->em->getRepository('AppBundle:Racer');
         try {
-            $nextRacer = $repoRacer->getNextRacerAvailable($this->team, $position);
+            $nextRacers = $repoRacer->getAllRacersAvailable($this->team, $position);
         } catch(NoResultException $e) {
             return null;
         }
 
-        return $nextRacer;
+        return $nextRacers;
+    }
+
+    public function getNexts() {
+        return $this->computeNexts();
+    }
+
+    public function getNext() {
+        $nextRacers = $this->computeNexts();
+
+        return $nextRacers[0];
     }
 
     public function getLatest() {

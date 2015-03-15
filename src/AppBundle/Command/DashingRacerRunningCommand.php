@@ -33,18 +33,23 @@ class DashingRacerRunningCommand extends ContainerAwareCommand
         $now = new \Datetime();
         $nextGuesser = $this->getContainer()->get('racer.next');
 
+        $racers = array();
+        $preparing = array();
         foreach($teams as $team)
         {
-            $nextRacer = $nextGuesser
+            $nextRacers = $nextGuesser
                 ->setTeam($team)
-                ->getNext()
+                ->getNexts()
                 ;
+            $nextRacer = $nextRacers[0];
 
             if(!$nextRacer) {
                 $nextRacer = $repoRacer->getFirstOfTeam($team);
+                $nextRacer2 = $repoRacer->getSecondOfTeam($team);
             }
 
             $racers[] = array('label' => $team->getName(), 'value' => $nextRacer->getNickname());
+            $preparing[] = array('label' => $team->getName(), 'value' => $nextRacers[1]->getNickname());
         }
 
 
@@ -54,6 +59,15 @@ class DashingRacerRunningCommand extends ContainerAwareCommand
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
             "auth_token" => "ttrtyuijk",
             "items" => $racers,
+        )));
+        curl_exec($curl);
+
+        $url = 'http://localhost:3030/widgets/preparation';
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
+            "auth_token" => "ttrtyuijk",
+            "items" => $preparing,
         )));
         curl_exec($curl);
 
