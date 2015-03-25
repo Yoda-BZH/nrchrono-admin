@@ -9,7 +9,7 @@
         <li>Arrival: {{ timingData.arrival|date('Y-m-d H:i:s') }}</li>
         <li>delta: {{ timingData.delta.format('%R %H:%I:%S') }}</li>
         <li
-            data-arrival="{{ timingData.arrival|date('Y-m-d H:i:s') }}"
+            data-arrival="{{ timingData.arrival|date('c') }}"
             class="clock"
             id="clock-team-{{ timingData.team.id }}"
         ></li>
