@@ -51,8 +51,6 @@ class TimingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repoTeam = $em->getRepository('AppBundle:Team');
-        $repoRacer = $em->getRepository('AppBundle:Racer');
-        //$repoTiming = $em->getRepository('AppBundle:Timing');
         $teams = $repoTeam->getAll();
 
         return array(
