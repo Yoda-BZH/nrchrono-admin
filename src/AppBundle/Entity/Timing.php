@@ -7,11 +7,18 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Timing
  *
- * @ORM\Table(name="timing", indexes={@ORM\Index(name="fk_timing_1_idx", columns={"id_racer"}), @ORM\Index(name="fk_timing_2_type", columns={"type"})})
+ * @ORM\Table(name="timing", indexes={
+ *     @ORM\Index(name="fk_timing_1_idx",  columns={"id_racer"}),
+ *     @ORM\Index(name="fk_timing_2_type", columns={"type"})
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TimingRepository")
  */
 class Timing
 {
+    const AUTOMATIC  = 1;
+    const MANUAL     = 2;
+    const PREDICTION = 3;
+
     /**
      * @var integer
      *
@@ -52,7 +59,7 @@ class Timing
     /**
      * @var boolean
      *
-     * @ORM\Column(name="type", type="boolean", nullable=true)
+     * @ORM\Column(name="type", type="smallint", nullable=false, options={"default"=1})
      */
     private $type;
 
@@ -65,8 +72,6 @@ class Timing
      * })
      */
     private $idRacer;
-
-
 
     /**
      * Get id
@@ -181,6 +186,21 @@ class Timing
         $this->type = $type;
 
         return $this;
+    }
+
+    public function setPrediction()
+    {
+        return $this->setType(self::PREDICTION);
+    }
+
+    public function setManual()
+    {
+        return $this->setType(self::MANUAL);
+    }
+
+    public function setAutomatic()
+    {
+        return $this->setType(self::AUTOMATIC);
     }
 
     /**

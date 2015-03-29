@@ -24,19 +24,6 @@ class TimingRepository extends EntityRepository
             ;
 
         return $qb->getQuery()->getSingleResult();
-        /*$q = '
-SELECT
-    MIN(t.timing),
-    MAX(t.timing),
-    AVG(UNIX_TIMESTAMP(t.timing)
-FROM AppBundle:Timing t
-WHERE
-    t.idRacer = :idRacer';
-        $query = $this->getEntityManager()->createQuery($q)
-            ->setParameter('idRacer', $racer)
-            ;
-
-        return $query->getResult();*/
     }
 
     public function getLatests() {
@@ -79,14 +66,12 @@ WHERE
     {
         $qb = $this->createQueryBuilder('ti');
         $qb
-            //->addSelect($qb->expr()->max('ti.id'))
             ->addSelect('r')
             ->leftJoin('ti.idRacer', 'r')
             ->where('r.idTeam = :idTeam')
             ->setParameter('idTeam', $teamId)
             ->orderBy('ti.id', 'DESC')
             ;
-
 
         return $qb;
     }
