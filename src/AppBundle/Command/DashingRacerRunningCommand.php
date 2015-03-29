@@ -49,7 +49,9 @@ class DashingRacerRunningCommand extends ContainerAwareCommand
             }
 
             $racers[] = array('label' => $team->getName(), 'value' => $nextRacer->getNickname());
-            $preparing[] = array('label' => $team->getName(), 'value' => $nextRacers[1]->getNickname());
+            if(isset($nextRacers[1])) {
+                $preparing[] = array('label' => $team->getName(), 'value' => $nextRacers[1]->getNickname());
+            }
         }
 
 
