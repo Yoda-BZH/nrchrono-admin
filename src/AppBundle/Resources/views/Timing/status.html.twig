@@ -8,6 +8,17 @@
 {% for team in teams %}
     <div class="col-xs-6 col-sm-3 team-color-grad-{{ team.id }}">
         <div class="timing-status-teams" id="timing-status-team-{{ team.id }}">Statut de {{ team.name }}</div>
+        <div id="timing-manual-team-{{ team.id }}">
+            <select class="team-racer-manual-selector" name="team-{{ team.id }}-racer-id">
+                <option></option>
+{% for racer in team.racers %}
+                <option value="racer.id">
+                    {{ racer.nickname }}
+                </option>
+{% endfor %}
+            </select>
+            <button class="btn btn-primary">Ajouter un tour</button>
+        </div>
     </div>
 {% endfor %}
 </div>
@@ -53,6 +64,8 @@ $(document).ready(function() {
     }, 30000);
 
 {% endfor %}
+
+    $('.team-racer-manual-selector').selectmenu();
 });
 </script>
 {% endblock %}
