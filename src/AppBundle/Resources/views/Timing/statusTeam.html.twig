@@ -2,7 +2,7 @@
 {% block body -%}
 
 <p>now: {{ "now"|date('H:i:s') }}</p>
-    <p>Timing for {{ timingData.team.name }}</p>
+    <p>Timing for <a href="{{ path('team_show', { 'id': timingData.team.id }) }}">{{ timingData.team.name }}</a></p>
     <ul>
         <li>clock: {{ timingData.clock|date('Y-m-d H:i:s') }}</li>
         <li>en train d'arriver: <a href="{{ path('racer_show', { 'id': timingData.racer.id }) }}">{{ timingData.racer.nickname }}</a></li>

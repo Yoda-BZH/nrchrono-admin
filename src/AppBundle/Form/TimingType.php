@@ -22,6 +22,7 @@ class TimingType extends AbstractType
                 'property' => 'nickname',
                 'class'    => 'AppBundle\Entity\Racer',
             ))
+            ->add('type')
         ;
     }
 

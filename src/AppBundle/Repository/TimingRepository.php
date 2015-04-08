@@ -10,6 +10,28 @@ use AppBundle\Entity\Racer;
 
 class TimingRepository extends EntityRepository
 {
+
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function findLatests($id)
+    {
+        $qb = $this->createQueryBuilder('t');
+        $qb
+            ->addSelect('r')
+            ->addSelect('te')
+            ->leftJoin('t.idRacer', 'r')
+            ->leftJoin('r.idTeam', 'te')
+            ->where('t.id = :id')
+            ->setParameter('id', $id)
+            ;
+
+        return $qb->getQuery()->getSingleResult();
+    }
+
     public function getStats(Racer $racer)
     {
         $qb = $this->createQueryBuilder('t');

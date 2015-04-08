@@ -20,8 +20,9 @@
                 <th>{% trans %}Since{% endtrans %}</th>
                 <th>{% trans %}Isrelay{% endtrans %}</th>
                 <th>{% trans %}IdRacer{% endtrans %}</th>
+                <th>{% trans %}Type{% endtrans %}</th>
                 <th>{% trans %}IdTeam{% endtrans %}</th>
-                <th>position</th>
+                <th>{% trans %}position{% endtrans %}</th>
                 <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
@@ -35,6 +36,7 @@
                 <td></td>
                 <td>{{ entity.isRelay ? '1' : '0' }}</td>
                 <td><a href="{{ path('racer_show', { 'id': entity.idRacer.id }) }}">{{ entity.idRacer.nickname }}</a></td>
+                <td>{{ entity.type }}</td>
                 <td class="team-color-grad-{{ entity.idRacer.idTeam.id }}"><a href="{{ path('team_show', { 'id': entity.idRacer.idTeam.id }) }}">{{ entity.idRacer.idTeam.name }}</a></td>
                 <td>{{ entity.idRacer.position }}</td>
                 <td>

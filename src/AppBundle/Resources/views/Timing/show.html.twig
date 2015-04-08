@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <th>Timing</th>
-                <td>{{ entity.timing }}</td>
+                <td>{{ entity.timing|date('H:i:s') }}</td>
             </tr>
             <tr>
                 <th>Createdat</th>
@@ -22,8 +22,16 @@
                 <td>{{ entity.isRelay }}</td>
             </tr>
             <tr>
+                <th>Clock</th>
+                <td>{{ entity.clock|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
                 <th>IdRacer</th>
-                <td>{{ entity.idRacer.nickname }}</td>
+                <td><a href="{{ path('racer_show', { 'id': entity.idRacer.id }) }}">{{ entity.idRacer.nickname }}</a></td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ entity.type }}</td>
             </tr>
         </tbody>
     </table>
