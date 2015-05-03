@@ -258,16 +258,16 @@
         },
         {
             "name": "datatables/datatables",
-            "version": "1.10.5",
+            "version": "1.10.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DataTables/DataTables.git",
-                "reference": "a5d77d99bcda1dd072f4f3d0717e69893d7425d1"
+                "reference": "fc64e71e1cee289da199982d3196b7e43afc0e52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DataTables/DataTables/zipball/a5d77d99bcda1dd072f4f3d0717e69893d7425d1",
-                "reference": "a5d77d99bcda1dd072f4f3d0717e69893d7425d1",
+                "url": "https://api.github.com/repos/DataTables/DataTables/zipball/fc64e71e1cee289da199982d3196b7e43afc0e52",
+                "reference": "fc64e71e1cee289da199982d3196b7e43afc0e52",
                 "shasum": ""
             },
             "type": "library",
@@ -277,20 +277,20 @@
             ],
             "description": "DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, which will add advanced interaction controls to any HTML table.",
             "homepage": "http://www.datatables.net/",
-            "time": "2015-02-10 14:27:53"
+            "time": "2015-04-30 14:08:43"
         },
         {
             "name": "doctrine/annotations",
-            "version": "v1.2.3",
+            "version": "v1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "eeda578cbe24a170331a1cfdf78be723412df7a4"
+                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/eeda578cbe24a170331a1cfdf78be723412df7a4",
-                "reference": "eeda578cbe24a170331a1cfdf78be723412df7a4",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/b5202eb9e83f8db52e0e58867e0a46e63be8332e",
+                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e",
                 "shasum": ""
             },
             "require": {
@@ -345,20 +345,20 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-12-20 20:49:38"
+            "time": "2014-12-23 22:40:37"
         },
         {
             "name": "doctrine/cache",
-            "version": "v1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "2346085d2b027b233ae1d5de59b07440b9f288c8"
+                "reference": "c9eadeb743ac6199f7eec423cb9426bc518b7b03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/2346085d2b027b233ae1d5de59b07440b9f288c8",
-                "reference": "2346085d2b027b233ae1d5de59b07440b9f288c8",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/c9eadeb743ac6199f7eec423cb9426bc518b7b03",
+                "reference": "c9eadeb743ac6199f7eec423cb9426bc518b7b03",
                 "shasum": ""
             },
             "require": {
@@ -369,13 +369,13 @@
             },
             "require-dev": {
                 "phpunit/phpunit": ">=3.7",
-                "predis/predis": "~0.8",
+                "predis/predis": "~1.0",
                 "satooshi/php-coveralls": "~0.6"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4.x-dev"
+                    "dev-master": "1.5.x-dev"
                 }
             },
             "autoload": {
@@ -415,24 +415,27 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-01-15 20:38:55"
+            "time": "2015-04-15 00:11:59"
         },
         {
             "name": "doctrine/collections",
-            "version": "v1.2",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "b99c5c46c87126201899afe88ec490a25eedd6a2"
+                "reference": "6c1e4eef75f310ea1b3e30945e9f06e652128b8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/b99c5c46c87126201899afe88ec490a25eedd6a2",
-                "reference": "b99c5c46c87126201899afe88ec490a25eedd6a2",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/6c1e4eef75f310ea1b3e30945e9f06e652128b8a",
+                "reference": "6c1e4eef75f310ea1b3e30945e9f06e652128b8a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
             },
             "type": "library",
             "extra": {
@@ -451,17 +454,6 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com",
-                    "homepage": "http://www.jwage.com/",
-                    "role": "Creator"
-                },
-                {
-                    "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com",
-                    "homepage": "http://www.instaclick.com"
-                },
-                {
                     "name": "Roman Borschel",
                     "email": "roman@code-factory.org"
                 },
@@ -470,10 +462,16 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
                     "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Collections Abstraction library",
@@ -483,20 +481,20 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2014-02-03 23:07:43"
+            "time": "2015-04-14 22:21:58"
         },
         {
             "name": "doctrine/common",
-            "version": "v2.4.2",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "5db6ab40e4c531f14dad4ca96a394dfce5d4255b"
+                "reference": "cd8daf2501e10c63dced7b8b9b905844316ae9d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/5db6ab40e4c531f14dad4ca96a394dfce5d4255b",
-                "reference": "5db6ab40e4c531f14dad4ca96a394dfce5d4255b",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/cd8daf2501e10c63dced7b8b9b905844316ae9d3",
+                "reference": "cd8daf2501e10c63dced7b8b9b905844316ae9d3",
                 "shasum": ""
             },
             "require": {
@@ -513,7 +511,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4.x-dev"
+                    "dev-master": "2.6.x-dev"
                 }
             },
             "autoload": {
@@ -527,17 +525,6 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com",
-                    "homepage": "http://www.jwage.com/",
-                    "role": "Creator"
-                },
-                {
-                    "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com",
-                    "homepage": "http://www.instaclick.com"
-                },
-                {
                     "name": "Roman Borschel",
                     "email": "roman@code-factory.org"
                 },
@@ -546,10 +533,16 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
                     "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Common Library for Doctrine projects",
@@ -561,7 +554,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2014-05-21 19:28:51"
+            "time": "2015-04-02 19:55:44"
         },
         {
             "name": "doctrine/dbal",
@@ -983,16 +976,16 @@
         },
         {
             "name": "drmonty/datatables",
-            "version": "1.10.5",
+            "version": "1.10.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drmonty/datatables.git",
-                "reference": "de00d421ffd2e20e9e93119bf18283b77f223b5f"
+                "reference": "1e084d953f06909363394b711827521435ce73e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/datatables/zipball/de00d421ffd2e20e9e93119bf18283b77f223b5f",
-                "reference": "de00d421ffd2e20e9e93119bf18283b77f223b5f",
+                "url": "https://api.github.com/repos/drmonty/datatables/zipball/1e084d953f06909363394b711827521435ce73e1",
+                "reference": "1e084d953f06909363394b711827521435ce73e1",
                 "shasum": ""
             },
             "require": {
@@ -1031,20 +1024,20 @@
                 "sort",
                 "table"
             ],
-            "time": "2015-03-23 06:55:24"
+            "time": "2015-04-09 06:20:46"
         },
         {
             "name": "drmonty/datatables-fixedcolumns",
-            "version": "3.0.3",
+            "version": "3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drmonty/datatables-fixedcolumns.git",
-                "reference": "9f9f4c71699921653d3e0885f81d9ef3938bc776"
+                "reference": "69ee47a3cefcf88623fc9d99f8d17e6dc02dcafd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/datatables-fixedcolumns/zipball/9f9f4c71699921653d3e0885f81d9ef3938bc776",
-                "reference": "9f9f4c71699921653d3e0885f81d9ef3938bc776",
+                "url": "https://api.github.com/repos/drmonty/datatables-fixedcolumns/zipball/69ee47a3cefcf88623fc9d99f8d17e6dc02dcafd",
+                "reference": "69ee47a3cefcf88623fc9d99f8d17e6dc02dcafd",
                 "shasum": ""
             },
             "require": {
@@ -1070,7 +1063,7 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "FixedColumns Plugin for DataTables",
             "homepage": "http://www.datatables.net/",
-            "time": "2015-03-23 07:04:02"
+            "time": "2015-04-09 06:16:11"
         },
         {
             "name": "drmonty/datatables-fixedheader",
@@ -1113,16 +1106,16 @@
         },
         {
             "name": "drmonty/datatables-plugins",
-            "version": "1.0.1",
+            "version": "1.10.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drmonty/datatables-plugins.git",
-                "reference": "ba3700f569a5e05abf2a7dab113f05e0d6298baa"
+                "reference": "e2c603fc57718c1369615d06d992a77571fb5cbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/datatables-plugins/zipball/ba3700f569a5e05abf2a7dab113f05e0d6298baa",
-                "reference": "ba3700f569a5e05abf2a7dab113f05e0d6298baa",
+                "url": "https://api.github.com/repos/drmonty/datatables-plugins/zipball/e2c603fc57718c1369615d06d992a77571fb5cbe",
+                "reference": "e2c603fc57718c1369615d06d992a77571fb5cbe",
                 "shasum": ""
             },
             "require": {
@@ -1184,20 +1177,20 @@
                 "sort",
                 "table"
             ],
-            "time": "2014-12-22 14:19:04"
+            "time": "2015-04-09 05:53:40"
         },
         {
             "name": "drmonty/datatables-responsive",
-            "version": "v1.0.3",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drmonty/datatables-responsive.git",
-                "reference": "c78453534a95eee3cdf1e515c6e3ef6736050373"
+                "reference": "4d12ad508798c75ea516498531a179cf2fe1b28f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/datatables-responsive/zipball/c78453534a95eee3cdf1e515c6e3ef6736050373",
-                "reference": "c78453534a95eee3cdf1e515c6e3ef6736050373",
+                "url": "https://api.github.com/repos/drmonty/datatables-responsive/zipball/4d12ad508798c75ea516498531a179cf2fe1b28f",
+                "reference": "4d12ad508798c75ea516498531a179cf2fe1b28f",
                 "shasum": ""
             },
             "require": {
@@ -1223,20 +1216,20 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Responsive extension for DataTables, providing support for complex tables on all device screen sizes",
             "homepage": "http://www.datatables.net/",
-            "time": "2014-12-08 11:49:31"
+            "time": "2015-04-09 06:11:22"
         },
         {
             "name": "drmonty/datatables-tabletools",
-            "version": "v2.2.3",
+            "version": "2.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drmonty/datatables-tabletools.git",
-                "reference": "75d0cf86cc3157ed262da40068a9a50102e2224c"
+                "reference": "dae5b87a89f9bbdec6c43da3681f5665c5a840b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/datatables-tabletools/zipball/75d0cf86cc3157ed262da40068a9a50102e2224c",
-                "reference": "75d0cf86cc3157ed262da40068a9a50102e2224c",
+                "url": "https://api.github.com/repos/drmonty/datatables-tabletools/zipball/dae5b87a89f9bbdec6c43da3681f5665c5a840b0",
+                "reference": "dae5b87a89f9bbdec6c43da3681f5665c5a840b0",
                 "shasum": ""
             },
             "require": {
@@ -1264,7 +1257,7 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "TableTools Plugin for DataTables",
             "homepage": "http://www.datatables.net/",
-            "time": "2014-10-06 11:10:09"
+            "time": "2015-04-09 06:25:17"
         },
         {
             "name": "fzaninotto/faker",
@@ -1272,12 +1265,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "81f8e9439d0041866849c05d334584ea31c7b05e"
+                "reference": "1dc7404280b32ee661ea65606efcf792be6fc4ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/81f8e9439d0041866849c05d334584ea31c7b05e",
-                "reference": "81f8e9439d0041866849c05d334584ea31c7b05e",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/1dc7404280b32ee661ea65606efcf792be6fc4ca",
+                "reference": "1dc7404280b32ee661ea65606efcf792be6fc4ca",
                 "shasum": ""
             },
             "require": {
@@ -1316,7 +1309,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2015-03-18 16:46:58"
+            "time": "2015-04-27 20:30:06"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1422,16 +1415,16 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/justinrainbow/json-schema.git",
-                "reference": "680d026082c3aa234b2d8617c50e9c73999913ba"
+                "reference": "2465fe486c864e30badaa4d005ebdf89dbc503f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/680d026082c3aa234b2d8617c50e9c73999913ba",
-                "reference": "680d026082c3aa234b2d8617c50e9c73999913ba",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/2465fe486c864e30badaa4d005ebdf89dbc503f3",
+                "reference": "2465fe486c864e30badaa4d005ebdf89dbc503f3",
                 "shasum": ""
             },
             "require": {
@@ -1484,7 +1477,7 @@
                 "json",
                 "schema"
             ],
-            "time": "2015-03-23 20:38:38"
+            "time": "2015-03-27 16:41:39"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -1763,17 +1756,17 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v3.0.19",
+            "version": "v3.0.22",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "c68d47e3bcdfca74d92ab9d9382e276adf451424"
+                "reference": "0fe4ec86db57c232becb694e01cdabe3c4d9af7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/c68d47e3bcdfca74d92ab9d9382e276adf451424",
-                "reference": "c68d47e3bcdfca74d92ab9d9382e276adf451424",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/0fe4ec86db57c232becb694e01cdabe3c4d9af7c",
+                "reference": "0fe4ec86db57c232becb694e01cdabe3c4d9af7c",
                 "shasum": ""
             },
             "require": {
@@ -1819,21 +1812,21 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-03-25 09:01:40"
+            "time": "2015-05-02 16:23:08"
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v3.0.6",
+            "version": "v3.0.7",
             "target-dir": "Sensio/Bundle/FrameworkExtraBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "1c3ed356bd1ff67cd71806efbb71511644035c85"
+                "reference": "5c37623576ea9e841b87dc0d85414d98fa6f7abb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/1c3ed356bd1ff67cd71806efbb71511644035c85",
-                "reference": "1c3ed356bd1ff67cd71806efbb71511644035c85",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/5c37623576ea9e841b87dc0d85414d98fa6f7abb",
+                "reference": "5c37623576ea9e841b87dc0d85414d98fa6f7abb",
                 "shasum": ""
             },
             "require": {
@@ -1874,20 +1867,20 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2015-03-24 15:12:07"
+            "time": "2015-04-02 12:28:58"
         },
         {
             "name": "sensiolabs/security-checker",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/security-checker.git",
-                "reference": "134cecf1c61256bd8e973e11376891a724543820"
+                "reference": "cecb1397087dc9c733796eda6e9d121336039cdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/134cecf1c61256bd8e973e11376891a724543820",
-                "reference": "134cecf1c61256bd8e973e11376891a724543820",
+                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/cecb1397087dc9c733796eda6e9d121336039cdc",
+                "reference": "cecb1397087dc9c733796eda6e9d121336039cdc",
                 "shasum": ""
             },
             "require": {
@@ -1919,7 +1912,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2015-01-26 16:25:19"
+            "time": "2015-04-21 07:52:05"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2255,16 +2248,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.6.5",
+            "version": "v2.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "80833da9d04b004fa59fd23102e6dfad80c98106"
+                "reference": "48c9e835a877adfb023b8b6d033d9dd14f342b4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/80833da9d04b004fa59fd23102e6dfad80c98106",
-                "reference": "80833da9d04b004fa59fd23102e6dfad80c98106",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/48c9e835a877adfb023b8b6d033d9dd14f342b4b",
+                "reference": "48c9e835a877adfb023b8b6d033d9dd14f342b4b",
                 "shasum": ""
             },
             "require": {
@@ -2368,7 +2361,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-03-17 14:58:46"
+            "time": "2015-04-01 16:55:26"
         },
         {
             "name": "twbs/bootstrap",
@@ -2475,20 +2468,20 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.18.0",
+            "version": "v1.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "4cf7464348e7f9893a93f7096a90b73722be99cf"
+                "reference": "9f70492f44398e276d1b81c1b43adfe6751c7b7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/4cf7464348e7f9893a93f7096a90b73722be99cf",
-                "reference": "4cf7464348e7f9893a93f7096a90b73722be99cf",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/9f70492f44398e276d1b81c1b43adfe6751c7b7f",
+                "reference": "9f70492f44398e276d1b81c1b43adfe6751c7b7f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.2.4"
+                "php": ">=5.2.7"
             },
             "type": "library",
             "extra": {
@@ -2528,7 +2521,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-01-25 17:32:08"
+            "time": "2015-04-19 08:30:27"
         }
     ],
     "packages-dev": [
