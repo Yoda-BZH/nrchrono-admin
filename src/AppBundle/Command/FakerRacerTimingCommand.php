@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use AppBundle\Entity\Timing;
+use AppBundle\Entity\Matsport;
 
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
@@ -41,11 +42,11 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
         try {
             $latestTeamTiming = $repoTiming->getLatestTeamTiming($team);
             $clock = clone $latestTeamTiming->getClock();
-            $output->writeln('Using latest team timing clock');
+            $output->writeln(date('c ').'Using latest team timing clock');
         } catch(\Exception $e) {
             $race = $em->getRepository('AppBundle:Race')->find(1);
             $clock = clone $race->getStart();
-            $output->writeln('Seems le first one, using the start of race');
+            $output->writeln(date('c ').'Seems le first one, using the start of race');
         }
 
         $nextRacer = $nextGuesser
@@ -81,10 +82,20 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             ->setClock($clock)
             ;
 
+        $matsport = new Matsport;
+        $matsport
+            ->setCreatedAt(new \Datetime)
+            ->setIdTeam($team->getId())
+            ->setIsRelay(0)
+            -setTiming($t)
+            ->setClock($clock)
+            ;
+
         $interval = $clock->diff($timing->getCreatedAt());
-        $output->writeln(sprintf('Interval: %s', $interval->format('%R %H:%I:%S')));
+        $output->writeln(sprintf(date('c ').'Interval: %s', $interval->format('%R %H:%I:%S')));
 
         $em->persist($timing);
+        $em->persist($matsport);
         $em->flush();
 
         return 0;
