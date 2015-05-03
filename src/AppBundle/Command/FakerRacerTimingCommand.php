@@ -44,6 +44,7 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             $clock = clone $latestTeamTiming->getClock();
             $output->writeln(date('c ').'Using latest team timing clock');
         } catch(\Exception $e) {
+            $output->writeln('got exception: '.$e->getTraceAsString());
             $race = $em->getRepository('AppBundle:Race')->find(1);
             $clock = clone $race->getStart();
             $output->writeln(date('c ').'Seems le first one, using the start of race');
@@ -73,6 +74,7 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
 
         $clock->modify($s);
 
+        $output->writeln(date('c ').'Creating timing');
         $timing = new Timing;
         $timing
             ->setCreatedAt(new \Datetime)
@@ -82,22 +84,25 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             ->setClock($clock)
             ;
 
+        $output->writeln(date('c ').'Creating matsport emulation');
         $matsport = new Matsport;
         $matsport
             ->setCreatedAt(new \Datetime)
             ->setIdTeam($team->getId())
             ->setIsRelay(0)
-            -setTiming($t)
+            ->setTiming($t)
             ->setClock($clock)
             ;
 
+        $output->writeln(date('c ').'Calculating drift ...');
         $interval = $clock->diff($timing->getCreatedAt());
-        $output->writeln(sprintf(date('c ').'Interval: %s', $interval->format('%R %H:%I:%S')));
+        $output->writeln(date('c ').sprintf('Interval: %s', $interval->format('%R %H:%I:%S')));
 
+        $output->writeln(date('c ').'saving everything');
         $em->persist($timing);
         $em->persist($matsport);
         $em->flush();
-
+        $output->writeln(date('c ').'done lap');
         return 0;
     }
 }
