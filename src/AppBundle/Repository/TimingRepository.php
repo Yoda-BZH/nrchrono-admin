@@ -117,7 +117,10 @@ class TimingRepository extends EntityRepository
             ->setMaxResults(1)
             ;
 
-        return $qb->getQuery()->getSingleResult();
+        return $qb
+            ->getQuery()
+            ->getSingleResult()
+            ;
     }
 
     /**
