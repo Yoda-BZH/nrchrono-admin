@@ -35,13 +35,12 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
 
         $data = array();
 
-        $em = $cotainer->get('doctrine')->getManager();
+        $em = $container->get('doctrine')->getManager();
 
         $repoTeams = $em->getRepository('AppBundle:Team');
         $teams = $repoTeams->findAll();
 
         $repoMatsport = $em->getRepository('AppBundle:Matsport');
-
 
         foreach($teams as $team) {
             $lastTiming = $repoMatsport->findLatestForTeam($team->getId());
