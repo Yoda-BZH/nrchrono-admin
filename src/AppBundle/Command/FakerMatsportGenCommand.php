@@ -52,13 +52,13 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
 
             $time = $lastTiming->getClock()->diff($raceStart);
             $secs = $time->format('%H') * 3600 + $time->format('%I') * 60 + $time->format('%S');
-            $kmh = ((1 * ($nbLap[1] * 4.185)) / ($secs/3600));
+            $kmh = ((1 * ($nbLap[1] * $race->getKm())) / ($secs/3600));
 
             $data[$team->getId()] = array(
                 'team' => $team,
                 'timing' => $lastTiming,
                 'laps' => $nbLap[1],
-                'km' => $nbLap[1] * 4.185,
+                'km' => $nbLap[1] * $race->getKm(),
                 'type' => 'Prestige',
                 'time' => $time->format('%H:%I:%S'),
                 'vitesse' => round($kmh, 1),

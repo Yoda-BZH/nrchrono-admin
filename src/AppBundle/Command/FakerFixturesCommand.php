@@ -44,6 +44,7 @@ class FakerFixturesCommand extends ContainerAwareCommand
         $race
             ->setName('24H du Mans Roller 2015')
             ->setStart(new \Datetime)
+            ->setKm('4.185')
             ;
 
         $em->persist($race);
