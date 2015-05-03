@@ -56,6 +56,10 @@ class FakerFixturesCommand extends ContainerAwareCommand
             array(new \Datetime($today . ' 22:00'), new \Datetime($tomorrow . ' 03:00')),
             array(new \Datetime($tomorrow . ' 03:00'), new \Datetime($tomorrow . ' 08:00')),
         );
+        $pausesTeam[6] = array(
+            array(new \Datetime($tomorrow . ' 00:00'), new \Datetime($tomorrow . ' 03:00')),
+            array(new \Datetime($tomorrow . ' 03:00'), new \Datetime($tomorrow . ' 06:00')),
+        );
         $pausesTeam[5] = array(
             array(new \Datetime($tomorrow . ' 00:00'), new \Datetime($tomorrow . ' 03:00')),
             array(new \Datetime($tomorrow . ' 03:00'), new \Datetime($tomorrow . ' 06:00')),
@@ -67,17 +71,21 @@ class FakerFixturesCommand extends ContainerAwareCommand
             array(new \Datetime($tomorrow . ' 04:00'), new \Datetime($tomorrow . ' 06:00')),
         );
 
-        $teamsTypes = array(
-            array(2, 1,  1, $pausesTeam[2], '#c71e1e'),
-            array(5, 3,  2, $pausesTeam[5], '#e2ff00'),
-            array(10, 5, 2, $pausesTeam[10], '#3928c7'),
-            array(10, 5, 2, $pausesTeam[10], '#10d21a'),
-            array(10, 5, 2, $pausesTeam[10], '#c820be'),
-        );
+        if(is_file(__DIR__.'/fixtures.php')) {
+            include __DIR__.'/fixtures.php';
+        } else {
+            $teamsTypes = array(
+                array(2, 1,  1, $pausesTeam[2], '#c71e1e', sprintf('NR %s', $faker->city)),
+                array(5, 3,  2, $pausesTeam[5], '#e2ff00', sprintf('NR %s', $faker->city)),
+                array(10, 5, 2, $pausesTeam[10], '#3928c7', sprintf('NR %s', $faker->city)),
+                array(10, 5, 2, $pausesTeam[10], '#10d21a', sprintf('NR %s', $faker->city)),
+                array(10, 5, 2, $pausesTeam[10], '#c820be', sprintf('NR %s', $faker->city)),
+            );
+        }
 
         foreach($teamsTypes as $teamType) {
             $team = new Team;
-            $name = sprintf('NR %s', $faker->city);
+            $name = $teamType[5];
             $team
                 ->setName($name)
                 ->setNbHeurePause($teamType[1])
@@ -129,9 +137,15 @@ class FakerFixturesCommand extends ContainerAwareCommand
                 }
                 $tavg = new \Datetime('00:00:00');
                 $tavg->modify(sprintf('+ %d seconds', ($tmn + $tmx) / 2));
+
+                if (isset($teamType[6])) {
+                    $firstname = $teamType[6][$i][0];
+                } else {
+                    $firstname = $faker->firstname;
+                }
                 $racer
-                    ->setFirstname($firstname = $faker->firstname)
-                    ->setLastName($faker->lastname)
+                    ->setFirstname($firstname)
+                    ->setLastName('')
                     ->setNickname($firstname)
                     ->setPosition($i + 1)
                     ->setIdTeam($team)
