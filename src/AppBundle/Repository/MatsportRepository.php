@@ -26,4 +26,20 @@ class MatsportRepository extends EntityRepository
 
         return $qb->getQuery()->getSingleResult();
     }
+
+    public function nbLapForTeam($teamId)
+    {
+        $qb = $this->createQueryBuilder('m');
+
+        $qb
+            ->select('COUNT(m.id)')
+            ->where('m.idTeam = :id')
+            ->setParameter('id', $teamId)
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getSingleResult()
+            ;
+    }
 }

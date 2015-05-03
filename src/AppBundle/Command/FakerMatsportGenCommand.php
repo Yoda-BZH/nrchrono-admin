@@ -40,18 +40,34 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
         $repoTeams = $em->getRepository('AppBundle:Team');
         $teams = $repoTeams->findAll();
 
+        $race = $em->getRepository('AppBundle:Race')->find(1);
+
+        $raceStart = $race->getStart();
+
         $repoMatsport = $em->getRepository('AppBundle:Matsport');
 
         foreach($teams as $team) {
             $lastTiming = $repoMatsport->findLatestForTeam($team->getId());
+            $nbLap = $repoMatsport->nbLapForTeam($team->getId());
+
+            $time = $lastTiming->getClock()->diff($raceStart);
+            $secs = $time->format('%H') * 3600 + $time->format('%I') * 60 + $time->format('%S');
+            $kmh = ((1 * ($nbLap[1] * 4.185)) / ($secs/3600));
+
             $data[$team->getId()] = array(
                 'team' => $team,
                 'timing' => $lastTiming,
+                'laps' => $nbLap[1],
+                'km' => $nbLap[1] * 4.185,
+                'type' => 'Prestige',
+                'time' => $time->format('%H:%I:%S'),
+                'vitesse' => round($kmh, 1),
             );
         }
 
-        $data = $twig->render($template, $data);
-
+        //$data = $twig->render($template, $data);
+        $html = $template->render(array('entries' => $data));
+        file_put_contents(__DIR__.'/../../../matsport.html', $html);
         return 0;
     }
 }
