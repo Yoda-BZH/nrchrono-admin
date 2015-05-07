@@ -43,6 +43,13 @@ class Race
     private $teams;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="km", type="string", length=10)
+     */
+    private $km;
+
+    /**
      * Get id
      *
      * @return integer
@@ -96,6 +103,29 @@ class Race
     public function getStart()
     {
         return $this->start;
+    }
+
+    /**
+     * Get Race length (in km)
+     *
+     * @return string
+     */
+    public function getKm()
+    {
+        return $this->km;
+    }
+
+    /**
+     * Set race length (in km)
+     *
+     * @param string|float $km
+     * @return Race
+     */
+    public function setKm($km)
+    {
+        $this->km = $km;
+
+        return $this;
     }
 
     public function __toString() {
