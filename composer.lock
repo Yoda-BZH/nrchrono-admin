@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "8fe2f5b84f2389598feaeadb2685c813",
@@ -100,16 +100,16 @@
         },
         {
             "name": "components/jquery",
-            "version": "2.1.3",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/jquery.git",
-                "reference": "f8edb647d1833fd5d57410ab70860f03534cb2e8"
+                "reference": "7b1d1104656a092423fbfba13c5920e9bbba290c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/jquery/zipball/f8edb647d1833fd5d57410ab70860f03534cb2e8",
-                "reference": "f8edb647d1833fd5d57410ab70860f03534cb2e8",
+                "url": "https://api.github.com/repos/components/jquery/zipball/7b1d1104656a092423fbfba13c5920e9bbba290c",
+                "reference": "7b1d1104656a092423fbfba13c5920e9bbba290c",
                 "shasum": ""
             },
             "type": "component",
@@ -138,7 +138,7 @@
             ],
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
-            "time": "2014-12-23 06:48:45"
+            "time": "2015-05-08 05:04:47"
         },
         {
             "name": "composer-fork/composer",
@@ -976,16 +976,16 @@
         },
         {
             "name": "drmonty/datatables",
-            "version": "1.10.6",
+            "version": "1.10.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drmonty/datatables.git",
-                "reference": "1e084d953f06909363394b711827521435ce73e1"
+                "reference": "b3d44032ccb5cbeb9a0cb1c80487c8ea1de7a5d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/datatables/zipball/1e084d953f06909363394b711827521435ce73e1",
-                "reference": "1e084d953f06909363394b711827521435ce73e1",
+                "url": "https://api.github.com/repos/drmonty/datatables/zipball/b3d44032ccb5cbeb9a0cb1c80487c8ea1de7a5d7",
+                "reference": "b3d44032ccb5cbeb9a0cb1c80487c8ea1de7a5d7",
                 "shasum": ""
             },
             "require": {
@@ -1024,7 +1024,7 @@
                 "sort",
                 "table"
             ],
-            "time": "2015-04-09 06:20:46"
+            "time": "2015-05-08 07:29:20"
         },
         {
             "name": "drmonty/datatables-fixedcolumns",
@@ -1181,16 +1181,16 @@
         },
         {
             "name": "drmonty/datatables-responsive",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drmonty/datatables-responsive.git",
-                "reference": "4d12ad508798c75ea516498531a179cf2fe1b28f"
+                "reference": "8ab58df95a775f82d1a63465004d391c6d51ae38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/datatables-responsive/zipball/4d12ad508798c75ea516498531a179cf2fe1b28f",
-                "reference": "4d12ad508798c75ea516498531a179cf2fe1b28f",
+                "url": "https://api.github.com/repos/drmonty/datatables-responsive/zipball/8ab58df95a775f82d1a63465004d391c6d51ae38",
+                "reference": "8ab58df95a775f82d1a63465004d391c6d51ae38",
                 "shasum": ""
             },
             "require": {
@@ -1216,7 +1216,7 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Responsive extension for DataTables, providing support for complex tables on all device screen sizes",
             "homepage": "http://www.datatables.net/",
-            "time": "2015-04-09 06:11:22"
+            "time": "2015-05-08 07:37:36"
         },
         {
             "name": "drmonty/datatables-tabletools",
