@@ -50,7 +50,7 @@ class NextRacerGuesser {
 
         try {
             $this->latestTiming[$teamId] = $this->repoTiming->getLatestTeamTiming($this->team->getId());
-            $this->latestRacer[$teamId] = $this->latestTiming->getIdRacer();
+            $this->latestRacer[$teamId] = $this->latestTiming[$teamId]->getIdRacer();
             $position = $this->latestRacer[$teamId]->getPosition();
         } catch(NoResultException $e) {
             $this->latestRacer[$teamId] = $this->repoRacer->getFirstOfTeam($this->team);
