@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -51,7 +52,7 @@ class TimingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repoTeam = $em->getRepository('AppBundle:Team');
-        $teams = $repoTeam->getAll();
+        $teams = $repoTeam->getAllWithRacers();
 
         return array(
             'teams' => $teams,
@@ -75,15 +76,15 @@ class TimingController extends Controller
         $now = new \Datetime();
 
         $nextGuesser = $this->get('racer.next');
-        $nextRacer = $nextGuesser
+        $nextRacers = $nextGuesser
             ->setTeam($team)
-            ->getNext()
+            ->getNexts()
             ;
 
-        if(!$nextRacer) {
-            $repoRacer = $em->getRepository('AppBundle:Racer');
-            $nextRacer = $repoRacer->getFirstOfTeam($team);
-        }
+        //if(!$nextRacer) {
+        //    $repoRacer = $em->getRepository('AppBundle:Racer');
+        //    $nextRacer = $repoRacer->getFirstOfTeam($team);
+        //}
 
         $latestRacer = $nextGuesser->getLatest();
 
@@ -104,22 +105,56 @@ class TimingController extends Controller
         //    //return new JsonResponse(array(), 404);
         //}
         $arrival = clone $clock;
-        $interval = new \DateInterval($nextRacer->getTimingAvg()->format('\P\TH\Hi\Ms\S'));
+        $interval = new \DateInterval($nextRacers[0]->getTimingAvg()->format('\P\TH\Hi\Ms\S'));
         $arrival->add($interval);
 
         $delta = $arrival->diff($now);
-        $timingData = array(
-            'racer' => $nextRacer,
+        return array(
+            'racers' => array_slice($nextRacers, 0, 5),
             //'latest' => $latestRacer,
             'clock' => $clock,
             'team'  => $team,
             'arrival' => $arrival,
             'delta' => $delta,
         );
+    }
 
-        return array(
-            'timingData' => $timingData,
-        );
+    /**
+     * Add a new prediction
+     *
+     * @Route("/add-prediction", name="timing_update_prediction")
+     * @Method("POST")
+     */
+    public function addPredictionAction(Request $request) {
+        $predictions = $request->request->get('data');
+        $teamId = $request->request->get('teamId');
+        //var_dump($predictions, $teamId);
+        $em = $this->getDoctrine()->getManager();
+
+        $repoTeam = $em->getRepository('AppBundle:Team');
+        $team = $repoTeam->find($teamId);
+
+        $repoTiming = $em->getRepository('AppBundle:Timing');
+        $oldPrediction = $repoTiming->getPredictionsForTeam($team);
+
+        $repoRacer = $em->getRepository('AppBundle:Racer');
+        foreach(array_reverse($predictions) as $index => $prediction) {
+            if(isset($oldPrediction[$index])) {
+                $timing = $oldPrediction[$index];
+            } else {
+                $timing = new Timing();
+            }
+            $timing
+                ->setCreatedAt(new \Datetime)
+                ->setIdRacer($repoRacer->find($prediction['racerid']))
+                ->setIsRelay(0)
+                ->setPrediction()
+                ;
+            $em->persist($timing);
+        }
+        $em->flush();
+
+        return new Response();
     }
 
     /**
@@ -333,11 +368,11 @@ class TimingController extends Controller
             ->getNext()
             ;
 
-        if(!$nextRacer) {
-            $repoRacer = $em->getRepository('AppBundle:Racer');
-            $nextRacer = $repoRacer->getFirstOfTeam($team);
-            //return new JsonResponse(array(), 404);
-        }
+        //if(!$nextRacer) {
+        //    $repoRacer = $em->getRepository('AppBundle:Racer');
+        //    $nextRacer = $repoRacer->getFirstOfTeam($team);
+        //    //return new JsonResponse(array(), 404);
+        //}
 
         $d = array(
             'firstname' => $nextRacer->getFirstname(),

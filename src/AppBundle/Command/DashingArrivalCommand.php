@@ -41,9 +41,9 @@ class DashingArrivalCommand extends ContainerAwareCommand
                 ->getNext()
                 ;
 
-            if(!$nextRacer) {
-                $nextRacer = $repoRacer->getFirstOfTeam($team);
-            }
+            //if(!$nextRacer) {
+            //    $nextRacer = $repoRacer->getFirstOfTeam($team);
+            //}
 
             $latestRacer = $nextGuesser->getLatest();
 

@@ -4,6 +4,7 @@
 
 <h1>Statut</h1>
 
+{#
 <div class="row">
 {% for team in teams %}
     <div class="col-xs-6 col-sm-3 team-color-grad-{{ team.id }}">
@@ -21,6 +22,44 @@
         </div>
     </div>
 {% endfor %}
+</div>
+#}
+
+<div class="">
+<table class="table table-condensed table-stripped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Fini</th>
+            <th>Fini</th>
+            <th>Vient de finir</th>
+            <th>--</th>
+            <th>Sur la piste</th>
+            <th>Doit se préparer</th>
+            <th>A encore le temps</th>
+            <th>--</th>
+            <th>--</th>
+        </tr>
+    </thead>
+    <tbody id="racers-prevision">
+{% for team in teams %}
+        <tr class="timing-status-teams" id="timing-status-team-{{ team.id }}"><td colspan="9" class="team-bg-color-{{ team.id }}">Chargement en cours</td></tr>
+{% endfor %}
+    </tbody>
+</table>
+</div>
+
+<div>
+{% for team in teams %}
+    <div id="selector-team-{{ team.id }}">
+        <select class="team-racer-manual-selector" name="team-{{ team.id }}-racer-id">
+            <option>Changer de coureur</option>
+{% for racer in team.racers %}
+            <option value="{{ racer.id }}">{{ racer.nickname }}</option>
+{% endfor %}
+        </select>
+    </div>
+{% endfor %}
+
 </div>
 {% endblock %}
 
@@ -58,14 +97,65 @@ $(document).ready(function() {
         });
     }
 {% for team in teams %}
+    initialDataSelector = $('#timing-status-team-{{ team.id }} td');
+    initialData = initialDataSelector.html();
     loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
     setInterval(function() {
+        initialDataSelector.html(initialData);
         loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
     }, 30000);
 
 {% endfor %}
 
-    $('.team-racer-manual-selector').selectmenu();
+    racerPrevisons = $('#racers-prevision');
+    racerPrevisons.on('click', 'button.prediction-changer', function() {
+        $button = $(this);
+        $parent = $button.parent();
+        $teamId = $button.data('team-id');
+        $racerId = $button.data('racer-id');
+        $select = $('#selector-team-' + $teamId + ' select');
+        //if(!$select) {
+        //    console.log('unable to find select ...');
+        //}
+        $parent.append($select);
+        $parent.find('select option[value=' + $racerId + ']').attr('selected', 'selected');
+    });
+    racerPrevisons.on('change', 'select.team-racer-manual-selector', function() {
+        $select = $(this);
+        $selectedRacerId = $select.val();
+        $button = $select.parent().find('button');
+        $pos = $button.data('prediction-pos');
+        postData = [];
+        $teamId = $button.data('team-id');
+        postData.push({
+            racerid: $selectedRacerId,
+            pos: $pos
+        });
+        $select.parent().prevUntil(
+            document.getElementById('separator-' + $teamId),
+            'td'
+        ).each(function(index) {
+            $td = $(this);
+            $button = $td.find('button');
+            $racerId = $button.data('racer-id');
+            $position = $button.data('prediction-pos');
+            postData.push({
+                racerid: $racerId,
+                pos: $position
+            });
+        });
+
+
+        console.log(postData);
+        $.post(
+            '{{ path("timing_update_prediction") }}',
+            { data: postData, teamId: $teamId },
+            function(data, textStatus, jqXHR) {
+                window.location = window.location;
+            }
+        );
+    });
+    //$('.team-racer-manual-selector').selectmenu();
 });
 </script>
 {% endblock %}

@@ -56,10 +56,10 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             ->getNext()
             ;
 
-        if(!$nextRacer) {
-            $repoRacer = $em->getRepository('AppBundle:Racer');
-            $nextRacer = $repoRacer->getFirstOfTeam($team);
-        }
+        //if(!$nextRacer) {
+        //    $repoRacer = $em->getRepository('AppBundle:Racer');
+        //    $nextRacer = $repoRacer->getFirstOfTeam($team);
+        //}
 
         //$racer = $repoTeam->getNextRacer($teamId);
         if($mediumTiming == 12) {
@@ -75,14 +75,20 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
 
         $clock->modify($s);
 
+        try {
+            $timing = $repoTiming->getPrediction($nextRacer);
+        } catch(\Exception $e) {
+            $timing = new Timing;
+        }
+
         $output->writeln(date('c ').'Creating timing');
-        $timing = new Timing;
         $timing
             ->setCreatedAt(new \Datetime)
             ->setIdRacer($nextRacer)
             ->setIsRelay(0)
             ->setTiming($t)
             ->setClock($clock)
+            ->setAutomatic()
             ;
 
         $output->writeln(date('c ').'Creating matsport emulation');
@@ -110,6 +116,7 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             $output->writeln('trace: '.$e->getTraceAsString());
         }
         $output->writeln(date('c ').'done lap');
+
         return 0;
     }
 }

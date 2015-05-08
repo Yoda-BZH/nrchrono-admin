@@ -10,6 +10,9 @@ class NextRacerGuesser {
     private $team;
     private $latestRacer;
     private $latestTiming;
+    private $repoTiming = null;
+    private $repoRacer = null;
+    private $nextRacers = array();
 
     public function __construct() {
 
@@ -24,6 +27,10 @@ class NextRacerGuesser {
     {
         $this->em = $em;
 
+        $this->repoTiming = $this->em->getRepository('AppBundle:Timing');
+
+        $this->repoRacer = $this->em->getRepository('AppBundle:Racer');
+
         return $this;
     }
 
@@ -34,45 +41,63 @@ class NextRacerGuesser {
     }
 
     public function computeNexts() {
-        $repoTiming = $this->em->getRepository('AppBundle:Timing');
+        $teamId = $this->team->getId();
+
+        if (isset($this->nextRacers[$teamId]))
+        {
+            return $this->nextRacers;
+        }
 
         try {
-            //$this->latestRacer = $repoTiming->getLatestRacer($this->team->getId());
-            $this->latestTiming = $repoTiming->getLatestTeamTiming($this->team->getId());
-            $this->latestRacer = $this->latestTiming->getIdRacer();
+            $this->latestTiming[$teamId] = $this->repoTiming->getLatestTeamTiming($this->team->getId());
+            $this->latestRacer[$teamId] = $this->latestTiming->getIdRacer();
+            $position = $this->latestRacer[$teamId]->getPosition();
         } catch(NoResultException $e) {
-            $this->latestTiming = null;
-            $this->latestRacer = null;
+            $this->latestRacer[$teamId] = $this->repoRacer->getFirstOfTeam($this->team);
+            $this->latestTiming[$teamId] = null;
+            // Fix, no racer is on track, so, really find the first one.
+            $position = 0;
+        }
+
+        try {
+            // first search for predictions
+            $predictions = $this->repoTiming->getPredictionsForTeam($this->team, $position);
+
+            // then search normal racers
+            $this->nextRacers[$teamId] = $this->repoRacer->getAllRacersAvailable($this->team, $position);
+
+            // fix the first racer has to do 2 laps in a row
+            if ($this->latestTiming[$teamId] == null)
+            {
+                array_unshift($this->nextRacers[$teamId], $this->nextRacers[$teamId][0]);
+            }
+
+            foreach($predictions as $index => $prediction) {
+                //echo 'Setting '.$index.' to '.$prediction->getIdRacer()->getNickname();
+                $this->nextRacers[$teamId][$index] = $prediction->getIdRacer();
+            }
+        } catch(NoResultException $e) {
             return null;
         }
 
-        $position = $this->latestRacer->getPosition();
-
-        $repoRacer = $this->em->getRepository('AppBundle:Racer');
-        try {
-            $nextRacers = $repoRacer->getAllRacersAvailable($this->team, $position);
-        } catch(NoResultException $e) {
-            return null;
-        }
-
-        return $nextRacers;
+        return $this->nextRacers[$teamId];
     }
 
     public function getNexts() {
-        return $this->computeNexts();
+        return $this->nextRacers[$this->team->getId()] = $this->computeNexts();
     }
 
     public function getNext() {
-        $nextRacers = $this->computeNexts();
+        $this->nextRacers[$this->team->getId()] = $this->computeNexts();
 
-        return $nextRacers[0];
+        return $this->nextRacers[$this->team->getId()][0];
     }
 
     public function getLatest() {
-        return $this->latestRacer;
+        return $this->latestRacer[$this->team->getId()];
     }
 
     public function getLatestTiming() {
-        return $this->latestTiming;
+        return $this->latestTiming[$this->team->getId()];
     }
 }

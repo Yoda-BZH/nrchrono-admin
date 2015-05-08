@@ -43,10 +43,10 @@ class DashingRacerRunningCommand extends ContainerAwareCommand
                 ;
             $nextRacer = $nextRacers[0];
 
-            if(!$nextRacer) {
-                $nextRacer = $repoRacer->getFirstOfTeam($team);
-                $nextRacer2 = $repoRacer->getSecondOfTeam($team);
-            }
+            //if(!$nextRacer) {
+            //    $nextRacer = $repoRacer->getFirstOfTeam($team);
+            //    $nextRacer2 = $repoRacer->getSecondOfTeam($team);
+            //}
 
             $racers[] = array('label' => $team->getName(), 'value' => $nextRacer->getNickname());
             if(isset($nextRacers[1])) {

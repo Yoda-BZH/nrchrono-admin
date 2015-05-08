@@ -57,10 +57,10 @@ class ManualTimingController extends Controller
             ->getNext()
             ;
 
-        if(!$nextRacer) {
-            $repoRacer = $em->getRepository('AppBundle:Racer');
-            $nextRacer = $repoRacer->getFirstOfTeam($team);
-        }
+        //if(!$nextRacer) {
+        //    $repoRacer = $em->getRepository('AppBundle:Racer');
+        //    $nextRacer = $repoRacer->getFirstOfTeam($team);
+        //}
 
         $latestRacer = $nextGuesser->getLatest();
 

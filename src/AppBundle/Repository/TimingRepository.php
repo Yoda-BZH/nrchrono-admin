@@ -7,6 +7,8 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 
 use AppBundle\Entity\Racer;
+use AppBundle\Entity\Timing;
+use AppBundle\Entity\Team;
 
 class TimingRepository extends EntityRepository
 {
@@ -91,7 +93,9 @@ class TimingRepository extends EntityRepository
             ->addSelect('r')
             ->leftJoin('ti.idRacer', 'r')
             ->where('r.idTeam = :idTeam')
+            ->andWhere('ti.type = :type')
             ->setParameter('idTeam', $teamId)
+            ->setParameter('type', Timing::AUTOMATIC)
             ->orderBy('ti.id', 'DESC')
             ;
 
@@ -169,6 +173,55 @@ class TimingRepository extends EntityRepository
             ->setParameter('team', $team)
             //->andWhere('ti.createdAt > :yesterday')
             //->setParameter('yesterday', date('Y-m-d', time() - 3600 * 24))
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function getPrediction(Racer $racer)
+    {
+        $qb = $this->createQueryBuilder('ti');
+
+        $qb
+            ->where('ti.idRacer = :racer')
+            ->andWhere('ti.type = :type')
+            ->setParameter('racer', $racer)
+            ->setParameter('type', Timing::PREDICTION)
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getSingleResult()
+            ;
+    }
+
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function getPredictionsForTeam(Team $team)
+    {
+        $qb = $this->createQueryBuilder('ti');
+
+        $qb
+            ->select('ti', 'r')
+            ->leftJoin('ti.idRacer', 'r')
+            //->leftJoin('r.idTeam', 't')
+            ->where('r.idTeam = :team')
+            ->setParameter('team', $team)
+            ->andWhere('ti.type = :type')
+            ->setParameter('type', Timing::PREDICTION)
             ;
 
         return $qb

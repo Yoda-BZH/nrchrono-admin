@@ -1,6 +1,51 @@
 
 {% block body -%}
 
+            <td class="col-md-1">&nbsp;</td>
+            <td class="col-md-1">&nbsp;</td>
+            <td class="col-md-1">&nbsp;</td>
+            <td id="separator-{{ team.id }}" class="col-md-1 team-bg-color-{{ team.id }}"></td>
+{% for racer in racers %}
+<td class="col-md-1">
+    {{ racer.nickname }}
+    <button
+        id="prediction-team-{{ team.id }}-pos-{{ loop.index }}"
+        class="btn btn-primary btn-small prediction-changer"
+        data-racer-id="{{ racer.id }}"
+        data-team-id="{{ team.id }}"
+        data-prediction-pos="{{ loop.index }}"><span class="glyphicon glyphicon-refresh"></span></button>
+</td>
+{% endfor %}
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#
 <p>now: {{ "now"|date('H:i:s') }}</p>
     <p>Timing for <a href="{{ path('team_show', { 'id': timingData.team.id }) }}">{{ timingData.team.name }}</a></p>
     <ul>
@@ -14,7 +59,4 @@
             id="clock-team-{{ timingData.team.id }}"
         ></li>
     </ul>
-
-{% endblock %}
-
-
+#}
