@@ -45,7 +45,7 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             $output->writeln(date('c ').'Using latest team timing clock');
         } catch(\Exception $e) {
             $output->writeln('got exception: '.$e->getMessage());
-            $output->writeln('trace: '.$e->getTraceAsString());
+            //$output->writeln('trace: '.$e->getTraceAsString());
             $race = $em->getRepository('AppBundle:Race')->find(1);
             $clock = clone $race->getStart();
             $output->writeln(date('c ').'Seems le first one, using the start of race');
