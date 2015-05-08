@@ -17,6 +17,7 @@ class RaceType extends AbstractType
         $builder
             ->add('name')
             ->add('start')
+	    ->add('km')
         ;
     }
     
