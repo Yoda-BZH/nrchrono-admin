@@ -1,10 +1,27 @@
 
 {% block body -%}
 
-            <td class="col-md-1">&nbsp;</td>
-            <td class="col-md-1">&nbsp;</td>
-            <td class="col-md-1">&nbsp;</td>
-            <td id="separator-{{ team.id }}" class="col-md-1 team-bg-color-{{ team.id }}"></td>
+{# previous racers #}
+{% for p in previous %}
+<td class="col-md-1">
+{%- if p -%}
+    {{ p.idRacer.nickname }}
+    <button
+        id="previous-team-{{ team.id }}-pos-{{ loop.index }}"
+        class="btn btn-primary btn-small previous-changer"
+        data-racer-id="{{ p.idRacer.id }}"
+        data-team-id="{{ team.id }}"
+        data-prediction-pos="{{ loop.index }}"><span class="glyphicon glyphicon-refresh"></span></button>
+{%- else -%}
+    --
+{%- endif -%}
+</td>
+{% endfor %}
+
+{# separator #}
+<td id="separator-{{ team.id }}" class="col-md-1 team-bg-color-{{ team.id }}"></td>
+
+{# next racers #}
 {% for racer in racers %}
 <td class="col-md-1">
     {{ racer.nickname }}

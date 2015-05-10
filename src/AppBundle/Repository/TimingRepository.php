@@ -116,15 +116,20 @@ class TimingRepository extends EntityRepository
             ;
     }
 
-    public function getLatestTeamTiming($teamId) {
+    public function getLatestTeamTiming($teamId, $limit = 1) {
         $qb = $this->getLatestRacerQuery($teamId)
-            ->setMaxResults(1)
+            ->setMaxResults($limit)
             ;
 
-        return $qb
-            ->getQuery()
-            ->getSingleResult()
-            ;
+        $query = $qb->getQuery();
+
+        if(1 == $limit) {
+            return $query
+                ->getSingleResult()
+                ;
+        }
+
+        return $query->getResult();
     }
 
     /**

@@ -70,10 +70,21 @@ class TimingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repoTeam = $em->getRepository('AppBundle:Team');
         $repoRacer = $em->getRepository('AppBundle:Racer');
-        //$repoTiming = $em->getRepository('AppBundle:Timing');
+        $repoTiming = $em->getRepository('AppBundle:Timing');
         $team = $repoTeam->find($id);
         $latestTimings = array();
         $now = new \Datetime();
+
+        // previous timings
+        $previousTimings = array(null, null, null);
+        $foundPreviousTimings = $repoTiming->getLatestTeamTiming($team, 3);
+        foreach($previousTimings as $index => $value) {
+            if(isset($foundPreviousTimings[$index])) {
+                $previousTimings[$index] = $foundPreviousTimings[$index];
+            }
+        }
+        $previousTimings = array_reverse($previousTimings);
+        // end previous timings
 
         $nextGuesser = $this->get('racer.next');
         $nextRacers = $nextGuesser
@@ -116,6 +127,7 @@ class TimingController extends Controller
             'team'  => $team,
             'arrival' => $arrival,
             'delta' => $delta,
+            'previous' => $previousTimings,
         );
     }
 
