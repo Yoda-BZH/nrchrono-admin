@@ -30,11 +30,6 @@
             <div id="menu">
             <ul class="nav nav-tabs">
                 <li><a href="{{ path('homepage') }}">Index</a></li>
-                <li><a href="{{ path('racer') }}">Racer</a></li>
-                <li><a href="{{ path('team') }}">Team</a></li>
-                <li><a href="{{ path('timing') }}">Timing</a></li>
-                <li><a href="{{ path('racerpause') }}">RacerPause</a></li>
-                <li><a href="{{ path('manual_timing') }}">Manual Timing</a></li>
                 <li><a href="{{ path('timing_status') }}">Timing Status</a></li>
                 <li><a href="{{ path('ranking') }}">Ranking</a></li>
                 <li><a href="{{ path('css_list') }}">Theme</a></li>
@@ -44,6 +39,10 @@
                         Admin <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ path('racer') }}">Racer</a></li>
+                        <li><a href="{{ path('team') }}">Team</a></li>
+                        <li><a href="{{ path('timing') }}">Timing</a></li>
+                        <li><a href="{{ path('racerpause') }}">RacerPause</a></li>
                         <li><a href="{{ path('race') }}">Race</a></li>
                         <li><a href="{{ path('pause') }}">Pause</a></li>
                     </ul>
