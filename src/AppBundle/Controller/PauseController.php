@@ -91,6 +91,8 @@ class PauseController extends Controller
     public function newAction()
     {
         $entity = new Pause();
+        $entity->setHourStart(new \Datetime('today 00:00'));
+        $entity->setHourStop(new \Datetime('today 00:00'));
         $form   = $this->createCreateForm($entity);
 
         return array(
