@@ -61,6 +61,11 @@ class RacerRepository extends EntityRepository
             ->setParameter('position', $position)
             ->setParameter('nbPerson', $team->getNbPerson())
             ->setParameter('idTeam', $team)
+
+            ->addSelect('rp')
+            ->leftJoin('r.pauses', 'rp')
+            ->addSelect('p')
+            ->leftJoin('rp.idPause', 'p')
             ;
 
         return $qb;

@@ -96,6 +96,13 @@ class Racer
     private $predictions;
 
     /**
+     * @var RacerPause
+     *
+     * @ORM\OneToMany(targetEntity="RacerPause", mappedBy="idRacer")
+     */
+    private $pauses;
+
+    /**
      * description
      *
      * @param void
@@ -104,6 +111,7 @@ class Racer
     public function __construct()
     {
         $this->timings = new ArrayCollection();
+        $this->pauses = new ArrayCollection();
     }
 
     /**
@@ -298,5 +306,17 @@ class Racer
     public function getIdTeam()
     {
         return $this->idTeam;
+    }
+
+    public function getPauses()
+    {
+        return $this->pauses;
+    }
+
+    public function setPauses($pauses)
+    {
+        $this->pauses = $pauses;
+
+        return $this;
     }
 }
