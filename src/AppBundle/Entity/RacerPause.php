@@ -31,7 +31,7 @@ class RacerPause
     /**
      * @var \Racer
      *
-     * @ORM\ManyToOne(targetEntity="Racer")
+     * @ORM\ManyToOne(targetEntity="Racer", inversedBy="pauses")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_racer", referencedColumnName="id")
      * })
