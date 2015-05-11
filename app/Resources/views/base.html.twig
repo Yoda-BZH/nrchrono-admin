@@ -47,6 +47,7 @@
                         <li><a href="{{ path('pause') }}">Pause</a></li>
                     </ul>
                 </li>
+                <li class="disabled"><a href="#" id="generalclock"></a></li>
             </ul>
             </div>
 {% block body %}{% endblock %}
@@ -69,6 +70,18 @@
 {% endjavascripts %}
 
     {% block javascripts %}{% endblock %}
+<script>
+$(document).ready(function() {
+    var midnight = new Date();
+    midnight.setHours(0, 0, 0, 0);
+
+    $('#generalclock').countdown({
+        since: midnight,
+        format: 'HMS',
+        compact: true
+    });
+});
+</script>
 
 </body>
 </html>
