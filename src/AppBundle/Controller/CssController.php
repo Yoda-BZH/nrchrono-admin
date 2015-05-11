@@ -20,6 +20,8 @@ class CssController extends Controller
      */
     public function indexAction()
     {
+        $session = $this->getRequest()->getSession();
+        $session->set('theme_previous', $this->getRequest()->headers->get('referer'));
         return array(
             'list' => array_keys($this->list),
         );
@@ -45,6 +47,12 @@ class CssController extends Controller
         }
 
         $session->set('theme', $url);
+
+        if($session->has('theme_previous')) {
+            $next = $session->get('theme_previous');
+            $session->remove('theme_previous');
+            return $this->redirect($next);
+        }
 
         return $this->redirect($this->generateUrl('homepage'));
     }
