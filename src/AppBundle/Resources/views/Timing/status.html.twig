@@ -111,9 +111,7 @@ $(document).ready(function() {
 
     remains = $('#remains');
     disableButtons = function(periods) {
-        console.log($.countdown.periodsToSeconds(periods));
         if($.countdown.periodsToSeconds(periods) === 10) {
-            console.log('errors');
             $('#racers-prevision button').hide(); //addClass('btn-error');
         }
     }
@@ -131,47 +129,57 @@ $(document).ready(function() {
     setCountdown();
 
     racerPrevisons = $('#racers-prevision');
-    racerPrevisons.on('click', 'button.prediction-changer', function() {
-        $button = $(this);
-        $parent = $button.parent();
-        $teamId = $button.data('team-id');
-        $racerId = $button.data('racer-id');
-        $select = $('#selector-team-' + $teamId + ' select');
-        //if(!$select) {
-        //    console.log('unable to find select ...');
-        //}
+    racerPrevisons.on('click', 'button.prediction-changer, button.previous-changer', function() {
+        var $button = $(this);
+        var $parent = $button.parent();
+        var $teamId = $button.data('team-id');
+        var $racerId = $button.data('racer-id');
+        var $select = $('#selector-team-' + $teamId + ' select');
         $parent.append($select);
         $parent.find('select option[value=' + $racerId + ']').attr('selected', 'selected');
     });
     racerPrevisons.on('change', 'select.team-racer-manual-selector', function() {
-        $select = $(this);
-        $selectedRacerId = $select.val();
-        $button = $select.parent().find('button');
-        $pos = $button.data('prediction-pos');
-        postData = [];
-        $teamId = $button.data('team-id');
-        postData.push({
-            racerid: $selectedRacerId,
-            pos: $pos
-        });
-        $select.parent().prevUntil(
-            document.getElementById('separator-' + $teamId),
-            'td'
-        ).each(function(index) {
-            $td = $(this);
-            $button = $td.find('button');
-            $racerId = $button.data('racer-id');
-            $position = $button.data('prediction-pos');
+        var $select = $(this);
+        var $selectedRacerId = $select.val();
+        var $button = $select.parent().find('button');
+        var $modificationType = $button.data('type');
+
+        var postData = [];
+        var $teamId = $button.data('team-id');
+
+        if($modificationType == 'prediction') {
+            var $pos = $button.data('prediction-pos');
             postData.push({
-                racerid: $racerId,
-                pos: $position
+                racerid: $selectedRacerId,
+                pos: $pos
             });
-        });
+            $select.parent().prevUntil(
+                document.getElementById('separator-' + $teamId),
+                'td'
+            ).each(function(index) {
+                $td = $(this);
+                $button = $td.find('button');
+                $racerId = $button.data('racer-id');
+                $position = $button.data('prediction-pos');
+                postData.push({
+                    racerid: $racerId,
+                    pos: $position
+                });
+            });
+            var postUrl = '{{ path("timing_update_prediction") }}';
+        } else if ($modificationType == 'timing') {
+            timingId = $button.data('timing');
+            postData.push({
+                racerid: $selectedRacerId,
+                timing: timingId
+            });
+            var postUrl = '{{ path("timing_update_data") }}';
+        } else {
+            return;
+        }
 
-
-        //console.log(postData);
         $.post(
-            '{{ path("timing_update_prediction") }}',
+            postUrl,
             { data: postData, teamId: $teamId },
             function(data, textStatus, jqXHR) {
                 window.location = window.location;

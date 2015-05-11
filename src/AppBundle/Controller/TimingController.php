@@ -170,6 +170,36 @@ class TimingController extends Controller
     }
 
     /**
+     * Alter a racer for an existing Timing
+     *
+     * @Route("/update-timing", name="timing_update_data")
+     * @Method("POST")
+     */
+    public function alterAction(Request $request)
+    {
+        $data = $request->request->get('data');
+        $em = $this->getDoctrine()->getManager();
+
+        $repoTiming = $em->getRepository('AppBundle:Timing');
+        $timingId = $data[0]['timing'];
+        $timing = $repoTiming->find($timingId);
+        if ($timing->isPrediction())
+        {
+            throw new \Exception('Cannot modify a prediction');
+        }
+
+        $repoRacer = $em->getRepository('AppBundle:Racer');
+        $racerId = $data[0]['racerid'];
+        // FIXME, Check if racer is in the correct team !
+        $racer = $repoRacer->find($racerId);
+        $timing->setIdRacer($racer);
+        $em->persist($timing);
+        $em->flush();
+
+        return new Response();
+    }
+
+    /**
      * Creates a new Timing entity.
      *
      * @Route("/", name="timing_create")

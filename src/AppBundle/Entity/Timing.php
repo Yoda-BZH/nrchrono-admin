@@ -193,14 +193,26 @@ class Timing
         return $this->setType(self::PREDICTION);
     }
 
+    public function isPrediction() {
+        return $this->type == self::PREDICTION;
+    }
+
     public function setManual()
     {
         return $this->setType(self::MANUAL);
     }
 
+    public function isManual() {
+        return $this->type == self::MANUAL;
+    }
+
     public function setAutomatic()
     {
         return $this->setType(self::AUTOMATIC);
+    }
+
+    public function isAutomatic() {
+        return $this->type == self::AUTOMATIC;
     }
 
     /**
