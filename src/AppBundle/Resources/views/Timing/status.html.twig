@@ -32,7 +32,7 @@
             <th>Fini</th>
             <th>Fini</th>
             <th>Vient de finir</th>
-            <th>--</th>
+            <th><span id="remains"></span></th>
             <th>Sur la piste</th>
             <th>Doit se préparer</th>
             <th>A encore le temps</th>
@@ -42,13 +42,15 @@
     </thead>
     <tbody id="racers-prevision">
 {% for team in teams %}
-        <tr class="timing-status-teams" id="timing-status-team-{{ team.id }}"><td colspan="9" class="team-bg-color-{{ team.id }}">Chargement en cours</td></tr>
+        <tr class="timing-status-teams" id="timing-status-team-{{ team.id }}">
+            <td colspan="9" class="team-bg-color-{{ team.id }}">Chargement en cours</td>
+        </tr>
 {% endfor %}
     </tbody>
 </table>
 </div>
 
-<div>
+<div style="display: none;">
 {% for team in teams %}
     <div id="selector-team-{{ team.id }}">
         <select class="team-racer-manual-selector" name="team-{{ team.id }}-racer-id">
@@ -97,15 +99,36 @@ $(document).ready(function() {
         });
     }
 {% for team in teams %}
-    initialDataSelector = $('#timing-status-team-{{ team.id }} td');
-    initialData = initialDataSelector.html();
+    //initialDataSelector = $('#timing-status-team-{{ team.id }} td');
+    //initialData = initialDataSelector.html();
     loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
     setInterval(function() {
-        initialDataSelector.html(initialData);
+        //initialDataSelector.html(initialData);
         loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
     }, 30000);
 
 {% endfor %}
+
+    remains = $('#remains');
+    disableButtons = function(periods) {
+        console.log($.countdown.periodsToSeconds(periods));
+        if($.countdown.periodsToSeconds(periods) === 10) {
+            console.log('errors');
+            $('#racers-prevision button').hide(); //addClass('btn-error');
+        }
+    }
+
+    setCountdown = function() {
+        remains.countdown('destroy');
+        remains.countdown({
+            until: '+30',
+            compact: true,
+            format: 'MS',
+            onTick: disableButtons
+        });
+    }
+    setInterval(setCountdown, 30000);
+    setCountdown();
 
     racerPrevisons = $('#racers-prevision');
     racerPrevisons.on('click', 'button.prediction-changer', function() {
@@ -146,7 +169,7 @@ $(document).ready(function() {
         });
 
 
-        console.log(postData);
+        //console.log(postData);
         $.post(
             '{{ path("timing_update_prediction") }}',
             { data: postData, teamId: $teamId },

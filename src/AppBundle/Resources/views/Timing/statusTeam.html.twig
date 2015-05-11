@@ -4,14 +4,13 @@
 {# previous racers #}
 {% for p in previous %}
 <td class="col-md-1">
-{%- if p -%}
-    {{ p.idRacer.nickname }}
-    <button
-        id="previous-team-{{ team.id }}-pos-{{ loop.index }}"
-        class="btn btn-default btn-xs previous-changer"
-        data-racer-id="{{ p.idRacer.id }}"
-        data-team-id="{{ team.id }}"
-        data-timing="{{ p.id }}"><span class="glyphicon glyphicon-refresh"></span></button>
+{%- if p -%}{{ p.idRacer.nickname }}
+        <button
+            id="previous-team-{{ team.id }}-pos-{{ loop.index }}"
+            class="btn btn-default btn-xs previous-changer"
+            data-racer-id="{{ p.idRacer.id }}"
+            data-team-id="{{ team.id }}"
+            data-timing="{{ p.id }}"><span class="glyphicon glyphicon-refresh"></span></button>
 {%- else -%}
     --
 {%- endif -%}
@@ -19,11 +18,15 @@
 {% endfor %}
 
 {# separator #}
-<td id="separator-{{ team.id }}" class="col-md-1 team-bg-color-{{ team.id }}"></td>
+<td id="separator-{{ team.id }}" class="col-md-1 team-bg-color-{{ team.id }}">
+<p>{{ team.name }}</p>
+</td>
 
 {# next racers #}
 {% for racer in racers %}
 <td class="col-md-1">
+<ul class="list-unstyled">
+    <li>
     {{ racer.nickname }}
     <button
         id="prediction-team-{{ team.id }}-pos-{{ loop.index }}"
@@ -31,6 +34,17 @@
         data-racer-id="{{ racer.id }}"
         data-team-id="{{ team.id }}"
         data-prediction-pos="{{ loop.index }}"><span class="glyphicon glyphicon-refresh"></span></button>
+    </li>
+    {% if loop.index0 == 0 %}
+    <li>Arrivée: {{ arrival|date('H:i:s') }}</li>
+    {#<li>delta: {{ delta.format('%R %H:%I:%S') }}</li>#}
+    <li
+            data-arrival="{{ arrival|date('c') }}"
+            class="clock"
+            id="clock-team-{{ team.id }}"
+        >
+    {% endif %}
+</ul>
 </td>
 {% endfor %}
 
