@@ -15,13 +15,17 @@ services:
     timer.provider.matsport:
         class: AppBundle\Timer\Provider\Matsport
 
+    timer.provider.matsportfile:
+        class: AppBundle\Timer\Provider\MatsportFile
+
     timer.timer:
         class: AppBundle\Timer\Timer
         calls:
             - [ setEm, [ "@doctrine.orm.entity_manager" ] ]
+            - [ setGuesser, [ "@racer.next" ] ]
 
     racer.next:
         class: AppBundle\Service\NextRacerGuesser
         calls:
             - [ setEm, [ "@doctrine.orm.entity_manager" ] ]
-        
+

@@ -47,27 +47,43 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
         $repoMatsport = $em->getRepository('AppBundle:Matsport');
 
         foreach($teams as $team) {
-            $lastTiming = $repoMatsport->findLatestForTeam($team->getId());
+            try {
+                $lastTiming = $repoMatsport->findLatestForTeam($team->getId());
+            } catch(\Exception $e) {
+                //$output->writeln('No timing (yet) for '.$team->getName());
+                continue;
+            }
             $nbLap = $repoMatsport->nbLapForTeam($team->getId());
 
             $time = $lastTiming->getClock()->diff($raceStart);
             $secs = $time->format('%H') * 3600 + $time->format('%I') * 60 + $time->format('%S');
-            $kmh = ((1 * ($nbLap[1] * $race->getKm())) / ($secs/3600));
+            //$kmh = ((1 * ($nbLap[1] * $race->getKm())) / ($secs/3600));
+            $kmh = (1 * $race->getKm()) / ($secs / 3600);
+
+            $elapsed = clone $lastTiming->getClock();
+            $interval = \DateInterval::createFromDateString($elapsed->format('H:i:s'));
+            $elapsed->add($interval);
 
             $data[$team->getId()] = array(
+                'id' => $team->getId(),
+                'pos' => rand(20, 100),
                 'team' => $team,
                 'timing' => $lastTiming,
                 'laps' => $nbLap[1],
                 'km' => $nbLap[1] * $race->getKm(),
                 'type' => 'Prestige',
-                'time' => $time->format('%H:%I:%S'),
-                'vitesse' => round($kmh, 1),
+                //'time' => $elapsed->format('%H:%I:%S'),
+                'time' => $elapsed->format('H:i:s'),
+                'vitesse' => round($kmh / 3.5, 1),
+                'ecart' => '12:36:17.164',
+                'bestlap' => '10:23.482',
+                'poscat' => 19,
             );
         }
 
         //$data = $twig->render($template, $data);
         $html = $template->render(array('entries' => $data));
-        file_put_contents(__DIR__.'/../../../matsport.html', $html);
+        file_put_contents($file, $html);
         return 0;
     }
 }

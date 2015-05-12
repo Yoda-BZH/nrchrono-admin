@@ -84,7 +84,7 @@ class FakerFixturesCommand extends ContainerAwareCommand
             );
         }
 
-        foreach($teamsTypes as $teamType) {
+        foreach($teamsTypes as $k => $teamType) {
             $team = new Team;
             $name = $teamType[5];
             $team
@@ -93,6 +93,7 @@ class FakerFixturesCommand extends ContainerAwareCommand
                 ->setNbPerson($teamType[0])
                 ->setIdRace($race)
                 ->setColor($teamType[4])
+                ->setIdReference($k + 1)
                 ;
             $em->persist($team);
             $output->writeln('Adding team '.$team->getName());

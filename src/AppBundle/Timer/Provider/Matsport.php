@@ -8,9 +8,27 @@ use AppBundle\Timer\Team;
 
 class Matsport implements Provider {
 
-    private $general = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2014&code_course=24R&menu=1&type=1&Num_Menu=';
+    private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2014&code_course=24R&menu=1&type=1&Num_Menu=';
 
-    private $equipe = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/recap_coureur_1.php?dossard=%d&code_course=24R&an=%d';
+    private $equipeUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/recap_coureur_1.php?dossard=%d&code_course=24R&an=%d';
+
+    public function __construct()
+    {
+    }
+
+    public function setGeneralUrl($url)
+    {
+        $this->generalUrl = $url;
+
+        return $this;
+    }
+
+    public function setEquipeUrl($url)
+    {
+        $this->equipeUrl = $url;
+
+        return $this;
+    }
 
     /**
      * description
@@ -20,7 +38,7 @@ class Matsport implements Provider {
      */
     public function getGeneral()
     {
-        $data = file_get_contents($this->general);
+        $data = file_get_contents($this->generalUrl);
 
         //$pattern = '|<tr><td align=\'LEFT\' width=\'40\'>(.*)</td></tr>|U';
         $pattern = '|<tr><td align=\'LEFT\' width=\'40\'><div class=Style9>(\d+)</div></div></td><td align=\'LEFT\' width=\'40\'><div class=Style9>(\d+)</div></td><td align="left"><div class="Style9"><a href="javascript:affichage_popup\(\'\./recap_coureur_1\.php\?dossard=(\d+)&code_course=24R&an=(\d+)\',\'Matsport Live\'\);">(.*)</a></div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td></tr>|U';
@@ -35,7 +53,7 @@ class Matsport implements Provider {
 
         $equipes = array();
         foreach($matches[0] as $k => $v) {
-            if(!preg_match('/^NR /', $matches[5][$k])) {
+            if(!preg_match('/^NR-/', $matches[5][$k])) {
                 continue;
             }
             $team = new Team;
@@ -54,7 +72,7 @@ class Matsport implements Provider {
                 ->setPoscat($matches[12][$k])
                 ->setCategorie($matches[13][$k])
                 ;
-            $equipes[] = $team;
+            $equipes[$matches[2][$k]] = $team;
         }
 
         return $equipes;
@@ -66,7 +84,7 @@ class Matsport implements Provider {
      * @param void
      * @return void
      */
-    public function getTeam($id)
+    /*public function getTeam($id)
     {
         $url = sprintf($this->equipe, $id, 2014);
 
@@ -92,11 +110,11 @@ class Matsport implements Provider {
             //if($relais) { echo 'found relais'.PHP_EOL; }
             $bestTime = (bool) (preg_match($patternBestTime, $v));
             //if($bestTime) { echo 'found best time'.PHP_EOL; }
-            /*$temps[$tour] = array(
+            / *$temps[$tour] = array(
                 'duree' => $duree,
                 'relais' => $relais,
                 'bestTime' => $bestTime,
-            );*/
+            );* /
             $temps[$tour] = new Tour;
             $temps[$tour]
                 ->setDuree($duree)
@@ -106,6 +124,10 @@ class Matsport implements Provider {
         }
 
         return $temps;
+    }*/
+
+    public function getTeam($id)
+    {
     }
 
 }

@@ -70,26 +70,26 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             throw new \Exception('Bad --timing');
         }
         sleep($timeToWait);
-        $t = new \Datetime('00:00:00');
+        $t = new \Datetime('today 00:00:00');
         $t->modify($s = sprintf('+%d seconds', $timeToWait - 1)); // +1 to compensate drift
 
         $clock->modify($s);
 
-        try {
-            $timing = $repoTiming->getPrediction($nextRacer);
-        } catch(\Exception $e) {
-            $timing = new Timing;
-        }
+        //try {
+        //    $timing = $repoTiming->getPrediction($nextRacer);
+        //} catch(\Exception $e) {
+        //    $timing = new Timing;
+        //}
 
-        $output->writeln(date('c ').'Creating timing');
-        $timing
-            ->setCreatedAt(new \Datetime)
-            ->setIdRacer($nextRacer)
-            ->setIsRelay(0)
-            ->setTiming($t)
-            ->setClock($clock)
-            ->setAutomatic()
-            ;
+        //$output->writeln(date('c ').'Creating timing');
+        //$timing
+        //    ->setCreatedAt(new \Datetime)
+        //    ->setIdRacer($nextRacer)
+        //    ->setIsRelay(0)
+        //    ->setTiming($t)
+        //    ->setClock($clock)
+        //    ->setAutomatic()
+        //    ;
 
         $output->writeln(date('c ').'Creating matsport emulation');
         $matsport = new Matsport;
@@ -103,12 +103,12 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             ;
 
         $output->writeln(date('c ').'Calculating drift ...');
-        $interval = $clock->diff($timing->getCreatedAt());
+        $interval = $clock->diff(new \Datetime());
         $output->writeln(date('c ').sprintf('Interval: %s', $interval->format('%R %H:%I:%S')));
 
         $output->writeln(date('c ').'saving everything');
         try {
-            $em->persist($timing);
+            //$em->persist($timing);
             $em->persist($matsport);
             $em->flush();
         } catch (\Exception $e) {

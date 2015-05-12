@@ -234,4 +234,22 @@ class TimingRepository extends EntityRepository
             ->getResult()
             ;
     }
+
+    public function getNbForTeam($team)
+    {
+        $qb = $this->createQueryBuilder('ti');
+
+        $qb
+            ->select('COUNT(ti.id)')
+            ->leftJoin('ti.idRacer', 'r')
+            //->leftJoin('r.idTeam', 't'
+            ->where('r.idTeam = :id')
+            ->setParameter('id', $team)
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getSingleResult()
+            ;
+    }
 }
