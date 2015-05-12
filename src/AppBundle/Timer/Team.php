@@ -32,6 +32,11 @@ class Team {
         return $this;
     }
 
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
     /**
      * Set the value of
      *
@@ -42,6 +47,11 @@ class Team {
         $this->numero = $numero;
 
         return $this;
+    }
+
+    public function getNumero()
+    {
+        return $this->numero;
     }
 
     /**
@@ -56,6 +66,11 @@ class Team {
         return $this;
     }
 
+    public function getAnnee()
+    {
+        return $this->annee;
+    }
+
     /**
      * Set the value of
      *
@@ -66,6 +81,11 @@ class Team {
         $this->nom = $nom;
 
         return $this;
+    }
+
+    public function getNom()
+    {
+        return $this->nom;
     }
 
     /**
@@ -80,6 +100,11 @@ class Team {
         return $this;
     }
 
+    public function getTemps()
+    {
+        return $this->temps;
+    }
+
     /**
      * Set the value of
      *
@@ -90,6 +115,11 @@ class Team {
         $this->tour = $tour;
 
         return $this;
+    }
+
+    public function getTour()
+    {
+        return $this->tour;
     }
 
     /**
@@ -104,6 +134,11 @@ class Team {
         return $this;
     }
 
+    public function getEcart()
+    {
+        return $this->ecart;
+    }
+
     /**
      * Set the value of
      *
@@ -114,6 +149,11 @@ class Team {
         $this->distance = $distance;
 
         return $this;
+    }
+
+    public function getDistance()
+    {
+        return $this->distance;
     }
 
     /**
@@ -128,6 +168,11 @@ class Team {
         return $this;
     }
 
+    public function getVitesse()
+    {
+        return $this->vitesse;
+    }
+
     /**
      * Set the value of
      *
@@ -138,6 +183,11 @@ class Team {
         $this->bestlap = $bestlap;
 
         return $this;
+    }
+
+    public function getBestLap()
+    {
+        return $this->bestlap;
     }
 
     /**
@@ -152,6 +202,11 @@ class Team {
         return $this;
     }
 
+    public function getPoscat()
+    {
+        return $this->poscat;
+    }
+
     /**
      * Set the value of
      *
@@ -162,5 +217,10 @@ class Team {
         $this->categorie = $categorie;
 
         return $this;
+    }
+
+    public function getCategorie()
+    {
+        return $this->categorie;
     }
 }
