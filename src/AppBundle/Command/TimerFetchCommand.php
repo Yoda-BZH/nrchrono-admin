@@ -35,6 +35,7 @@ class TimerFetchCommand extends ContainerAwareCommand
 
         $timer = $this->getContainer()->get('timer.timer');
         $timer->setProvider($provider);
+        $timer->setIo($input, $output);
         return $timer->run();
     }
 }

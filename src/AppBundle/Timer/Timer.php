@@ -27,6 +27,14 @@ class Timer {
 
     }
 
+    public function setIo($input, $output)
+    {
+        $this->input = $input;
+        $this->output = $output;
+
+        return $this;
+    }
+
     /**
      * description
      *
@@ -88,15 +96,43 @@ class Timer {
             $nbTiming = $repoTiming->getNbForTeam($team);
 
             if($nbTiming[1] == $teamStats->getTour()) {
-                echo 'Bon nombre de tour: '.$teamStats->getTour();
+                //echo 'Bon nombre de tour: '.$teamStats->getTour();
+                //$this->output->writeln(sprintf('Count of timings equals the number of laps done (%d)', $nbTiming[1]));
                 continue;
             }
 
             try {
                 $latestTeamTiming = $repoTiming->getLatestTeamTiming($team, 1);
+                $this->output->writeln('Got latest team timing');
             // FIXME no result exception
             } catch(\Exception $e) {
                 $latestTeamTiming = null;
+                $this->output->writeln('No latest team timing ?');
+            }
+            $intervalPieces = explode(':', $teamStats->getTemps());
+            $intervalStr = sprintf('PT%02dH%02dM%02dS',
+                $intervalPieces[0],
+                $intervalPieces[1],
+                $intervalPieces[2]
+            );
+
+            $interval = new \DateInterval($intervalStr);
+            $this->output->writeln('Got Temps to '.$teamStats->getTemps());
+            $endLap = clone $race->getStart();
+            $this->output->writeln('Race start is '.$endLap->format('H:i:s'));
+            $endLap->add($interval);
+            $this->output->writeln(sprintf('Adding interval %s to endlap', $interval->format('%H:%I:%S')));
+            $this->output->writeln('Endlap is now '.$endLap->format('H:i:s'));
+
+            if(!$latestTeamTiming) {
+                $t = new \Datetime('today '.$teamStats->getTemps());
+            } else {
+                //$lastTiming = clone $latestTeamTiming->getTiming();
+                //$t->add($interval);
+                $dtTemps = new \Datetime('today '.$teamStats->getTemps());
+                $t = $dtTemps->sub(new \DateInterval($latestTeamTiming->getTiming()->format('\P\TH\Hi\Ms\S')));
+                $this->output->writeln('Seems the last lap was '.$t->format('H:i:s'));
+                //$t = new \Datetime('today '.$tInterval->format('%H:%M:%S'));
             }
 
             $nextRacer = $this->guesser
@@ -104,22 +140,12 @@ class Timer {
                 ->getNext()
                 ;
 
-            $interval = \DateInterval::createFromDateString($teamStats->getTemps());
-            $endLap = clone $race->getStart();
-            $endLap->add($interval);
-
-            if(!$latestTeamTiming) {
-                $t = new \Datetime('today '.$teamStats->getTemps());
-            } else {
-                $t = null;
-            }
-
             $timing = new Timing;
             $timing
                 ->setCreatedAt(new \Datetime())
                 ->setIdRacer($nextRacer)
                 ->setIsRelay(0)
-                ->setTiming(new \Datetime())
+                ->setTiming($t)
                 ->setClock($endLap)
                 ->setAutomatic()
                 ;

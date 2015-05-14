@@ -25,6 +25,7 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $verbose = $input->getOption('verbose');
         $container = $this->getContainer();
         $rootDir = $container->getParameter('kernel.root_dir');
         $file = $rootDir . DIRECTORY_SEPARATOR . 'matsport.html';
@@ -54,15 +55,23 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
                 continue;
             }
             $nbLap = $repoMatsport->nbLapForTeam($team->getId());
+            $verbose && $output->writeln(sprintf('Team %s %s ran %d laps', $team->getId(), $team->getName(), $nbLap[1]));
 
             $time = $lastTiming->getClock()->diff($raceStart);
             $secs = $time->format('%H') * 3600 + $time->format('%I') * 60 + $time->format('%S');
             //$kmh = ((1 * ($nbLap[1] * $race->getKm())) / ($secs/3600));
             $kmh = (1 * $race->getKm()) / ($secs / 3600);
 
-            $elapsed = clone $lastTiming->getClock();
-            $interval = \DateInterval::createFromDateString($elapsed->format('H:i:s'));
-            $elapsed->add($interval);
+            //$elapsed = clone $lastTiming->getTiming();
+            //$interval = \DateInterval::createFromDateString($elapsed->format('H:i:s'));
+            //$elapsed->add($interval);
+            $lastClock = clone $lastTiming->getClock();
+            $verbose && $output->writeln('Lastclock: '.$lastClock->format('H:i:s'));
+
+            $verbose && $output->writeln('Started at: '.$raceStart->format('H:i:s'));
+            $interval = $raceStart->diff($lastClock);
+            $elapsed = $interval->format('%H:%I:%S');
+            $verbose && $output->writeln('elapsed: '.$elapsed);
 
             $data[$team->getId()] = array(
                 'id' => $team->getId(),
@@ -73,7 +82,7 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
                 'km' => $nbLap[1] * $race->getKm(),
                 'type' => 'Prestige',
                 //'time' => $elapsed->format('%H:%I:%S'),
-                'time' => $elapsed->format('H:i:s'),
+                'time' => $elapsed,
                 'vitesse' => round($kmh / 3.5, 1),
                 'ecart' => '12:36:17.164',
                 'bestlap' => '10:23.482',
@@ -84,6 +93,7 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
         //$data = $twig->render($template, $data);
         $html = $template->render(array('entries' => $data));
         file_put_contents($file, $html);
+
         return 0;
     }
 }
