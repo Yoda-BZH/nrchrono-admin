@@ -95,7 +95,7 @@ class Timer {
             //var_dump($team->getName());
             $nbTiming = $repoTiming->getNbForTeam($team);
 
-            if($nbTiming[1] == $teamStats->getTour()) {
+            if($nbTiming[1] >= $teamStats->getTour()) {
                 //echo 'Bon nombre de tour: '.$teamStats->getTour();
                 //$this->output->writeln(sprintf('Count of timings equals the number of laps done (%d)', $nbTiming[1]));
                 continue;
@@ -155,7 +155,7 @@ class Timer {
             $ranking
                 ->setBestLap(new \Datetime('today 00:'.$teamStats->getBestLap()))
                 ->setCreatedAt($timing->getCreatedAt())
-                ->setDistance($teamStats->getDistance())
+                ->setDistance($teamStats->getDistance() * 1000)
                 ->setEcart(new \Datetime('today '.$teamStats->getEcart()))
                 ->setPoscat($teamStats->getPoscat())
                 ->setPosition($teamStats->getPosition())
