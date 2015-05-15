@@ -128,7 +128,7 @@ class Timer {
             if(!$latestTeamTiming) {
                 $t = new \Datetime('today '.$teamStats->getTemps());
             } else {
-                $intervalTemps = $clock->diff($latestTeamTiming->getClock());
+                $intervalTemps = $endLap->diff($latestTeamTiming->getClock());
                 $t = new \Datetime('today '.$intervalTemps->format('%H:%M:%S'));
             }
 
