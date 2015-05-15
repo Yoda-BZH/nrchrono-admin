@@ -36,8 +36,8 @@ class EmulationController extends Controller
         for($i = 0; $i < $minNb; $i++)
         {
             $data[] = array(
-                'timing' => $teamTimings[$i],
-                'emulation' => $teamEmulations[$i],
+                'timing' => isset($teamTimings[$i]) ? $teamTimings[$i] : null,
+                'emulation' => isset($teamEmulations[$i]) ? $teamEmulations[$i] : null,
             );
         }
 

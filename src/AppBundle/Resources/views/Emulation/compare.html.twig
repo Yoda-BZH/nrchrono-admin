@@ -9,20 +9,26 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Timing timing</th>
+            <th>ID</th>
             <th>Emulation timing</th>
-            <th>Timing clock</th>
+            <th>Timing timing</th>
             <th>Emulation clock</th>
+            <th>Timing clock</th>
+            <th>Emulation createdAt</th>
+            <th>Timing createdAt</th>
         </tr>
     </thead>
     <tbody>
 {% for line in data %}
         <tr>
-            <td>{{ line.timing.id }}</td>
-            <td>{{ line.timing.timing|date('H:i:s') }}</td>
-            <td>{{ line.emulation.timing|date('H:i:s') }}</td>
-            <td>{{ line.timing.clock|date('H:i:s') }}</td>
-            <td>{{ line.emulation.clock|date('H:i:s') }}</td>
+            <td>{{ line.emulation ? line.emulation.id : '--' }}</td>
+            <td>{{ line.timing ? line.timing.id : '--' }}</td>
+            <td>{{ line.emulation ? line.emulation.timing|date('H:i:s') : '--' }}</td>
+            <td>{{ line.timing ? line.timing.timing|date('H:i:s') : '--' }}</td>
+            <td>{{ line.emulation ? line.emulation.clock|date('H:i:s') : '--'}}</td>
+            <td>{{ line.timing ? line.timing.clock|date('H:i:s') : '--' }}</td>
+            <td>{{ line.emulation ? line.emulation.createdAt|date('H:i:s') : '--'}}</td>
+            <td>{{ line.timing ? line.timing.createdAt|date('H:i:s') : '--' }}</td>
         </tr>
 {% endfor %}
 
