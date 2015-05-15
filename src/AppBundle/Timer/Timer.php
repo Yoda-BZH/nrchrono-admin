@@ -129,7 +129,7 @@ class Timer {
                 $t = new \Datetime('today '.$teamStats->getTemps());
             } else {
                 $intervalTemps = $endLap->diff($latestTeamTiming->getClock());
-                $t = new \Datetime('today '.$intervalTemps->format('%H:%M:%S'));
+                $t = new \Datetime('today '.$intervalTemps->format('%H:%I:%S'));
             }
 
             $nextRacer = $this->guesser
