@@ -84,6 +84,7 @@ class Timer {
 
         $repoRace = $this->em->getRepository('AppBundle:Race');
         $race = $repoRace->find(1); // FIXME
+        $now = new \Datetime();
 
         //var_dump($r);
         foreach($teamsStats as $teamStats) {
@@ -127,12 +128,8 @@ class Timer {
             if(!$latestTeamTiming) {
                 $t = new \Datetime('today '.$teamStats->getTemps());
             } else {
-                //$lastTiming = clone $latestTeamTiming->getTiming();
-                //$t->add($interval);
-                $dtTemps = new \Datetime('today '.$teamStats->getTemps());
-                $t = $dtTemps->sub(new \DateInterval($latestTeamTiming->getTiming()->format('\P\TH\Hi\Ms\S')));
-                //$this->output->writeln('Seems the last lap was '.$t->format('H:i:s'));
-                //$t = new \Datetime('today '.$tInterval->format('%H:%M:%S'));
+                $intervalTemps = $clock->diff($latestTeamTiming->getClock());
+                $t = new \Datetime('today '.$intervalTemps->format('%H:%M:%S'));
             }
 
             $nextRacer = $this->guesser
@@ -142,7 +139,7 @@ class Timer {
 
             $timing = new Timing;
             $timing
-                ->setCreatedAt(new \Datetime())
+                ->setCreatedAt($now)
                 ->setIdRacer($nextRacer)
                 ->setIsRelay(0)
                 ->setTiming($t)
@@ -154,7 +151,7 @@ class Timer {
             $ranking = new Ranking;
             $ranking
                 ->setBestLap(new \Datetime('today 00:'.$teamStats->getBestLap()))
-                ->setCreatedAt($timing->getCreatedAt())
+                ->setCreatedAt($now)
                 ->setDistance($teamStats->getDistance() * 1000)
                 ->setEcart(new \Datetime('today '.$teamStats->getEcart()))
                 ->setPoscat($teamStats->getPoscat())
