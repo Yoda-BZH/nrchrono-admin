@@ -107,7 +107,7 @@ class Timer {
             // FIXME no result exception
             } catch(\Exception $e) {
                 $latestTeamTiming = null;
-                $this->output->writeln('No latest team timing ?');
+                //$this->output->writeln('No latest team timing ?');
             }
             $intervalPieces = explode(':', $teamStats->getTemps());
             $intervalStr = sprintf('PT%02dH%02dM%02dS',
@@ -117,12 +117,12 @@ class Timer {
             );
 
             $interval = new \DateInterval($intervalStr);
-            $this->output->writeln('Got Temps to '.$teamStats->getTemps());
+            //$this->output->writeln('Got Temps to '.$teamStats->getTemps());
             $endLap = clone $race->getStart();
-            $this->output->writeln('Race start is '.$endLap->format('H:i:s'));
+            //$this->output->writeln('Race start is '.$endLap->format('H:i:s'));
             $endLap->add($interval);
-            $this->output->writeln(sprintf('Adding interval %s to endlap', $interval->format('%H:%I:%S')));
-            $this->output->writeln('Endlap is now '.$endLap->format('H:i:s'));
+            //$this->output->writeln(sprintf('Adding interval %s to endlap', $interval->format('%H:%I:%S')));
+            //$this->output->writeln('Endlap is now '.$endLap->format('H:i:s'));
 
             if(!$latestTeamTiming) {
                 $t = new \Datetime('today '.$teamStats->getTemps());
@@ -131,7 +131,7 @@ class Timer {
                 //$t->add($interval);
                 $dtTemps = new \Datetime('today '.$teamStats->getTemps());
                 $t = $dtTemps->sub(new \DateInterval($latestTeamTiming->getTiming()->format('\P\TH\Hi\Ms\S')));
-                $this->output->writeln('Seems the last lap was '.$t->format('H:i:s'));
+                //$this->output->writeln('Seems the last lap was '.$t->format('H:i:s'));
                 //$t = new \Datetime('today '.$tInterval->format('%H:%M:%S'));
             }
 
