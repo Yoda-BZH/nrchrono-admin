@@ -103,7 +103,7 @@ class Timer {
 
             try {
                 $latestTeamTiming = $repoTiming->getLatestTeamTiming($team, 1);
-                $this->output->writeln('Got latest team timing');
+                //$this->output->writeln('Got latest team timing');
             // FIXME no result exception
             } catch(\Exception $e) {
                 $latestTeamTiming = null;
