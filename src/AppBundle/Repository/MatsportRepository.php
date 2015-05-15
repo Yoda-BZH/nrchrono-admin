@@ -42,4 +42,22 @@ class MatsportRepository extends EntityRepository
             ->getSingleResult()
             ;
     }
+
+
+
+    public function getTeamStats($team) {
+        $qb = $this->createQueryBuilder('ms');
+
+        $qb
+            ->where('ms.idTeam = :team')
+            ->setParameter('team', $team)
+            //->andWhere('ti.createdAt > :yesterday')
+            //->setParameter('yesterday', date('Y-m-d', time() - 3600 * 24))
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

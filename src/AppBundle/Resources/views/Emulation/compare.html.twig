@@ -1,0 +1,33 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Emulation:compare{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Emulation:compare page</h1>
+
+<table class="table table-hovered table-stripped table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Timing timing</th>
+            <th>Emulation timing</th>
+            <th>Timing clock</th>
+            <th>Emulation clock</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for line in data %}
+        <tr>
+            <td>{{ line.timing.id }}</td>
+            <td>{{ line.timing.timing|date('H:i:s') }}</td>
+            <td>{{ line.emulation.timing|date('H:i:s') }}</td>
+            <td>{{ line.timing.clock|date('H:i:s') }}</td>
+            <td>{{ line.emulation.clock|date('H:i:s') }}</td>
+        </tr>
+{% endfor %}
+
+    </tbody>
+</table>
+
+
+{% endblock %}
