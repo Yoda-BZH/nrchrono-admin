@@ -53,6 +53,7 @@ class MatsportRepository extends EntityRepository
             ->setParameter('team', $team)
             //->andWhere('ti.createdAt > :yesterday')
             //->setParameter('yesterday', date('Y-m-d', time() - 3600 * 24))
+            ->orderBy('ms.id', 'ASC')
             ;
 
         return $qb
