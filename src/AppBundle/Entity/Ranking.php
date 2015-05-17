@@ -50,9 +50,17 @@ class Ranking
     private $tour;
 
     /**
-     * @var \DateTime
+     * field "ecart" provided by a provider
+     * at matsport it can be either :
+     * * -
+     * * x Tr
+     * * 3:36.343
+     * * 38.321
+     * * 8:12:43.234
+     * ... so a string will do fine.
+     * @var string
      *
-     * @ORM\Column(name="ecart", type="time", nullable=true)
+     * @ORM\Column(name="ecart", type="string", nullable=true, length=30)
      */
     private $ecart;
 
