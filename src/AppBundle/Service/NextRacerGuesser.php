@@ -18,6 +18,16 @@ class NextRacerGuesser {
 
     }
 
+    private function isFirstLap($teamId)
+    {
+        return $this->latestTiming[$teamId] == null;
+    }
+
+    private function firstRacerRunsTwoLaps($teamId)
+    {
+        array_unshift($this->nextRacers[$teamId], $this->nextRacers[$teamId][0]);
+    }
+
     /**
      * Set the value of
      *
@@ -69,9 +79,9 @@ class NextRacerGuesser {
             $this->nextRacers[$teamId] = $this->repoRacer->getAllRacersAvailable($this->team, $position);
 
             // fix the first racer has to do 2 laps in a row
-            if ($this->latestTiming[$teamId] == null)
+            if ($this->isFirstLap($teamId))
             {
-                array_unshift($this->nextRacers[$teamId], $this->nextRacers[$teamId][0]);
+                $this->firstRacerRunsTwoLaps($teamId);
             }
 
             // remplacing racers with predictions
@@ -84,7 +94,7 @@ class NextRacerGuesser {
         }
 
         // pause managementstart
-if(1) {
+
         $dt = new \Datetime();
         $previousRacer = $this->latestRacer[$teamId];
         //$hourPauses = array_keys($pauses);
@@ -133,7 +143,7 @@ if(1) {
         }
         // pause management stop
         $this->nextRacers[$teamId] = array_values($this->nextRacers[$teamId]);
-}
+
         return $this->nextRacers[$teamId];
     }
 
