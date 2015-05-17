@@ -153,10 +153,10 @@ class Timer {
                 ->setBestLap(new \Datetime('today 00:'.$teamStats->getBestLap()))
                 ->setCreatedAt($now)
                 ->setDistance($teamStats->getDistance() * 1000)
-                ->setEcart(new \Datetime('today '.$teamStats->getEcart()))
+                ->setEcart($teamStats->getEcart())
                 ->setPoscat($teamStats->getPoscat())
                 ->setPosition($teamStats->getPosition())
-                ->setSpeed($teamStats->getVitesse())
+                ->setSpeed($teamStats->getVitesse() * 1000)
                 ->setTime(new \Datetime('today '.$teamStats->getTemps()))
                 ->setTour($teamStats->getTour())
                 ;

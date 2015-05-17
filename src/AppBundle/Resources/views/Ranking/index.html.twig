@@ -3,7 +3,7 @@
 {% block body -%}
     <h1>Ranking list</h1>
 
-    <table class="records_list table table-condensed table-stripped table-hover ">
+    <table class="records_list table table-condensed table-stripped table-hover table-datatable">
         <thead>
             <tr>
                 <th>Id</th>
@@ -28,8 +28,8 @@
                 <td>{{ entity.time|date('H:i:s') }}</td>
                 <td>{{ entity.tour }}</td>
                 <td>{{ entity.ecart|date('H:i:s') }}</td>
-                <td>{{ entity.distance }}</td>
-                <td>{{ entity.speed }}</td>
+                <td>{{ entity.distance / 1000 }} km</td>
+                <td>{{ entity.speed / 1000}} km/h</td>
                 <td>{{ entity.bestlap|date('H:i:s') }}</td>
                 <td>{{ entity.poscat }}</td>
                 <td>
