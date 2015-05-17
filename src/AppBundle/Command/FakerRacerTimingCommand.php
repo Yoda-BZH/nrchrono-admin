@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Doctrine\ORM\NoResultException;
 
 use AppBundle\Entity\Timing;
 use AppBundle\Entity\Matsport;
@@ -44,7 +45,7 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             $latestTeamTiming = $repoMatsport->findLatestForTeam($team);
             $clock = clone $latestTeamTiming->getClock();
             $output->writeln(date('c ').'Using latest team timing clock: '.$clock->format('H:i:s'));
-        } catch(\Exception $e) {
+        } catch(NoResultException $e) {
             $output->writeln('got exception: '.$e->getMessage());
             //$output->writeln('trace: '.$e->getTraceAsString());
             $race = $em->getRepository('AppBundle:Race')->find(1);

@@ -4,6 +4,7 @@ namespace AppBundle\Timer;
 
 use AppBundle\Timer\Provider\Provider;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\NoResultException;
 
 use AppBundle\Entity\Timing;
 use AppBundle\Entity\Ranking;
@@ -106,7 +107,7 @@ class Timer {
                 $latestTeamTiming = $repoTiming->getLatestTeamTiming($team, 1);
                 //$this->output->writeln('Got latest team timing');
             // FIXME no result exception
-            } catch(\Exception $e) {
+            } catch(NoResultException $e) {
                 $latestTeamTiming = null;
                 //$this->output->writeln('No latest team timing ?');
             }

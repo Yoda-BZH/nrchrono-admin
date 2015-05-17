@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Doctrine\ORM\NoResultException;
 
 use AppBundle\Entity\Timing;
 
@@ -50,7 +51,7 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
         foreach($teams as $team) {
             try {
                 $lastTiming = $repoMatsport->findLatestForTeam($team->getId());
-            } catch(\Exception $e) {
+            } catch(NoResultException $e) {
                 //$output->writeln('No timing (yet) for '.$team->getName());
                 continue;
             }

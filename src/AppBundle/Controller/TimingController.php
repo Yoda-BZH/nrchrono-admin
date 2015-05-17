@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Timing;
 use AppBundle\Form\TimingType;
+use Doctrine\ORM\NoResultException;
 
 /**
  * Timing controller.
@@ -467,7 +468,7 @@ class TimingController extends Controller
             $latestTeamTiming = $repoTiming->getLatestTeamTiming($team, 1);
             $previousClock = clone $latestTeamTiming->getClock();
         // FIXME no result exception
-        } catch(\Exception $e) {
+        } catch(NoResultException $e) {
             $repoRace = $em->getRepository('AppBundle:Race');
             $race = $repoRace->find(1); // FIXME
             $previousClock = clone $race->getStart();
