@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 
 class EmulationController extends Controller
 {
@@ -58,5 +59,15 @@ class EmulationController extends Controller
         $teams = $repoTeam->findAll();
 
         return array('teams' => $teams);
+    }
+
+    /**
+     * @Route("/file", name="compare_file")
+     */
+    public function fileAction()
+    {
+        $file = $this->get('service_container')->getParameter('kernel.root_dir').'/matsport.html';
+
+        return new Response(file_get_contents($file));
     }
 }
