@@ -78,9 +78,9 @@ class FakerFixturesCommand extends ContainerAwareCommand
             $teamsTypes = array(
                 array(2, 1,  1, $pausesTeam[2], '#c71e1e', sprintf('NR %s', $faker->city)),
                 array(5, 3,  2, $pausesTeam[5], '#e2ff00', sprintf('NR %s', $faker->city)),
-                array(10, 5, 2, $pausesTeam[10], '#3928c7', sprintf('NR %s', $faker->city)),
-                array(10, 5, 2, $pausesTeam[10], '#10d21a', sprintf('NR %s', $faker->city)),
-                array(10, 5, 2, $pausesTeam[10], '#c820be', sprintf('NR %s', $faker->city)),
+                array(10, 5, 5, $pausesTeam[10], '#3928c7', sprintf('NR %s', $faker->city)),
+                array(10, 5, 5, $pausesTeam[10], '#10d21a', sprintf('NR %s', $faker->city)),
+                array(10, 5, 5, $pausesTeam[10], '#c820be', sprintf('NR %s', $faker->city)),
             );
         }
 
@@ -160,7 +160,8 @@ class FakerFixturesCommand extends ContainerAwareCommand
                 $em->persist($racer);
 
                 // fixme, only works with 2 pauses
-                $pauseId = (($i+1) <= ($team->getNbPerson() / $teamType[2])) ? 0 : 1;
+                //$pauseId = (($i+1) <= ($team->getNbPerson() / $teamType[2])) ? 0 : 1;
+                $pauseId = (($i + 1) <= $teamType[1]) ? 0 : 1;
 
                 $racerPause = new RacerPause;
                 $racerPause
