@@ -445,4 +445,50 @@ class TimingController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Ajoute une entrée de passage manuellement
+     *
+     * @Route("/timing/manual", name="timing_add_manual")
+     * @Method("POST")
+     */
+    public function manualAction(Request $request)
+    {
+        $data = $request->request->get('data');
+        $em = $this->getDoctrine()->getManager();
+
+        $repoRacer = $em->getRepository('AppBundle:Racer');
+        $racer = $repoRacer->find($data['racerid']);
+
+        $repoTeam = $em->getRepository('AppBundle:Team');
+        $team = $repoTeam->find($data['teamid']);
+
+        try {
+            $latestTeamTiming = $repoTiming->getLatestTeamTiming($team, 1);
+            $previousClock = clone $latestTeamTiming->getClock();
+        // FIXME no result exception
+        } catch(\Exception $e) {
+            $repoRace = $em->getRepository('AppBundle:Race');
+            $race = $repoRace->find(1); // FIXME
+            $previousClock = clone $race->getStart();
+        }
+        $now = new \DateTime();
+
+        $intervalT = $previousClock->diff($now);
+        $t = new \Datetime('today '.$intervalT->format('%H:%I:%S'));
+
+        $timing = new Timing();
+        $timing
+            ->setCreatedAt($now)
+            ->setIdRacer($racer)
+            ->setIsRelay(0)
+            ->setClock($now)
+            ->setManual()
+            ->setTiming($t)
+            ;
+        $em->persist($timing);
+        $em->flush();
+
+        return new Response();
+    }
 }

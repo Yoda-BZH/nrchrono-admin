@@ -186,6 +186,25 @@ $(document).ready(function() {
             }
         );
     });
+
+    // passage manual des coureurs
+    racerPrevisons.on('click', 'button.add-manual', function() {
+        var $button = $(this);
+        var $parent = $button.parent();
+        var $teamId = $button.data('team-id');
+        var $racerId = $button.data('racer-id');
+        var postData = {};
+        postData.racerid = $racerId;
+        postData.teamid = $teamId;
+        console.log(postData);
+        $.post(
+            '{{ path("timing_add_manual") }}',
+            { data: postData },
+            function(data, textStatus, jqXHR) {
+                window.location = window.location;
+            }
+        );
+    });
     //$('.team-racer-manual-selector').selectmenu();
 });
 </script>

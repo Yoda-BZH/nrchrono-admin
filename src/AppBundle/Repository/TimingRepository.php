@@ -93,10 +93,11 @@ class TimingRepository extends EntityRepository
             ->addSelect('r')
             ->leftJoin('ti.idRacer', 'r')
             ->where('r.idTeam = :idTeam')
-            ->andWhere('ti.type = :type')
+            //->andWhere('ti.type = :type')
+            ->andWhere($qb->expr()->in('ti.type', array(Timing::AUTOMATIC, Timing::MANUAL)))
             ->setParameter('idTeam', $teamId)
-            ->setParameter('type', Timing::AUTOMATIC)
-            ->orderBy('ti.id', 'DESC')
+            ->orderBy('ti.type', 'DESC')
+            ->addOrderBy('ti.id', 'DESC')
             ;
 
         return $qb;
