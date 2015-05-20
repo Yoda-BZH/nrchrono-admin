@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\NoResultException;
 
 class EmulationController extends Controller
 {
@@ -23,7 +24,7 @@ class EmulationController extends Controller
 
         try {
             $team = $repoTeam->find($id);
-        } catch (\Exception $e) {
+        } catch (NoResultException $e) {
             $this->throwNotFoundException();
         }
         !$team && $this->throwNotFoundException();
