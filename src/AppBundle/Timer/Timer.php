@@ -159,6 +159,7 @@ class Timer {
                 ->setSpeed($teamStats->getVitesse() * 1000)
                 ->setTime(new \Datetime('today '.$teamStats->getTemps()))
                 ->setTour($teamStats->getTour())
+                ->setIdTeam($team)
                 ;
             $this->em->persist($ranking);
         }
