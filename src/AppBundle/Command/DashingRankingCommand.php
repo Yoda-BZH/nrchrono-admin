@@ -30,7 +30,8 @@ class DashingRankingCommand extends ContainerAwareCommand
 
         $teams = $repoTeam->findAll();
 
-        $rankings = array();
+        $rankingGeneral = array();
+        $rankingCategory = array();
         foreach($teams as $team)
         {
             $ranking = $repoRanking->getLatestRankingForTeam($team);
@@ -38,22 +39,36 @@ class DashingRankingCommand extends ContainerAwareCommand
                 continue;
             }
 
-            $rankings[] = array(
+            $rankingGeneral[] = array(
                 'label' => $team->getName(),
                 'value' => $ranking->getPosition()
             );
+
+            $rankingCategory[] = array(
+                'label' => $team->getName(),
+                'value' => $ranking->getPoscat()
+            );
         }
 
-        if(!$rankings) {
+        if(!$rankingGeneral) {
             return 0;
         }
 
-        $url = 'http://localhost:3030/widgets/ranking';
+        $url = 'http://localhost:3030/widgets/rankingGen';
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
             "auth_token" => "ttrtyuijk",
-            "items" => $rankings,
+            "items" => $rankingGeneral,
+        )));
+        curl_exec($curl);
+
+        $url = 'http://localhost:3030/widgets/rankingCat';
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
+            "auth_token" => "ttrtyuijk",
+            "items" => $rankingCategory,
         )));
         curl_exec($curl);
 
