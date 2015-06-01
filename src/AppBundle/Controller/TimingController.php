@@ -465,6 +465,7 @@ class TimingController extends Controller
         $team = $repoTeam->find($data['teamid']);
 
         try {
+            $repoTiming = $em->getRepository('AppBundle:Timing');
             $latestTeamTiming = $repoTiming->getLatestTeamTiming($team, 1);
             $previousClock = clone $latestTeamTiming->getClock();
         // FIXME no result exception
