@@ -53,10 +53,12 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             $output->writeln(date('c ').'Seems le first one, using the start of race: '.$clock->format('H:i:s'));
         }
 
-        $nextRacer = $nextGuesser
+        $nextRacers = $nextGuesser
             ->setTeam($team)
-            ->getNext()
+            ->getNexts()
             ;
+
+        $nextRacer = $nextRacers[1];
 
         //if(!$nextRacer) {
         //    $repoRacer = $em->getRepository('AppBundle:Racer');
