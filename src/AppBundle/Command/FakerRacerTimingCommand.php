@@ -71,11 +71,16 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
         } else {
             throw new \Exception('Bad --timing');
         }
-        sleep($timeToWait);
         $t = new \Datetime('today 00:00:00');
         $t->modify($s = sprintf('+%d seconds', $timeToWait)); // +1 to compensate drift
 
         $clock->modify($s);
+        $output->writeln(sprintf('%s %s is arriving at %s',
+            date('c'),
+            $nextRacer->getNickname(),
+            $clock->format('Y-m-d H:i:s')
+        ));
+        sleep($timeToWait);
 
         //try {
         //    $timing = $repoTiming->getPrediction($nextRacer);
