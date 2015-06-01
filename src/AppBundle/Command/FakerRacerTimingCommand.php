@@ -72,15 +72,15 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
             //$timeToWait = rand(9 * 60, 13 * 60);
             $timeRand = rand($racerTimingAvgInSec - 30, $racerTimingAvgInSec + 30);
             $timeToWait = rand(
-                max(9, $timeRand),
-                min(13, $timeRand)
+                max(9 * 60, $timeRand),
+                min(13 * 60, $timeRand)
             );
         } elseif($mediumTiming == 3) {
             //$timeToWait = rand(2.8 * 60, 4 * 60);
             $timeRand = rand($racerTimingAvgInSec - 10, $racerTimingAvgInSec + 10);
             $timeToWait = rand(
-                max(2.8, $timeRand),
-                min(4, $timeRand)
+                max(2.8 * 60, $timeRand),
+                min(4 * 60, $timeRand)
             );
         } else {
             throw new \Exception('Bad --timing');
