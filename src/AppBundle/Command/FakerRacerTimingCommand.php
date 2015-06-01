@@ -64,10 +64,24 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
         //}
 
         //$racer = $repoTeam->getNextRacer($teamId);
+        $racerTimingAvg = $nextRacer->getTimingAvg();
+        $racerTimingAvgInSec = $racerTimingAvg->format('H') * 3600
+                             + $racerTimingAvg->format('i') * 60
+                             + $racerTimingAvg->format('s');
         if($mediumTiming == 12) {
-            $timeToWait = rand(9 * 60, 13 * 60);
+            //$timeToWait = rand(9 * 60, 13 * 60);
+            $timeRand = rand($racerTimingAvgInSec - 30, $racerTimingAvgInSec + 30);
+            $timeToWait = rand(
+                max(9, $timeRand),
+                min(13, $timeRand)
+            );
         } elseif($mediumTiming == 3) {
-            $timeToWait = rand(2.8 * 60, 4 * 60);
+            //$timeToWait = rand(2.8 * 60, 4 * 60);
+            $timeRand = rand($racerTimingAvgInSec - 10, $racerTimingAvgInSec + 10);
+            $timeToWait = rand(
+                max(2.8, $timeRand),
+                min(4, $timeRand)
+            );
         } else {
             throw new \Exception('Bad --timing');
         }
@@ -78,10 +92,10 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
         $output->writeln(sprintf('%s %s is arriving at %s, running for %d seconds - %s, average to %s',
             date('c'),
             $nextRacer->getNickname(),
-	    $clock->format('Y-m-d H:i:s'),
-	    $timeToWait,
-	    $t->format('H:i:s'),
-	    $nextRacer->getTimingAvg()->format('H:i:s')
+            $clock->format('Y-m-d H:i:s'),
+            $timeToWait,
+            $t->format('H:i:s'),
+            $nextRacer->getTimingAvg()->format('H:i:s')
         ));
         sleep($timeToWait);
 
