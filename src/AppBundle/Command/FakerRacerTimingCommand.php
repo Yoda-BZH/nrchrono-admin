@@ -75,10 +75,13 @@ class FakerRacerTimingCommand extends ContainerAwareCommand
         $t->modify($s = sprintf('+%d seconds', $timeToWait)); // +1 to compensate drift
 
         $clock->modify($s);
-        $output->writeln(sprintf('%s %s is arriving at %s',
+        $output->writeln(sprintf('%s %s is arriving at %s, running for %d seconds - %s, average to %s',
             date('c'),
             $nextRacer->getNickname(),
-            $clock->format('Y-m-d H:i:s')
+	    $clock->format('Y-m-d H:i:s'),
+	    $timeToWait,
+	    $t->format('H:i:s'),
+	    $nextRacer->getTimingAvg()->format('H:i:s')
         ));
         sleep($timeToWait);
 
