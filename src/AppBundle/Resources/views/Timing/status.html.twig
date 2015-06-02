@@ -99,15 +99,17 @@ $(document).ready(function() {
         });
     }
 {% for team in teams %}
-    //initialDataSelector = $('#timing-status-team-{{ team.id }} td');
-    //initialData = initialDataSelector.html();
     loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
+{% endfor %}
+
     setInterval(function() {
         //initialDataSelector.html(initialData);
+        setCountdown();
+{% for team in teams %}
         loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
+{% endfor %}
     }, 30000);
 
-{% endfor %}
 
     remains = $('#remains');
     disableButtons = function(periods) {
@@ -125,7 +127,7 @@ $(document).ready(function() {
             onTick: disableButtons
         });
     }
-    setInterval(setCountdown, 30000);
+    //setInterval(setCountdown, 30000);
     setCountdown();
 
     racerPrevisons = $('#racers-prevision');
