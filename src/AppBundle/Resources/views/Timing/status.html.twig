@@ -3,6 +3,7 @@
 {% block body -%}
 
 <h1>Statut</h1>
+<div id="progressbar" style="margin-left: 130px; margin-top: -45px; margin-bottom: 20px; width: 50%; "></div>
 
 {#
 <div class="row">
@@ -111,12 +112,22 @@ $(document).ready(function() {
     }, 30000);
 
 
-    remains = $('#remains');
+    var remains = $('#remains');
+    var progressbar = $('#progressbar');
     disableButtons = function(periods) {
-        if($.countdown.periodsToSeconds(periods) === 10) {
+        secPeriods = $.countdown.periodsToSeconds(periods);
+        if(secPeriods >= 10) {
+            progressbar.progressbar('value', secPeriods - 10);
+        }
+        if(secPeriods === 10) {
+            progressbar.progressbar('value', false);
             $('#racers-prevision button').hide(); //addClass('btn-error');
         }
     }
+    progressbar.progressbar({
+        max: 20,
+        value: 20,
+    });
 
     setCountdown = function() {
         remains.countdown('destroy');
