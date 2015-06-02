@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Gestion des relais{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bootstrap/css/bootstrap.css') }}">
 {% if app.session.get('theme') %}
@@ -14,13 +14,13 @@
     'bundles/datatables-fixedcolumns/css/dataTables.fixedColumns.min.css'
     'bundles/datatables-fixedheader/css/dataTables.fixedHeader.min.css'
     'bundles/KeyTable-1.2.1/css/dataTables.keyTable.css'
-    'bundles/bmatznerjqueryui/css/smoothness/jquery-ui.css'
-    'bundles/bmatznerjqueryui/css/smoothness/jquery.ui.theme.css'
     'bundles/app/css/app.css'
     'teams.css'
 %}
     <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/bmatznerjqueryui/css/smoothness/jquery-ui.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/bmatznerjqueryui/css/smoothness/jquery.ui.theme.css') }}" />
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
