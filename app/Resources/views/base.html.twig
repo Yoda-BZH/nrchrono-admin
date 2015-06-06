@@ -9,7 +9,6 @@
 {% endif %}
 
 {% stylesheets
-    'bundles/datatables/css/jquery.dataTables.min.css'
     'bundles/datatables-fixedcolumns/css/dataTables.fixedColumns.min.css'
     'bundles/datatables-fixedheader/css/dataTables.fixedHeader.min.css'
     'bundles/KeyTable-1.2.1/css/dataTables.keyTable.css'
@@ -23,6 +22,8 @@
     those files must not be in the stylesheet function,
     as relative files won't work, resulting in glitches
 #}
+
+    <link rel="stylesheet" href="{{ asset('bundles/datatables/css/jquery.dataTables.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/bmatznerjqueryui/css/smoothness/jquery-ui.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/bmatznerjqueryui/css/smoothness/jquery.ui.theme.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bootstrap/css/bootstrap.css') }}">
@@ -73,6 +74,8 @@
     'bundles/KeyTable-1.2.1/js/dataTables.keyTable.min.js'
     'bundles/bmatznerjqueryui/js/minified/jquery-ui.min.js'
     'js/sprintf/dist/sprintf.min.js'
+    'jqcountdown/jquery.plugin.min.js'
+    'jqcountdown/jquery.countdown.js'
 %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
