@@ -255,7 +255,7 @@ class TeamController extends Controller
 
         return array(
             'team' => $team,
-            'timing' => $timings,
+            'timings' => $timings,
         );
     }
 

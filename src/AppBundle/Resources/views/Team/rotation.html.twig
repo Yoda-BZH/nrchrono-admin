@@ -5,6 +5,9 @@
 
 <p>Team <a href="{{ path('team_show', { 'id': team.id }) }}">{{ team.name }}</a></p>
 
+{% if not timings %}
+    <p>Au moins un tour doit être fait.</p>
+{% else %}
 <table class="records_list table table-condensed table-hover table-stripped">
     <thead>
         <tr>
@@ -17,7 +20,7 @@
         </tr>
     </thead>
     <tbody>
-    {% for timing in timing %}
+    {% for timing in timings %}
         <tr>
             <td><a href="">{{ timing.id }}</a></td>
             <td><a href="{{ path('racer_show', { 'id': timing.idRacer.id }) }}">{{ timing.idRacer.firstname }}</a></td>
@@ -29,5 +32,6 @@
     {% endfor %}
     </tbody>
 </table>
+{% endif %}
 
 {% endblock %}
