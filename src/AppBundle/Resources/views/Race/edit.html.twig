@@ -4,6 +4,12 @@
     <h1>Race edit</h1>
 
     {{ form(edit_form) }}
+    <div id="appbundle_race_now">
+        <div class="form-group">
+            <label class="control-label" for="appbundle_race_now">Démarrage de la course</label>
+            <button id="appbundle_race_now" name="now" class="button btn-primary form-control" value="Lancer la course !">Démarrer la course</button>
+        </div>
+    <div class="form-group">
 
         <ul class="record_actions">
     <li>
@@ -13,4 +19,17 @@
     </li>
     <li>{{ form(delete_form) }}</li>
 </ul>
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+    $('#appbundle_race_now').click(function(event) {
+        var now = new Date();
+        $('#appbundle_race_start_time_hour').val(now.getHours());
+        $('#appbundle_race_start_time_minute').val(now.getMinutes());
+    });
+});
+</script>
 {% endblock %}
