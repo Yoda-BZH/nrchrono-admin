@@ -58,15 +58,17 @@
     <li>{{ form(delete_form) }}</li>
 </ul>
 
-<table class="records_list table table-condensed table-stripped table-bordered table-hover table-datatable" data-datatable-sorting-col="5">
+<table class="records_list table table-condensed table-stripped table-bordered table-hover table-datatable" data-datatable-sorting-col="4">
     <thead>
         {% include "AppBundle:Racer:header.html.twig" %}
     </thead>
     <tfoot>
-        <td colspan="5">&nbsp;</td>
+        <td colspan="4">&nbsp;</td>
         <td>
             <div>
-                <form id="reorder" method="post" action="{{ path('racer_order') }}"><button class="first-hidden btn btn-primary" type="submit">Valider</button></form>
+                <form id="reorder" method="post" action="{{ path('racer_order') }}">
+                    <button class="first-hidden btn btn-primary" type="submit">Valider</button>
+                </form>
             </div>
         </td>
         <td colspan="4">&nbsp;</td>
@@ -105,19 +107,27 @@
 $(document).ready(function() {
     $('button.first-hidden').hide();
 
-    $('#reorder').submit(function() {
+    $('#reorder').submit(function(event) {
+        console.log('got submit');
         event.preventDefault();
-        orderData = []
+        var orderData = []
         tbody.find('tr').each(function(index) {
             $tr = $(this);
             racerId = $tr.find('td.racer-id').data('racerid');
+            console.log('treating racer id ' + racerId);
 
             tdPosition = $tr.find('td.position');
             newpos = tdPosition.data('newpos');
             if(newpos != '') {
+                console.log('pos for ' + racerId + ' is now ' + newpos);
                 orderData[racerId] = newpos;
             }
         });
+        console.log(orderData.length == 0);
+
+        if(orderData.length === 0) {
+            return;
+        }
         postData = [];
         postData['order'] = orderData;
 
@@ -132,31 +142,31 @@ $(document).ready(function() {
             ui.modal();
         })
     });
-});
-tbody = $(".sortable");
-tbody.sortable({
-    axis: "y",
-    stop: function(event, ui) {
+    tbody = $(".sortable");
+    tbody.sortable({
+        axis: "y",
+        stop: function(event, ui) {
 
-        $('button.first-hidden').show();
-        tbody.find('td.position').each(function(index) {
-            $this = $(this);
-            currentIndex = $this.data('position');
-            newIndex = index + 1;
-            if(currentIndex != newIndex) {
-                $this.addClass('danger')
-                $this.data('newpos', newIndex);
-                content = newIndex + ' <span class="overline">(' + currentIndex + ')</span>';
-                if(newIndex > currentIndex) {
-                    glyph = 'glyphicon-arrow-down';
-                } else {
-                    glyph = 'glyphicon-arrow-up';
+            $('button.first-hidden').show();
+            tbody.find('td.position').each(function(index) {
+                $this = $(this);
+                currentIndex = $this.data('position');
+                newIndex = index + 1;
+                if(currentIndex != newIndex) {
+                    $this.addClass('danger')
+                    $this.data('newpos', newIndex);
+                    content = newIndex + ' <span class="overline">(' + currentIndex + ')</span>';
+                    if(newIndex > currentIndex) {
+                        glyph = 'glyphicon-arrow-down';
+                    } else {
+                        glyph = 'glyphicon-arrow-up';
+                    }
+                    content += ' <span class="glyphicon ' + glyph + '"></span>';
+                    $this.html(content);
                 }
-                content += ' <span class="glyphicon ' + glyph + '"></span>';
-                $this.html(content);
-            }
-        });
-    }
+            });
+        }
+    });
 });
 </script>
 {% endblock %}

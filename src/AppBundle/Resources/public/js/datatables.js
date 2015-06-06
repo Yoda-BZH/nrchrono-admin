@@ -19,11 +19,9 @@ $(document).ready(function() {
             sortingType = 'asc';
         }
         console.log('sorting col ' + sortingCol + ' ' + sortingType);
-        
+
         options.order = [ sortingCol, sortingType ];
     }
 
     tables.DataTable(options);
-    //new $.fn.dataTable.FixedHeader( tables );
-    //new $.fn.dataTable.KeyTable( tables );
 });
