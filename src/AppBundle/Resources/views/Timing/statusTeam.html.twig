@@ -26,7 +26,7 @@
 
 {# separator #}
 <td id="separator-{{ team.id }}" class="col-md-1 team-bg-color-{{ team.id }} timing-separator">
-<p>{{ team.name }}</p>
+<p><a href="{{ path('team_show', {'id': team.id }) }}">{{ team.name }}</a></p>
 </td>
 
 {# next racers #}
@@ -34,7 +34,7 @@
 <td class="col-md-1">
 <ul class="list-unstyled">
     <li>
-    {{ racer.nickname }}
+    <a href="{{ path('racer_show', {'id': racer.id }) }}">{{ racer.nickname }}</a>
     <button
         id="prediction-team-{{ team.id }}-pos-{{ loop.index }}"
         class="btn btn-default btn-xs prediction-changer"
