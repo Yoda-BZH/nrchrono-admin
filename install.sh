@@ -4,8 +4,8 @@ composer install
 
 app/console assets:install --symlink web
 
-highcharts="Highcharts-4.1.3.zip"
-if [ ! -d web/highcharts ]
+highcharts="Highcharts-4.1.5.zip"
+if [ ! -d web/highcharts/js ]
 then
     wget http://code.highcharts.com/zips/$highcharts
     unzip -d web/highcharts $highcharts
