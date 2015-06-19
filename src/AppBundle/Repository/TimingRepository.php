@@ -254,4 +254,50 @@ class TimingRepository extends EntityRepository
             ->getSingleResult()
             ;
     }
+
+    public function getBestTeamLaps() {
+        $qb = $this->createQueryBuilder('ti');
+
+        $qb
+            ->select($qb->expr()->min('ti.timing'))
+            ->addSelect('t.name')
+            ->addSelect('r.nickname')
+            ->leftJoin('ti.idRacer', 'r')
+            ->leftJoin('r.idTeam', 't')
+            //->addSelect('AVG(UNIX_TIMESTAMP(t.timing))')
+            ->groupBy('r.idTeam')
+            ->orderBy('t.id', 'ASC')
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function getLatestTeamLaps()
+    {
+        $qb = $this->createQueryBuilder('ti');
+
+        $qb
+            ->select('ti.timing')
+            //->addSelect($qb->expr()->max('ti.id'))
+            ->addSelect('ti.id timingid')
+            ->addSelect('r.nickname')
+            ->addSelect('t.name')
+            ->addSelect('t.id teamid')
+            ->leftJoin('ti.idRacer', 'r')
+            ->leftJoin('r.idTeam', 't')
+            ->addOrderBy('ti.id', 'DESC')
+            ->addOrderBy('r.idTeam', 'ASC')
+            ->addOrderBy('ti.id', 'DESC')
+            //->groupBy('r.idTeam')
+            ->setMaxResults(5)
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
