@@ -84,7 +84,7 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
                 'type' => 'Prestige',
                 //'time' => $elapsed->format('%H:%I:%S'),
                 'time' => $elapsed,
-                'vitesse' => round($kmh / 3.5, 1),
+                'vitesse' => round($kmh, 1),
                 'ecart' => '12:36:17.164',
                 'bestlap' => '10:23.482',
                 'poscat' => 19,
