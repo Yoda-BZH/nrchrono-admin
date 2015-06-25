@@ -29,3 +29,9 @@ services:
         calls:
             - [ setEm, [ "@doctrine.orm.entity_manager" ] ]
 
+
+    race:
+        class: AppBundle\Service\Race
+        calls:
+            - [ setEm, [ "@doctrine.orm.entity_manager" ] ]
+            - [ setId, [ 1 ] ]
