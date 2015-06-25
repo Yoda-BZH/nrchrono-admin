@@ -72,7 +72,7 @@ class ManualTimingController extends Controller
             }
             $clock = clone $latestTeamTiming->getClock();
         } catch(\Exception $e) {
-            $race = $em->getRepository('AppBundle:Race')->find(1);
+            $race = $this->getContainer()->get('race')->get(); //$em->getRepository('AppBundle:Race')->find(1);
             $clock = clone $race->getStart();
         }
 

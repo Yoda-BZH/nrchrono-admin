@@ -42,7 +42,7 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
         $repoTeams = $em->getRepository('AppBundle:Team');
         $teams = $repoTeams->findAll();
 
-        $race = $em->getRepository('AppBundle:Race')->find(1);
+        $race = $this->getContainer()->get('race')->get(); //$em->getRepository('AppBundle:Race')->find(1);
 
         $raceStart = $race->getStart();
 

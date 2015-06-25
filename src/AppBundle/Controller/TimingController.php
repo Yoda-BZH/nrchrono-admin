@@ -108,7 +108,7 @@ class TimingController extends Controller
             }
             $clock = clone $latestTeamTiming->getClock();
         } catch(\Exception $e) {
-            $race = $em->getRepository('AppBundle:Race')->find(1);
+            $race = $this->get('race')->get(); //$em->getRepository('AppBundle:Race')->find(1);
             $clock = clone $race->getStart();
         }
 
@@ -471,7 +471,7 @@ class TimingController extends Controller
         // FIXME no result exception
         } catch(NoResultException $e) {
             $repoRace = $em->getRepository('AppBundle:Race');
-            $race = $repoRace->find(1); // FIXME
+            $race = $this->get('race')->get(); //$repoRace->find(1); // FIXME
             $previousClock = clone $race->getStart();
         }
         $now = new \DateTime();
