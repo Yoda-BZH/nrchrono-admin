@@ -23,7 +23,16 @@ class DashingBestlapsCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $verbose = $input->getOption('verbose');
         $em = $this->getContainer()->get('doctrine')->getManager();
+
+        $raceManager = $this->getContainer()->get('race');
+        if (!$raceManager->isStarted())
+        {
+            $verbose && $output->writeln('race has not started yet');
+
+            return 0;
+        }
 
         //$repoTeam = $em->getRepository('AppBundle:Team');
         $repoTiming = $em->getRepository('AppBundle:Timing');
