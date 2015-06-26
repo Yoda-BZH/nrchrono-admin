@@ -20,8 +20,8 @@
                 <td><a href="{{ path('pause_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.porder }}</td>
                 <td class="team-color-grad-{{ entity.idTeam.id }}"><a href="{{ path('team_show', { 'id': entity.idTeam.id }) }}">{{ entity.idTeam.name }}</a></td>
-                <td>{{ entity.hourStart|date('H:i') }}</td>
-                <td>{{ entity.hourStop|date('H:i') }}</td>
+                <td>{{ entity.hourStart|date('Y-m-d H:i') }}</td>
+                <td>{{ entity.hourStop|date('Y-m-d H:i') }}</td>
                 <td>
                 <ul>
                     <li>
