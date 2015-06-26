@@ -471,7 +471,7 @@ class TimingController extends Controller
         // FIXME no result exception
         } catch(NoResultException $e) {
             $repoRace = $em->getRepository('AppBundle:Race');
-            $race = $this->get('race')->get(); //$repoRace->find(1); // FIXME
+            $race = $this->get('race')->get(); //   $repoRace->find(1); // FIXME
             $previousClock = clone $race->getStart();
         }
         $now = new \DateTime();
