@@ -15,7 +15,9 @@ class TimingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('timing')
+		->add('timing', 'datetime', array(
+			'with_seconds' => true,
+		))
             ->add('createdAt')
             ->add('isRelay')
             ->add('idRacer', 'entity', array(

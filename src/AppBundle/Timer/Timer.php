@@ -99,17 +99,19 @@ class Timer {
 
             if($nbTiming[1] >= $teamStats->getTour()) {
                 //echo 'Bon nombre de tour: '.$teamStats->getTour();
-                //$this->output->writeln(sprintf('Count of timings equals the number of laps done (%d)', $nbTiming[1]));
+                //$this->output->writeln(sprintf('Count of timings equals the number of laps done (manually: %d >= matsport: %d ) %s', $nbTiming[1], $teamStats->getTour(), $team->getName()));
                 continue;
             }
+echo 'foo';
+	    $this->output->writeln('Continuing team from matsport - ' . $team->getName());
 
             try {
                 $latestTeamTiming = $repoTiming->getLatestTeamTiming($team, 1);
-                //$this->output->writeln('Got latest team timing');
+                $this->output->writeln('Got latest team timing for team ' . $team->getName());
             // FIXME no result exception
             } catch(NoResultException $e) {
                 $latestTeamTiming = null;
-                //$this->output->writeln('No latest team timing ?');
+                $this->output->writeln('No latest team timing ? ' . $team->getName());
             }
             $intervalPieces = explode(':', $teamStats->getTemps());
             $intervalStr = sprintf('PT%02dH%02dM%02dS',
@@ -125,14 +127,14 @@ class Timer {
             $endLap->add($interval);
             //$this->output->writeln(sprintf('Adding interval %s to endlap', $interval->format('%H:%I:%S')));
             //$this->output->writeln('Endlap is now '.$endLap->format('H:i:s'));
-
+$this->output->writeln('checking last timing for '.$team->getName());
             if(!$latestTeamTiming) {
                 $t = new \Datetime('today '.$teamStats->getTemps());
             } else {
                 $intervalTemps = $endLap->diff($latestTeamTiming->getClock());
                 $t = new \Datetime('today '.$intervalTemps->format('%H:%I:%S'));
             }
-
+$this->output->writeln('getting nexdt guesser for '.$team->getName());
             $nextRacer = $this->guesser
                 ->setTeam($team)
                 ->getNext()
@@ -148,6 +150,7 @@ class Timer {
                 ->setAutomatic()
                 ;
             $this->em->persist($timing);
+            $this->output->writeln('saving new timing for team '.$team->getName());
 
             $ranking = new Ranking;
             $ranking
@@ -163,6 +166,7 @@ class Timer {
                 ->setIdTeam($team)
                 ;
             $this->em->persist($ranking);
+            $this->output->writeln('saving new ranking for team '.$team->getName());
         }
         $this->em->flush();
 

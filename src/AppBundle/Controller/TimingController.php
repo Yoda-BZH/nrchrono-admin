@@ -139,9 +139,10 @@ class TimingController extends Controller
      * @Method("POST")
      */
     public function addPredictionAction(Request $request) {
-        $predictions = $request->request->get('data');
+	    //die('foo');
+	    $predictions = $request->request->get('data');
         $teamId = $request->request->get('teamId');
-        //var_dump($predictions, $teamId);
+        //var_dump($predictions, $teamId); die();
         $em = $this->getDoctrine()->getManager();
 
         $repoTeam = $em->getRepository('AppBundle:Team');
@@ -150,10 +151,12 @@ class TimingController extends Controller
         $repoTiming = $em->getRepository('AppBundle:Timing');
         $oldPrediction = $repoTiming->getPredictionsForTeam($team);
 
-        $repoRacer = $em->getRepository('AppBundle:Racer');
+	$repoRacer = $em->getRepository('AppBundle:Racer');
+	$i = 0;
+	$firstTiming = null;
         foreach(array_reverse($predictions) as $index => $prediction) {
             if(isset($oldPrediction[$index])) {
-                $timing = $oldPrediction[$index];
+                $timing = $oldPrediction[$index];//var_dump('modify prediction '.$index);
             } else {
                 $timing = new Timing();
             }
@@ -163,11 +166,20 @@ class TimingController extends Controller
                 ->setIsRelay(0)
                 ->setPrediction()
                 ;
-            $em->persist($timing);
+	    $em->persist($timing);
+	    $i++;
+	    if($firstTiming == null) { $firstTiming = $timing; }
         }
         $em->flush();
+	$olds = $repoTiming->getOlds($team, $firstTiming->getId());
+	foreach($olds as $old) {
+		$old->setType(6);
+		$em->persist($old);
 
-        return new Response();
+	}
+	$em->flush();
+	
+        return new Response($i);
     }
 
     /**

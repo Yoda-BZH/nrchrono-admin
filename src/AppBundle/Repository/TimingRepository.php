@@ -94,9 +94,12 @@ class TimingRepository extends EntityRepository
             ->leftJoin('ti.idRacer', 'r')
             ->where('r.idTeam = :idTeam')
             //->andWhere('ti.type = :type')
-            ->andWhere($qb->expr()->in('ti.type', array(Timing::AUTOMATIC, Timing::MANUAL)))
+            //->andWhere($qb->expr()->in('ti.type', array(Timing::AUTOMATIC, Timing::MANUAL)))
+            ->andWhere($qb->expr()->in('ti.type', array(Timing::MANUAL)))
+            //->andWhere($qb->expr()->in('ti.type', array(Timing::AUTOMATIC)))
             ->setParameter('idTeam', $teamId)
-            ->orderBy('ti.type', 'DESC')
+
+	    ->orderBy('ti.type', 'DESC')
             ->addOrderBy('ti.id', 'DESC')
             ;
 
@@ -202,7 +205,8 @@ class TimingRepository extends EntityRepository
             ->where('ti.idRacer = :racer')
             ->andWhere('ti.type = :type')
             ->setParameter('racer', $racer)
-            ->setParameter('type', Timing::PREDICTION)
+	    ->setParameter('type', Timing::PREDICTION)
+	    ->orderBy('ti.id', 'DESC')
             ;
 
         return $qb
@@ -237,6 +241,33 @@ class TimingRepository extends EntityRepository
             ;
     }
 
+    public function getOlds($team, $id) {
+	    $qb = $this->createQueryBuilder('ti');
+	    $tree = 3;
+	    $qb
+		    ->leftJoin('ti.idRacer', 'r')
+		    ->where('ti.id < :id')
+		    ->setParameter('id', $id)
+		    ->andWhere('r.idTeam = :team')
+		    ->setParameter('team', $team)
+		    ->andWhere('ti.type = :type')
+		    ->setParameter('type', $tree)
+		    ;
+		return $qb->getQuery()->getResult();
+    }
+
+    public function delOlds($team, $id) {
+	    $qb->update('AppBundle\Entity\Timing', 'ti')
+		    ->leftJoin('ti.idRacer', 'r')
+		    ->set('ti.type', ':type')
+		    ->setParameter('type', '6')
+		    ->where('ti.id < :id')
+		    ->setParameter('id', $id)
+		    ->andWhere('r.idTeam = :team')
+		    ->setParameter('team', $team)
+		    ;
+		return $qb->getQuery()->getResult();
+    }
     public function getNbForTeam($team)
     {
         $qb = $this->createQueryBuilder('ti');

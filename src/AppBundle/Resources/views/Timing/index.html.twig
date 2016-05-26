@@ -10,7 +10,7 @@
 </div>
 
 
-    <table data-datatable-sorting-col="0" data-datatable-sorting-type="desc" class="records_list table table-hover table-condensed table-stripped">
+    <table data-datatable-sorting-col="0" data-datatable-sorting-type="desc" class="records_list table table-hover table-condensed table-stripped table-datatable">
         <thead>
             <tr>
                 <th>{% trans %}Id{% endtrans %}</th>
@@ -23,9 +23,26 @@
                 <th>{% trans %}Type{% endtrans %}</th>
                 <th>{% trans %}IdTeam{% endtrans %}</th>
                 <th>{% trans %}position{% endtrans %}</th>
+                <th>{% trans %}type{% endtrans %}</th>
                 <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
+        <tfoot>
+            <tr>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <th>{% trans %}Timing{% endtrans %}</th>
+                <th>{% trans %}Clock{% endtrans %}</th>
+                <th>{% trans %}Createdat{% endtrans %}</th>
+                <th>{% trans %}Since{% endtrans %}</th>
+                <th>{% trans %}Isrelay{% endtrans %}</th>
+                <th>{% trans %}IdRacer{% endtrans %}</th>
+                <th>{% trans %}Type{% endtrans %}</th>
+                <th>{% trans %}IdTeam{% endtrans %}</th>
+                <th>{% trans %}position{% endtrans %}</th>
+                <th>{% trans %}type{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
+            </tr>
+        </tfoot>
         <tbody>
         {% for entity in entities %}
             <tr>
@@ -39,6 +56,7 @@
                 <td>{{ entity.type }}</td>
                 <td class="team-color-grad-{{ entity.idRacer.idTeam.id }}"><a href="{{ path('team_show', { 'id': entity.idRacer.idTeam.id }) }}">{{ entity.idRacer.idTeam.name }}</a></td>
                 <td>{{ entity.idRacer.position }}</td>
+                <td>{{ entity.type }}</td>
                 <td>
                     <ul>
                         <li>
@@ -68,7 +86,7 @@
 $(document).ready(function() {
 {% for team in teams %}
     $.getJSON('{{ path('timing_next', { 'id': team.id }) }}', function(data) {
-        console.log(data);
+        //console.log(data);
         s = "Team {{ team.name }}: " + data.nickname + " (" + data.firstname  + " " + data.lastname + ")";
         $('#prediction-team-{{ team.id }}').html(s);
     }).fail(function() {

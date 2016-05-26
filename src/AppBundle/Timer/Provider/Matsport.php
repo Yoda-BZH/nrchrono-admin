@@ -8,7 +8,9 @@ use AppBundle\Timer\Team;
 
 class Matsport implements Provider {
 
-    private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2014&code_course=24R&menu=1&type=1&Num_Menu=';
+//    private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2014&code_course=24R&menu=1&type=1&Num_Menu=';
+//    private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2015&code_course=24R&menu=2&type=1&Num_Menu=0&DebutDossard=1&DebutAlpha=A';
+	private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2015&code_course=24R&menu=1&type=1&Num_Menu=';
 
     private $equipeUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/recap_coureur_1.php?dossard=%d&code_course=24R&an=%d';
 
@@ -39,13 +41,15 @@ class Matsport implements Provider {
     public function getGeneral()
     {
         $data = file_get_contents($this->generalUrl);
-
-        //$pattern = '|<tr><td align=\'LEFT\' width=\'40\'>(.*)</td></tr>|U';
-        $pattern = '|<tr><td align=\'LEFT\' width=\'40\'><div class=Style9>(\d+)</div></div></td><td align=\'LEFT\' width=\'40\'><div class=Style9>(\d+)</div></td><td align="left"><div class="Style9"><a href="javascript:affichage_popup\(\'\./recap_coureur_1\.php\?dossard=(\d+)&code_course=24R&an=(\d+)\',\'Matsport Live\'\);">(.*)</a></div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td></tr>|U';
-        //$pattern = '|<tr><td align=\'LEFT\' width=\'40\'><div class=Style9>(\d+)</div></div></td><td align=\'LEFT\' width=\'40\'><div class=Style9>(\d+)</div></td>(.*)</td></tr>|U';
+file_put_contents('/var/tmp/matsport.'.time().'.html', $data);
+        //$pattern = '|<tr><td align=\'left\' width=\'40\'>(.*)</td></tr>|U';
+        //$pattern = '|<td align=\'left\' width=\'40\'><div class=Style9>(\d+)</div></div></td><td align="left" width=\'40\'><div class=Style9>(\d+)</div></td><td align="left"><div class="Style9"><a href="javascript:affichage_popup\(\'\./recap_coureur_1\.php\?dossard=(\d+)&code_course=24R&an=(\d+)\',\'Matsport Live\'\);">(.*)</a></div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td>|U';
+//        $pattern = '|<td align=\'left\' width=\'40\'><div class=Style9>(\d+)</div></div></td><td align="left"><div class=Style9><a href="javascript:affichage_popup\(\'\./recap_coureur_1\.php\?dossard=(\d+)&code_course=24R&an=2015\',\'Matsport Live\'\);">NR BN</a></div></td><td align=\'left\'><div class=Style9>(.*)</div></td><td align=\'left\'><div class=Style9>(.*)</div></td>|U';
+//        $pattern = '|dossard=(\d+)&code_course=24R&an=2015\',\'Matsport Live\');">NR BN</a></div></td><td align=\'left\'><div class=Style9>(.*)</div></td><td align=\'left\'><div class=Style9>(.*)</div></td>|U';
+        //$pattern = '|<tr><td align=\'left\' width=\'40\'><div class=Style9>(\d+)</div></div></td><td align=\'left\' width=\'40\'><div class=Style9>(\d+)</div></td>(.*)</td></tr>|U';
+        $pattern = '|<div class=Style9>(\d+)</div></div></td><td align=\'LEFT\' width=\'40\'><div class=Style9>(\d+)</div></td><td align="left"><div class="Style9"><a href="javascript:affichage_popup\(\'\./recap_coureur_1\.php\?dossard=(\d+)&code_course=24R&an=(\d+)\',\'Matsport Live\'\);">(.*)</a></div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td><td align=\'LEFT\'><div class=Style9>(.*)</div></td></tr>|U';
 
         preg_match_all($pattern, $data, $matches);
-        //var_dump($matches);
 
         //foreach($matches as $a => $b) {
         //    var_dump($b[23]);
@@ -53,10 +57,12 @@ class Matsport implements Provider {
 
         $equipes = array();
         foreach($matches[0] as $k => $v) {
-            if(!preg_match('/^NR-/', $matches[5][$k])) {
+
+            if(!preg_match('/^NR /', $matches[5][$k])) {
                 continue;
             }
-            $team = new Team;
+
+	    $team = new Team;
             $team
                 ->setPosition($matches[1][$k])
                 ->setNumero($matches[2][$k])

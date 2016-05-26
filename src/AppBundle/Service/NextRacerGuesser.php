@@ -71,7 +71,7 @@ class NextRacerGuesser {
             $position = 0;
         }
 
-        try {
+        //try {
             // first search for predictions
             $predictions = $this->repoTiming->getPredictionsForTeam($this->team, $position);
 
@@ -89,9 +89,9 @@ class NextRacerGuesser {
                 //echo 'Setting '.$index.' to '.$prediction->getIdRacer()->getNickname();
                 $this->nextRacers[$teamId][$index] = $prediction->getIdRacer();
             }
-        } catch(NoResultException $e) {
-            return null;
-        }
+        //} catch(NoResultException $e) {
+        //    return null;
+        //}
 
         // pause managementstart
 
