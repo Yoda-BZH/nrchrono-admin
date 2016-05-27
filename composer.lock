@@ -5,20 +5,21 @@
         "This file is @generated automatically"
     ],
     "hash": "8fe2f5b84f2389598feaeadb2685c813",
+    "content-hash": "6883bfe17708e212e6d603b20927ff3d",
     "packages": [
         {
             "name": "bmatzner/jquery-bundle",
-            "version": "2.1.1",
+            "version": "2.2.2",
             "target-dir": "Bmatzner/JQueryBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bmatzner/BmatznerJQueryBundle.git",
-                "reference": "c47ebfd993782560d425081d6866393274537953"
+                "reference": "d3287924e1753b3af24640fe9223070cceb575e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bmatzner/BmatznerJQueryBundle/zipball/c47ebfd993782560d425081d6866393274537953",
-                "reference": "c47ebfd993782560d425081d6866393274537953",
+                "url": "https://api.github.com/repos/bmatzner/BmatznerJQueryBundle/zipball/d3287924e1753b3af24640fe9223070cceb575e0",
+                "reference": "d3287924e1753b3af24640fe9223070cceb575e0",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +50,7 @@
                 "jquery",
                 "symfony"
             ],
-            "time": "2014-05-05 16:19:00"
+            "time": "2016-03-26 19:51:09"
         },
         {
             "name": "bmatzner/jquery-ui-bundle",
@@ -100,16 +101,16 @@
         },
         {
             "name": "components/jquery",
-            "version": "2.1.4",
+            "version": "2.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/jquery.git",
-                "reference": "7b1d1104656a092423fbfba13c5920e9bbba290c"
+                "reference": "981036fcb56668433a7eb0d1e71190324b4574df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/jquery/zipball/7b1d1104656a092423fbfba13c5920e9bbba290c",
-                "reference": "7b1d1104656a092423fbfba13c5920e9bbba290c",
+                "url": "https://api.github.com/repos/components/jquery/zipball/981036fcb56668433a7eb0d1e71190324b4574df",
+                "reference": "981036fcb56668433a7eb0d1e71190324b4574df",
                 "shasum": ""
             },
             "type": "component",
@@ -138,7 +139,7 @@
             ],
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
-            "time": "2015-05-08 05:04:47"
+            "time": "2016-05-25 06:43:59"
         },
         {
             "name": "composer-fork/composer",
@@ -201,6 +202,7 @@
                 "dependency",
                 "package"
             ],
+            "abandoned": "composer/composer",
             "time": "2014-10-15 21:53:37"
         },
         {
@@ -258,16 +260,16 @@
         },
         {
             "name": "datatables/datatables",
-            "version": "1.10.7",
+            "version": "1.10.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DataTables/DataTables.git",
-                "reference": "fc64e71e1cee289da199982d3196b7e43afc0e52"
+                "reference": "3a432c5db3546b2ef0c192f2ae367811cb5edb9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DataTables/DataTables/zipball/fc64e71e1cee289da199982d3196b7e43afc0e52",
-                "reference": "fc64e71e1cee289da199982d3196b7e43afc0e52",
+                "url": "https://api.github.com/repos/DataTables/DataTables/zipball/3a432c5db3546b2ef0c192f2ae367811cb5edb9b",
+                "reference": "3a432c5db3546b2ef0c192f2ae367811cb5edb9b",
                 "shasum": ""
             },
             "type": "library",
@@ -277,20 +279,20 @@
             ],
             "description": "DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, which will add advanced interaction controls to any HTML table.",
             "homepage": "http://www.datatables.net/",
-            "time": "2015-04-30 14:08:43"
+            "time": "2016-05-20 13:09:02"
         },
         {
             "name": "doctrine/annotations",
-            "version": "v1.2.4",
+            "version": "v1.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e"
+                "reference": "f25c8aab83e0c3e976fd7d19875f198ccf2f7535"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/b5202eb9e83f8db52e0e58867e0a46e63be8332e",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/f25c8aab83e0c3e976fd7d19875f198ccf2f7535",
+                "reference": "f25c8aab83e0c3e976fd7d19875f198ccf2f7535",
                 "shasum": ""
             },
             "require": {
@@ -345,42 +347,42 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-12-23 22:40:37"
+            "time": "2015-08-31 12:32:49"
         },
         {
             "name": "doctrine/cache",
-            "version": "v1.4.1",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "c9eadeb743ac6199f7eec423cb9426bc518b7b03"
+                "reference": "f8af318d14bdb0eff0336795b428b547bd39ccb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/c9eadeb743ac6199f7eec423cb9426bc518b7b03",
-                "reference": "c9eadeb743ac6199f7eec423cb9426bc518b7b03",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/f8af318d14bdb0eff0336795b428b547bd39ccb6",
+                "reference": "f8af318d14bdb0eff0336795b428b547bd39ccb6",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2"
+                "php": "~5.5|~7.0"
             },
             "conflict": {
                 "doctrine/common": ">2.2,<2.4"
             },
             "require-dev": {
-                "phpunit/phpunit": ">=3.7",
+                "phpunit/phpunit": "~4.8|~5.0",
                 "predis/predis": "~1.0",
                 "satooshi/php-coveralls": "~0.6"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5.x-dev"
+                    "dev-master": "1.6.x-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Cache\\": "lib/"
+                "psr-4": {
+                    "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -415,7 +417,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-04-15 00:11:59"
+            "time": "2015-12-31 16:37:02"
         },
         {
             "name": "doctrine/collections",
@@ -485,16 +487,16 @@
         },
         {
             "name": "doctrine/common",
-            "version": "v2.5.0",
+            "version": "v2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "cd8daf2501e10c63dced7b8b9b905844316ae9d3"
+                "reference": "a579557bc689580c19fee4e27487a67fe60defc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/cd8daf2501e10c63dced7b8b9b905844316ae9d3",
-                "reference": "cd8daf2501e10c63dced7b8b9b905844316ae9d3",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/a579557bc689580c19fee4e27487a67fe60defc0",
+                "reference": "a579557bc689580c19fee4e27487a67fe60defc0",
                 "shasum": ""
             },
             "require": {
@@ -503,20 +505,20 @@
                 "doctrine/collections": "1.*",
                 "doctrine/inflector": "1.*",
                 "doctrine/lexer": "1.*",
-                "php": ">=5.3.2"
+                "php": "~5.5|~7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~3.7"
+                "phpunit/phpunit": "~4.8|~5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.6.x-dev"
+                    "dev-master": "2.7.x-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\": "lib/"
+                "psr-4": {
+                    "Doctrine\\Common\\": "lib/Doctrine/Common"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -554,20 +556,20 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2015-04-02 19:55:44"
+            "time": "2015-12-25 13:18:31"
         },
         {
             "name": "doctrine/dbal",
-            "version": "v2.4.4",
+            "version": "v2.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "a370e5b95e509a7809d11f3d280acfc9310d464b"
+                "reference": "5a1f4bf34d61d997ccd9f0539fbc14c7a772aa16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/a370e5b95e509a7809d11f3d280acfc9310d464b",
-                "reference": "a370e5b95e509a7809d11f3d280acfc9310d464b",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/5a1f4bf34d61d997ccd9f0539fbc14c7a772aa16",
+                "reference": "5a1f4bf34d61d997ccd9f0539fbc14c7a772aa16",
                 "shasum": ""
             },
             "require": {
@@ -617,20 +619,20 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2015-01-12 21:57:01"
+            "time": "2016-01-05 22:18:20"
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "v1.4.0",
+            "version": "1.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "1986ff3a945b584c6505d07eae92d77e41131078"
+                "reference": "e9c2ccf573b59b7cea566390f34254fed3c20ed9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/1986ff3a945b584c6505d07eae92d77e41131078",
-                "reference": "1986ff3a945b584c6505d07eae92d77e41131078",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/e9c2ccf573b59b7cea566390f34254fed3c20ed9",
+                "reference": "e9c2ccf573b59b7cea566390f34254fed3c20ed9",
                 "shasum": ""
             },
             "require": {
@@ -638,15 +640,17 @@
                 "doctrine/doctrine-cache-bundle": "~1.0",
                 "jdorn/sql-formatter": "~1.1",
                 "php": ">=5.3.2",
-                "symfony/doctrine-bridge": "~2.2",
-                "symfony/framework-bundle": "~2.3"
+                "symfony/console": "~2.3|~3.0",
+                "symfony/doctrine-bridge": "~2.2|~3.0",
+                "symfony/framework-bundle": "~2.3|~3.0"
             },
             "require-dev": {
                 "doctrine/orm": "~2.3",
                 "phpunit/phpunit": "~4",
                 "satooshi/php-coveralls": "~0.6.1",
-                "symfony/validator": "~2.2",
-                "symfony/yaml": "~2.2",
+                "symfony/phpunit-bridge": "~2.7|~3.0",
+                "symfony/validator": "~2.2|~3.0",
+                "symfony/yaml": "~2.2|~3.0",
                 "twig/twig": "~1.10"
             },
             "suggest": {
@@ -656,7 +660,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4.x-dev"
+                    "dev-master": "1.6.x-dev"
                 }
             },
             "autoload": {
@@ -694,52 +698,56 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2015-02-28 11:04:45"
+            "time": "2016-01-10 17:21:44"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
-            "version": "v1.0.1",
-            "target-dir": "Doctrine/Bundle/DoctrineCacheBundle",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineCacheBundle.git",
-                "reference": "e4b6f810aa047f9cbfe41c3d6a3d7e83d7477a9d"
+                "reference": "18c600a9b82f6454d2e81ca4957cdd56a1cf3504"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineCacheBundle/zipball/e4b6f810aa047f9cbfe41c3d6a3d7e83d7477a9d",
-                "reference": "e4b6f810aa047f9cbfe41c3d6a3d7e83d7477a9d",
+                "url": "https://api.github.com/repos/doctrine/DoctrineCacheBundle/zipball/18c600a9b82f6454d2e81ca4957cdd56a1cf3504",
+                "reference": "18c600a9b82f6454d2e81ca4957cdd56a1cf3504",
                 "shasum": ""
             },
             "require": {
-                "doctrine/cache": "~1.3",
+                "doctrine/cache": "^1.4.2",
                 "doctrine/inflector": "~1.0",
                 "php": ">=5.3.2",
-                "symfony/doctrine-bridge": "~2.2",
-                "symfony/framework-bundle": "~2.2",
-                "symfony/security": "~2.2"
+                "symfony/doctrine-bridge": "~2.2|~3.0"
             },
             "require-dev": {
                 "instaclick/coding-standard": "~1.1",
                 "instaclick/object-calisthenics-sniffs": "dev-master",
                 "instaclick/symfony2-coding-standard": "dev-remaster",
-                "phpunit/phpunit": "~3.7",
+                "phpunit/phpunit": "~4",
+                "predis/predis": "~0.8",
                 "satooshi/php-coveralls": "~0.6.1",
-                "squizlabs/php_codesniffer": "dev-master",
-                "symfony/console": "~2.2",
-                "symfony/finder": "~2.2",
-                "symfony/validator": "~2.2",
-                "symfony/yaml": "~2.2"
+                "squizlabs/php_codesniffer": "~1.5",
+                "symfony/console": "~2.2|~3.0",
+                "symfony/finder": "~2.2|~3.0",
+                "symfony/framework-bundle": "~2.2|~3.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0",
+                "symfony/security-acl": "~2.3|~3.0",
+                "symfony/validator": "~2.2|~3.0",
+                "symfony/yaml": "~2.2|~3.0"
+            },
+            "suggest": {
+                "symfony/security-acl": "For using this bundle to cache ACLs"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Bundle\\DoctrineCacheBundle": ""
+                "psr-4": {
+                    "Doctrine\\Bundle\\DoctrineCacheBundle\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -772,26 +780,26 @@
                     "email": "fabien@symfony.com"
                 }
             ],
-            "description": "Symfony2 Bundle for Doctrine Cache",
+            "description": "Symfony Bundle for Doctrine Cache",
             "homepage": "http://www.doctrine-project.org",
             "keywords": [
                 "cache",
                 "caching"
             ],
-            "time": "2014-11-28 09:43:36"
+            "time": "2016-01-26 17:28:51"
         },
         {
             "name": "doctrine/inflector",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "0bcb2e79d8571787f18b7eb036ed3d004908e604"
+                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/0bcb2e79d8571787f18b7eb036ed3d004908e604",
-                "reference": "0bcb2e79d8571787f18b7eb036ed3d004908e604",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/90b2128806bfde671b6952ab8bea493942c1fdae",
+                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae",
                 "shasum": ""
             },
             "require": {
@@ -803,7 +811,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -845,7 +853,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2014-12-20 21:24:13"
+            "time": "2015-11-06 14:35:42"
         },
         {
             "name": "doctrine/lexer",
@@ -903,16 +911,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "v2.4.7",
+            "version": "v2.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "2bc4ff3cab2ae297bcd05f2e619d42e6a7ca9e68"
+                "reference": "5aedac1e5c5caaeac14798822c70325dc242d467"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/2bc4ff3cab2ae297bcd05f2e619d42e6a7ca9e68",
-                "reference": "2bc4ff3cab2ae297bcd05f2e619d42e6a7ca9e68",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/5aedac1e5c5caaeac14798822c70325dc242d467",
+                "reference": "5aedac1e5c5caaeac14798822c70325dc242d467",
                 "shasum": ""
             },
             "require": {
@@ -972,25 +980,24 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-12-16 13:45:01"
+            "time": "2015-08-31 13:19:01"
         },
         {
             "name": "drmonty/datatables",
-            "version": "1.10.7",
+            "version": "1.10.12",
             "source": {
                 "type": "git",
-                "url": "https://github.com/drmonty/datatables.git",
-                "reference": "b3d44032ccb5cbeb9a0cb1c80487c8ea1de7a5d7"
+                "url": "https://github.com/mrohnstock/datatables.git",
+                "reference": "6efdb6e85fd0737b8223aef95c93fdfb806d956e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/datatables/zipball/b3d44032ccb5cbeb9a0cb1c80487c8ea1de7a5d7",
-                "reference": "b3d44032ccb5cbeb9a0cb1c80487c8ea1de7a5d7",
+                "url": "https://api.github.com/repos/mrohnstock/datatables/zipball/6efdb6e85fd0737b8223aef95c93fdfb806d956e",
+                "reference": "6efdb6e85fd0737b8223aef95c93fdfb806d956e",
                 "shasum": ""
             },
             "require": {
-                "components/jquery": ">=1.7",
-                "robloach/component-installer": "*"
+                "components/jquery": ">=1.7"
             },
             "type": "component",
             "extra": {
@@ -999,10 +1006,44 @@
                         "js/jquery.dataTables.js"
                     ],
                     "files": [
-                        "js/jquery.dataTables.min.js",
-                        "images/*.png",
+                        "css/dataTables.jqueryui.css",
+                        "css/dataTables.material.css",
+                        "css/dataTables.uikit.min.css",
+                        "css/dataTables.bootstrap.css",
+                        "css/dataTables.bootstrap.min.css",
+                        "css/dataTables.semanticui.min.css",
+                        "css/jquery.dataTables_themeroller.css",
+                        "css/dataTables.bootstrap4.css",
+                        "css/dataTables.foundation.css",
+                        "css/dataTables.bootstrap4.min.css",
+                        "css/dataTables.uikit.css",
+                        "css/dataTables.material.min.css",
+                        "css/jquery.dataTables.css",
+                        "css/dataTables.foundation.min.css",
                         "css/jquery.dataTables.min.css",
-                        "css/jquery.dataTables_themeroller.css"
+                        "css/dataTables.jqueryui.min.css",
+                        "css/dataTables.semanticui.css",
+                        "images/sort_both.png",
+                        "images/sort_asc_disabled.png",
+                        "images/sort_desc_disabled.png",
+                        "images/sort_desc.png",
+                        "images/sort_asc.png",
+                        "js/dataTables.foundation.min.js",
+                        "js/dataTables.bootstrap4.js",
+                        "js/jquery.dataTables.js",
+                        "js/dataTables.uikit.min.js",
+                        "js/dataTables.jqueryui.min.js",
+                        "js/dataTables.material.min.js",
+                        "js/dataTables.material.js",
+                        "js/jquery.dataTables.min.js",
+                        "js/dataTables.foundation.js",
+                        "js/dataTables.bootstrap.min.js",
+                        "js/dataTables.semanticui.js",
+                        "js/dataTables.semanticui.min.js",
+                        "js/dataTables.bootstrap4.min.js",
+                        "js/dataTables.uikit.js",
+                        "js/dataTables.bootstrap.js",
+                        "js/dataTables.jqueryui.js"
                     ],
                     "shim": {
                         "deps": [
@@ -1024,20 +1065,20 @@
                 "sort",
                 "table"
             ],
-            "time": "2015-05-08 07:29:20"
+            "time": "2016-05-23 08:50:24"
         },
         {
             "name": "drmonty/datatables-fixedcolumns",
-            "version": "3.0.4",
+            "version": "3.2.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/drmonty/datatables-fixedcolumns.git",
-                "reference": "69ee47a3cefcf88623fc9d99f8d17e6dc02dcafd"
+                "url": "https://github.com/mrohnstock/datatables-fixedcolumns.git",
+                "reference": "e888d6cb822e384fa3430a28663fa04593c79531"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/datatables-fixedcolumns/zipball/69ee47a3cefcf88623fc9d99f8d17e6dc02dcafd",
-                "reference": "69ee47a3cefcf88623fc9d99f8d17e6dc02dcafd",
+                "url": "https://api.github.com/repos/mrohnstock/datatables-fixedcolumns/zipball/e888d6cb822e384fa3430a28663fa04593c79531",
+                "reference": "e888d6cb822e384fa3430a28663fa04593c79531",
                 "shasum": ""
             },
             "require": {
@@ -1050,8 +1091,20 @@
                         "js/dataTables.fixedColumns.js"
                     ],
                     "files": [
+                        "css/fixedColumns.jqueryui.min.css",
+                        "css/dataTables.fixedColumns.css",
+                        "css/fixedColumns.semanticui.min.css",
+                        "css/fixedColumns.bootstrap4.min.css",
+                        "css/fixedColumns.bootstrap.css",
+                        "css/fixedColumns.foundation.css",
+                        "css/fixedColumns.jqueryui.css",
+                        "css/fixedColumns.semanticui.css",
+                        "css/dataTables.fixedColumns.min.css",
+                        "css/fixedColumns.bootstrap.min.css",
+                        "css/fixedColumns.bootstrap4.css",
+                        "css/fixedColumns.foundation.min.css",
                         "js/dataTables.fixedColumns.min.js",
-                        "css/dataTables.fixedColumns.min.css"
+                        "js/dataTables.fixedColumns.js"
                     ],
                     "shim": {
                         "deps": [
@@ -1063,19 +1116,19 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "FixedColumns Plugin for DataTables",
             "homepage": "http://www.datatables.net/",
-            "time": "2015-04-09 06:16:11"
+            "time": "2016-05-20 11:09:30"
         },
         {
             "name": "drmonty/datatables-fixedheader",
             "version": "v2.1.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/drmonty/datatables-fixedheader.git",
+                "url": "https://github.com/mrohnstock/datatables-fixedheader.git",
                 "reference": "8e1c2af30748cef96e6de0ce1c772a003121726b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/datatables-fixedheader/zipball/8e1c2af30748cef96e6de0ce1c772a003121726b",
+                "url": "https://api.github.com/repos/mrohnstock/datatables-fixedheader/zipball/8e1c2af30748cef96e6de0ce1c772a003121726b",
                 "reference": "8e1c2af30748cef96e6de0ce1c772a003121726b",
                 "shasum": ""
             },
@@ -1106,16 +1159,16 @@
         },
         {
             "name": "drmonty/datatables-plugins",
-            "version": "1.10.6",
+            "version": "1.10.11",
             "source": {
                 "type": "git",
-                "url": "https://github.com/drmonty/datatables-plugins.git",
-                "reference": "e2c603fc57718c1369615d06d992a77571fb5cbe"
+                "url": "https://github.com/mrohnstock/datatables-plugins.git",
+                "reference": "6db4e676c2b38cd5a6d7ce79c48627588398e403"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/datatables-plugins/zipball/e2c603fc57718c1369615d06d992a77571fb5cbe",
-                "reference": "e2c603fc57718c1369615d06d992a77571fb5cbe",
+                "url": "https://api.github.com/repos/mrohnstock/datatables-plugins/zipball/6db4e676c2b38cd5a6d7ce79c48627588398e403",
+                "reference": "6db4e676c2b38cd5a6d7ce79c48627588398e403",
                 "shasum": ""
             },
             "require": {
@@ -1125,37 +1178,375 @@
             "extra": {
                 "component": {
                     "scripts": [
-                        "api/*.js",
-                        "features/*/*.js",
-                        "filtering/*/*.js",
-                        "integration/bootstrap/*/*.js",
-                        "integration/foundation/*.js",
-                        "integration/jqueryui/*.js",
-                        "pagination/*.js",
-                        "pagination/jPaginator/*.js",
-                        "sorting/*.js",
-                        "sorting/custom-data-source/*.js",
-                        "type-detection/*.js"
+                        "sorting/date-eu.js",
+                        "sorting/formatted-numbers.js",
+                        "sorting/file-size.js",
+                        "sorting/anti-the.js",
+                        "sorting/enum.js",
+                        "sorting/num-html.js",
+                        "sorting/signed-num.js",
+                        "sorting/date-euro.js",
+                        "sorting/title-numeric.js",
+                        "sorting/monthYear.js",
+                        "sorting/ip-address.js",
+                        "sorting/custom-data-source/dom-text.js",
+                        "sorting/custom-data-source/dom-checkbox.js",
+                        "sorting/custom-data-source/dom-select.js",
+                        "sorting/stringMonthYear.js",
+                        "sorting/chinese-string.js",
+                        "sorting/percent.js",
+                        "sorting/numeric-comma.js",
+                        "sorting/alt-string.js",
+                        "sorting/turkish-string.js",
+                        "sorting/date-uk.js",
+                        "sorting/scientific.js",
+                        "sorting/natural.js",
+                        "sorting/datetime-us.js",
+                        "sorting/time.js",
+                        "sorting/date-de.js",
+                        "sorting/datetime-moment.js",
+                        "sorting/currency.js",
+                        "sorting/persian.js",
+                        "sorting/title-string.js",
+                        "sorting/date-dd-MMM-yyyy.js",
+                        "features/searchHighlight/dataTables.searchHighlight.js",
+                        "features/searchHighlight/dataTables.searchHighlight.min.js",
+                        "features/conditionalPaging/dataTables.conditionalPaging.js",
+                        "features/scrollResize/dataTables.scrollResize.js",
+                        "features/lengthLinks/dataTables.lengthLinks.min.js",
+                        "features/lengthLinks/dataTables.lengthLinks.js",
+                        "features/alphabetSearch/dataTables.alphabetSearch.js",
+                        "features/alphabetSearch/dataTables.alphabetSearch.min.js",
+                        "features/pageResize/dataTables.pageResize.min.js",
+                        "features/pageResize/dataTables.pageResize.js",
+                        "dataRender/ellipsis.js",
+                        "dataRender/datetime.js",
+                        "api/fnFindCellRowNodes.js",
+                        "api/average().js",
+                        "api/fnVisibleToColumnIndex.js",
+                        "api/fnGetTd.js",
+                        "api/fnDisplayRow.js",
+                        "api/fnGetColumnIndex.js",
+                        "api/fnAddTr.js",
+                        "api/fnGetColumnData.js",
+                        "api/fnProcessingIndicator.js",
+                        "api/page.jumpToData().js",
+                        "api/fnStandingRedraw.js",
+                        "api/fnReloadAjax.js",
+                        "api/fnFilterOnReturn.js",
+                        "api/fnLengthChange.js",
+                        "api/column().title().js",
+                        "api/row().show().js",
+                        "api/fnAddDataAndDisplay.js",
+                        "api/fnFakeRowspan.js",
+                        "api/fnFindCellRowIndexes.js",
+                        "api/fnFilterClear.js",
+                        "api/sum().js",
+                        "api/fnSortNeutral.js",
+                        "api/fnDataUpdate.js",
+                        "api/fnGetHiddenNodes.js",
+                        "api/fnPagingInfo.js",
+                        "api/fnMultiFilter.js",
+                        "api/fnGetAdjacentTr.js",
+                        "api/order.neutral().js",
+                        "api/fnGetTds.js",
+                        "api/fnFilterAll.js",
+                        "api/processing().js",
+                        "api/fnColumnIndexToVisible.js",
+                        "api/fnDisplayStart.js",
+                        "api/columns().order().js",
+                        "api/fnSetFilteringDelay.js",
+                        "type-detection/file-size.js",
+                        "type-detection/num-html.js",
+                        "type-detection/ip-address.js",
+                        "type-detection/numeric-comma.js",
+                        "type-detection/date-uk.js",
+                        "type-detection/formatted-num.js",
+                        "type-detection/currency.js",
+                        "integration/foundation/dataTables.foundation.min.js",
+                        "integration/foundation/dataTables.foundation.js",
+                        "integration/jqueryui/dataTables.jqueryui.min.js",
+                        "integration/jqueryui/dataTables.jqueryui.js",
+                        "integration/bootstrap/2/dataTables.bootstrap.min.js",
+                        "integration/bootstrap/2/dataTables.bootstrap.js",
+                        "integration/bootstrap/3/dataTables.bootstrap.min.js",
+                        "integration/bootstrap/3/dataTables.bootstrap.js",
+                        "integration/bootstrap/1/dataTables.bootstrap.js",
+                        "filtering/row-based/range_numbers.js",
+                        "filtering/row-based/TableTools.ShowSelectedOnly.js",
+                        "filtering/row-based/range_dates.js",
+                        "filtering/type-based/accent-neutralise.js",
+                        "filtering/type-based/html.js",
+                        "filtering/type-based/phoneNumber.js",
+                        "pagination/input.js",
+                        "pagination/ellipses.js",
+                        "pagination/select.js",
+                        "pagination/four_button.js",
+                        "pagination/jPaginator/dataTables.jPaginator.js",
+                        "pagination/scrolling.js",
+                        "pagination/extjs.js"
                     ],
                     "files": [
-                        "api/*.js",
-                        "features/*/*",
-                        "filtering/*/*.js",
-                        "i18n/*.lang",
-                        "integration/bootstrap/*/*.js",
-                        "integration/bootstrap/*/*.css",
-                        "integration/bootstrap/*/*.png",
-                        "integration/font-awesome/*.css",
-                        "integration/foundation/*.js",
-                        "integration/foundation/*.css",
-                        "integration/foundation/images/*.png",
-                        "integration/jqueryui/*.js",
-                        "integration/jqueryui/*.css",
-                        "pagination/*.js",
-                        "pagination/jPaginator/*.js",
-                        "sorting/*.js",
-                        "sorting/custom-data-source/*.js",
-                        "type-detection/*.js"
+                        "sorting/date-eu.js",
+                        "sorting/formatted-numbers.js",
+                        "sorting/file-size.js",
+                        "sorting/anti-the.js",
+                        "sorting/enum.js",
+                        "sorting/num-html.js",
+                        "sorting/signed-num.js",
+                        "sorting/date-euro.js",
+                        "sorting/title-numeric.js",
+                        "sorting/monthYear.js",
+                        "sorting/.DS_Store",
+                        "sorting/ip-address.js",
+                        "sorting/custom-data-source/dom-text.js",
+                        "sorting/custom-data-source/dom-checkbox.js",
+                        "sorting/custom-data-source/dom-select.js",
+                        "sorting/stringMonthYear.js",
+                        "sorting/chinese-string.js",
+                        "sorting/percent.js",
+                        "sorting/numeric-comma.js",
+                        "sorting/alt-string.js",
+                        "sorting/turkish-string.js",
+                        "sorting/date-uk.js",
+                        "sorting/scientific.js",
+                        "sorting/natural.js",
+                        "sorting/datetime-us.js",
+                        "sorting/time.js",
+                        "sorting/date-de.js",
+                        "sorting/datetime-moment.js",
+                        "sorting/currency.js",
+                        "sorting/persian.js",
+                        "sorting/title-string.js",
+                        "sorting/date-dd-MMM-yyyy.js",
+                        "features/searchHighlight/dataTables.searchHighlight.css",
+                        "features/searchHighlight/dataTables.searchHighlight.js",
+                        "features/searchHighlight/dataTables.searchHighlight.min.js",
+                        "features/conditionalPaging/dataTables.conditionalPaging.js",
+                        "features/scrollResize/dataTables.scrollResize.js",
+                        "features/lengthLinks/dataTables.lengthLinks.min.js",
+                        "features/lengthLinks/dataTables.lengthLinks.css",
+                        "features/lengthLinks/dataTables.lengthLinks.js",
+                        "features/alphabetSearch/dataTables.alphabetSearch.js",
+                        "features/alphabetSearch/dataTables.alphabetSearch.min.js",
+                        "features/alphabetSearch/dataTables.alphabetSearch.css",
+                        "features/pageResize/dataTables.pageResize.min.js",
+                        "features/pageResize/dataTables.pageResize.js",
+                        "dataRender/ellipsis.js",
+                        "dataRender/datetime.js",
+                        "api/fnFindCellRowNodes.js",
+                        "api/average().js",
+                        "api/fnVisibleToColumnIndex.js",
+                        "api/fnGetTd.js",
+                        "api/fnDisplayRow.js",
+                        "api/fnGetColumnIndex.js",
+                        "api/fnAddTr.js",
+                        "api/fnGetColumnData.js",
+                        "api/fnProcessingIndicator.js",
+                        "api/page.jumpToData().js",
+                        "api/fnStandingRedraw.js",
+                        "api/fnReloadAjax.js",
+                        "api/fnFilterOnReturn.js",
+                        "api/fnLengthChange.js",
+                        "api/column().title().js",
+                        "api/row().show().js",
+                        "api/fnAddDataAndDisplay.js",
+                        "api/fnFakeRowspan.js",
+                        "api/fnFindCellRowIndexes.js",
+                        "api/fnFilterClear.js",
+                        "api/sum().js",
+                        "api/fnSortNeutral.js",
+                        "api/fnDataUpdate.js",
+                        "api/fnGetHiddenNodes.js",
+                        "api/fnPagingInfo.js",
+                        "api/fnMultiFilter.js",
+                        "api/fnGetAdjacentTr.js",
+                        "api/order.neutral().js",
+                        "api/fnGetTds.js",
+                        "api/fnFilterAll.js",
+                        "api/processing().js",
+                        "api/fnColumnIndexToVisible.js",
+                        "api/fnDisplayStart.js",
+                        "api/columns().order().js",
+                        "api/fnSetFilteringDelay.js",
+                        "type-detection/file-size.js",
+                        "type-detection/num-html.js",
+                        "type-detection/ip-address.js",
+                        "type-detection/numeric-comma.js",
+                        "type-detection/date-uk.js",
+                        "type-detection/formatted-num.js",
+                        "type-detection/currency.js",
+                        "integration/font-awesome/dataTables.fontAwesome.css",
+                        "integration/foundation/dataTables.foundation.min.js",
+                        "integration/foundation/dataTables.foundation.css",
+                        "integration/foundation/images/sort_both.png",
+                        "integration/foundation/images/sort_asc_disabled.png",
+                        "integration/foundation/images/sort_desc_disabled.png",
+                        "integration/foundation/images/sort_desc.png",
+                        "integration/foundation/images/sort_asc.png",
+                        "integration/foundation/dataTables.foundation.js",
+                        "integration/jqueryui/dataTables.jqueryui.css",
+                        "integration/jqueryui/dataTables.jqueryui.min.js",
+                        "integration/jqueryui/dataTables.jqueryui.scss",
+                        "integration/jqueryui/dataTables.jqueryui.js",
+                        "integration/bootstrap/2/dataTables.bootstrap.css",
+                        "integration/bootstrap/2/dataTables.bootstrap.min.js",
+                        "integration/bootstrap/2/dataTables.bootstrap.js",
+                        "integration/bootstrap/images/sort_both.png",
+                        "integration/bootstrap/images/sort_asc_disabled.png",
+                        "integration/bootstrap/images/sort_desc_disabled.png",
+                        "integration/bootstrap/images/sort_desc.png",
+                        "integration/bootstrap/images/sort_asc.png",
+                        "integration/bootstrap/3/dataTables.bootstrap.css",
+                        "integration/bootstrap/3/dataTables.bootstrap.min.js",
+                        "integration/bootstrap/3/dataTables.bootstrap.js",
+                        "integration/bootstrap/1/dataTables.bootstrap.css",
+                        "integration/bootstrap/1/dataTables.bootstrap.js",
+                        "filtering/row-based/range_numbers.js",
+                        "filtering/row-based/TableTools.ShowSelectedOnly.js",
+                        "filtering/row-based/range_dates.js",
+                        "filtering/type-based/accent-neutralise.js",
+                        "filtering/type-based/html.js",
+                        "filtering/type-based/phoneNumber.js",
+                        "pagination/input.js",
+                        "pagination/ellipses.js",
+                        "pagination/select.js",
+                        "pagination/four_button.js",
+                        "pagination/jPaginator/dataTables.jPaginator.js",
+                        "pagination/scrolling.js",
+                        "pagination/extjs.js",
+                        "i18n/Danish.json",
+                        "i18n/Catalan.json",
+                        "i18n/Hungarian.json",
+                        "i18n/Gujarati.json",
+                        "i18n/Uzbek.json",
+                        "i18n/English.json",
+                        "i18n/French.json",
+                        "i18n/Greek.lang",
+                        "i18n/Welsh.json",
+                        "i18n/Serbian.json",
+                        "i18n/Arabic.json",
+                        "i18n/Polish.lang",
+                        "i18n/Azerbaijan.lang",
+                        "i18n/Urdu.json",
+                        "i18n/Russian.lang",
+                        "i18n/Mongolian.json",
+                        "i18n/Uzbek.lang",
+                        "i18n/Georgian.json",
+                        "i18n/Slovenian.lang",
+                        "i18n/Macedonian.lang",
+                        "i18n/Romanian.lang",
+                        "i18n/Chinese-traditional.json",
+                        "i18n/Turkish.json",
+                        "i18n/Portuguese-Brasil.lang",
+                        "i18n/Czech.json",
+                        "i18n/Slovak.json",
+                        "i18n/Tamil.lang",
+                        "i18n/Welsh.lang",
+                        "i18n/Swedish.json",
+                        "i18n/Thai.json",
+                        "i18n/Indonesian-Alternative.json",
+                        "i18n/Indonesian-Alternative.lang",
+                        "i18n/Hebrew.json",
+                        "i18n/Irish.lang",
+                        "i18n/Ukrainian.json",
+                        "i18n/Polish.json",
+                        "i18n/Romanian.json",
+                        "i18n/Chinese.json",
+                        "i18n/Belarusian.json",
+                        "i18n/Basque.lang",
+                        "i18n/Danish.lang",
+                        "i18n/Chinese.lang",
+                        "i18n/Albanian.lang",
+                        "i18n/Icelandic.json",
+                        "i18n/Spanish.json",
+                        "i18n/Greek.json",
+                        "i18n/Lithuanian.json",
+                        "i18n/Russian.json",
+                        "i18n/Tamil.json",
+                        "i18n/Galician.lang",
+                        "i18n/Nepali.json",
+                        "i18n/Persian.lang",
+                        "i18n/Bangla.json",
+                        "i18n/Indonesian.json",
+                        "i18n/Finnish.json",
+                        "i18n/Turkish.lang",
+                        "i18n/Japanese.json",
+                        "i18n/Lithuanian.lang",
+                        "i18n/Finnish.lang",
+                        "i18n/Bangla.lang",
+                        "i18n/Malay.json",
+                        "i18n/Malay.lang",
+                        "i18n/Persian.json",
+                        "i18n/Mongolian.lang",
+                        "i18n/Swedish.lang",
+                        "i18n/Armenian.lang",
+                        "i18n/Estonian.lang",
+                        "i18n/Irish.json",
+                        "i18n/Croatian.lang",
+                        "i18n/Nepali.lang",
+                        "i18n/Vietnamese.lang",
+                        "i18n/Hindi.json",
+                        "i18n/Hebrew.lang",
+                        "i18n/Ukranian.lang",
+                        "i18n/Albanian.json",
+                        "i18n/Korean.json",
+                        "i18n/Georgian.lang",
+                        "i18n/Macedonian.json",
+                        "i18n/Sinhala.json",
+                        "i18n/Norwegian.lang",
+                        "i18n/Vietnamese.json",
+                        "i18n/Portuguese.lang",
+                        "i18n/Sinhala.lang",
+                        "i18n/Urdu.lang",
+                        "i18n/Icelandic.lang",
+                        "i18n/Slovak.lang",
+                        "i18n/Hungarian.lang",
+                        "i18n/Croatian.json",
+                        "i18n/Indonesian.lang",
+                        "i18n/Italian.lang",
+                        "i18n/Hindi.lang",
+                        "i18n/Basque.json",
+                        "i18n/Thai.lang",
+                        "i18n/Latvian.lang",
+                        "i18n/Korean.lang",
+                        "i18n/Estonian.json",
+                        "i18n/Dutch.lang",
+                        "i18n/Kyrgyz.lang",
+                        "i18n/Portuguese.json",
+                        "i18n/German.json",
+                        "i18n/English.lang",
+                        "i18n/Belarusian.lang",
+                        "i18n/Italian.json",
+                        "i18n/Azerbaijan.json",
+                        "i18n/French.lang",
+                        "i18n/Slovenian.json",
+                        "i18n/Arabic.lang",
+                        "i18n/Dutch.json",
+                        "i18n/Ukrainian.lang",
+                        "i18n/Latvian.json",
+                        "i18n/Catalan.lang",
+                        "i18n/Gujarati.lang",
+                        "i18n/Serbian.lang",
+                        "i18n/Armenian.json",
+                        "i18n/Swahili.lang",
+                        "i18n/Bulgarian.json",
+                        "i18n/Filipino.lang",
+                        "i18n/Bulgarian.lang",
+                        "i18n/Afrikaans.json",
+                        "i18n/Czech.lang",
+                        "i18n/Afrikaans.lang",
+                        "i18n/Galician.json",
+                        "i18n/Portuguese-Brasil.json",
+                        "i18n/Japanese.lang",
+                        "i18n/German.lang",
+                        "i18n/Ukranian.json",
+                        "i18n/Kyrgyz.json",
+                        "i18n/Spanish.lang",
+                        "i18n/Chinese-traditional.lang",
+                        "i18n/Filipino.json",
+                        "i18n/Swahili.json",
+                        "i18n/Norwegian.json"
                     ],
                     "shim": {
                         "deps": [
@@ -1177,20 +1568,20 @@
                 "sort",
                 "table"
             ],
-            "time": "2015-04-09 05:53:40"
+            "time": "2016-02-11 15:22:10"
         },
         {
             "name": "drmonty/datatables-responsive",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/drmonty/datatables-responsive.git",
-                "reference": "8ab58df95a775f82d1a63465004d391c6d51ae38"
+                "url": "https://github.com/mrohnstock/datatables-responsive.git",
+                "reference": "48409f74d3d436477bcfcba7057d2cb8c582616c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/datatables-responsive/zipball/8ab58df95a775f82d1a63465004d391c6d51ae38",
-                "reference": "8ab58df95a775f82d1a63465004d391c6d51ae38",
+                "url": "https://api.github.com/repos/mrohnstock/datatables-responsive/zipball/48409f74d3d436477bcfcba7057d2cb8c582616c",
+                "reference": "48409f74d3d436477bcfcba7057d2cb8c582616c",
                 "shasum": ""
             },
             "require": {
@@ -1216,19 +1607,19 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Responsive extension for DataTables, providing support for complex tables on all device screen sizes",
             "homepage": "http://www.datatables.net/",
-            "time": "2015-05-08 07:37:36"
+            "time": "2015-08-20 10:34:43"
         },
         {
             "name": "drmonty/datatables-tabletools",
             "version": "2.2.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/drmonty/datatables-tabletools.git",
+                "url": "https://github.com/mrohnstock/datatables-tabletools.git",
                 "reference": "dae5b87a89f9bbdec6c43da3681f5665c5a840b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/datatables-tabletools/zipball/dae5b87a89f9bbdec6c43da3681f5665c5a840b0",
+                "url": "https://api.github.com/repos/mrohnstock/datatables-tabletools/zipball/dae5b87a89f9bbdec6c43da3681f5665c5a840b0",
                 "reference": "dae5b87a89f9bbdec6c43da3681f5665c5a840b0",
                 "shasum": ""
             },
@@ -1274,7 +1665,7 @@
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^5.3.3|^7.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.0",
@@ -1313,22 +1704,21 @@
         },
         {
             "name": "incenteev/composer-parameter-handler",
-            "version": "v2.1.0",
-            "target-dir": "Incenteev/ParameterHandler",
+            "version": "v2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Incenteev/ParameterHandler.git",
-                "reference": "143272a0a09c62616a3c8011fc165a10c6b35241"
+                "reference": "d7ce7f06136109e81d1cb9d57066c4d4a99cf1cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Incenteev/ParameterHandler/zipball/143272a0a09c62616a3c8011fc165a10c6b35241",
-                "reference": "143272a0a09c62616a3c8011fc165a10c6b35241",
+                "url": "https://api.github.com/repos/Incenteev/ParameterHandler/zipball/d7ce7f06136109e81d1cb9d57066c4d4a99cf1cc",
+                "reference": "d7ce7f06136109e81d1cb9d57066c4d4a99cf1cc",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
-                "symfony/yaml": "~2.0"
+                "symfony/yaml": "~2.3|~3.0"
             },
             "require-dev": {
                 "composer/composer": "1.0.*@dev",
@@ -1342,8 +1732,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Incenteev\\ParameterHandler": ""
+                "psr-4": {
+                    "Incenteev\\ParameterHandler\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1361,7 +1751,7 @@
             "keywords": [
                 "parameters management"
             ],
-            "time": "2013-12-07 10:10:39"
+            "time": "2015-11-10 17:04:01"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1415,20 +1805,20 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "1.4.1",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/justinrainbow/json-schema.git",
-                "reference": "2465fe486c864e30badaa4d005ebdf89dbc503f3"
+                "reference": "cc84765fb7317f6b07bd8ac78364747f95b86341"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/2465fe486c864e30badaa4d005ebdf89dbc503f3",
-                "reference": "2465fe486c864e30badaa4d005ebdf89dbc503f3",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/cc84765fb7317f6b07bd8ac78364747f95b86341",
+                "reference": "cc84765fb7317f6b07bd8ac78364747f95b86341",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.3.29"
             },
             "require-dev": {
                 "json-schema/json-schema-test-suite": "1.1.0",
@@ -1441,12 +1831,12 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4.x-dev"
+                    "dev-master": "1.6.x-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "JsonSchema": "src/"
+                "psr-4": {
+                    "JsonSchema\\": "src/JsonSchema/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1477,39 +1867,42 @@
                 "json",
                 "schema"
             ],
-            "time": "2015-03-27 16:41:39"
+            "time": "2016-01-25 15:43:01"
         },
         {
             "name": "kriswallsmith/assetic",
-            "version": "v1.2.1",
+            "version": "v1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kriswallsmith/assetic.git",
-                "reference": "b20efe38845d20458702f97f3ff625d80805897b"
+                "reference": "9928f7c4ad98b234e3559d1049abd13387f86db5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/b20efe38845d20458702f97f3ff625d80805897b",
-                "reference": "b20efe38845d20458702f97f3ff625d80805897b",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/9928f7c4ad98b234e3559d1049abd13387f86db5",
+                "reference": "9928f7c4ad98b234e3559d1049abd13387f86db5",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.1",
-                "symfony/process": "~2.1"
+                "symfony/process": "~2.1|~3.0"
+            },
+            "conflict": {
+                "twig/twig": "<1.23"
             },
             "require-dev": {
-                "cssmin/cssmin": "*",
-                "joliclic/javascript-packer": "*",
-                "kamicane/packager": "*",
-                "leafo/lessphp": "*",
-                "leafo/scssphp": "*",
-                "leafo/scssphp-compass": "*",
-                "mrclay/minify": "*",
-                "patchwork/jsqueeze": "~1.0",
-                "phpunit/phpunit": "~4",
+                "cssmin/cssmin": "3.0.1",
+                "joliclic/javascript-packer": "1.1",
+                "kamicane/packager": "1.0",
+                "leafo/lessphp": "^0.3.7",
+                "leafo/scssphp": "~0.1",
+                "mrclay/minify": "~2.2",
+                "patchwork/jsqueeze": "~1.0|~2.0",
+                "phpunit/phpunit": "~4.8",
                 "psr/log": "~1.0",
-                "ptachoire/cssembed": "*",
-                "twig/twig": "~1.6"
+                "ptachoire/cssembed": "~1.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0",
+                "twig/twig": "~1.8|~2.0"
             },
             "suggest": {
                 "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",
@@ -1522,7 +1915,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -1551,20 +1944,20 @@
                 "compression",
                 "minification"
             ],
-            "time": "2014-12-12 05:04:05"
+            "time": "2015-11-12 13:51:40"
         },
         {
             "name": "monolog/monolog",
-            "version": "1.13.1",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "c31a2c4e8db5da8b46c74cf275d7f109c0f249ac"
+                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c31a2c4e8db5da8b46c74cf275d7f109c0f249ac",
-                "reference": "c31a2c4e8db5da8b46c74cf275d7f109c0f249ac",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/5f56ed5212dc509c8dc8caeba2715732abb32dbf",
+                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf",
                 "shasum": ""
             },
             "require": {
@@ -1575,14 +1968,17 @@
                 "psr/log-implementation": "1.0.0"
             },
             "require-dev": {
-                "aws/aws-sdk-php": "~2.4, >2.4.8",
+                "aws/aws-sdk-php": "^2.4.9",
                 "doctrine/couchdb": "~1.0@dev",
                 "graylog2/gelf-php": "~1.0",
-                "phpunit/phpunit": "~4.0",
-                "raven/raven": "~0.5",
-                "ruflin/elastica": "0.90.*",
-                "swiftmailer/swiftmailer": "~5.3",
-                "videlalvaro/php-amqplib": "~2.4"
+                "jakub-onderka/php-parallel-lint": "0.9",
+                "php-amqplib/php-amqplib": "~2.4",
+                "php-console/php-console": "^3.1.3",
+                "phpunit/phpunit": "~4.5",
+                "phpunit/phpunit-mock-objects": "2.3.0",
+                "raven/raven": "^0.13",
+                "ruflin/elastica": ">=0.90 <3.0",
+                "swiftmailer/swiftmailer": "~5.3"
             },
             "suggest": {
                 "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
@@ -1590,15 +1986,17 @@
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
                 "ext-mongo": "Allow sending log messages to a MongoDB server",
                 "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
+                "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
+                "php-console/php-console": "Allow sending log messages to Google Chrome",
                 "raven/raven": "Allow sending log messages to a Sentry server",
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
-                "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
-                "videlalvaro/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib"
+                "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -1624,7 +2022,55 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-03-09 09:58:04"
+            "time": "2016-04-12 18:29:35"
+        },
+        {
+            "name": "paragonie/random_compat",
+            "version": "v1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/random_compat.git",
+                "reference": "c7e26a21ba357863de030f0b9e701c7d04593774"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/c7e26a21ba357863de030f0b9e701c7d04593774",
+                "reference": "c7e26a21ba357863de030f0b9e701c7d04593774",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*|5.*"
+            },
+            "suggest": {
+                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/random.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "keywords": [
+                "csprng",
+                "pseudorandom",
+                "random"
+            ],
+            "time": "2016-03-18 20:34:03"
         },
         {
             "name": "psr/log",
@@ -1665,65 +2111,21 @@
             "time": "2012-12-21 11:40:51"
         },
         {
-            "name": "robloach/component-installer",
-            "version": "0.0.12",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/RobLoach/component-installer.git",
-                "reference": "1864f25db21fc173e02a359f646acd596c1b0460"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/1864f25db21fc173e02a359f646acd596c1b0460",
-                "reference": "1864f25db21fc173e02a359f646acd596c1b0460",
-                "shasum": ""
-            },
-            "require": {
-                "kriswallsmith/assetic": "1.*",
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "composer/composer": "1.*"
-            },
-            "type": "composer-installer",
-            "extra": {
-                "class": "ComponentInstaller\\Installer"
-            },
-            "autoload": {
-                "psr-0": {
-                    "ComponentInstaller": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rob Loach",
-                    "email": "robloach@gmail.com",
-                    "homepage": "http://robloach.net"
-                }
-            ],
-            "description": "Allows installation of Components via Composer.",
-            "time": "2013-08-31 23:46:48"
-        },
-        {
             "name": "seld/jsonlint",
-            "version": "1.3.1",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/jsonlint.git",
-                "reference": "863ae85c6d3ef60ca49cb12bd051c4a0648c40c4"
+                "reference": "66834d3e3566bb5798db7294619388786ae99394"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/jsonlint/zipball/863ae85c6d3ef60ca49cb12bd051c4a0648c40c4",
-                "reference": "863ae85c6d3ef60ca49cb12bd051c4a0648c40c4",
+                "url": "https://api.github.com/repos/Seldaek/jsonlint/zipball/66834d3e3566bb5798db7294619388786ae99394",
+                "reference": "66834d3e3566bb5798db7294619388786ae99394",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "^5.3 || ^7.0"
             },
             "bin": [
                 "bin/jsonlint"
@@ -1752,26 +2154,26 @@
                 "parser",
                 "validator"
             ],
-            "time": "2015-01-04 21:18:15"
+            "time": "2015-11-21 02:21:41"
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v3.0.22",
+            "version": "v3.0.36",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "0fe4ec86db57c232becb694e01cdabe3c4d9af7c"
+                "reference": "964a56e855acac38d4a81920b3a86543f7e8492f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/0fe4ec86db57c232becb694e01cdabe3c4d9af7c",
-                "reference": "0fe4ec86db57c232becb694e01cdabe3c4d9af7c",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/964a56e855acac38d4a81920b3a86543f7e8492f",
+                "reference": "964a56e855acac38d4a81920b3a86543f7e8492f",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
-                "sensiolabs/security-checker": "~2.0",
+                "sensiolabs/security-checker": "~3.0",
                 "symfony/class-loader": "~2.2",
                 "symfony/framework-bundle": "~2.3",
                 "symfony/process": "~2.2"
@@ -1812,33 +2214,40 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-05-02 16:23:08"
+            "time": "2016-04-25 20:46:43"
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v3.0.7",
-            "target-dir": "Sensio/Bundle/FrameworkExtraBundle",
+            "version": "v3.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "5c37623576ea9e841b87dc0d85414d98fa6f7abb"
+                "reference": "507a15f56fa7699f6cc8c2c7de4080b19ce22546"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/5c37623576ea9e841b87dc0d85414d98fa6f7abb",
-                "reference": "5c37623576ea9e841b87dc0d85414d98fa6f7abb",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/507a15f56fa7699f6cc8c2c7de4080b19ce22546",
+                "reference": "507a15f56fa7699f6cc8c2c7de4080b19ce22546",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": "~2.2",
-                "symfony/framework-bundle": "~2.3"
+                "symfony/dependency-injection": "~2.3|~3.0",
+                "symfony/framework-bundle": "~2.3|~3.0"
             },
             "require-dev": {
-                "symfony/expression-language": "~2.4",
-                "symfony/security-bundle": "~2.4"
+                "symfony/browser-kit": "~2.3|~3.0",
+                "symfony/dom-crawler": "~2.3|~3.0",
+                "symfony/expression-language": "~2.4|~3.0",
+                "symfony/finder": "~2.3|~3.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0",
+                "symfony/security-bundle": "~2.4|~3.0",
+                "symfony/twig-bundle": "~2.3|~3.0",
+                "twig/twig": "~1.11|~2.0"
             },
             "suggest": {
                 "symfony/expression-language": "",
+                "symfony/psr-http-message-bridge": "To use the PSR-7 converters",
                 "symfony/security-bundle": ""
             },
             "type": "symfony-bundle",
@@ -1848,8 +2257,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Sensio\\Bundle\\FrameworkExtraBundle": ""
+                "psr-4": {
+                    "Sensio\\Bundle\\FrameworkExtraBundle\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1867,25 +2276,24 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2015-04-02 12:28:58"
+            "time": "2016-03-25 17:08:27"
         },
         {
             "name": "sensiolabs/security-checker",
-            "version": "v2.0.2",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/security-checker.git",
-                "reference": "cecb1397087dc9c733796eda6e9d121336039cdc"
+                "reference": "21696b0daa731064c23cfb694c60a2584a7b6e93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/cecb1397087dc9c733796eda6e9d121336039cdc",
-                "reference": "cecb1397087dc9c733796eda6e9d121336039cdc",
+                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/21696b0daa731064c23cfb694c60a2584a7b6e93",
+                "reference": "21696b0daa731064c23cfb694c60a2584a7b6e93",
                 "shasum": ""
             },
             "require": {
-                "ext-curl": "*",
-                "symfony/console": "~2.0"
+                "symfony/console": "~2.0|~3.0"
             },
             "bin": [
                 "security-checker"
@@ -1893,7 +2301,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -1912,27 +2320,27 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2015-04-21 07:52:05"
+            "time": "2015-11-07 08:07:40"
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.0",
+            "version": "v5.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f"
+                "reference": "d8db871a54619458a805229a057ea2af33c753e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/31454f258f10329ae7c48763eb898a75c39e0a9f",
-                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
+                "reference": "d8db871a54619458a805229a057ea2af33c753e8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1"
+                "mockery/mockery": "~0.9.1,<0.9.4"
             },
             "type": "library",
             "extra": {
@@ -1961,10 +2369,11 @@
             "description": "Swiftmailer, free feature-rich PHP mailer",
             "homepage": "http://swiftmailer.org",
             "keywords": [
+                "email",
                 "mail",
                 "mailer"
             ],
-            "time": "2015-03-14 06:06:39"
+            "time": "2016-05-01 08:45:47"
         },
         {
             "name": "symfony-bundle/bootstrap-bundle",
@@ -1972,7 +2381,7 @@
             "target-dir": "Anezi/Bundle/BootstrapBundle",
             "source": {
                 "type": "git",
-                "url": "https://git.anezi.net/symfony/bootstrapbundle.git",
+                "url": "https://github.com/symfony-bundle/bootstrap-bundle.git",
                 "reference": "95f222da0f4334c0d2e88d15550080faa59a0103"
             },
             "require": {
@@ -2067,33 +2476,38 @@
         },
         {
             "name": "symfony/assetic-bundle",
-            "version": "v2.6.1",
+            "version": "v2.8.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/AsseticBundle.git",
-                "reference": "422b0add2110f0cf9bc7a873a386ea053f4a89f0"
+                "url": "https://github.com/symfony/assetic-bundle.git",
+                "reference": "aa5b4f8b712f38745928fa845ddb73300bb2af6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/422b0add2110f0cf9bc7a873a386ea053f4a89f0",
-                "reference": "422b0add2110f0cf9bc7a873a386ea053f4a89f0",
+                "url": "https://api.github.com/repos/symfony/assetic-bundle/zipball/aa5b4f8b712f38745928fa845ddb73300bb2af6d",
+                "reference": "aa5b4f8b712f38745928fa845ddb73300bb2af6d",
                 "shasum": ""
             },
             "require": {
-                "kriswallsmith/assetic": "~1.2",
+                "kriswallsmith/assetic": "~1.3",
                 "php": ">=5.3.0",
-                "symfony/console": "~2.3",
-                "symfony/dependency-injection": "~2.3",
-                "symfony/framework-bundle": "~2.3",
-                "symfony/yaml": "~2.3"
+                "symfony/console": "~2.3|~3.0",
+                "symfony/dependency-injection": "~2.3|~3.0",
+                "symfony/framework-bundle": "~2.3|~3.0",
+                "symfony/yaml": "~2.3|~3.0"
+            },
+            "conflict": {
+                "kriswallsmith/spork": "<=0.2",
+                "twig/twig": "<1.20"
             },
             "require-dev": {
-                "kriswallsmith/spork": "~0.2",
+                "kriswallsmith/spork": "~0.3",
                 "patchwork/jsqueeze": "~1.0",
-                "symfony/class-loader": "~2.3",
-                "symfony/css-selector": "~2.3",
-                "symfony/dom-crawler": "~2.3",
-                "symfony/twig-bundle": "~2.3"
+                "symfony/class-loader": "~2.3|~3.0",
+                "symfony/css-selector": "~2.3|~3.0",
+                "symfony/dom-crawler": "~2.3|~3.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0",
+                "symfony/twig-bundle": "~2.3|~3.0"
             },
             "suggest": {
                 "kriswallsmith/spork": "to be able to dump assets in parallel",
@@ -2102,7 +2516,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.7-dev"
                 }
             },
             "autoload": {
@@ -2128,38 +2542,39 @@
                 "compression",
                 "minification"
             ],
-            "time": "2015-01-27 12:45:16"
+            "time": "2015-12-28 13:12:39"
         },
         {
             "name": "symfony/monolog-bundle",
-            "version": "v2.7.1",
+            "version": "2.11.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/MonologBundle.git",
-                "reference": "9320b6863404c70ebe111e9040dab96f251de7ac"
+                "url": "https://github.com/symfony/monolog-bundle.git",
+                "reference": "e7caf4936c7be82bc6d68df87f1d23a0d5bf6e00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/MonologBundle/zipball/9320b6863404c70ebe111e9040dab96f251de7ac",
-                "reference": "9320b6863404c70ebe111e9040dab96f251de7ac",
+                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/e7caf4936c7be82bc6d68df87f1d23a0d5bf6e00",
+                "reference": "e7caf4936c7be82bc6d68df87f1d23a0d5bf6e00",
                 "shasum": ""
             },
             "require": {
-                "monolog/monolog": "~1.8",
+                "monolog/monolog": "~1.18",
                 "php": ">=5.3.2",
-                "symfony/config": "~2.3",
-                "symfony/dependency-injection": "~2.3",
-                "symfony/http-kernel": "~2.3",
-                "symfony/monolog-bridge": "~2.3"
+                "symfony/config": "~2.3|~3.0",
+                "symfony/dependency-injection": "~2.3|~3.0",
+                "symfony/http-kernel": "~2.3|~3.0",
+                "symfony/monolog-bridge": "~2.3|~3.0"
             },
             "require-dev": {
-                "symfony/console": "~2.3",
-                "symfony/yaml": "~2.3"
+                "phpunit/phpunit": "^4.8",
+                "symfony/console": "~2.3|~3.0",
+                "symfony/yaml": "~2.3|~3.0"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -2187,32 +2602,32 @@
                 "log",
                 "logging"
             ],
-            "time": "2015-01-04 20:21:17"
+            "time": "2016-04-13 16:21:01"
         },
         {
             "name": "symfony/swiftmailer-bundle",
-            "version": "v2.3.8",
+            "version": "v2.3.11",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/SwiftmailerBundle.git",
-                "reference": "970b13d01871207e81d17b17ddda025e7e21e797"
+                "url": "https://github.com/symfony/swiftmailer-bundle.git",
+                "reference": "5e1a90f28213231ceee19c953bbebc5b5b95c690"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/SwiftmailerBundle/zipball/970b13d01871207e81d17b17ddda025e7e21e797",
-                "reference": "970b13d01871207e81d17b17ddda025e7e21e797",
+                "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/5e1a90f28213231ceee19c953bbebc5b5b95c690",
+                "reference": "5e1a90f28213231ceee19c953bbebc5b5b95c690",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "swiftmailer/swiftmailer": ">=4.2.0,~5.0",
-                "symfony/swiftmailer-bridge": "~2.1"
+                "symfony/config": "~2.3|~3.0",
+                "symfony/dependency-injection": "~2.3|~3.0",
+                "symfony/http-kernel": "~2.3|~3.0",
+                "symfony/yaml": "~2.3|~3.0"
             },
             "require-dev": {
-                "symfony/config": "~2.1",
-                "symfony/dependency-injection": "~2.1",
-                "symfony/http-kernel": "~2.1",
-                "symfony/yaml": "~2.1"
+                "symfony/phpunit-bridge": "~2.7|~3.0"
             },
             "suggest": {
                 "psr/log": "Allows logging"
@@ -2244,24 +2659,25 @@
             ],
             "description": "Symfony SwiftmailerBundle",
             "homepage": "http://symfony.com",
-            "time": "2014-12-01 17:44:50"
+            "time": "2016-01-15 16:41:20"
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.6.7",
+            "version": "v2.6.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "0449d0e1178bc8e934520b20432d1705c3b25e7e"
+                "reference": "240e9648af3daa5ed19580fdec74d768e30692a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/0449d0e1178bc8e934520b20432d1705c3b25e7e",
-                "reference": "0449d0e1178bc8e934520b20432d1705c3b25e7e",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/240e9648af3daa5ed19580fdec74d768e30692a6",
+                "reference": "240e9648af3daa5ed19580fdec74d768e30692a6",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": "~2.3",
+                "paragonie/random_compat": "~1.0",
                 "php": ">=5.3.3",
                 "psr/log": "~1.0",
                 "twig/twig": "~1.12,>=1.12.3"
@@ -2348,20 +2764,20 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
             "description": "The Symfony PHP framework",
-            "homepage": "http://symfony.com",
+            "homepage": "https://symfony.com",
             "keywords": [
                 "framework"
             ],
-            "time": "2015-05-11 01:58:49"
+            "time": "2016-01-14 10:11:35"
         },
         {
             "name": "twbs/bootstrap",
@@ -2416,20 +2832,20 @@
         },
         {
             "name": "twig/extensions",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig-extensions.git",
-                "reference": "8cf4b9fe04077bd54fc73f4fde83347040c3b8cd"
+                "reference": "449e3c8a9ffad7c2479c7864557275a32b037499"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/8cf4b9fe04077bd54fc73f4fde83347040c3b8cd",
-                "reference": "8cf4b9fe04077bd54fc73f4fde83347040c3b8cd",
+                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/449e3c8a9ffad7c2479c7864557275a32b037499",
+                "reference": "449e3c8a9ffad7c2479c7864557275a32b037499",
                 "shasum": ""
             },
             "require": {
-                "twig/twig": "~1.12"
+                "twig/twig": "~1.20|~2.0"
             },
             "require-dev": {
                 "symfony/translation": "~2.3"
@@ -2440,7 +2856,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
@@ -2464,29 +2880,33 @@
                 "i18n",
                 "text"
             ],
-            "time": "2014-10-30 14:30:03"
+            "time": "2015-08-22 16:38:35"
         },
         {
             "name": "twig/twig",
-            "version": "v1.18.1",
+            "version": "v1.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "9f70492f44398e276d1b81c1b43adfe6751c7b7f"
+                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/9f70492f44398e276d1b81c1b43adfe6751c7b7f",
-                "reference": "9f70492f44398e276d1b81c1b43adfe6751c7b7f",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.7"
             },
+            "require-dev": {
+                "symfony/debug": "~2.7",
+                "symfony/phpunit-bridge": "~2.7"
+            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.18-dev"
+                    "dev-master": "1.24-dev"
                 }
             },
             "autoload": {
@@ -2521,7 +2941,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-04-19 08:30:27"
+            "time": "2016-01-25 21:22:18"
         }
     ],
     "packages-dev": [
