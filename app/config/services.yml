@@ -28,6 +28,7 @@ services:
         class: AppBundle\Service\NextRacerGuesser
         calls:
             - [ setEm, [ "@doctrine.orm.entity_manager" ] ]
+            - [ setLogger, [ "@logger" ] ]
 
 
     race:
