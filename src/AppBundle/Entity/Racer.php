@@ -102,6 +102,8 @@ class Racer
      */
     private $pauses;
 
+    private $currentPrediction = null;
+
     /**
      * description
      *
@@ -319,4 +321,21 @@ class Racer
 
         return $this;
     }
+
+    //public function getCurrentPrediction()
+    //{
+    //    return $this->currentPrediction;
+    //}
+    //
+    ///**
+    // * Set the value of
+    // *
+    // *
+    // */
+    //public function setCurrentPrediction($prediction = null)
+    //{
+    //    $this->currentPrediction = $prediction;
+    //
+    //    return $this;
+    //}
 }

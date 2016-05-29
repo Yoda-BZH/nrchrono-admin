@@ -3,19 +3,26 @@
 namespace AppBundle\Service;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NoResultException;
+use AppBundle\Entity\Timing;
+
+use Symfony\Component\HttpKernel\Log\NullLogger;
 
 class NextRacerGuesser {
 
+    const MAX_PREDICTION = 12; // doit être plus grand de 1 que le nombre max de racer dans une team
+
     private $em;
+    private $logger;
     private $team;
     private $latestRacer;
     private $latestTiming;
     private $repoTiming = null;
     private $repoRacer = null;
     private $nextRacers = array();
+    private $predictions = array();
 
     public function __construct() {
-
+        $this->logger = new NullLogger();
     }
 
     private function isFirstLap($teamId)
@@ -25,6 +32,7 @@ class NextRacerGuesser {
 
     private function firstRacerRunsTwoLaps($teamId)
     {
+        $this->logger->info(sprintf('Defining first two laps for %s', $this->nextRacers[$teamId][0]->getNickname()));
         array_unshift($this->nextRacers[$teamId], $this->nextRacers[$teamId][0]);
     }
 
@@ -46,13 +54,25 @@ class NextRacerGuesser {
         return $this;
     }
 
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
+
+        return $this;
+    }
+
     public function setTeam($team) {
         $this->team = $team;
 
         return $this;
     }
 
-    public function computeNexts() {
+    public function initialize()
+    {
+        return $this->computeNexts(true);
+    }
+
+    public function computeNexts($fixFirstLap = false) {
         $teamId = $this->team->getId();
 
         if (isset($this->nextRacers[$teamId]))
@@ -75,20 +95,73 @@ class NextRacerGuesser {
             // first search for predictions
             $predictions = $this->repoTiming->getPredictionsForTeam($this->team, $position);
 
+            $nbPrediction = count($predictions);
+            $this->logger->info(sprintf('racer.next: for team %d, found %d predictions', $teamId, $nbPrediction));
+
             // then search normal racers
             $this->nextRacers[$teamId] = $this->repoRacer->getAllRacersAvailable($this->team, $position);
 
-            // fix the first racer has to do 2 laps in a row
-            if ($this->isFirstLap($teamId))
-            {
-                $this->firstRacerRunsTwoLaps($teamId);
-            }
+            //$nbRacerInTeam = count($this->nextRacers[$teamId]);
+            //if($nbRacerInTeam < self::MAX_PREDICTION)
+            //{
+            //    $nbToFill = floor(self::MAX_PREDICTION / $nbRacerInTeam);
+            //    $newNextRacers = array();
+            //    for($n = 0; $n < $nbToFill; $n++)
+            //    {
+            //        //$newNextRacers = array_merge($newNextRacers, $this->nextRacers[$teamId]);
+            //        $newNextRacers[$team][] = $this->repoRacer->getNextRacerAvailableQuery($this->team,
+            //    }
+            //    $this->nextRacers[$teamId] = $newNextRacers;
+            //}
 
             // remplacing racers with predictions
             foreach($predictions as $index => $prediction) {
                 //echo 'Setting '.$index.' to '.$prediction->getIdRacer()->getNickname();
+                //$prediction->getIdRacer()->setCurrentPrediction($prediction);
+                $this->predictions[$teamId][$index] = $prediction;
                 $this->nextRacers[$teamId][$index] = $prediction->getIdRacer();
             }
+
+            // fix the first racer has to do 2 laps in a row
+            if ($fixFirstLap) // && $this->isFirstLap($teamId) && $nbPrediction == 0)
+            {
+                $this->firstRacerRunsTwoLaps($teamId);
+            }
+
+            //if($nbPrediction < self::MAX_PREDICTION)
+            //{
+            $this->logger->info(sprintf('checking for missing predictions (%d < %d)', $nbPrediction, self::MAX_PREDICTION));
+            for($i = 0; $i < self::MAX_PREDICTION; $i++)
+            {
+                if(isset($this->predictions[$teamId][$i])) {
+                    continue;
+                }
+
+                if(isset($this->nextRacers[$teamId][$i])) {
+                    $currentRacer = $this->nextRacers[$teamId][$i];
+                    $this->logger->info(sprintf('found current racer "%s" without prediction', $currentRacer->getNickname()));
+                } else {
+                    $previousRacer = $this->nextRacers[$teamId][$i - 1];
+                    $currentRacer = $this->repoRacer->getNextRacerAvailable($this->team, $previousRacer->getPosition());
+                    $this->logger->info(sprintf('could not find current racer, with "%s", determined to be "%s" next', $previousRacer->getNickname(), $currentRacer->getNickname()));
+                }
+
+                $timing = new Timing();
+                $timing
+                    ->setCreatedAt(new \Datetime)
+                    ->setIdRacer($currentRacer)
+                    ->setIsRelay(0)
+                    ->setPrediction()
+                    ;
+                $this->em->persist($timing);
+
+                $this->predictions[$teamId][$i] = $timing;
+                $this->nextRacers[$teamId][$i] = $timing->getIdRacer();
+                $this->logger->info(sprintf('For team %d, adding new timing for %s at index %d', $teamId, $timing->getIdRacer()->getNickname(), $i));
+            }
+            $this->em->flush();
+            //}
+
         //} catch(NoResultException $e) {
         //    return null;
         //}
@@ -163,5 +236,10 @@ class NextRacerGuesser {
 
     public function getLatestTiming() {
         return $this->latestTiming[$this->team->getId()];
+    }
+
+    public function getPredictions($teamId)
+    {
+        return $this->predictions[$teamId];
     }
 }

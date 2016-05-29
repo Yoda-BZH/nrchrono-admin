@@ -140,60 +140,63 @@ $(document).ready(function() {
     setCountdown();
 
     racerPrevisons = $('#racers-prevision');
-    racerPrevisons.on('click', 'button.prediction-changer, button.previous-changer', function() {
+    racerPrevisons.on('click', '.prediction-changer, .previous-changer', function() {
         var $button = $(this);
         var $parent = $button.parent();
         var $teamId = $button.data('team-id');
         var $racerId = $button.data('racer-id');
-        var $select = $('#selector-team-' + $teamId + ' select');
+        var $select = $('#selector-team-' + $teamId + ' select').clone();
         $parent.append($select);
         $parent.find('select option[value=' + $racerId + ']').attr('selected', 'selected');
     });
-    racerPrevisons.on('change', 'select.team-racer-manual-selector', function() {
+
+    racerPrevisons.on('click', '.previous-remove', function() {
+        var $button = $(this);
+        var $teamId = $button.data('team-id');
+        var $racerId = $button.data('racer-id');
+        var $timingId = $button.data('timing');
+
+        var currentRacer = $("#prediction-team-" + $teamId + "-pos-1").text();
+
+        if(!confirm('Voulez-vous annuler le départ de ' + currentRacer + '?')) {
+            return;
+        }
+
+        $.post(
+            '{{ path("timing_revert_departure") }}',
+            { timing: $timingId },
+            function(data, textStatus, jqXHR) {
+                //window.location = window.location;
+                loadTeam("#timing-status-team-" + $teamId, "{{ path('timing_status') }}/" + $teamId);
+            }
+        );
+
+    });
+
+
+    racerPrevisons.on('change', '.team-racer-manual-selector', function() {
         var $select = $(this);
         var $selectedRacerId = $select.val();
         var $button = $select.parent().find('button');
-        var $modificationType = $button.data('type');
 
         var postData = [];
         var $teamId = $button.data('team-id');
 
-        if($modificationType == 'prediction') {
-            var $pos = $button.data('prediction-pos');
-            postData.push({
-                racerid: $selectedRacerId,
-                pos: $pos
-            });
-            $select.parent().prevUntil(
-                document.getElementById('separator-' + $teamId),
-                'td'
-            ).each(function(index) {
-                $td = $(this);
-                $button = $td.find('button');
-                $racerId = $button.data('racer-id');
-                $position = $button.data('prediction-pos');
-                postData.push({
-                    racerid: $racerId,
-                    pos: $position
-                });
-            });
-            var postUrl = '{{ path("timing_update_prediction") }}';
-        } else if ($modificationType == 'timing') {
-            timingId = $button.data('timing');
-            postData.push({
-                racerid: $selectedRacerId,
-                timing: timingId
-            });
-            var postUrl = '{{ path("timing_update_data") }}';
-        } else {
-            return;
-        }
+        var timingId = $button.data('timing');
+
+        postData.push({
+            racerid: $selectedRacerId,
+            timing: timingId
+        });
+
+        var postUrl = '{{ path("timing_update_data") }}';
 
         $.post(
             postUrl,
             { data: postData, teamId: $teamId },
             function(data, textStatus, jqXHR) {
-                window.location = window.location;
+                //window.location = window.location;
+                loadTeam("#timing-status-team-" + $teamId, "{{ path('timing_status') }}/" + $teamId);
             }
         );
     });
@@ -207,14 +210,17 @@ $(document).ready(function() {
         var postData = {};
         postData.racerid = $racerId;
         postData.teamid = $teamId;
-        console.log(postData);
+        //console.log(postData);
         $.post(
             '{{ path("timing_add_manual") }}',
             { data: postData },
             function(data, textStatus, jqXHR) {
-                window.location = window.location;
+                loadTeam("#timing-status-team-" + $teamId, "{{ path('timing_status') }}/" + $teamId);
+                //window.location = window.location;
             }
         );
+
+        return true;
     });
     //$('.team-racer-manual-selector').selectmenu();
 });

@@ -233,6 +233,7 @@ class TimingRepository extends EntityRepository
             ->setParameter('team', $team)
             ->andWhere('ti.type = :type')
             ->setParameter('type', Timing::PREDICTION)
+            ->orderBy('ti.id', 'ASC')
             ;
 
         return $qb
@@ -329,6 +330,35 @@ class TimingRepository extends EntityRepository
         return $qb
             ->getQuery()
             ->getResult()
+            ;
+    }
+
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function getNextPrediction($team)
+    {
+        $qb = $this->createQueryBuilder('ti');
+
+        $qb
+            ->addSelect('r')
+            ->addSelect('te')
+            ->leftJoin('ti.idRacer', 'r')
+            ->leftJoin('r.idTeam', 'te')
+            ->where('te.id = :idTeam')
+            ->setParameter('idTeam', $team)
+            ->andWhere('ti.type = :type')
+            ->setParameter('type', Timing::PREDICTION)
+            ->orderBy('ti.id', 'ASC')
+            ->setMaxResults(1)
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getSingleResult()
             ;
     }
 }

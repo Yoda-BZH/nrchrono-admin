@@ -42,7 +42,7 @@ class FakerFixturesCommand extends ContainerAwareCommand
 
         $race = new Race;
         $race
-            ->setName('24H du Mans Roller 2015')
+            ->setName('24H du Mans Roller 2016')
             ->setStart(new \Datetime)
             ->setKm('4.185')
             ;
@@ -99,28 +99,28 @@ class FakerFixturesCommand extends ContainerAwareCommand
             $output->writeln('Adding team '.$team->getName());
 
 
-            $pauseData = $teamType[3];
-            if(!$pauseData)
-            {
-                // pas de pause de déclarée
-                continue;
-            }
-
-            $teamPauses = array();
-
-            foreach($pauseData as $i => $p)
-            {
-                $pause = new Pause;
-                $pause
-                    ->setPorder($i + 1)
-                    ->setHourStart($p[0])
-                    ->setHourStop($p[1])
-                    ->setIdTeam($team)
-                    ;
-
-                $em->persist($pause);
-                $teamPauses[] = $pause;
-            }
+            //$pauseData = $teamType[3];
+            //if(!$pauseData)
+            //{
+            //    // pas de pause de déclarée
+            //    continue;
+            //}
+            //
+            //$teamPauses = array();
+            //
+            //foreach($pauseData as $i => $p)
+            //{
+            //    $pause = new Pause;
+            //    $pause
+            //        ->setPorder($i + 1)
+            //        ->setHourStart($p[0])
+            //        ->setHourStop($p[1])
+            //        ->setIdTeam($team)
+            //        ;
+            //
+            //    $em->persist($pause);
+            //    $teamPauses[] = $pause;
+            //}
 
 
             for($i = 0; $i < $teamType[0]; $i++) {
@@ -159,23 +159,37 @@ class FakerFixturesCommand extends ContainerAwareCommand
                 $output->writeln(sprintf('Adding %s in team %s', $racer->getNickname(), $team->getName()));
                 $em->persist($racer);
 
-                // fixme, only works with 2 pauses
-                //$pauseId = (($i+1) <= ($team->getNbPerson() / $teamType[2])) ? 0 : 1;
-                $pauseId = (($i + 1) <= $teamType[1]) ? 0 : 1;
+                //// fixme, only works with 2 pauses
+                ////$pauseId = (($i+1) <= ($team->getNbPerson() / $teamType[2])) ? 0 : 1;
+                //$pauseId = (($i + 1) <= $teamType[1]) ? 0 : 1;
 
-                $racerPause = new RacerPause;
-                $racerPause
-                    ->setPorder($i + 1)
-                    ->setIdRacer($racer)
-                    ->setIdPause($teamPauses[$pauseId])
-                    ;
-                $em->persist($racerPause);
+                //$racerPause = new RacerPause;
+                //$racerPause
+                //    ->setPorder($i + 1)
+                //    ->setIdRacer($racer)
+                //    ->setIdPause($teamPauses[$pauseId])
+                //    ;
+                //$em->persist($racerPause);
             }
-
-
         }
         $output->writeln('Saving data ...');
         $em->flush();
+
+        // add first predictions
+        $repoTeam = $em->getRepository('AppBundle:Team');
+        $teams = $repoTeam->findAll();
+
+        $logger = $this->getContainer()->get('logger');
+        $logger->info('starting initialize');
+        foreach($teams as $team) {
+            $nextGuesser = $this->getContainer()->get('racer.next');
+            $nextRacers = $nextGuesser
+                ->setTeam($team)
+                ->setLogger($logger)
+                ->initialize()
+                ;
+        }
+        $logger->info('initialize done.');
 
         $output->writeln('done.');
 

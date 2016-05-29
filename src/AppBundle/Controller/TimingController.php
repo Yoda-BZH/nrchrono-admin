@@ -22,6 +22,17 @@ class TimingController extends Controller
 {
 
     /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    private function logger()
+    {
+        return $this->get('logger');
+    }
+
+    /**
      * Lists all Timing entities.
      *
      * @Route("/", name="timing")
@@ -129,58 +140,62 @@ class TimingController extends Controller
             'arrival' => $arrival,
             'delta' => $delta,
             'previous' => $previousTimings,
+            'predictions' => $nextGuesser->getPredictions($id)
         );
     }
 
-    /**
-     * Add a new prediction
-     *
-     * @Route("/add-prediction", name="timing_update_prediction")
-     * @Method("POST")
-     */
-    public function addPredictionAction(Request $request) {
-	    //die('foo');
-	    $predictions = $request->request->get('data');
-        $teamId = $request->request->get('teamId');
-        //var_dump($predictions, $teamId); die();
-        $em = $this->getDoctrine()->getManager();
-
-        $repoTeam = $em->getRepository('AppBundle:Team');
-        $team = $repoTeam->find($teamId);
-
-        $repoTiming = $em->getRepository('AppBundle:Timing');
-        $oldPrediction = $repoTiming->getPredictionsForTeam($team);
-
-	$repoRacer = $em->getRepository('AppBundle:Racer');
-	$i = 0;
-	$firstTiming = null;
-        foreach(array_reverse($predictions) as $index => $prediction) {
-            if(isset($oldPrediction[$index])) {
-                $timing = $oldPrediction[$index];//var_dump('modify prediction '.$index);
-            } else {
-                $timing = new Timing();
-            }
-            $timing
-                ->setCreatedAt(new \Datetime)
-                ->setIdRacer($repoRacer->find($prediction['racerid']))
-                ->setIsRelay(0)
-                ->setPrediction()
-                ;
-	    $em->persist($timing);
-	    $i++;
-	    if($firstTiming == null) { $firstTiming = $timing; }
-        }
-        $em->flush();
-	$olds = $repoTiming->getOlds($team, $firstTiming->getId());
-	foreach($olds as $old) {
-		$old->setType(6);
-		$em->persist($old);
-
-	}
-	$em->flush();
-	
-        return new Response($i);
-    }
+    ///**
+    // * Add a new prediction
+    // *
+    // * @Route("/add-prediction", name="timing_update_prediction")
+    // * @Method("POST")
+    // */
+    //public function addPredictionAction(Request $request) {
+    //    //die('foo');
+    //    $predictions = $request->request->get('data');
+    //    $teamId = $request->request->get('teamId');
+    //    $this->logger()->info(sprintf('adding a new prediction for team id %d: %s', $teamId, var_export($predictions, true)));
+    //
+    //    //var_dump($predictions, $teamId); die();
+    //    $em = $this->getDoctrine()->getManager();
+    //
+    //    $repoTeam = $em->getRepository('AppBundle:Team');
+    //    $team = $repoTeam->find($teamId);
+    //
+    //    $repoTiming = $em->getRepository('AppBundle:Timing');
+    //    $oldPrediction = $repoTiming->getPredictionsForTeam($team);
+    //
+    //    $repoRacer = $em->getRepository('AppBundle:Racer');
+    //    $i = 0;
+    //    $firstTiming = null;
+    //    foreach(array_reverse($predictions) as $index => $prediction) {
+    //        if(isset($oldPrediction[$index])) {
+    //            $timing = $oldPrediction[$index];//var_dump('modify prediction '.$index);
+    //        } else {
+    //            //$timing = new Timing();
+    //            throw new \Exception('no prediction found');
+    //        }
+    //        $timing
+    //            ->setCreatedAt(new \Datetime)
+    //            ->setIdRacer($repoRacer->find($prediction['racerid']))
+    //            ->setIsRelay(0)
+    //            ->setPrediction()
+    //            ;
+    //        $em->persist($timing);
+    //        $i++;
+    //        if($firstTiming == null) { $firstTiming = $timing; }
+    //    }
+    //    $em->flush();
+    //    $olds = $repoTiming->getOlds($team, $firstTiming->getId());
+    //    foreach($olds as $old) {
+    //        $old->setType(6);
+    //        $em->persist($old);
+    //
+    //    }
+    //    $em->flush();
+    //
+    //    return new Response($i);
+    //}
 
     /**
      * Alter a racer for an existing Timing
@@ -195,17 +210,21 @@ class TimingController extends Controller
 
         $repoTiming = $em->getRepository('AppBundle:Timing');
         $timingId = $data[0]['timing'];
+
         $timing = $repoTiming->find($timingId);
-        if ($timing->isPrediction())
-        {
-            throw new \Exception('Cannot modify a prediction');
-        }
+        //if ($timing->isPrediction())
+        //{
+        //    throw new \Exception('Cannot modify a prediction');
+        //}
 
         $repoRacer = $em->getRepository('AppBundle:Racer');
         $racerId = $data[0]['racerid'];
         // FIXME, Check if racer is in the correct team !
         $racer = $repoRacer->find($racerId);
         $timing->setIdRacer($racer);
+
+        $this->logger()->info(sprintf('Changing racer for timing %d to %s', $timing->getId(), $racer->getNickname()));
+
         $em->persist($timing);
         $em->flush();
 
@@ -483,7 +502,7 @@ class TimingController extends Controller
         // FIXME no result exception
         } catch(NoResultException $e) {
             $repoRace = $em->getRepository('AppBundle:Race');
-            $race = $this->get('race')->get(); //   $repoRace->find(1); // FIXME
+            $race = $this->get('race')->get();
             $previousClock = clone $race->getStart();
         }
         $now = new \DateTime();
@@ -491,7 +510,9 @@ class TimingController extends Controller
         $intervalT = $previousClock->diff($now);
         $t = new \Datetime('today '.$intervalT->format('%H:%I:%S'));
 
-        $timing = new Timing();
+        $timing = $repoTiming->getNextPrediction($team);
+
+        //$timing = new Timing();
         $timing
             ->setCreatedAt($now)
             ->setIdRacer($racer)
@@ -502,6 +523,29 @@ class TimingController extends Controller
             ;
         $em->persist($timing);
         $em->flush();
+
+        return new Response();
+    }
+
+    /**
+     * Annule un départ
+     *
+     * @Route("/timing/revert-departure", name="timing_revert_departure")
+     * @Method("POST")
+     */
+    public function revertDeparture(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $timingId = $request->request->get('timing');
+        $repoTiming = $em->getRepository('AppBundle:Timing');
+
+        $timing = $repoTiming->find($timingId);
+        $timing
+            ->setPrediction()
+            ;
+        $em->persist($timing);
+        $em->flush();
+        $this->logger()->info(sprintf('reset timing id %d to prediction for racer "%s"', $timing->getId(), $timing->getIdRacer()->getNickname()));
 
         return new Response();
     }
