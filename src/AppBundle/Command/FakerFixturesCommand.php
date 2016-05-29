@@ -99,30 +99,6 @@ class FakerFixturesCommand extends ContainerAwareCommand
             $output->writeln('Adding team '.$team->getName());
 
 
-            //$pauseData = $teamType[3];
-            //if(!$pauseData)
-            //{
-            //    // pas de pause de déclarée
-            //    continue;
-            //}
-            //
-            //$teamPauses = array();
-            //
-            //foreach($pauseData as $i => $p)
-            //{
-            //    $pause = new Pause;
-            //    $pause
-            //        ->setPorder($i + 1)
-            //        ->setHourStart($p[0])
-            //        ->setHourStop($p[1])
-            //        ->setIdTeam($team)
-            //        ;
-            //
-            //    $em->persist($pause);
-            //    $teamPauses[] = $pause;
-            //}
-
-
             for($i = 0; $i < $teamType[0]; $i++) {
                 $racer = new Racer;
                 $tmin = new \Datetime('00:00:00');
@@ -158,18 +134,6 @@ class FakerFixturesCommand extends ContainerAwareCommand
 
                 $output->writeln(sprintf('Adding %s in team %s', $racer->getNickname(), $team->getName()));
                 $em->persist($racer);
-
-                //// fixme, only works with 2 pauses
-                ////$pauseId = (($i+1) <= ($team->getNbPerson() / $teamType[2])) ? 0 : 1;
-                //$pauseId = (($i + 1) <= $teamType[1]) ? 0 : 1;
-
-                //$racerPause = new RacerPause;
-                //$racerPause
-                //    ->setPorder($i + 1)
-                //    ->setIdRacer($racer)
-                //    ->setIdPause($teamPauses[$pauseId])
-                //    ;
-                //$em->persist($racerPause);
             }
         }
         $output->writeln('Saving data ...');

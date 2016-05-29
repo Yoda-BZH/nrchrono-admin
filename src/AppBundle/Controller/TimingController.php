@@ -144,59 +144,6 @@ class TimingController extends Controller
         );
     }
 
-    ///**
-    // * Add a new prediction
-    // *
-    // * @Route("/add-prediction", name="timing_update_prediction")
-    // * @Method("POST")
-    // */
-    //public function addPredictionAction(Request $request) {
-    //    //die('foo');
-    //    $predictions = $request->request->get('data');
-    //    $teamId = $request->request->get('teamId');
-    //    $this->logger()->info(sprintf('adding a new prediction for team id %d: %s', $teamId, var_export($predictions, true)));
-    //
-    //    //var_dump($predictions, $teamId); die();
-    //    $em = $this->getDoctrine()->getManager();
-    //
-    //    $repoTeam = $em->getRepository('AppBundle:Team');
-    //    $team = $repoTeam->find($teamId);
-    //
-    //    $repoTiming = $em->getRepository('AppBundle:Timing');
-    //    $oldPrediction = $repoTiming->getPredictionsForTeam($team);
-    //
-    //    $repoRacer = $em->getRepository('AppBundle:Racer');
-    //    $i = 0;
-    //    $firstTiming = null;
-    //    foreach(array_reverse($predictions) as $index => $prediction) {
-    //        if(isset($oldPrediction[$index])) {
-    //            $timing = $oldPrediction[$index];//var_dump('modify prediction '.$index);
-    //        } else {
-    //            //$timing = new Timing();
-    //            throw new \Exception('no prediction found');
-    //        }
-    //        $timing
-    //            ->setCreatedAt(new \Datetime)
-    //            ->setIdRacer($repoRacer->find($prediction['racerid']))
-    //            ->setIsRelay(0)
-    //            ->setPrediction()
-    //            ;
-    //        $em->persist($timing);
-    //        $i++;
-    //        if($firstTiming == null) { $firstTiming = $timing; }
-    //    }
-    //    $em->flush();
-    //    $olds = $repoTiming->getOlds($team, $firstTiming->getId());
-    //    foreach($olds as $old) {
-    //        $old->setType(6);
-    //        $em->persist($old);
-    //
-    //    }
-    //    $em->flush();
-    //
-    //    return new Response($i);
-    //}
-
     /**
      * Alter a racer for an existing Timing
      *

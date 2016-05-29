@@ -101,35 +101,18 @@ class NextRacerGuesser {
             // then search normal racers
             $this->nextRacers[$teamId] = $this->repoRacer->getAllRacersAvailable($this->team, $position);
 
-            //$nbRacerInTeam = count($this->nextRacers[$teamId]);
-            //if($nbRacerInTeam < self::MAX_PREDICTION)
-            //{
-            //    $nbToFill = floor(self::MAX_PREDICTION / $nbRacerInTeam);
-            //    $newNextRacers = array();
-            //    for($n = 0; $n < $nbToFill; $n++)
-            //    {
-            //        //$newNextRacers = array_merge($newNextRacers, $this->nextRacers[$teamId]);
-            //        $newNextRacers[$team][] = $this->repoRacer->getNextRacerAvailableQuery($this->team,
-            //    }
-            //    $this->nextRacers[$teamId] = $newNextRacers;
-            //}
-
             // remplacing racers with predictions
             foreach($predictions as $index => $prediction) {
-                //echo 'Setting '.$index.' to '.$prediction->getIdRacer()->getNickname();
-                //$prediction->getIdRacer()->setCurrentPrediction($prediction);
                 $this->predictions[$teamId][$index] = $prediction;
                 $this->nextRacers[$teamId][$index] = $prediction->getIdRacer();
             }
 
             // fix the first racer has to do 2 laps in a row
-            if ($fixFirstLap) // && $this->isFirstLap($teamId) && $nbPrediction == 0)
+            if ($fixFirstLap)
             {
                 $this->firstRacerRunsTwoLaps($teamId);
             }
 
-            //if($nbPrediction < self::MAX_PREDICTION)
-            //{
             $this->logger->info(sprintf('checking for missing predictions (%d < %d)', $nbPrediction, self::MAX_PREDICTION));
             for($i = 0; $i < self::MAX_PREDICTION; $i++)
             {
@@ -160,61 +143,10 @@ class NextRacerGuesser {
                 $this->logger->info(sprintf('For team %d, adding new timing for %s at index %d', $teamId, $timing->getIdRacer()->getNickname(), $i));
             }
             $this->em->flush();
-            //}
 
         //} catch(NoResultException $e) {
         //    return null;
         //}
-
-        //// pause managementstart
-        //
-        //$dt = new \Datetime();
-        //$previousRacer = $this->latestRacer[$teamId];
-        ////$hourPauses = array_keys($pauses);
-        //foreach($this->nextRacers[$teamId] as $index => $racer)
-        //{
-        //    $dtCheck = clone $dt;
-        //    //$dtCheck->modify(sprintf('+%d seconds', $previousRacer->getTimingAvg()));
-        //    $dtCheck->add(new \DateInterval($previousRacer->getTimingAvg()->format('\P\TH\Hi\Ms\S')));
-        //    $hourStart = $dtCheck->format('YmdHi');
-        //
-        //    foreach($racer->getPauses() as $pause) {
-        //        $pauseStart = $pause->getIdPause()->getHourStart()->format('YmdHi');
-        //        $pauseStop  = $pause->getIdPause()->getHourStop()->format('YmdHi');
-        //
-        //        //$hourStopFixed = ($pauseStop < $pauseStart) ? $pauseStop + 10000 : $pauseStop;
-        //        /*echo sprintf('checking if %d > %d AND %d < %d <br />',
-        //            $hourStart,
-        //            $pauseStart,
-        //            $hourStart,
-        //            $pauseStop
-        //        ).PHP_EOL;*/
-        //        if($hourStart > $pauseStart && $hourStart < $pauseStop) {
-        //            /*echo sprintf('stopping as %d > %d AND %d < %d <br />',
-        //                $hourStart,
-        //                $pauseStart,
-        //                $hourStart,
-        //                $pauseStop
-        //            ).PHP_EOL;*/
-        //            // remove racer as it's pause time
-        //            unset($this->nextRacers[$teamId][$index]);
-        //            continue;
-        //        }
-        //    }
-        //    //foreach($racers as $racer) {
-        //    //    $dt->add(new \DateInterval($previousRacer->getTimingAvg()->format('\P\TH\Hi\Ms\S')));
-        //    //    $d = clone $dt;
-        //    //
-        //    //    $nextRacers[] = array(
-        //    //        'racer' => $racer,
-        //    //        'hour'  => $d->format('H:i'),
-        //    //    );
-        //    //    $previousRacer = $racer;
-        //    //}
-        //    $previousRacer = $racer;
-        //
-        //}
-        //// pause management stop
         $this->nextRacers[$teamId] = array_values($this->nextRacers[$teamId]);
 
         return $this->nextRacers[$teamId];
