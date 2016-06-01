@@ -21,13 +21,13 @@ class TimingRepository extends EntityRepository
      */
     public function findLatests($id)
     {
-        $qb = $this->createQueryBuilder('t');
+        $qb = $this->createQueryBuilder('ti');
         $qb
             ->addSelect('r')
             ->addSelect('te')
-            ->leftJoin('t.idRacer', 'r')
+            ->leftJoin('ti.idRacer', 'r')
             ->leftJoin('r.idTeam', 'te')
-            ->where('t.id = :id')
+            ->where('ti.id = :id')
             ->setParameter('id', $id)
             ;
 
@@ -36,14 +36,14 @@ class TimingRepository extends EntityRepository
 
     public function getStats(Racer $racer)
     {
-        $qb = $this->createQueryBuilder('t');
+        $qb = $this->createQueryBuilder('ti');
         $qb
-            ->select($qb->expr()->min('t.timing'))
-            ->addSelect($qb->expr()->max('t.timing'))
-            //->addSelect($qb->expr()->avg('t.timing'))
-            ->addSelect('AVG(TIME_TO_SEC(t.timing))')
-            //->addSelect('AVG(UNIX_TIMESTAMP(t.timing))')
-            ->where('t.idRacer = :idRacer')
+            ->select($qb->expr()->min('ti.timing'))
+            ->addSelect($qb->expr()->max('ti.timing'))
+            //->addSelect($qb->expr()->avg('ti.timing'))
+            ->addSelect('AVG(TIME_TO_SEC(ti.timing))')
+            //->addSelect('AVG(UNIX_TIMESTAMP(ti.timing))')
+            ->where('ti.idRacer = :idRacer')
             ->setParameter('idRacer', $racer)
             ;
 
@@ -51,9 +51,10 @@ class TimingRepository extends EntityRepository
     }
 
     public function getLatests() {
-        $qb = $this->createQueryBuilder('t');
+        $qb = $this->createQueryBuilder('ti');
         $qb
-            ->orderBy('t.id', 'DESC')
+            //->orderBy('ti.id', 'DESC')
+            ->orderBy('ti.createdAt', 'DESC')
             ;
 
         $qb->getQuery()->getResult();
@@ -67,13 +68,13 @@ class TimingRepository extends EntityRepository
      */
     public function findAllWithRacerTeam()
     {
-        $qb = $this->createQueryBuilder('t');
+        $qb = $this->createQueryBuilder('ti');
         $qb
             ->addSelect('r')
             ->addSelect('te')
-            ->leftJoin('t.idRacer', 'r')
+            ->leftJoin('ti.idRacer', 'r')
             ->leftJoin('r.idTeam', 'te')
-            ->orderBy('t.id', 'DESC')
+            ->orderBy('ti.createdAt', 'DESC')
             ->setMaxResults(200)
             ;
 
@@ -150,7 +151,7 @@ class TimingRepository extends EntityRepository
             ->leftJoin('ti.idRacer', 'r')
             ->where('r.idTeam = :idTeam')
             ->setParameter('idTeam', $team)
-            ->orderBy('ti.id', 'DESC')
+            ->orderBy('ti.createdAt', 'DESC')
             ->setMaxResults($team->getNbPerson() * 50)
             ;
 
@@ -182,7 +183,9 @@ class TimingRepository extends EntityRepository
             ->setParameter('team', $team)
             //->andWhere('ti.createdAt > :yesterday')
             //->setParameter('yesterday', date('Y-m-d', time() - 3600 * 24))
-            ->orderBy('ti.id', 'ASC')
+            ->andWhere('ti.type = :type')
+            ->setParameter('type', Timing::MANUAL)
+            ->orderBy('ti.createdAt', 'ASC')
             ;
 
         return $qb
@@ -206,7 +209,7 @@ class TimingRepository extends EntityRepository
             ->andWhere('ti.type = :type')
             ->setParameter('racer', $racer)
             ->setParameter('type', Timing::PREDICTION)
-            ->orderBy('ti.id', 'DESC')
+            ->orderBy('ti.createdAt', 'DESC')
             ;
 
         return $qb
@@ -233,7 +236,7 @@ class TimingRepository extends EntityRepository
             ->setParameter('team', $team)
             ->andWhere('ti.type = :type')
             ->setParameter('type', Timing::PREDICTION)
-            ->orderBy('ti.id', 'ASC')
+            ->orderBy('ti.createdAt', 'ASC')
             ;
 
         return $qb
@@ -292,13 +295,13 @@ class TimingRepository extends EntityRepository
 
         $qb
             ->select($qb->expr()->min('ti.timing'))
-            ->addSelect('t.name')
+            ->addSelect('te.name')
             ->addSelect('r.nickname')
             ->leftJoin('ti.idRacer', 'r')
-            ->leftJoin('r.idTeam', 't')
-            //->addSelect('AVG(UNIX_TIMESTAMP(t.timing))')
+            ->leftJoin('r.idTeam', 'te')
+            //->addSelect('AVG(UNIX_TIMESTAMP(ti.timing))')
             ->groupBy('r.idTeam')
-            ->orderBy('t.id', 'ASC')
+            ->orderBy('te.id', 'ASC')
             ;
 
         return $qb
@@ -316,11 +319,11 @@ class TimingRepository extends EntityRepository
             //->addSelect($qb->expr()->max('ti.id'))
             ->addSelect('ti.id timingid')
             ->addSelect('r.nickname')
-            ->addSelect('t.name')
-            ->addSelect('t.id teamid')
+            ->addSelect('ti.name')
+            ->addSelect('ti.id teamid')
             ->leftJoin('ti.idRacer', 'r')
             ->leftJoin('r.idTeam', 't')
-            ->addOrderBy('ti.id', 'DESC')
+            ->addOrderBy('ti.createdAt', 'DESC')
             ->addOrderBy('r.idTeam', 'ASC')
             ->addOrderBy('ti.id', 'DESC')
             //->groupBy('r.idTeam')
@@ -352,7 +355,7 @@ class TimingRepository extends EntityRepository
             ->setParameter('idTeam', $team)
             ->andWhere('ti.type = :type')
             ->setParameter('type', Timing::PREDICTION)
-            ->orderBy('ti.id', 'ASC')
+            ->orderBy('ti.createdAt', 'ASC')
             ->setMaxResults(1)
             ;
 
