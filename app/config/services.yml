@@ -36,3 +36,6 @@ services:
         calls:
             - [ setEm, [ "@doctrine.orm.entity_manager" ] ]
             - [ setId, [ 1 ] ]
+
+    timing.separator:
+        class: AppBundle\Service\TimingSeparator

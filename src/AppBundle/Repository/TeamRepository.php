@@ -8,28 +8,9 @@ use Doctrine\ORM\NoResultException;
 
 class TeamRepository extends EntityRepository
 {
-    /*
-    public function getTeamWithRacers($teamId) {
-        $qb = $this->createQueryBuilder('t');
-
-        $qb
-            ->addSelect('r')
-            ->leftJoin('t.racers', 't')
-            ->where('t.id = :id')
-            ->setParameter('id', $teamId)
-            ;
-
-        return $qb
-            ->getQuery()
-            ->getSingleResult()
-            ;
-    }
-    */
-
-
     public function getAll()
     {
-        return $this->createQueryBuilder('t')
+        return $this->createQueryBuilder('te')
             ->getQuery()
             ->getResult()
             ;
@@ -38,11 +19,11 @@ class TeamRepository extends EntityRepository
 
     public function getAllWithRacers()
     {
-        $qb = $this->createQueryBuilder('t');
+        $qb = $this->createQueryBuilder('te');
 
         $qb
             ->addSelect('r')
-            ->leftJoin('t.racers', 'r')
+            ->leftJoin('te.racers', 'r')
             ;
 
         return $qb

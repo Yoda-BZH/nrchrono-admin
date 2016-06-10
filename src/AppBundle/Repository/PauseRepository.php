@@ -19,7 +19,7 @@ class PauseRepository extends EntityRepository
         $qb = $this->createQueryBuilder('p');
         $qb
             ->addSelect('t')
-            ->leftJoin('p.idTeam', 't')
+            ->leftJoin('p.idTeam', 'te')
             ;
 
         return $qb->getQuery()->getResult();

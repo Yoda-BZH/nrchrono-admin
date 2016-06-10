@@ -9,7 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="timing", indexes={
  *     @ORM\Index(name="fk_timing_1_idx",  columns={"id_racer"}),
- *     @ORM\Index(name="fk_timing_2_type", columns={"type"})
+ *     @ORM\Index(name="fk_timing_2_type", columns={"type"}),
+ *     @ORM\Index(name="index_created_at", columns={"created_at"})
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TimingRepository")
  */
@@ -26,7 +27,7 @@ class Timing
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $id = 0;
 
     /**
      * @var \DateTime

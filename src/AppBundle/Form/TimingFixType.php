@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use AppBundle\Entity\Timing;
 
-class TimingType extends AbstractType
+class TimingFixType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -20,19 +20,10 @@ class TimingType extends AbstractType
             ->add('timing', 'datetime', array(
                 'with_seconds' => true,
             ))
-            ->add('createdAt')
-            ->add('isRelay')
             ->add('idRacer', 'entity', array(
                 'property' => 'nickname',
                 'class'    => 'AppBundle\Entity\Racer',
-                'group_by' => 'timing.idRacer.idTeam',
-            ))
-            ->add('type', 'choice', array(
-                'choices' => array(
-                    Timing::AUTOMATIC => 'Automatique',
-                    Timing::MANUAL => 'Manual',
-                    Timing::PREDICTION => 'Prediction',
-                ),
+                'group_by' => 'idTeam',
             ))
         ;
     }
@@ -43,7 +34,7 @@ class TimingType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Timing'
+            'data_class' => 'AppBundle\Entity\Timing',
         ));
     }
 

@@ -6,7 +6,7 @@
 <td class="col-md-1">
 {%- if p -%}
 <ul class="list-unstyled">
-    <li>{{ p.idRacer.nickname }}
+    <li>
         <button
             title="Changer le coureur - Ce n'était pas {{ p.idRacer.nickname }}"
             id="previous-team-{{ team.id }}-pos-{{ loop.index }}"
@@ -14,7 +14,7 @@
             data-type="timing"
             data-racer-id="{{ p.idRacer.id }}"
             data-team-id="{{ team.id }}"
-            data-timing="{{ p.id }}"><span class="glyphicon glyphicon-refresh"></span></button>
+            data-timing="{{ p.id }}">{{ p.idRacer.nickname }}</button>
 {% if 2 == loop.index0 %}
         <button title="Annuler le départ"
             id="previous-team-{{ team.id }}-pos-{{ loop.index }}-remove"
@@ -38,7 +38,6 @@
 {# separator #}
 <td id="separator-{{ team.id }}" class="col-md-1 team-bg-color-{{ team.id }} timing-separator">
 <p><a href="{{ path('team_show', {'id': team.id }) }}">{{ team.name }}</a></p>
-<button class="btn btn-primary btn-classic">NEW LAP</button>
 </td>
 
 {# next racers #}

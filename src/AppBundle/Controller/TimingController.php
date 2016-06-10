@@ -278,7 +278,7 @@ class TimingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Timing')->find($id);
+        $entity = $em->getRepository('AppBundle:Timing')->findLatests($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Timing entity.');

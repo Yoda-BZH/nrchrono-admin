@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Log\NullLogger;
 
 class NextRacerGuesser {
 
-    const MAX_PREDICTION = 12; // doit être plus grand de 1 que le nombre max de racer dans une team
+    const MAX_PREDICTION = 3; // doit être plus grand de 1 que le nombre max de racer dans une team
 
     private $em;
     private $logger;

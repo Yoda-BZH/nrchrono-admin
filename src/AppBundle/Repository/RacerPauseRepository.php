@@ -21,7 +21,7 @@ class RacerPauseRepository extends EntityRepository
             ->addSelect('r')
             ->leftJoin('rp.idRacer', 'r')
                 ->addSelect('t')
-                ->leftJoin('r.idTeam', 't')
+                ->leftJoin('r.idTeam', 'te')
 
             ->addSelect('p')
             ->leftJoin('rp.idPause', 'p')
@@ -48,10 +48,10 @@ class RacerPauseRepository extends EntityRepository
             ->addSelect('p')
             ->leftJoin('rp.idPause', 'p')
 
-            ->addSelect('t')
-            ->leftJoin('p.idTeam', 't')
+            ->addSelect('te')
+            ->leftJoin('p.idTeam', 'te')
 
-            ->where('t.id = :id')
+            ->where('te.id = :id')
             ->setParameter('id', $id)
 
             ->orderBy('rp.porder', 'ASC')

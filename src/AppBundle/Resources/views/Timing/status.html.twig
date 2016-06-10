@@ -157,8 +157,9 @@ $(document).ready(function() {
         var $timingId = $button.data('timing');
 
         var currentRacer = $("#prediction-team-" + $teamId + "-pos-1").text();
+        var arrivedRacer = $('#previous-team-' + $teamId + "-pos-3").text();
 
-        if(!confirm('Voulez-vous annuler le départ de ' + currentRacer + '?')) {
+        if(!confirm('Voulez-vous annuler le départ de ' + currentRacer + '?' + "\n" + 'Finalement ' + arrivedRacer + ' n\'est pas encore arrivé et ' + currentRacer + ' pas encore parti(e) ?')) {
             return;
         }
 

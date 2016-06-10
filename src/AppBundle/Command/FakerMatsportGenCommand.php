@@ -47,12 +47,13 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
         $raceStart = $race->getStart();
 
         $repoMatsport = $em->getRepository('AppBundle:Matsport');
+        $verbose && $output->writeln(sprintf('Iterating over %d teams ...', count($teams)));
 
         foreach($teams as $team) {
             try {
                 $lastTiming = $repoMatsport->findLatestForTeam($team->getId());
             } catch(NoResultException $e) {
-                //$output->writeln('No timing (yet) for '.$team->getName());
+                $output->writeln('No timing (yet) for '.$team->getName());
                 continue;
             }
             $nbLap = $repoMatsport->nbLapForTeam($team->getId());

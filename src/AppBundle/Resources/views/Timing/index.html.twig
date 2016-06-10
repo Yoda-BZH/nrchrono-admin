@@ -3,12 +3,13 @@
 {% block body -%}
     <h1>Timing list</h1>
 
+{#
 <div id="team-racer-predictions">
 {% for team in teams %}
     <p id="prediction-team-{{ team.id }}">...</p>
 {% endfor %}
 </div>
-
+#}
 
     <table data-datatable-sorting-col="0" data-datatable-sorting-type="desc" class="records_list table table-hover table-condensed table-stripped table-datatable">
         <thead>
@@ -81,7 +82,7 @@
     </ul>
     {% endblock %}
 
-{% block javascripts %}
+{#{% block javascripts %}
 <script type="text/javascript">
 $(document).ready(function() {
 {% for team in teams %}
@@ -95,4 +96,4 @@ $(document).ready(function() {
 {% endfor %}
 });
 </script>
-{% endblock %}
+{% endblock %}#}
