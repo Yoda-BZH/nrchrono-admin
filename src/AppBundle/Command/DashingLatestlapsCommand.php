@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Doctrine\ORM\NoResultException;
 
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
@@ -34,17 +35,23 @@ class DashingLatestlapsCommand extends ContainerAwareCommand
             return 0;
         }
 
-        //$repoTeam = $em->getRepository('AppBundle:Team');
+        $repoTeam = $em->getRepository('AppBundle:Team');
         $repoTiming = $em->getRepository('AppBundle:Timing');
-        $timings = $repoTiming->getLatestTeamLaps();
         $data = array();
 
-        foreach($timings as $timing) {
+        foreach($repoTeam->findAll() as $team)
+        {
+            try {
+                $timing = $repoTiming->getLatestTeamLap($team);
+            } catch(NoResultException $e) {
+                continue;
+            }
             $data[$timing['teamid']] = array(
                 'label' => sprintf('%s (%s)', $timing['nickname'], str_replace('NR-', '', $timing['name'])),
                 'value' => $timing['timing']->format('H:i:s'),
             );
         }
+        var_dump($data);
         ksort($data);
         $data = array_values($data);
         //$repoRanking = $em->getRepository('AppBundle:Ranking');

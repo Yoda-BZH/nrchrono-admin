@@ -323,7 +323,7 @@ class TimingRepository extends EntityRepository
             ;
     }
 
-    public function getLatestTeamLaps()
+    public function getLatestTeamLap($team)
     {
         $qb = $this->createQueryBuilder('ti');
 
@@ -337,40 +337,11 @@ class TimingRepository extends EntityRepository
             ->leftJoin('ti.idRacer', 'r')
             ->leftJoin('r.idTeam', 't')
             ->where('ti.type = :type')
+            ->andWhere('r.idTeam = :team')
             ->setParameter('type', Timing::MANUAL)
+            ->setParameter('team', $team)
             ->addOrderBy('ti.clock', 'DESC')
-            ->addOrderBy('r.idTeam', 'ASC')
-            ->addOrderBy('ti.id', 'DESC')
             //->groupBy('r.idTeam')
-            ->setMaxResults(5)
-            ;
-
-        return $qb
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-    /**
-     * description
-     *
-     * @param void
-     * @return void
-     */
-    public function getNextPrediction($team)
-    {
-        $qb = $this->createQueryBuilder('ti');
-
-        $qb
-            ->addSelect('r')
-            ->addSelect('te')
-            ->leftJoin('ti.idRacer', 'r')
-            ->leftJoin('r.idTeam', 'te')
-            ->where('te.id = :idTeam')
-            ->setParameter('idTeam', $team)
-            ->andWhere('ti.type = :type')
-            ->setParameter('type', Timing::PREDICTION)
-            ->orderBy('ti.createdAt', 'ASC')
             ->setMaxResults(1)
             ;
 
