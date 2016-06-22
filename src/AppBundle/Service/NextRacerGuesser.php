@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Log\NullLogger;
 
 class NextRacerGuesser {
 
-    const MAX_PREDICTION = 3; // doit être plus grand de 1 que le nombre max de racer dans une team
+    const MAX_PREDICTION = 5; // doit être plus grand de 1 que le nombre max de racer dans une team
 
     private $em;
     private $logger;
@@ -32,8 +32,10 @@ class NextRacerGuesser {
 
     private function firstRacerRunsTwoLaps($teamId)
     {
-        $this->logger->info(sprintf('Defining first two laps for %s', $this->nextRacers[$teamId][0]->getNickname()));
-        array_unshift($this->nextRacers[$teamId], $this->nextRacers[$teamId][0]);
+        $nextRacers[$teamId] = $this->repoRacer->getAllRacersAvailable($this->team, 0);
+        $this->logger->info(sprintf('Defining first two laps for %s', $nextRacers[$teamId][0]->getNickname()));
+        array_unshift($this->nextRacers[$teamId], $nextRacers[$teamId][0]);
+        array_unshift($this->nextRacers[$teamId], $nextRacers[$teamId][0]);
     }
 
     /**
@@ -73,6 +75,7 @@ class NextRacerGuesser {
     }
 
     public function computeNexts($fixFirstLap = false) {
+        $this->logger->info(sprintf('Computing next predictions, with first lap: %d', $fixFirstLap));
         $teamId = $this->team->getId();
 
         if (isset($this->nextRacers[$teamId]))
@@ -99,7 +102,8 @@ class NextRacerGuesser {
             $this->logger->info(sprintf('racer.next: for team %d, found %d predictions', $teamId, $nbPrediction));
 
             // then search normal racers
-            $this->nextRacers[$teamId] = $this->repoRacer->getAllRacersAvailable($this->team, $position);
+            //$this->nextRacers[$teamId] = $this->repoRacer->getAllRacersAvailable($this->team, $position);
+            $this->nextRacers[$teamId] = array(); //$this->repoRacer->getAllRacersAvailable($this->team, $position);
 
             // remplacing racers with predictions
             foreach($predictions as $index => $prediction) {
@@ -128,11 +132,23 @@ class NextRacerGuesser {
                     $currentRacer = $this->repoRacer->getNextRacerAvailable($this->team, $previousRacer->getPosition());
                     $this->logger->info(sprintf('could not find current racer, with "%s", determined to be "%s" next', $previousRacer->getNickname(), $currentRacer->getNickname()));
                 }
+                
+                if(0 == $i)
+                {
+                    $clock = new \Datetime();
+                }
+                else
+                {
+                    $clock = clone $this->predictions[$teamId][$i - 1]->getClock();
+                }
 
                 $timing = new Timing();
+                $created = new \Datetime();
+                $clock->add(new \DateInterval($currentRacer->getTimingAvg()->format('\P\TH\Hi\Ms\S')));
                 $timing
-                    ->setCreatedAt(new \Datetime)
+                    ->setCreatedAt($created)
                     ->setIdRacer($currentRacer)
+                    ->setClock($clock)
                     ->setIsRelay(0)
                     ->setPrediction()
                     ;

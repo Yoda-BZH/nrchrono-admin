@@ -5,29 +5,9 @@
 <h1>Statut</h1>
 <div id="progressbar" style="margin-left: 130px; margin-top: -45px; margin-bottom: 20px; width: 50%; "></div>
 
-{#
-<div class="row">
-{% for team in teams %}
-    <div class="col-xs-6 col-sm-3 team-color-grad-{{ team.id }}">
-        <div class="timing-status-teams" id="timing-status-team-{{ team.id }}">Statut de {{ team.name }}</div>
-        <div id="timing-manual-team-{{ team.id }}">
-            <select class="team-racer-manual-selector" name="team-{{ team.id }}-racer-id">
-                <option></option>
-{% for racer in team.racers %}
-                <option value="racer.id">
-                    {{ racer.nickname }}
-                </option>
-{% endfor %}
-            </select>
-            <button class="btn btn-primary">Ajouter un tour</button>
-        </div>
-    </div>
-{% endfor %}
-</div>
-#}
 
 <div class="">
-<table class="table table-condensed table-stripped table-bordered table-hover">
+<table class="table table-condensed table-stripped table-bordered">
     <thead>
         <tr>
             <th>Fini</th>
@@ -55,7 +35,7 @@
 {% for team in teams %}
     <div id="selector-team-{{ team.id }}">
         <select class="team-racer-manual-selector" name="team-{{ team.id }}-racer-id">
-            <option>Changer de coureur</option>
+            <option disabled>Changer de coureur</option>
 {% for racer in team.racers %}
             <option value="{{ racer.id }}">{{ racer.nickname }}</option>
 {% endfor %}
@@ -205,12 +185,15 @@ $(document).ready(function() {
     // passage manual des coureurs
     racerPrevisons.on('click', 'button.add-manual', function() {
         var $button = $(this);
+        $button.attr('disabled', 'disabled').removeClass('btn-warning').addClass('btn-info');
         var $parent = $button.parent();
         var $teamId = $button.data('team-id');
         var $racerId = $button.data('racer-id');
+        var $timingid = $button.data('timing');
         var postData = {};
         postData.racerid = $racerId;
         postData.teamid = $teamId;
+        postData.timing = $timingid;
         //console.log(postData);
         $.post(
             '{{ path("timing_add_manual") }}',

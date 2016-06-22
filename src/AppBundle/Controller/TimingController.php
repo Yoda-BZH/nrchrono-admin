@@ -452,12 +452,16 @@ class TimingController extends Controller
             $race = $this->get('race')->get();
             $previousClock = clone $race->getStart();
         }
+
+        $timingId = $data['timing'];
+        $em = $this->getDoctrine()->getManager();
+
+        $repoTiming = $em->getRepository('AppBundle:Timing');
+        $timing = $repoTiming->find($timingId);
         $now = new \DateTime();
 
         $intervalT = $previousClock->diff($now);
         $t = new \Datetime('today '.$intervalT->format('%H:%I:%S'));
-
-        $timing = $repoTiming->getNextPrediction($team);
 
         //$timing = new Timing();
         $timing
@@ -489,6 +493,7 @@ class TimingController extends Controller
         $timing = $repoTiming->find($timingId);
         $timing
             ->setPrediction()
+            ->setTiming(null)
             ;
         $em->persist($timing);
         $em->flush();

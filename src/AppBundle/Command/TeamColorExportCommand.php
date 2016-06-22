@@ -55,8 +55,18 @@ class TeamColorExportCommand extends ContainerAwareCommand
 
         }
 
-        return file_put_contents('web/teams.css', implode(PHP_EOL, $colors)) > 0;
+        $ret = file_put_contents('web/teams.css', implode(PHP_EOL, $colors)) > 0;
+        if(!$ret)
+        {
+            throw new \RuntimeException('Unable to write web/teams.css');
+        }
 
+        $ret = file_put_contents('../nrchrono-dashboard/assets/stylesheets/teams.css', implode(PHP_EOL, $colors)) > 0;
+        if(!$ret)
+        {
+            throw new \RuntimeException('Unable to write ../nrchrono-dashboard/assets/stylesheets/teams.css');
+        }
 
+        return 0;
     }
 }

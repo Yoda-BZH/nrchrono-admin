@@ -9,3 +9,12 @@
 .timing-separator p a {
     color: white;
 }
+
+#racers-prevision .btn-primary:hover {
+    color: #fff;
+    background-color: #ec971f;
+    border-color: #d58512;
+}
+#racers-prevision .btn-primary {
+    font-size: 1.1em;
+}

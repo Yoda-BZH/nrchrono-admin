@@ -46,6 +46,12 @@ class FakerFixturesCommand extends ContainerAwareCommand
             ->setStart(new \Datetime)
             ->setKm('4.185')
             ;
+        //$race = new Race;
+        //$race
+        //    ->setName('Groll Race 2016')
+        //    ->setStart(new \Datetime('2016-06-18 15:00:00'))
+        //    ->setKm('2.700')
+        //    ;
 
         $em->persist($race);
 

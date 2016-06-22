@@ -8,6 +8,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use Doctrine\ORM\NoResultException;
+
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 class DashingBestlapsCommand extends ContainerAwareCommand
@@ -34,14 +36,21 @@ class DashingBestlapsCommand extends ContainerAwareCommand
             return 0;
         }
 
-        //$repoTeam = $em->getRepository('AppBundle:Team');
         $repoTiming = $em->getRepository('AppBundle:Timing');
-        $timings = $repoTiming->getBestTeamLaps();
+        $repoTeam = $em->getRepository('AppBundle:Team');
+
         $data = array();
-        foreach($timings as $timing) {
-                $data[] = array(
-                'label' => sprintf('%s (%s)', $timing['nickname'], str_replace('NR-', '', $timing['name'])),
-                'value' => $timing[1],
+
+        foreach($repoTeam->findAll() as $team)
+        {
+            try {
+                $timing = $repoTiming->getBestTeamLap($team);
+            } catch(NoResultException $e) {
+                continue;
+            }
+            $data[] = array(
+                'label' => sprintf('%s (%s)', $timing->getIdRacer()->getNickname(), str_replace('NR-', '', $timing->getIdRacer()->getIdTeam()->getName())),
+                'value' => $timing->getTiming()->format('H:i:s'),
             );
         }
         //$repoRanking = $em->getRepository('AppBundle:Ranking');
