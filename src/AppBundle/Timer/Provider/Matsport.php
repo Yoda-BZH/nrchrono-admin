@@ -41,7 +41,12 @@ class Matsport implements Provider {
     public function getGeneral()
     {
         $data = file_get_contents($this->generalUrl);
-file_put_contents('/var/tmp/matsport.'.time().'.html', $data);
+        $dir = '/var/tmp/'.date('Y/m/d');
+        if(!is_dir($dir))
+        {
+            mkdir($dir, '0775', true);
+        }
+        file_put_contents($dir.'/matsport.'.time().'.html', $data);
         //$pattern = '|<tr><td align=\'left\' width=\'40\'>(.*)</td></tr>|U';
         //$pattern = '|<td align=\'left\' width=\'40\'><div class=Style9>(\d+)</div></div></td><td align="left" width=\'40\'><div class=Style9>(\d+)</div></td><td align="left"><div class="Style9"><a href="javascript:affichage_popup\(\'\./recap_coureur_1\.php\?dossard=(\d+)&code_course=24R&an=(\d+)\',\'Matsport Live\'\);">(.*)</a></div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td><td align="left"><div class=Style9>(.*)</div></td>|U';
 //        $pattern = '|<td align=\'left\' width=\'40\'><div class=Style9>(\d+)</div></div></td><td align="left"><div class=Style9><a href="javascript:affichage_popup\(\'\./recap_coureur_1\.php\?dossard=(\d+)&code_course=24R&an=2015\',\'Matsport Live\'\);">NR BN</a></div></td><td align=\'left\'><div class=Style9>(.*)</div></td><td align=\'left\'><div class=Style9>(.*)</div></td>|U';
@@ -62,7 +67,7 @@ file_put_contents('/var/tmp/matsport.'.time().'.html', $data);
                 continue;
             }
 
-	    $team = new Team;
+        $team = new Team;
             $team
                 ->setPosition($matches[1][$k])
                 ->setNumero($matches[2][$k])
