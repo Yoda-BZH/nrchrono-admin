@@ -53,7 +53,7 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
             try {
                 $lastTiming = $repoMatsport->findLatestForTeam($team->getId());
             } catch(NoResultException $e) {
-                $output->writeln('No timing (yet) for '.$team->getName());
+                //$output->writeln('No timing (yet) for '.$team->getName());
                 continue;
             }
             $nbLap = $repoMatsport->nbLapForTeam($team->getId());
