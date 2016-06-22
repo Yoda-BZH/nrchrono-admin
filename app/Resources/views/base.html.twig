@@ -4,9 +4,6 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Gestion des relais{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-{% if app.session.get('theme') %}
-        <link rel="stylesheet" type="text/css" href="{{ asset(app.session.get('theme')) }}">
-{% endif %}
 
 {% stylesheets
     'bundles/datatables-fixedcolumns/css/dataTables.fixedColumns.min.css'
@@ -27,6 +24,9 @@
     <link rel="stylesheet" href="{{ asset('bundles/bmatznerjqueryui/css/smoothness/jquery-ui.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/bmatznerjqueryui/css/smoothness/jquery.ui.theme.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bootstrap/css/bootstrap.css') }}">
+{% if app.session.get('theme') %}
+        <link rel="stylesheet" type="text/css" href="{{ asset(app.session.get('theme')) }}">
+{% endif %}
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
