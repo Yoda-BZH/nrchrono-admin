@@ -71,6 +71,12 @@ class DashingArrivalCommand extends ContainerAwareCommand
             $arrival = clone $clock;
             $interval = new \DateInterval($nextRacer->getTimingAvg()->format('\P\TH\Hi\Ms\S'));
             $arrival->add($interval);
+            
+            $verbose && $output->writeln(sprintf('For team %s (%d), arrival is at %s',
+                $team->getName(),
+                $team->getId(),
+                $arrival->format('Y-m-d H:i:s')
+            ));
 
             $url = sprintf('http://localhost:3030/widgets/team%d', $team->getId());
             $curl = curl_init($url);
