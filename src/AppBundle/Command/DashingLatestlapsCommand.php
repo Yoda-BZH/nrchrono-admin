@@ -51,7 +51,7 @@ class DashingLatestlapsCommand extends ContainerAwareCommand
                 'value' => $timing['timing']->format('H:i:s'),
             );
         }
-        var_dump($data);
+        
         ksort($data);
         $data = array_values($data);
         //$repoRanking = $em->getRepository('AppBundle:Ranking');
