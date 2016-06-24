@@ -27,12 +27,7 @@ class DashingRankingCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         $raceManager = $this->getContainer()->get('race');
-        if (!$raceManager->isStarted())
-        {
-            $verbose && $output->writeln('race has not started yet');
-
-            return 0;
-        }
+        $raceIsStarted = $raceManager->isStarted();
 
         $repoTeam = $em->getRepository('AppBundle:Team');
         $repoRanking = $em->getRepository('AppBundle:Ranking');
@@ -43,8 +38,29 @@ class DashingRankingCommand extends ContainerAwareCommand
         $rankingCategory = array();
         foreach($teams as $team)
         {
+            if (!$raceIsStarted)
+            {
+                $rankingGeneral[] = array(
+                    'label' => $team->getName(),
+                    'value' => '--'
+                );
+                $rankingCategory[] = array(
+                    'label' => $team->getName(),
+                    'value' => '--'
+                );
+                continue;
+            }
+
             $ranking = $repoRanking->getLatestRankingForTeam($team);
             if(!$ranking) {
+                $rankingGeneral[] = array(
+                    'label' => $team->getName(),
+                    'value' => '--'
+                );
+                $rankingCategory[] = array(
+                    'label' => $team->getName(),
+                    'value' => '--'
+                );
                 continue;
             }
 
