@@ -10,7 +10,8 @@ class Matsport implements Provider {
 
 //    private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2014&code_course=24R&menu=1&type=1&Num_Menu=';
 //    private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2015&code_course=24R&menu=2&type=1&Num_Menu=0&DebutDossard=1&DebutAlpha=A';
-	private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2015&code_course=24R&menu=1&type=1&Num_Menu=';
+	//private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2015&code_course=24R&menu=1&type=1&Num_Menu=';
+	private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2016&code_course=24R&menu=1&type=1&Num_Menu=';
 
     private $equipeUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/recap_coureur_1.php?dossard=%d&code_course=24R&an=%d';
 
@@ -41,10 +42,10 @@ class Matsport implements Provider {
     public function getGeneral()
     {
         $data = file_get_contents($this->generalUrl);
-        $dir = '/var/tmp/'.date('Y/m/d');
+        $dir = '/var/tmp/matsport/'.date('Y/m/d');
         if(!is_dir($dir))
         {
-            mkdir($dir, '0775', true);
+            mkdir($dir, 0775, true);
         }
         file_put_contents($dir.'/matsport.'.time().'.html', $data);
         //$pattern = '|<tr><td align=\'left\' width=\'40\'>(.*)</td></tr>|U';
@@ -67,7 +68,7 @@ class Matsport implements Provider {
                 continue;
             }
 
-        $team = new Team;
+            $team = new Team;
             $team
                 ->setPosition($matches[1][$k])
                 ->setNumero($matches[2][$k])
