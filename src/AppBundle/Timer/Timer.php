@@ -102,8 +102,8 @@ class Timer {
                 //$this->output->writeln(sprintf('Count of timings equals the number of laps done (manually: %d >= matsport: %d ) %s', $nbTiming[1], $teamStats->getTour(), $team->getName()));
                 continue;
             }
-echo 'foo';
-	    $this->output->writeln('Continuing team from matsport - ' . $team->getName());
+            echo 'foo';
+            $this->output->writeln('Continuing team from matsport - ' . $team->getName());
 
             try {
                 $latestTeamTiming = $repoTiming->getLatestTeamTiming($team, 1);
