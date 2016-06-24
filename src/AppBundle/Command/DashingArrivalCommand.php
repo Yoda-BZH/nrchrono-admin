@@ -27,12 +27,7 @@ class DashingArrivalCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         $raceManager = $this->getContainer()->get('race');
-        if (!$raceManager->isStarted())
-        {
-            $verbose && $output->writeln('race has not started yet');
-
-            return 0;
-        }
+        $racerIsStarted = $raceManager->isStarted();
 
         $repoTeam = $em->getRepository('AppBundle:Team');
         $repoRacer = $em->getRepository('AppBundle:Racer');
@@ -45,6 +40,17 @@ class DashingArrivalCommand extends ContainerAwareCommand
 
         foreach($teams as $team)
         {
+            if(!$racerIsStarted) {
+                $url = sprintf('http://localhost:3030/widgets/team%d', $team->getId());
+                $curl = curl_init($url);
+                curl_setopt($curl, CURLOPT_POST, true);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
+                    "auth_token" => "ttrtyuijk",
+                    "end" => "",
+                )));
+                curl_exec($curl);
+            }
+
             $nextRacer = $nextGuesser
                 ->setTeam($team)
                 ->getNext()
