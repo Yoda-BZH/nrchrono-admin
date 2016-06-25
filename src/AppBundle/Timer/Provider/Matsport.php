@@ -10,8 +10,8 @@ class Matsport implements Provider {
 
 //    private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2014&code_course=24R&menu=1&type=1&Num_Menu=';
 //    private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2015&code_course=24R&menu=2&type=1&Num_Menu=0&DebutDossard=1&DebutAlpha=A';
-	//private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2015&code_course=24R&menu=1&type=1&Num_Menu=';
-	private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2016&code_course=24R&menu=1&type=1&Num_Menu=';
+    //private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2015&code_course=24R&menu=1&type=1&Num_Menu=';
+    private $generalUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/index.php?an=2016&code_course=24R&menu=1&type=1&Num_Menu=';
 
     private $equipeUrl = 'http://www.matsport.fr.php53-23.ord1-1.websitetestlink.com/masse/recap_coureur_1.php?dossard=%d&code_course=24R&an=%d';
 
@@ -64,9 +64,11 @@ class Matsport implements Provider {
         $equipes = array();
         foreach($matches[0] as $k => $v) {
 
-            if(!preg_match('/^NR /', $matches[5][$k])) {
-                continue;
-            }
+            //if(!preg_match('/^NR /', $matches[5][$k])) {
+            //    continue;
+            //}
+            // sometimes there a 'C' before the number of laps
+            $matches[7][$k] = trim(str_replace('(C)', '', $matches[7][$k]));
 
             $team = new Team;
             $team

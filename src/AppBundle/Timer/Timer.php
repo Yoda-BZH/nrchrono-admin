@@ -38,7 +38,7 @@ class Timer {
 
     private function output($text, $arg1 = null, $arg2 = null)
     {
-        $this->output && $this->output($text, $arg1, $arg2);
+        $this->output && $this->output->writeln($text, $arg1, $arg2);
     }
 
     /**
@@ -88,6 +88,7 @@ class Timer {
 
         $repoTeam = $this->em->getRepository('AppBundle:Team');
         $repoTiming = $this->em->getRepository('AppBundle:Timing');
+        $repoRanking = $this->em->getRepository('AppBundle:Ranking');
         //var_dump($teamsStats);
 
         $repoRace = $this->em->getRepository('AppBundle:Race');
@@ -96,21 +97,31 @@ class Timer {
 
         $this->output(sprintf('Iterating over %d teamStats', count($teamsStats)));
 
+        $teams = $repoTeam->findAll();
+        $references = array();
+        foreach($teams as $t)
+        {
+            $references[$t->getId()] = $t->getIdReference();
+        }
+
         //var_dump($r);
         foreach($teamsStats as $teamStats) {
-            $team = $repoTeam->findOneBy(array('idReference' => $teamStats->getNumero()));
-            if(!$team)
+            $this->output('checking teamStats ' . $teamStats->getNumero() . ' nom: ' . $teamStats->getNom());
+            if(!in_array($teamStats->getNumero(), $references))
             {
-                throw new \Exception('Impossible de trouver la team ayant pour numéro '.$teamStats->getNumero());
+                $this->output(sprintf('Skipping unreferenced team %s (%s)', $teamStats->getNom(), $teamStats->getNumero()));
+                continue;
             }
+            $team = $repoTeam->findOneBy(array('idReference' => $teamStats->getNumero()));
             //var_dump($team->getName());
-            $nbTiming = $repoTiming->getNbForTeam($team);
+            $nbTiming = $repoRanking->getNbForTeam($team);
 
             if($nbTiming[1] >= $teamStats->getTour()) {
                 //echo 'Bon nombre de tour: '.$teamStats->getTour();
-                //$this->output(sprintf('Count of timings equals the number of laps done (manually: %d >= matsport: %d ) %s', $nbTiming[1], $teamStats->getTour(), $team->getName()));
+                $this->output(sprintf('Count of timings equals the number of laps done (manually: %d >= matsport: %d ) %s', $nbTiming[1], $teamStats->getTour(), $team->getName()));
                 continue;
             }
+            $this->output(sprintf('we have %d timings, Matsport says %d laps, ', $nbTiming[1], $teamStats->getTour()));
 
             $this->output('Continuing team from matsport - ' . $team->getName());
 
@@ -143,7 +154,7 @@ class Timer {
                 $intervalTemps = $endLap->diff($latestTeamTiming->getClock());
                 $t = new \Datetime('today '.$intervalTemps->format('%H:%I:%S'));
             }
-            $this->output('getting nexdt guesser for '.$team->getName());
+            $this->output('getting next guesser for '.$team->getName());
             $nextRacer = $this->guesser
                 ->setTeam($team)
                 ->getNext()

@@ -23,4 +23,21 @@ class RankingRepository extends EntityRepository
             return null;
         }
     }
+
+    public function getNbForTeam($team)
+    {
+        $qb = $this->createQueryBuilder('ra');
+
+        $qb
+            ->select('COUNT(ra.id)')
+            //->leftJoin('r.idTeam', 't'
+            ->where('ra.idTeam = :id')
+            ->setParameter('id', $team)
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getSingleResult()
+            ;
+    }
 }
