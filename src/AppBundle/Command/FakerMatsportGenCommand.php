@@ -86,9 +86,9 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
                 //'time' => $elapsed->format('%H:%I:%S'),
                 'time' => $elapsed,
                 'vitesse' => round($kmh, 1),
-                'ecart' => '12:36:17.164',
-                'bestlap' => '10:23.482',
-                'poscat' => 19,
+                'ecart' => sprintf('%02d:%02d:%02d.%03d', rand(0,2), rand(0,59), rand(0,59), rand(0,999)),
+                'bestlap' => sprintf('%02d:%02d.%03d', rand(0,59), rand(0,59), rand(0,999)),
+                'poscat' => rand(15, 40),
             );
         }
 
