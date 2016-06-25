@@ -36,6 +36,11 @@ class Timer {
         return $this;
     }
 
+    private function output($text, $arg1 = null, $arg2 = null)
+    {
+        $this->output && $this->output($text, $arg1, $arg2);
+    }
+
     /**
      * description
      *
@@ -77,7 +82,9 @@ class Timer {
      */
     public function run()
     {
+        $this->output('Getting provider general statistics');
         $teamsStats = $this->provider->getGeneral();
+        $this->output('Got statistics');
 
         $repoTeam = $this->em->getRepository('AppBundle:Team');
         $repoTiming = $this->em->getRepository('AppBundle:Timing');
@@ -86,6 +93,8 @@ class Timer {
         $repoRace = $this->em->getRepository('AppBundle:Race');
         $race = $repoRace->find(1); // FIXME
         $now = new \Datetime();
+
+        $this->output(sprintf('Iterating over %d teamStats', count($teamsStats)));
 
         //var_dump($r);
         foreach($teamsStats as $teamStats) {
@@ -99,19 +108,19 @@ class Timer {
 
             if($nbTiming[1] >= $teamStats->getTour()) {
                 //echo 'Bon nombre de tour: '.$teamStats->getTour();
-                //$this->output->writeln(sprintf('Count of timings equals the number of laps done (manually: %d >= matsport: %d ) %s', $nbTiming[1], $teamStats->getTour(), $team->getName()));
+                //$this->output(sprintf('Count of timings equals the number of laps done (manually: %d >= matsport: %d ) %s', $nbTiming[1], $teamStats->getTour(), $team->getName()));
                 continue;
             }
-            echo 'foo';
-            $this->output->writeln('Continuing team from matsport - ' . $team->getName());
+
+            $this->output('Continuing team from matsport - ' . $team->getName());
 
             try {
                 $latestTeamTiming = $repoTiming->getLatestTeamTiming($team, 1);
-                $this->output->writeln('Got latest team timing for team ' . $team->getName());
+                $this->output('Got latest team timing for team ' . $team->getName());
             // FIXME no result exception
             } catch(NoResultException $e) {
                 $latestTeamTiming = null;
-                $this->output->writeln('No latest team timing ? ' . $team->getName());
+                $this->output('No latest team timing ? ' . $team->getName());
             }
             $intervalPieces = explode(':', $teamStats->getTemps());
             $intervalStr = sprintf('PT%02dH%02dM%02dS',
@@ -121,20 +130,20 @@ class Timer {
             );
 
             $interval = new \DateInterval($intervalStr);
-            //$this->output->writeln('Got Temps to '.$teamStats->getTemps());
+            //$this->output('Got Temps to '.$teamStats->getTemps());
             $endLap = clone $race->getStart();
-            //$this->output->writeln('Race start is '.$endLap->format('H:i:s'));
+            //$this->output('Race start is '.$endLap->format('H:i:s'));
             $endLap->add($interval);
-            //$this->output->writeln(sprintf('Adding interval %s to endlap', $interval->format('%H:%I:%S')));
-            //$this->output->writeln('Endlap is now '.$endLap->format('H:i:s'));
-            $this->output->writeln('checking last timing for '.$team->getName());
+            //$this->output(sprintf('Adding interval %s to endlap', $interval->format('%H:%I:%S')));
+            //$this->output('Endlap is now '.$endLap->format('H:i:s'));
+            $this->output('checking last timing for '.$team->getName());
             if(!$latestTeamTiming) {
                 $t = new \Datetime('today '.$teamStats->getTemps());
             } else {
                 $intervalTemps = $endLap->diff($latestTeamTiming->getClock());
                 $t = new \Datetime('today '.$intervalTemps->format('%H:%I:%S'));
             }
-            $this->output->writeln('getting nexdt guesser for '.$team->getName());
+            $this->output('getting nexdt guesser for '.$team->getName());
             $nextRacer = $this->guesser
                 ->setTeam($team)
                 ->getNext()
@@ -150,7 +159,7 @@ class Timer {
                 ->setAutomatic()
                 ;
             $this->em->persist($timing);
-            $this->output->writeln('saving new timing for team '.$team->getName());
+            $this->output('saving new timing for team '.$team->getName());
 
             $ranking = new Ranking;
             $ranking
@@ -166,7 +175,7 @@ class Timer {
                 ->setIdTeam($team)
                 ;
             $this->em->persist($ranking);
-            $this->output->writeln('saving new ranking for team '.$team->getName());
+            $this->output('saving new ranking for team '.$team->getName());
         }
         $this->em->flush();
 

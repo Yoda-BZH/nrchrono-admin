@@ -25,6 +25,7 @@ class TimerFetchCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $providerName = $input->getArgument('provider');
+        $verbose = $input->getOption('verbose');
 
         try {
             $provider = $this->getContainer()->get(sprintf('timer.provider.%s', $providerName));
@@ -35,7 +36,8 @@ class TimerFetchCommand extends ContainerAwareCommand
 
         $timer = $this->getContainer()->get('timer.timer');
         $timer->setProvider($provider);
-        $timer->setIo($input, $output);
+        $timer->setIo($input, $verbose ? $output : null);
+
         return $timer->run();
     }
 }
