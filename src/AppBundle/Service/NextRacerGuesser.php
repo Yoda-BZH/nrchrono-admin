@@ -80,6 +80,7 @@ class NextRacerGuesser {
 
         if (isset($this->nextRacers[$teamId]))
         {
+            $this->logger->info('returning from cache for team ' . $teamId);
             return $this->nextRacers;
         }
 
@@ -132,7 +133,7 @@ class NextRacerGuesser {
                     $currentRacer = $this->repoRacer->getNextRacerAvailable($this->team, $previousRacer->getPosition());
                     $this->logger->info(sprintf('could not find current racer, with "%s", determined to be "%s" next', $previousRacer->getNickname(), $currentRacer->getNickname()));
                 }
-                
+
                 if(0 == $i)
                 {
                     $clock = new \Datetime();
@@ -169,11 +170,12 @@ class NextRacerGuesser {
     }
 
     public function getNexts() {
-        return $this->nextRacers[$this->team->getId()] = $this->computeNexts();
+        $this->computeNexts();
+        return $this->nextRacers[$this->team->getId()];
     }
 
     public function getNext() {
-        $this->nextRacers[$this->team->getId()] = $this->computeNexts();
+        $this->computeNexts();
 
         return $this->nextRacers[$this->team->getId()][0];
     }
