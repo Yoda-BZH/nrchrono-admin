@@ -22,6 +22,10 @@
                 <td>{{ entity.nickname }}</td>
             </tr>
             <tr>
+                <th>Pause</th>
+                <td>{{ entity.paused ? "En pause" : "Pas en pause" }}</td>
+            </tr>
+            <tr>
                 <th>Timingmin</th>
                 <td>{{ entity.timingMin|date('i:s') }}</td>
             </tr>

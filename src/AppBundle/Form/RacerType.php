@@ -15,9 +15,16 @@ class RacerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname')
-            ->add('lastname')
-            ->add('nickname')
+            ->add('firstname', 'text', array(
+                'required' => false,
+            ))
+            ->add('lastname', 'text', array(
+                'required' => false,
+            ))
+            ->add('nickname', 'text', array(
+                'required' => false,
+            ))
+            ->add('paused')
             ->add('timingMin')
             ->add('timingMax')
             ->add('timingAvg')
@@ -25,7 +32,7 @@ class RacerType extends AbstractType
             ->add('idTeam')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

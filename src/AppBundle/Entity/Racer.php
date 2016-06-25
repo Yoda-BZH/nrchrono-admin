@@ -65,6 +65,13 @@ class Racer
     private $timingAvg;
 
     /**
+     * @var paused
+     *
+     * @ORM\Column(name="paused", type="boolean", options={"default" = 0})
+     */
+    private $paused = false;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="position", type="integer", nullable=true)
@@ -318,6 +325,30 @@ class Racer
     public function setPauses($pauses)
     {
         $this->pauses = $pauses;
+
+        return $this;
+    }
+
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function getPaused()
+    {
+        return $this->paused;
+    }
+
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function setPaused($isPaused)
+    {
+        $this->paused = $isPaused;
 
         return $this;
     }
