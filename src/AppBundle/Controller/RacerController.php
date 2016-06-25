@@ -244,4 +244,31 @@ class RacerController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     *
+     * @Route("/{id}/pause", name="racer_pause")
+     * @Method("GET")
+     * @Template()
+     */
+    public function pauseAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $racer = $em->getRepository('AppBundle:Racer')->find($id);
+
+        if (!$racer) {
+            throw $this->createNotFoundException('Unable to find Racer entity.');
+        }
+
+        $racer->setPaused(!$racer->getPaused());
+        $em->persist($racer);
+        $em->flush();
+
+        return $this->redirectToRoute('racer');
+    }
 }

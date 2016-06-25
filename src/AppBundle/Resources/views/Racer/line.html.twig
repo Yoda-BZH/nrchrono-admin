@@ -23,6 +23,9 @@
         <li>
             <a href="{{ path('stats_racer', { 'id': racer.id }) }}">{% trans %}Stats{% endtrans %}</a>
         </li>
+        <li>
+            <a href="{{ path('racer_pause', { 'id': racer.id }) }}">{{ racer.paused ? 'Retour de pause' : 'Aller en pause' }}</a>
+        </li>
     </ul>
     </td>
 </tr>
