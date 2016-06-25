@@ -38,7 +38,7 @@ class RacerRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('r');
         $qb
-            ->addSelect('t')
+            ->addSelect('te')
             ->leftJoin('r.idTeam', 'te')
             ;
 
