@@ -116,6 +116,9 @@ class FakerFixturesCommand extends ContainerAwareCommand
                 } elseif($mediumTiming == 3) {
                     $tmin->modify(sprintf('+ %s seconds', $tmn = rand(2.5 * 60, 4 * 60)));
                     $tmax->modify(sprintf('+ %s seconds', $tmx = rand(3.5 * 60, 4.5 * 60)));
+                } elseif($mediumTiming == 8) {
+                    $tmin->modify(sprintf('+ %s seconds', $tmn = rand(6.5 * 60, 9 * 60)));
+                    $tmax->modify(sprintf('+ %s seconds', $tmx = rand(7.5 * 60, 10.5 * 60)));
                 } else {
                     throw new \Exception('Bad --timing');
                 }
