@@ -24,7 +24,10 @@ class RacerType extends AbstractType
             ->add('nickname', 'text', array(
                 'required' => false,
             ))
-            ->add('paused')
+            ->add('paused', 'checkbox', array(
+                'label' => 'Cocher si la personne est partie en pause',
+                'required' => false,
+            ))
             ->add('timingMin')
             ->add('timingMax')
             ->add('timingAvg')
