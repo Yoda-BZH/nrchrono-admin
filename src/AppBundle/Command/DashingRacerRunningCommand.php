@@ -27,16 +27,10 @@ class DashingRacerRunningCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         $raceManager = $this->getContainer()->get('race');
-        if (!$raceManager->isStarted())
-        {
-            $verbose && $output->writeln('race has not started yet');
-
-            return 0;
-        }
+        $raceIsStarted = $raceManager->isStarted();
 
         $repoTeam = $em->getRepository('AppBundle:Team');
         $repoRacer = $em->getRepository('AppBundle:Racer');
-
 
         $teams = $repoTeam->findAll();
         $now = new \Datetime();
@@ -46,6 +40,11 @@ class DashingRacerRunningCommand extends ContainerAwareCommand
         $preparing = array();
         foreach($teams as $team)
         {
+            if(!$raceIsStarted)
+            {
+                $preparing[] = array('label' => $team->getName(), 'value' => 'En attente');
+                continue;
+            }
             $nextRacers = $nextGuesser
                 ->setTeam($team)
                 ->getNexts()

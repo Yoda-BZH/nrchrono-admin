@@ -29,12 +29,7 @@ class DashingBestlapsCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         $raceManager = $this->getContainer()->get('race');
-        if (!$raceManager->isStarted())
-        {
-            $verbose && $output->writeln('race has not started yet');
-
-            return 0;
-        }
+        $raceIsStarted = $raceManager->isStarted();
 
         $repoTiming = $em->getRepository('AppBundle:Timing');
         $repoTeam = $em->getRepository('AppBundle:Team');
@@ -43,9 +38,23 @@ class DashingBestlapsCommand extends ContainerAwareCommand
 
         foreach($repoTeam->findAll() as $team)
         {
+            if(!$raceIsStarted)
+            {
+                $output->writeln('race has not started yet');
+                $data[] = array(
+                    'label' => sprintf('%s', str_replace('NR-', '', $team->getName())),
+                    'value' => '--:--',
+                );
+                continue;
+            }
             try {
                 $timing = $repoTiming->getBestTeamLap($team);
             } catch(NoResultException $e) {
+                $verbose && $output->writeln('no team lap for ' . $team->getName());
+                $data[] = array(
+                    'label' => sprintf('%s', str_replace('NR-', '', $team->getName())),
+                    'value' => 'Aucun tour',
+                );
                 continue;
             }
             $data[] = array(

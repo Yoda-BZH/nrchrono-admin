@@ -28,12 +28,7 @@ class DashingLatestlapsCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         $raceManager = $this->getContainer()->get('race');
-        if (!$raceManager->isStarted())
-        {
-            $verbose && $output->writeln('race has not started yet');
-
-            return 0;
-        }
+        $raceIsStarted = $raceManager->isStarted();
 
         $repoTeam = $em->getRepository('AppBundle:Team');
         $repoTiming = $em->getRepository('AppBundle:Timing');
@@ -41,9 +36,21 @@ class DashingLatestlapsCommand extends ContainerAwareCommand
 
         foreach($repoTeam->findAll() as $team)
         {
+            if(!$raceIsStarted)
+            {
+                $data[$team->getId()] = array(
+                    'label' => sprintf('%s', str_replace('NR-', '', $team->getName())),
+                    'value' => '--:--',
+                );
+                continue;
+            }
             try {
                 $timing = $repoTiming->getLatestTeamLap($team);
             } catch(NoResultException $e) {
+                $data[$team->getId()] = array(
+                    'label' => sprintf('%s', str_replace('NR-', '', $team->getName())),
+                    'value' => 'Aucun tour',
+                );
                 continue;
             }
             $data[$timing['teamid']] = array(
@@ -51,7 +58,7 @@ class DashingLatestlapsCommand extends ContainerAwareCommand
                 'value' => $timing['timing']->format('H:i:s'),
             );
         }
-        
+
         ksort($data);
         $data = array_values($data);
         //$repoRanking = $em->getRepository('AppBundle:Ranking');
