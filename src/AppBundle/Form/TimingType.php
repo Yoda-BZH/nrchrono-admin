@@ -20,7 +20,12 @@ class TimingType extends AbstractType
             ->add('timing', 'datetime', array(
                 'with_seconds' => true,
             ))
-            ->add('createdAt')
+            ->add('createdAt', 'datetime', array(
+                'with_seconds' => true,
+            ))
+            ->add('clock', 'datetime', array(
+                'with_seconds' => true,
+            ))
             ->add('isRelay')
             ->add('idRacer', 'entity', array(
                 'property' => 'nickname',
