@@ -42,11 +42,11 @@ class DashingRankingCommand extends ContainerAwareCommand
             {
                 $rankingGeneral[] = array(
                     'label' => $team->getName(),
-                    'value' => '--'
+                    'value' => 'En attente départ'
                 );
                 $rankingCategory[] = array(
                     'label' => $team->getName(),
-                    'value' => '--'
+                    'value' => 'En attente départ'
                 );
                 continue;
             }
@@ -55,11 +55,11 @@ class DashingRankingCommand extends ContainerAwareCommand
             if(!$ranking) {
                 $rankingGeneral[] = array(
                     'label' => $team->getName(),
-                    'value' => '--'
+                    'value' => 'N/A'
                 );
                 $rankingCategory[] = array(
                     'label' => $team->getName(),
-                    'value' => '--'
+                    'value' => 'N/A'
                 );
                 continue;
             }
