@@ -75,10 +75,10 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
             $elapsed = $interval->format('%H:%I:%S');
             $verbose && $output->writeln('elapsed: '.$elapsed);
 
-            $data[$team->getId()] = array(
+            $data[] = array(
                 'id' => $team->getId(),
                 'pos' => rand(20, 100),
-                'team' => $team,
+                'team' => $team->getName(),
                 'timing' => $lastTiming,
                 'laps' => $nbLap[1],
                 'km' => $nbLap[1] * $race->getKm(),
@@ -91,6 +91,48 @@ class FakerMatsportGenCommand extends ContainerAwareCommand
                 'poscat' => rand(15, 40),
             );
         }
+
+        $fakeTeams = array(
+            array('id' => 21,  'name' => 'POWERSLIDE Ligne Droite',),
+            array('id' => 22,  'name' => 'CH-CHAUVIN ARNOUX',),
+            array('id' => 23,  'name' => 'MRS-EO HOMMES',),
+            array('id' => 24,  'name' => 'BERLINS TOP 6 MEN',),
+            array('id' => 25,  'name' => 'MASTER EUSKADI TEAM',),
+            array('id' => 26,  'name' => 'MASTER BASQUE COUNTRY',),
+            array('id' => 7,  'name' => '_LONGCHAMP ROLLER TEAM',),
+            array('id' => 8,  'name' => 'TEAM GROL DC ENERGIE',),
+            array('id' => 9,  'name' => 'LONDON LSST ENDURO',),
+            array('id' => 10, 'name' => 'ROLLINGVIKINGSVETERANS',),
+            array('id' => 11, 'name' => 'PUC ENDURO',),
+            array('id' => 12, 'name' => 'TEAM GROL CLIC\'N CUP',),
+            array('id' => 13, 'name' => 'ULTEAM RAGE SKATING',),
+            array('id' => 14, 'name' => 'SORINIERES LES RAPIDES',),
+            array('id' => 15, 'name' => 'PREMIO RACE TEAM MIXTE',),
+            array('id' => 16, 'name' => '_CHIPO CHISAII',),
+            array('id' => 17, 'name' => 'ADEL RS',),
+            array('id' => 18, 'name' => 'TRROLLS',),
+            array('id' => 19, 'name' => 'CARAVELA ROLLER TEAM',),
+        );
+        foreach ($fakeTeams as $fakeTeam)
+        {
+            $data[] = array(
+                'id' => $fakeTeam['id'],
+                'pos' => rand(20, 100),
+                'team' => $fakeTeam['name'],
+                'timing' => sprintf('%02d:%02d:%02d.%03d', rand(0,2), rand(0,59), rand(0,59), rand(0,999)),
+                'laps' => $laps = rand(0, 999),
+                'km' => $laps * $race->getKm(),
+                'type' => 'Prestige',
+                //'time' => $elapsed->format('%H:%I:%S'),
+                'time' => sprintf('%02d:%02d:%02d.%03d', rand(0,2), rand(0,59), rand(0,59), rand(0,999)),
+                'vitesse' => round(25, 1),
+                'ecart' => sprintf('%02d:%02d:%02d.%03d', rand(0,2), rand(0,59), rand(0,59), rand(0,999)),
+                'bestlap' => sprintf('%02d:%02d.%03d', rand(0,59), rand(0,59), rand(0,999)),
+                'poscat' => rand(15, 40),
+            );
+        }
+
+        shuffle($data);
 
         //$data = $twig->render($template, $data);
         $html = $template->render(array('entries' => $data));
