@@ -31,19 +31,6 @@
 </table>
 </div>
 
-<div style="display: none;">
-{% for team in teams %}
-    <div id="selector-team-{{ team.id }}">
-        <select class="team-racer-manual-selector" name="team-{{ team.id }}-racer-id">
-            <option disabled>Changer de coureur</option>
-{% for racer in team.racers %}
-            <option value="{{ racer.id }}">{{ racer.nickname }}</option>
-{% endfor %}
-        </select>
-    </div>
-{% endfor %}
-
-</div>
 {% endblock %}
 
 
@@ -120,15 +107,15 @@ $(document).ready(function() {
     setCountdown();
 
     racerPrevisons = $('#racers-prevision');
-    racerPrevisons.on('click', '.prediction-changer, .previous-changer', function() {
-        var $button = $(this);
-        var $parent = $button.parent();
-        var $teamId = $button.data('team-id');
-        var $racerId = $button.data('racer-id');
-        var $select = $('#selector-team-' + $teamId + ' select').clone();
-        $parent.append($select);
-        $parent.find('select option[value=' + $racerId + ']').attr('selected', 'selected');
-    });
+    //racerPrevisons.on('click', '.prediction-changer, .previous-changer', function() {
+    //    var $button = $(this);
+    //    var $parent = $button.parent();
+    //    var $teamId = $button.data('team-id');
+    //    var $racerId = $button.data('racer-id');
+    //    var $select = $('#selector-team-' + $teamId + ' select').clone();
+    //    $parent.append($select);
+    //    $parent.find('select option[value=' + $racerId + ']').attr('selected', 'selected');
+    //});
 
     racerPrevisons.on('click', '.previous-remove', function() {
         var $button = $(this);
@@ -155,10 +142,11 @@ $(document).ready(function() {
     });
 
 
-    racerPrevisons.on('change', '.team-racer-manual-selector', function() {
+    racerPrevisons.on('click', '.team-racer-manual-selector', function() {
         var $select = $(this);
-        var $selectedRacerId = $select.val();
-        var $button = $select.parent().find('button');
+        var $selectedRacerId = $select.data('racerid');
+        var $button = $select.parent().parent().parent().find('button');
+        console.log($button);
 
         var postData = [];
         var $teamId = $button.data('team-id');
@@ -171,6 +159,7 @@ $(document).ready(function() {
         });
 
         var postUrl = '{{ path("timing_update_data") }}';
+        console.log('posting new datas', postData);
 
         $.post(
             postUrl,
