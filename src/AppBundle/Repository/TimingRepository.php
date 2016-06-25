@@ -278,26 +278,6 @@ class TimingRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function getNbForTeam($team)
-    {
-        $qb = $this->createQueryBuilder('ti');
-
-        $qb
-            ->select('COUNT(ti.id)')
-            ->leftJoin('ti.idRacer', 'r')
-            //->leftJoin('r.idTeam', 't'
-            ->where('r.idTeam = :id')
-            ->andWhere('ti.type = :type')
-            ->setParameter('id', $team)
-            ->setParameter('type', Timing::MANUAL)
-            ;
-
-        return $qb
-            ->getQuery()
-            ->getSingleResult()
-            ;
-    }
-
     /**
      * description
      *
