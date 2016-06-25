@@ -31,4 +31,23 @@ class TeamRepository extends EntityRepository
             ->getResult()
             ;
     }
+
+
+    public function getWithRacersByPosition($id)
+    {
+        $qb = $this->createQueryBuilder('te');
+
+        $qb
+            ->addSelect('r')
+            ->where('te.id = :id')
+            ->leftJoin('te.racers', 'r')
+            ->orderBy('r.position', 'ASC')
+            ->setParameter('id', $id)
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getSingleResult()
+            ;
+    }
 }

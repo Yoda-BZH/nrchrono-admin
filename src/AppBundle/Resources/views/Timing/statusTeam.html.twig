@@ -7,14 +7,28 @@
 {%- if p -%}
 <ul class="list-unstyled">
     <li>
+        <div class="btn-group">
         <button
             title="Changer le coureur - Ce n'était pas {{ p.idRacer.nickname }}"
             id="previous-team-{{ team.id }}-pos-{{ loop.index }}"
-            class="btn btn-primary btn-sm previous-changer"
+            class="btn btn-primary btn-sm previous-changer dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             data-type="timing"
             data-racer-id="{{ p.idRacer.id }}"
             data-team-id="{{ team.id }}"
-            data-timing="{{ p.id }}">{{ p.idRacer.nickname }}</button>
+            data-timing="{{ p.id }}">
+                {{ p.idRacer.nickname }}
+                <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+        {%- for r in team.racers -%}
+            <li>
+                <a data-racerid="{{ r.id }}" class="team-racer-manual-selector" href="#">
+                    {{ r.nickname }}
+                </a>
+            </li>
+        {%- endfor -%}
+        </ul>
+        </div>
 {% if 2 == loop.index0 %}
         <button title="Annuler le départ"
             id="previous-team-{{ team.id }}-pos-{{ loop.index }}-remove"
@@ -25,6 +39,10 @@
             data-timing="{{ p.id }}"><span class="glyphicon glyphicon-remove"></span></button>
 
 {% endif %}
+            <a title="Editer le temps"
+            id="previous-timing-edit-{{ p.id }}"
+            class="btn btn-xs btn-warning timing-editor"
+            data-id="{{ p.id }}" href="{{ path('timing_fix_edit', { 'id': p.id }) }}"><span class="glyphicon glyphicon-edit"></a>
     </li>
     <li>Arrived: {{ p.clock|date('H:i:s') }}</li>
     <li>Lap: {{ p.timing|date('H:i:s') }}</li>
@@ -58,8 +76,18 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-            {%- for racer in team.racers -%}
-                <li><a data-racerid="{{ racer.id }}" class="team-racer-manual-selector" href="#">{{ racer.nickname }}{% if racer.paused %} <span class="glyphicon glyphicon-remove"></span> (zzz){% endif %}</a></li>
+            {%- for r in team.racers -%}
+                <li>
+                    <a data-racerid="{{ r.id }}" class="team-racer-manual-selector" href="#">
+                        {{ r.nickname }}
+                        {% if racer.paused %}
+                            <span class="glyphicon glyphicon-alert"></span> (zzz)
+                        {% endif %}
+                        {% if racer.id == r.id %}
+                            <span class="glyphicon glyphicon-arrow-left"></span>
+                        {% endif %}
+                    </a>
+                </li>
             {%- endfor -%}
             </ul>
         </div>

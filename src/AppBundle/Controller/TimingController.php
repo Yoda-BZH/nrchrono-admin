@@ -83,7 +83,7 @@ class TimingController extends Controller
         $repoTeam = $em->getRepository('AppBundle:Team');
         $repoRacer = $em->getRepository('AppBundle:Racer');
         $repoTiming = $em->getRepository('AppBundle:Timing');
-        $team = $repoTeam->find($id);
+        $team = $repoTeam->getWithRacersByPosition($id);
         $latestTimings = array();
         $now = new \Datetime();
 
