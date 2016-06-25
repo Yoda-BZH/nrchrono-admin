@@ -127,14 +127,14 @@ class Timer {
             $endLap->add($interval);
             //$this->output->writeln(sprintf('Adding interval %s to endlap', $interval->format('%H:%I:%S')));
             //$this->output->writeln('Endlap is now '.$endLap->format('H:i:s'));
-$this->output->writeln('checking last timing for '.$team->getName());
+            $this->output->writeln('checking last timing for '.$team->getName());
             if(!$latestTeamTiming) {
                 $t = new \Datetime('today '.$teamStats->getTemps());
             } else {
                 $intervalTemps = $endLap->diff($latestTeamTiming->getClock());
                 $t = new \Datetime('today '.$intervalTemps->format('%H:%I:%S'));
             }
-$this->output->writeln('getting nexdt guesser for '.$team->getName());
+            $this->output->writeln('getting nexdt guesser for '.$team->getName());
             $nextRacer = $this->guesser
                 ->setTeam($team)
                 ->getNext()
