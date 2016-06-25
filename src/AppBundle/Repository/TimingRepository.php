@@ -287,7 +287,9 @@ class TimingRepository extends EntityRepository
             ->leftJoin('ti.idRacer', 'r')
             //->leftJoin('r.idTeam', 't'
             ->where('r.idTeam = :id')
+            ->andWhere('ti.type = :type')
             ->setParameter('id', $team)
+            ->setParameter('type', Timing::MANUAL)
             ;
 
         return $qb
