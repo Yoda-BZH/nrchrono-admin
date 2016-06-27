@@ -19,6 +19,8 @@ class TimingRepository extends EntityRepository
      *
      * @param void
      * @return void
+     *
+     * used: src/AppBundle/Controller/TimingController.php x 2
      */
     public function findLatests($id)
     {
@@ -35,6 +37,9 @@ class TimingRepository extends EntityRepository
         return $qb->getQuery()->getSingleResult();
     }
 
+    /**
+     * used: src/AppBundle/Command/RacerTimingConsolidateCommand.php
+     */
     public function getStats(Racer $racer)
     {
         $qb = $this->createQueryBuilder('ti');
@@ -51,21 +56,25 @@ class TimingRepository extends EntityRepository
         return $qb->getQuery()->getSingleResult();
     }
 
-    public function getLatests() {
-        $qb = $this->createQueryBuilder('ti');
-        $qb
-            //->orderBy('ti.id', 'DESC')
-            ->orderBy('ti.createdAt', 'DESC')
-            ;
-
-        $qb->getQuery()->getResult();
-    }
+    //public function getLatests() {
+    //    $qb = $this->createQueryBuilder('ti');
+    //    $qb
+    //        //->orderBy('ti.id', 'DESC')
+    //        ->orderBy('ti.createdAt', 'DESC')
+    //        ;
+    //
+    //    $qb->getQuery()->getResult();
+    //}
 
     /**
      * description
      *
      * @param void
      * @return void
+     *
+     * used: src/AppBundle/Controller/TimingController.php
+     *       src/AppBundle/Controller/RacerPauseController.php
+     *       src/AppBundle/Repository/RacerPauseRepository.php
      */
     public function findAllWithRacerTeam()
     {
@@ -89,7 +98,7 @@ class TimingRepository extends EntityRepository
      * @param void
      * @return void
      */
-    public function getLatestRacerQuery($teamId)
+    protected function getLatestRacerQuery($teamId)
     {
         $qb = $this->createQueryBuilder('ti');
         $qb
@@ -109,6 +118,11 @@ class TimingRepository extends EntityRepository
         return $qb;
     }
 
+
+    /**
+     * used: src/AppBundle/Controller/PredictionController.php
+     *       src/AppBundle/Controller/TimingFixController.php
+     */
     public function getLatestRacer($teamId)
     {
         return $this->getLatestTeamTiming($teamId)
@@ -116,6 +130,9 @@ class TimingRepository extends EntityRepository
             ;
     }
 
+    /**
+     * used: many
+     */
     public function getLatestRacers($teamId) {
         return $this->getLatestRacerQuery($teamId)
             ->getQuery()
@@ -123,6 +140,9 @@ class TimingRepository extends EntityRepository
             ;
     }
 
+    /**
+     * used: many
+     */
     public function getLatestTeamTiming($teamId, $limit = 1) {
         $qb = $this->getLatestRacerQuery($teamId)
             ->setMaxResults($limit)
@@ -144,6 +164,8 @@ class TimingRepository extends EntityRepository
      *
      * @param void
      * @return void
+     *
+     * used: src/AppBundle/Controller/TeamController.php
      */
     public function getRotations($team)
     {
@@ -160,6 +182,9 @@ class TimingRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * used: src/AppBundle/Controller/StatRacerController.php
+     */
     public function getRacerStats($racer) {
         $qb = $this->createQueryBuilder('ti');
 
@@ -176,6 +201,9 @@ class TimingRepository extends EntityRepository
             ;
     }
 
+    /**
+     * used: many
+     */
     public function getTeamStats($team) {
         $qb = $this->createQueryBuilder('ti');
 
@@ -201,6 +229,8 @@ class TimingRepository extends EntityRepository
      *
      * @param void
      * @return void
+     *
+     * used: many
      */
     public function getPrediction(Racer $racer)
     {
@@ -225,6 +255,8 @@ class TimingRepository extends EntityRepository
      *
      * @param void
      * @return void
+     *
+     * used: src/AppBundle/Service/NextRacerGuesser.php
      */
     public function getPredictionsForTeam(Team $team)
     {
@@ -248,41 +280,13 @@ class TimingRepository extends EntityRepository
             ;
     }
 
-    public function getOlds($team, $id) {
-        $qb = $this->createQueryBuilder('ti');
-        $tree = 3;
-        $qb
-            ->leftJoin('ti.idRacer', 'r')
-            ->where('ti.id < :id')
-            ->setParameter('id', $id)
-            ->andWhere('r.idTeam = :team')
-            ->setParameter('team', $team)
-            ->andWhere('ti.type = :type')
-            ->setParameter('type', $tree)
-            ;
-
-        return $qb->getQuery()->getResult();
-    }
-
-    public function delOlds($team, $id) {
-        $qb->update('AppBundle\Entity\Timing', 'ti')
-            ->leftJoin('ti.idRacer', 'r')
-            ->set('ti.type', ':type')
-            ->setParameter('type', '6')
-            ->where('ti.id < :id')
-            ->setParameter('id', $id)
-            ->andWhere('r.idTeam = :team')
-            ->setParameter('team', $team)
-            ;
-
-        return $qb->getQuery()->getResult();
-    }
-
     /**
      * description
      *
      * @param void
      * @return void
+     *
+     * used: src/AppBundle/Repository/TimingRepository.php
      */
     public function getBestTeamLap($team)
     {
@@ -305,6 +309,10 @@ class TimingRepository extends EntityRepository
             ;
     }
 
+    /**
+     *
+     * used: src/AppBundle/Command/DashingLatestlapsCommand.php
+     */
     public function getLatestTeamLap($team)
     {
         $qb = $this->createQueryBuilder('ti');

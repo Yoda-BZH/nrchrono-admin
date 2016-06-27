@@ -8,6 +8,11 @@ use Doctrine\ORM\NoResultException;
 
 class RankingRepository extends EntityRepository
 {
+    /**
+     * used: src/AppBundle/Command/DashingLatestlapsCommand.php
+     *       src/AppBundle/Command/DashingRankingCommand.php
+     *       src/AppBundle/Command/DashingBestlapsCommand.php:73:
+     */
     public function getLatestRankingForTeam($team)
     {
         $query = $this->createQueryBuilder('r')
@@ -24,6 +29,9 @@ class RankingRepository extends EntityRepository
         }
     }
 
+    /**
+     * used: src/AppBundle/Timer/Timer.php
+     */
     public function getNbForTeam($team)
     {
         $qb = $this->createQueryBuilder('ra');

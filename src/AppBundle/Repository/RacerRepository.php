@@ -9,6 +9,9 @@ use AppBundle\Entity\Team;
 
 class RacerRepository extends EntityRepository
 {
+    /**
+     * used: many
+     */
     public function getAll()
     {
         return $this->createQueryBuilder('r')
@@ -17,6 +20,9 @@ class RacerRepository extends EntityRepository
             ;
     }
 
+    /**
+     * used: src/AppBundle/Controller/PredictionController.php
+     */
     public function getAllByTeam($team)
     {
         return $this->createQueryBuilder('r')
@@ -33,6 +39,9 @@ class RacerRepository extends EntityRepository
      *
      * @param void
      * @return void
+     *
+     * used: src/AppBundle/Controller/PauseController.php
+     *       src/AppBundle/Controller/RacerController.php
      */
     public function findAllWithTeam()
     {
@@ -51,7 +60,7 @@ class RacerRepository extends EntityRepository
      * @param void
      * @return void
      */
-    public function getNextRacerAvailableQuery(Team $team, $position)
+    protected function getNextRacerAvailableQuery(Team $team, $position)
     {
         $qb = $this->createQueryBuilder('r');
         $qb
@@ -71,6 +80,9 @@ class RacerRepository extends EntityRepository
         return $qb;
     }
 
+    /**
+     * used: src/AppBundle/Service/NextRacerGuesser.php
+     */
     public function getNextRacerAvailable(Team $team, $position) {
         $qb = $this->getNextRacerAvailableQuery($team, $position)
             ->setMaxResults(1)
@@ -80,6 +92,9 @@ class RacerRepository extends EntityRepository
         return $qb->getQuery()->getSingleResult();
     }
 
+    /**
+     * src/AppBundle/Service/NextRacerGuesser.php x 2
+     */
     public function getAllRacersAvailable(Team $team, $position) {
         $qb = $this->getNextRacerAvailableQuery($team, $position)
             ;
@@ -88,6 +103,9 @@ class RacerRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * used: src/AppBundle/Controller/PredictionController.php
+     */
     public function getNextRacersAvailable(Team $team, $position) {
         return $this->getNextRacerAvailableQuery($team, $position)
             ->andWhere('r.position > :position')
@@ -96,6 +114,9 @@ class RacerRepository extends EntityRepository
             ;
     }
 
+    /**
+     * used: src/AppBundle/Service/NextRacerGuesser.php
+     */
     public function getFirstOfTeam($team) {
         $qb = $this->createQueryBuilder('r');
 
@@ -112,19 +133,22 @@ class RacerRepository extends EntityRepository
 
     }
 
-    public function getSecondOfTeam($team) {
-        $qb = $this->createQueryBuilder('r');
-
-        $qb
-            ->where('r.idTeam = :team')
-            ->andWhere('r.position = :position')
-            ->setParameter('team', $team)
-            ->setParameter('position', 2)
-            ;
-
-        $racer = $qb->getQuery()->getSingleResult();
-
-        return $racer;
-
-    }
+    /**
+     * used: src/AppBundle/Command/DashingRacerRunningCommand.php commented
+     */
+    //public function getSecondOfTeam($team) {
+    //    $qb = $this->createQueryBuilder('r');
+    //
+    //    $qb
+    //        ->where('r.idTeam = :team')
+    //        ->andWhere('r.position = :position')
+    //        ->setParameter('team', $team)
+    //        ->setParameter('position', 2)
+    //        ;
+    //
+    //    $racer = $qb->getQuery()->getSingleResult();
+    //
+    //    return $racer;
+    //
+    //}
 }

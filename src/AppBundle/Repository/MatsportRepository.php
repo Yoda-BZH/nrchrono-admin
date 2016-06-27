@@ -12,6 +12,9 @@ class MatsportRepository extends EntityRepository
      *
      * @param void
      * @return void
+     *
+     * used: src/AppBundle/Command/FakerRacerTimingCommand.php
+     *       src/AppBundle/Command/FakerMatsportGenCommand.php
      */
     public function findLatestForTeam($teamId)
     {
@@ -27,6 +30,9 @@ class MatsportRepository extends EntityRepository
         return $qb->getQuery()->getSingleResult();
     }
 
+    /**
+     * used: src/AppBundle/Command/FakerMatsportGenCommand.php
+     */
     public function nbLapForTeam($teamId)
     {
         $qb = $this->createQueryBuilder('m');
@@ -44,7 +50,9 @@ class MatsportRepository extends EntityRepository
     }
 
 
-
+    /**
+     * used: src/AppBundle/Controller/EmulationController.php
+     */
     public function getTeamStats($team) {
         $qb = $this->createQueryBuilder('ms');
 

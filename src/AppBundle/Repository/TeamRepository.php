@@ -8,6 +8,9 @@ use Doctrine\ORM\NoResultException;
 
 class TeamRepository extends EntityRepository
 {
+    /**
+     * used: many
+     */
     public function getAll()
     {
         return $this->createQueryBuilder('te')
@@ -16,7 +19,10 @@ class TeamRepository extends EntityRepository
             ;
     }
 
-
+    /**
+     * used: src/AppBundle/Controller/TimingController.php
+     *       src/AppBundle/Controller/TimingFixController.php
+     */
     public function getAllWithRacers()
     {
         $qb = $this->createQueryBuilder('te');
@@ -32,7 +38,9 @@ class TeamRepository extends EntityRepository
             ;
     }
 
-
+    /**
+     * used: src/AppBundle/Controller/TimingController.php
+     */
     public function getWithRacersByPosition($id)
     {
         $qb = $this->createQueryBuilder('te');

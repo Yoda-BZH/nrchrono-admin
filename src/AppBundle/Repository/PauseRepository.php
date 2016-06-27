@@ -13,6 +13,9 @@ class PauseRepository extends EntityRepository
      *
      * @param void
      * @return void
+     *
+     * used: src/AppBundle/Controller/PauseController.php
+     *       src/AppBundle/Controller/RacerController.php
      */
     public function findAllWithTeam()
     {

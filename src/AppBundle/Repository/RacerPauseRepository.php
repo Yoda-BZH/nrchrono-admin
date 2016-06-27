@@ -13,6 +13,8 @@ class RacerPauseRepository extends EntityRepository
      *
      * @param void
      * @return void
+     *
+     * used: src/AppBundle/Controller/RacerPauseController.php
      */
     public function findAllWithRacerTeamPause()
     {
@@ -36,6 +38,9 @@ class RacerPauseRepository extends EntityRepository
      *
      * @param void
      * @return void
+     *
+     * used: src/AppBundle/Controller/PredictionController.php
+     *       src/AppBundle/Controller/TeamPauseController.php
      */
     public function getTeamPauses($id)
     {
