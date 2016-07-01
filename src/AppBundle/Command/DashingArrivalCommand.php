@@ -41,6 +41,7 @@ class DashingArrivalCommand extends ContainerAwareCommand
         foreach($teams as $team)
         {
             if(!$racerIsStarted) {
+                $verbose && $output->writeln('Race has not started yet ...');
                 $url = sprintf('http://localhost:3030/widgets/team%d', $team->getId());
                 $curl = curl_init($url);
                 curl_setopt($curl, CURLOPT_POST, true);
@@ -86,12 +87,14 @@ class DashingArrivalCommand extends ContainerAwareCommand
 
             $url = sprintf('http://localhost:3030/widgets/team%d', $team->getId());
             $curl = curl_init($url);
+            $verbose && curl_setopt($curl, CURLOPT_VERBOSE, true);
             curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $json = json_encode(array(
                 "auth_token" => "ttrtyuijk",
                 "end" => $arrival->format('Y-m-d H:i:s'),
             )));
             curl_exec($curl);
+            $verbose && $output->writeln(sprintf('Sent payload: %s', $json));
         }
 
         return 0;
