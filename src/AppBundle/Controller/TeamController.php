@@ -29,7 +29,7 @@ class TeamController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Team')->findAll();
+        $entities = $em->getRepository('AppBundle:Team')->findAllWithGuest();
 
         return array(
             'entities' => $entities,

@@ -32,7 +32,7 @@ class DashingRankingCommand extends ContainerAwareCommand
         $repoTeam = $em->getRepository('AppBundle:Team');
         $repoRanking = $em->getRepository('AppBundle:Ranking');
 
-        $teams = $repoTeam->findAll();
+        $teams = $repoTeam->findAllWithGuest();
 
         $rankingGeneral = array();
         $rankingCategory = array();

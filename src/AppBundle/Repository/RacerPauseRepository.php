@@ -27,6 +27,8 @@ class RacerPauseRepository extends EntityRepository
 
             ->addSelect('p')
             ->leftJoin('rp.idPause', 'p')
+            ->andWhere('te.guest = :guest')
+            ->setParameter('guest', false)
 
             ;
 

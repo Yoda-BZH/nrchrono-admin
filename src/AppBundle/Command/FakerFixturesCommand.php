@@ -38,7 +38,7 @@ class FakerFixturesCommand extends ContainerAwareCommand
 
         $faker = Faker\Factory::create('fr_FR');
 
-        $repoRacer = $em->getRepository('AppBundle:Racer');
+        //$repoRacer = $em->getRepository('AppBundle:Racer');
 
         $race = new Race;
         $race
@@ -58,48 +58,19 @@ class FakerFixturesCommand extends ContainerAwareCommand
         $today = date('Y-m-d');
         $tomorrow = date('Y-m-d', time() + 3600 * 24 + 1);
 
-        $pausesTeam = array();
-        $pausesTeam[10] = array(
-            array(new \Datetime($today . ' 22:00'), new \Datetime($tomorrow . ' 03:00')),
-            array(new \Datetime($tomorrow . ' 03:00'), new \Datetime($tomorrow . ' 08:00')),
-        );
-        $pausesTeam[6] = array(
-            array(new \Datetime($tomorrow . ' 00:00'), new \Datetime($tomorrow . ' 03:00')),
-            array(new \Datetime($tomorrow . ' 03:00'), new \Datetime($tomorrow . ' 06:00')),
-        );
-        $pausesTeam[5] = array(
-            array(new \Datetime($tomorrow . ' 00:00'), new \Datetime($tomorrow . ' 03:00')),
-            array(new \Datetime($tomorrow . ' 03:00'), new \Datetime($tomorrow . ' 06:00')),
-        );
-        $pausesTeam[2] = array(
-            array(new \Datetime($today . ' 22:00'), new \Datetime($tomorrow . ' 00:00')),
-            array(new \Datetime($tomorrow . ' 00:00'), new \Datetime($tomorrow . ' 02:00')),
-            array(new \Datetime($tomorrow . ' 02:00'), new \Datetime($tomorrow . ' 04:00')),
-            array(new \Datetime($tomorrow . ' 04:00'), new \Datetime($tomorrow . ' 06:00')),
-        );
-
-        if(is_file(__DIR__.'/fixtures.php')) {
-            include __DIR__.'/fixtures.php';
-        } else {
-            $teamsTypes = array(
-                array(2, 1,  1, $pausesTeam[2], '#c71e1e', sprintf('NR %s', $faker->city)),
-                array(5, 3,  2, $pausesTeam[5], '#e2ff00', sprintf('NR %s', $faker->city)),
-                array(10, 5, 5, $pausesTeam[10], '#3928c7', sprintf('NR %s', $faker->city)),
-                array(10, 5, 5, $pausesTeam[10], '#10d21a', sprintf('NR %s', $faker->city)),
-                array(10, 5, 5, $pausesTeam[10], '#c820be', sprintf('NR %s', $faker->city)),
-            );
-        }
+        include __DIR__.'/fixtures.php';
 
         foreach($teamsTypes as $k => $teamType) {
             $team = new Team;
-            $name = $teamType[5];
+            $name = $teamType[2];
             $team
                 ->setName($name)
-                ->setNbHeurePause($teamType[1])
+                ->setNbHeurePause(0)
                 ->setNbPerson($teamType[0])
                 ->setIdRace($race)
-                ->setColor($teamType[4])
+                ->setColor($teamType[1])
                 ->setIdReference($k + 1)
+                ->setGuest($teamType[4])
                 ;
             $em->persist($team);
             $output->writeln('Adding team '.$team->getName());
@@ -125,11 +96,12 @@ class FakerFixturesCommand extends ContainerAwareCommand
                 $tavg = new \Datetime('00:00:00');
                 $tavg->modify(sprintf('+ %d seconds', ($tmn + $tmx) / 2));
 
-                if (isset($teamType[6])) {
-                    $firstname = $teamType[6][$i][0];
+                if (isset($teamType[3])) {
+                    $firstname = $teamType[3][$i][0];
                 } else {
                     $firstname = $faker->firstname;
                 }
+
                 $racer
                     ->setFirstname($firstname)
                     ->setLastName('')

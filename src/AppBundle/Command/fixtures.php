@@ -46,12 +46,16 @@ $team4 = array(
     array('Véronique'),
 );
 
+$team5 = array(
+    array('Arnaud')
+);
+
 
 $teamsTypes = array(
     //array(8, 4, 4, $pausesTeam[10], '#38A1FF', 'Famille', $team1),
-    array(10, 5, 5, $pausesTeam[10], '#42B047', 'Maillé-B', $team1),
-    array(6, 3, 3, $pausesTeam[6], '#D8820E', 'Belem', $team2),
-    array(6, 3, 3, $pausesTeam[6], '#4595E0', 'Lechalas', $team3),
-    //array(2, 1, 1, $pausesTeam[2], '#DA1590', 'NR-Duchesses', $team4),
-    //array(5, 3, 2, $pausesTeam[5], '#1586DA', 'NR-NART', $team5),
+    array(10, '#D8820E', 'Belem',        $team1, false),
+    array(6,  '#42B047', 'Maillé-Brézé', $team2, false),
+    array(6,  '#4595E0', 'Lechalas',     $team3, false),
+    array(2,  '#6B7DD8', 'NR-Duchesse',  $team4, true),
+    array(1,  '#409ED5', 'Arnaud',       $team5, true),
 );

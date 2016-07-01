@@ -28,6 +28,8 @@ class RacerRepository extends EntityRepository
         return $this->createQueryBuilder('r')
             ->where('r.idTeam = :idTeam')
             ->setParameter('idTeam', $team)
+            ->andWhere('te.guest = :guest')
+            ->setParameter('guest', false)
             ->orderBy('r.position', 'ASC')
             ->getQuery()
             ->getResult()
@@ -49,6 +51,8 @@ class RacerRepository extends EntityRepository
         $qb
             ->addSelect('te')
             ->leftJoin('r.idTeam', 'te')
+            ->andWhere('te.guest = :guest')
+            ->setParameter('guest', false)
             ;
 
         return $qb->getQuery()->getResult();

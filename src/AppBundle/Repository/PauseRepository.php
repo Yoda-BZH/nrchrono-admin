@@ -23,6 +23,8 @@ class PauseRepository extends EntityRepository
         $qb
             ->addSelect('t')
             ->leftJoin('p.idTeam', 'te')
+            ->andWhere('te.guest = :guest')
+            ->setParameter('guest', false)
             ;
 
         return $qb->getQuery()->getResult();

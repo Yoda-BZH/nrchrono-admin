@@ -9,11 +9,45 @@ use Doctrine\ORM\NoResultException;
 class TeamRepository extends EntityRepository
 {
     /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function findAll()
+    {
+        return $this->getAll();
+    }
+
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function findAllWithGuest()
+    {
+        $qb = $this->createQueryBuilder('te');
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
      * used: many
      */
     public function getAll()
     {
-        return $this->createQueryBuilder('te')
+        $qb = $this->createQueryBuilder('te');
+
+        $qb
+            ->andWhere('te.guest = :guest')
+            ->setParameter('guest', false)
+            ;
+
+        return $qb
             ->getQuery()
             ->getResult()
             ;
@@ -30,6 +64,8 @@ class TeamRepository extends EntityRepository
         $qb
             ->addSelect('r')
             ->leftJoin('te.racers', 'r')
+            ->where('te.guest = :guest')
+            ->setParameter('guest', false)
             ;
 
         return $qb

@@ -58,6 +58,13 @@ class Team
     private $color;
 
     /**
+     * @®ar boolean
+     *
+     * @ORM\Column(name="guest", type="boolean", options={"default"=0})
+     */
+    private $guest = 0;
+
+    /**
      * @var \Race
      *
      * @ORM\ManyToOne(targetEntity="Race", inversedBy="teams")
@@ -272,6 +279,39 @@ class Team
      */
     public function __toString() {
         return $this->getName();
+    }
+
+    /**
+     * Return the value of
+     *
+     *
+     */
+    public function getGuest()
+    {
+        return $this->guest;
+    }
+
+    /**
+     * Set the value of
+     *
+     *
+     */
+    public function setGuest($guest)
+    {
+        $this->guest = $guest;
+
+        return $this;
+    }
+
+    /**
+     * description
+     *
+     * @param void
+     * @return void
+     */
+    public function isGuest()
+    {
+        return $this->isGuest();
     }
 
 }
