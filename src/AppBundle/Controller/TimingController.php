@@ -129,6 +129,7 @@ class TimingController extends Controller
         //}
         $arrival = clone $clock;
         $interval = new \DateInterval($nextRacers[0]->getTimingAvg()->format('\P\TH\Hi\Ms\S'));
+       // $this->logger()->error(sprintf('calculating interval for team %s racer %s to %s', $team->getName(), $nextRacers[0]->getFirstName(), $arrival->format('r')));
         $arrival->add($interval);
 
         $delta = $arrival->diff($now);
@@ -140,7 +141,10 @@ class TimingController extends Controller
             'arrival' => $arrival,
             'delta' => $delta,
             'previous' => $previousTimings,
-            'predictions' => $nextGuesser->getPredictions($id)
+	    'predictions' => $nextGuesser->getPredictions($id),
+	    'arrivalhis' => $arrival->format('H:i:s'),
+	    'arrivalc' => $arrival->format('c'),
+	    'arrivalr' => $arrival->format('r'),
         );
     }
 

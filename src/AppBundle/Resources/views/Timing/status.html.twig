@@ -49,8 +49,8 @@ $(document).ready(function() {
                 compact: true
             }
             var arrival = new Date($clock.data('arrival'));
-
-            if(arrival < new Date()) {
+            var now = new Date();
+            if(arrival < now) {
                 /**
                  * il est déjà censé être arrivé
                  */

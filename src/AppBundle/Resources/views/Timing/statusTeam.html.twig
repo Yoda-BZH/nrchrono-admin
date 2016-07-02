@@ -103,10 +103,10 @@
 {% endif %}
     </li>
     {% if loop.index0 == 0 %}
-    <li>Arrivée: {{ arrival|date('H:i:s') }}</li>
+    <li>Arrivée: {{ arrivalhis }}</li>
     {#<li>delta: {{ delta.format('%R %H:%I:%S') }}</li>#}
     <li
-            data-arrival="{{ arrival|date('c') }}"
+            data-arrival="{{ arrivalr }}"
             class="clock"
             id="clock-team-{{ team.id }}"
         ></li>
