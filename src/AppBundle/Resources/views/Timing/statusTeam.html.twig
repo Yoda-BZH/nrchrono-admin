@@ -80,7 +80,7 @@
                 <li>
                     <a data-racerid="{{ r.id }}" class="team-racer-manual-selector" href="#">
                         {{ r.nickname }}
-                        {% if racer.paused %}
+                        {% if r.paused %}
                             <span class="glyphicon glyphicon-alert"></span> (zzz)
                         {% endif %}
                         {% if racer.id == r.id %}
