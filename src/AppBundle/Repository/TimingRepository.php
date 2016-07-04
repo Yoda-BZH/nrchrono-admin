@@ -42,18 +42,43 @@ class TimingRepository extends EntityRepository
      */
     public function getStats(Racer $racer)
     {
+        $stats = array();
         $qb = $this->createQueryBuilder('ti');
         $qb
             ->select($qb->expr()->min('ti.timing'))
-            ->addSelect($qb->expr()->max('ti.timing'))
             //->addSelect($qb->expr()->avg('ti.timing'))
-            ->addSelect('AVG(TIME_TO_SEC(ti.timing))')
             //->addSelect('AVG(UNIX_TIMESTAMP(ti.timing))')
             ->where('ti.idRacer = :idRacer')
             ->setParameter('idRacer', $racer)
             ;
 
-        return $qb->getQuery()->getSingleResult();
+        $r = $qb->getQuery()->getSingleResult();
+	$stats[1] = $r[1];
+
+        $qb = $this->createQueryBuilder('ti');
+        $qb
+            ->select($qb->expr()->max('ti.timing'))
+            //->addSelect($qb->expr()->avg('ti.timing'))
+            //->addSelect('AVG(UNIX_TIMESTAMP(ti.timing))')
+            ->where('ti.idRacer = :idRacer')
+            ->setParameter('idRacer', $racer)
+            ;
+
+        $r = $qb->getQuery()->getSingleResult();
+	$stats[2] = $r[1];
+
+        $qb = $this->createQueryBuilder('ti');
+        $qb
+            ->select('AVG(TIME_TO_SEC(TIME(ti.timing)))')
+            //->addSelect('AVG(UNIX_TIMESTAMP(ti.timing))')
+            ->where('ti.idRacer = :idRacer')
+            ->setParameter('idRacer', $racer)
+            ->andWhere($qb->expr()->in('ti.type', array(Timing::MANUAL)))
+            ;
+
+        $r = $qb->getQuery()->getSingleResult();
+	$stats[3] = $r[1];
+	return $stats;
     }
 
     //public function getLatests() {
