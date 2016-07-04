@@ -15,6 +15,12 @@ services:
     timer.provider.matsport:
         class: AppBundle\Timer\Provider\Matsport
 
+    timer.provider.chronelec:
+        class: AppBundle\Timer\Provider\Chronelec
+
+    timer.provider.chronelecscroll:
+        class: AppBundle\Timer\Provider\ChronelecScroll
+
     timer.provider.matsportfile:
         class: AppBundle\Timer\Provider\MatsportFile
 
