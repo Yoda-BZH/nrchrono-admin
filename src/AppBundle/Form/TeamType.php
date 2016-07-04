@@ -21,6 +21,10 @@ class TeamType extends AbstractType
             ->add('idReference')
             ->add('color')
             ->add('idRace')
+            ->add('guest', 'checkbox', array(
+                'label' => 'Cocher si la team est invité (stats matsport seulement)',
+                'required' => false,
+            ))
         ;
     }
 
