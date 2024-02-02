@@ -56,7 +56,7 @@ reloadBasedOnScreen = function() {
     if (width > height)
     {
         // regular horizontal screen
-        console.log('screen is horizontal');
+        //console.log('screen is horizontal');
         body.addClass('screen-horizontal');
         racersPrevisionHeader.addClass('flex-row');
         racerPrevisionData.addClass('flex-row');
@@ -64,7 +64,7 @@ reloadBasedOnScreen = function() {
     else
     {
         // vertical screen, probably phone/tablet
-        console.log('screen is vertical');
+        //console.log('screen is vertical');
         body.addClass('screen-vertical');
         racersPrevisionHeader.addClass('flex-column');
         racerPrevisionData.addClass('flex-column');
@@ -195,7 +195,7 @@ $(document).ready(function() {
         var $select = $(this);
         var $selectedRacerId = $select.data('racerid');
         var $button = $select.parent().parent().parent().find('button');
-        console.log($button);
+        //console.log($button);
 
         var postData = [];
         var $teamId = $button.data('team-id');
@@ -208,7 +208,7 @@ $(document).ready(function() {
         });
 
         var postUrl = '{{ path("timing_update_data") }}';
-        console.log('posting new datas', postData);
+        //console.log('posting new datas', postData);
 
         $.post(
             postUrl,
@@ -222,7 +222,7 @@ $(document).ready(function() {
 
     // passage manual des coureurs
     racerPrevisons.on('click', 'button.add-manual', function() {
-        console.log('button add manual clicked');
+        //console.log('button add manual clicked');
         var $button = $(this);
         $button.attr('disabled', 'disabled').removeClass('btn-warning').addClass('btn-info');
         var $parent = $button.parent();
