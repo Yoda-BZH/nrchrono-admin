@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body -%}
+    <h1>Pause edit</h1>
+
+    {{ include('Pause/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('pause') }}">
+            Back to the list
+        </a>
+    </li>
+    {{ include('Pause/_delete_form.html.twig') }}
+</ul>
+{% endblock %}

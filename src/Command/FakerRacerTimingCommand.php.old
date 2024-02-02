@@ -1,0 +1,166 @@
+<?php
+
+namespace App\Command;
+
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\EntityManagerInterface;
+
+use App\Entity\Timing;
+//use App\Entity\Matsport;
+use App\Repository\TeamRepository;
+use App\Service\RaceManager;
+
+
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+
+#[AsCommand(
+    name: 'faker:racer:timing',
+    description: 'Create new timing for a team',
+    hidden: false,
+    aliases: []
+)]
+class FakerRacerTimingCommand extends Command
+{
+    public function __construct(
+        private EntityManagerInterface $em,
+        private TeamRepository $repoTeam,
+        private MatsportRepository $repoMatsport,
+        private NextRacerGuesser $nextGuesser,
+        private RaceManager $raceManager,
+    )
+    {
+        return parent::__construct();
+    }
+    protected function configure()
+    {
+        $this
+            ->setDescription('Create new timing for a team')
+            ->addArgument('team', InputArgument::REQUIRED, 'team to use')
+            ->addArgument('timing', InputArgument::OPTIONAL, 'timing to use', 12)
+        ;
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $teamId = $input->getArgument('team');
+        $mediumTiming = $input->getArgument('timing', 12);
+
+        $team = $this->repoTeam->find($teamId);
+
+        //$output->writeln('<info>getting latest racer</info>');
+        //try {
+        //    $latestTeamTiming = $this->repoMatsport->findLatestForTeam($team);
+        //    $clock = clone $latestTeamTiming->getClock();
+        //    $output->writeln(date('c ').'Using latest team timing clock: '.$clock->format('H:i:s'));
+        //} catch(NoResultException $e) {
+            //$output->writeln('got exception: '.$e->getMessage());
+            //$output->writeln('trace: '.$e->getTraceAsString());
+            $race = $raceManager->get(); //$em->getRepository('AppBundle:Race')->find(1);
+            $clock = clone $race->getStart();
+            $output->writeln(date('c ').'Seems le first one, using the start of race: '.$clock->format('H:i:s'));
+        //}
+
+        $nextRacers = $this->nextGuesser
+            ->setTeam($team)
+            ->getNexts()
+            ;
+
+        $nextRacer = $nextRacers[1];
+
+        //if(!$nextRacer) {
+        //    $repoRacer = $em->getRepository('AppBundle:Racer');
+        //    $nextRacer = $repoRacer->getFirstOfTeam($team);
+        //}
+
+        //$racer = $this->repoTeam->getNextRacer($teamId);
+        $racerTimingAvg = $nextRacer->getTimingAvg();
+        $racerTimingAvgInSec = $racerTimingAvg->format('H') * 3600
+                             + $racerTimingAvg->format('i') * 60
+                             + $racerTimingAvg->format('s');
+        if($mediumTiming == 12) {
+            //$timeToWait = rand(9 * 60, 13 * 60);
+            $timeRand = rand($racerTimingAvgInSec - 30, $racerTimingAvgInSec + 30);
+            $timeToWait = rand(
+                max(9 * 60, $timeRand),
+                min(13 * 60, $timeRand)
+            );
+        } elseif($mediumTiming == 3) {
+            //$timeToWait = rand(2.8 * 60, 4 * 60);
+            $timeRand = rand($racerTimingAvgInSec - 10, $racerTimingAvgInSec + 10);
+            $timeToWait = rand(
+                max(2.8 * 60, $timeRand),
+                min(4 * 60, $timeRand)
+            );
+        } elseif($mediumTiming == 8) {
+            //$timeToWait = rand(2.8 * 60, 4 * 60);
+            $timeRand = rand($racerTimingAvgInSec - 10, $racerTimingAvgInSec + 10);
+            $timeToWait = rand(
+                max(6.4 * 60, $timeRand),
+                min(9.5 * 60, $timeRand)
+            );
+        } else {
+            throw new \Exception('Bad --timing');
+        }
+        $t = new \Datetime('today 00:00:00');
+        $t->modify($s = sprintf('+%d seconds', $timeToWait)); // +1 to compensate drift
+
+        $clock->modify($s);
+        $output->writeln(sprintf('%s %s is arriving at %s, running for %d seconds - %s, average to %s',
+            date('c'),
+            $nextRacer->getNickname(),
+            $clock->format('Y-m-d H:i:s'),
+            $timeToWait,
+            $t->format('H:i:s'),
+            $nextRacer->getTimingAvg()->format('H:i:s')
+        ));
+        sleep($timeToWait);
+
+        //try {
+        //    $timing = $this->repoTiming->getPrediction($nextRacer);
+        //} catch(\Exception $e) {
+        //    $timing = new Timing;
+        //}
+
+        //$output->writeln(date('c ').'Creating timing');
+        //$timing
+        //    ->setCreatedAt(new \Datetime)
+        //    ->setIdRacer($nextRacer)
+        //    ->setIsRelay(0)
+        //    ->setTiming($t)
+        //    ->setClock($clock)
+        //    ->setAutomatic()
+        //    ;
+
+        $output->writeln(date('c ').'Creating matsport emulation, ran for '.$t->format('H:i:s'));
+        $matsport = new Matsport;
+        $matsport
+            ->setCreatedAt(new \Datetime)
+            ->setIdTeam($team->getId())
+            ->setIsRelay(0)
+            ->setTiming($t)
+            ->setClock($clock)
+            ->setAutomatic()
+            ;
+
+        $output->writeln(date('c ').'Calculating drift ...');
+        //$interval = $clock->diff(new \Datetime());
+        //$output->writeln(date('c ').sprintf('Interval: %s', $interval->format('%R %H:%I:%S')));
+
+        $output->writeln(date('c ').'saving everything');
+        try {
+            //$em->persist($timing);
+            $this->em->persist($matsport);
+            $this->em->flush();
+        } catch (\Exception $e) {
+            $output->writeln('unable to save: '.$e->getMessage());
+            $output->writeln('trace: '.$e->getTraceAsString());
+        }
+        $output->writeln(date('c ').'done lap');
+
+        return 0;
+    }
+}

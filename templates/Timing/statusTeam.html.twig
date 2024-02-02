@@ -1,0 +1,129 @@
+
+{% block body -%}
+
+{# previous racers #}
+
+<!-- previosu racers -->
+{% for previousRacer in previous %}
+<div class="racer-box p-2">
+{%- if previousRacer -%}
+<ul class="list-unstyled">
+    <li>
+        <!--<div class="btn-group">-->
+        <span class="dropdown">
+          <button
+              type="button"
+              title="Changer le coureur - Ce n'était pas {{ previousRacer.racer.nickname }}"
+              id="previous-team-{{ team.id }}-pos-{{ loop.index }}"
+              class="btn btn-default btn-secondary previous-changer dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+              data-type="timing"
+              data-racer-id="{{ previousRacer.racer.id }}"
+              data-team-id="{{ team.id }}"
+              data-timing="{{ previousRacer.id }}">
+                  {{ previousRacer.racer.nickname }}
+                  <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+          {%- for r in team.racers -%}
+              <li>
+                  <a data-racerid="{{ r.id }}" class="dropdown-item team-racer-manual-selector" href="#">
+                      {{ r.nickname }}
+                  </a>
+              </li>
+          {%- endfor -%}
+          </ul>
+        </span>
+{% if loop.last %}
+        <button title="Annuler le départ"
+            id="previous-team-{{ team.id }}-pos-{{ loop.index }}-remove"
+            class="btn btn-danger btn-xs previous-remove"
+            data-type="timing"
+            data-racer-id="{{ previousRacer.racer.id }}"
+            data-team-id="{{ team.id }}"
+            data-timing="{{ previousRacer.id }}"><i class="bi bi-slash-circle"></i></button>
+
+{% endif %}
+            <a title="Editer le temps"
+            id="previous-timing-edit-{{ previousRacer.id }}"
+            class="btn btn-xs btn-warning timing-editor"
+            data-id="{{ previousRacer.id }}" href="{{ path('timing_fix_edit', { 'id': previousRacer.id }) }}"><i class="bi bi-pencil"></i></a>
+    </li>
+    <li>Arrived: {{ previousRacer.clock|date('H:i:s') }}</li>
+    <li>Lap: {{ previousRacer.timing|date('H:i:s') }}</li>
+</ul>
+{%- else -%}
+    --
+{%- endif -%}
+</div>
+{% endfor %}
+<!-- end previous racers -->
+
+<!-- separator with the team name -->
+{# separator #}
+<div id="separator-{{ team.id }}" class="racer-box p-2 team-bg-color-{{ team.id }} timing-separator">
+<p><a href="{{ path('team_show', {'id': team.id }) }}">{{ team.name }}</a></p>
+</div>
+<!-- end separator -->
+
+<!-- next racers -->
+{# next racers #}
+{% for racer in racers %}
+<div class="racer-box p-2">
+<ul class="list-unstyled">
+    <li>
+        <!--<div class="btn-group">-->
+        <span class="dropdown">
+            <button
+                title="Changer le coureur - Ce n'est pas {{ racer.nickname }} qui tourne"
+                id="prediction-team-{{ team.id }}-pos-{{ loop.index }}"
+                class="btn btn-primary btn-sm prediction-changer dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-racer-id="{{ racer.id }}"
+                data-team-id="{{ team.id }}"
+                data-timing="{{ predictions[loop.index0].id }}"
+            >
+                {{ racer.nickname }}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+            {%- for r in team.racers -%}
+                <li>
+                    <a data-racerid="{{ r.id }}" class="team-racer-manual-selector dropdown-item" href="#">
+                        {{ r.nickname }}
+                        {% if r.paused %}
+                            <i class="bi bi-exclamation-triangle"></i> (zzz)
+                        {% endif %}
+                        {% if racer.id == r.id %}
+                            <i class="bi bi-arrow-left"></i>
+                        {% endif %}
+                    </a>
+                </li>
+            {%- endfor -%}
+            </ul>
+        </span>
+{% if 0 == loop.index0 %}
+        <button
+            title="Forcer la fin de tour - {{ racer.nickname }} a fini son tour"
+            id="manual-team-{{ team.id }}"
+            class="btn btn-warning btn-ms add-manual"
+            data-racer-id="{{ racer.id }}"
+            data-team-id="{{ team.id }}"
+            data-timing="{{ predictions[loop.index0].id }}"><i class="bi bi-rewind-circle"></i>
+        </button>
+{% endif %}
+    </li>
+    {% if loop.index0 == 0 %}
+    <li>Arrivée: {{ arrivals[loop.index0]|date('H:i:s') }}</li>
+    <li
+            data-arrival="{{ arrivals[loop.index0]|date('r') }}"
+            class="clock"
+            id="clock-team-{{ team.id }}"
+        ></li>
+    {% else %}
+    <li>Départ: {{ arrivals[loop.index0 - 1]|date('H:i:s') }}</li>
+    {% endif %}
+</ul>
+</div>
+{% endfor %}
+<!-- end next racers -->
+
+{% endblock %}

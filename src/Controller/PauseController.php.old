@@ -1,0 +1,266 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+
+use App\Entity\Pause;
+use App\Form\PauseType;
+use App\Repository\PauseRepository;
+use Doctrine\ORM\EntityManagerInterface;
+
+/**
+ * Pause controller.
+ *
+ * @Route("/pause")
+ */
+#[Route("/pause")]
+class PauseController extends AbstractController
+{
+
+    /**
+     * Lists all Pause entities.
+     *
+     * @Route("/", name="pause")
+     * @Method("GET")
+     * @Template()
+     */
+    #[Route("/", name: "pause", methods: ['GET'])]
+    public function indexAction(
+        PauseRepository $pauseRepository,
+    )
+    {
+        $entities = $pauseRepository->findAllWithTeam();
+
+        return $this->render('Pause/index.html.twig', array(
+            'entities' => $entities,
+        ));
+    }
+    /**
+     * Creates a new Pause entity.
+     *
+     * @Route("/", name="pause_create")
+     * @Method("POST")
+     * @Template("AppBundle:Pause:new.html.twig")
+     */
+    #[Route("/", name: "pause_create", methods: ['POST'])]
+    public function createAction(
+        Request $request,
+        EntityManagerInterface $em,
+    )
+    {
+        $entity = new Pause();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('pause_show', array('id' => $entity->getId())));
+        }
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form,
+        );
+    }
+
+    /**
+     * Creates a form to create a Pause entity.
+     *
+     * @param Pause $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Pause $entity)
+    {
+        $form = $this->createForm(PauseType::class, $entity, array(
+            'action' => $this->generateUrl('pause_create'),
+            'method' => 'POST',
+        ));
+
+        //$form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    /**
+     * Displays a form to create a new Pause entity.
+     *
+     * @Route("/new", name="pause_new")
+     * @Method("GET")
+     * @Template()
+     */
+    #[Route("/new", name: "pause_new", methods: ['GET'])]
+    public function newAction()
+    {
+        $entity = new Pause();
+        $entity->setHourStart(new \Datetime('today 00:00'));
+        $entity->setHourStop(new \Datetime('today 00:00'));
+        $form   = $this->createCreateForm($entity);
+
+        return $this->render('Pause/new.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
+
+    /**
+     * Finds and displays a Pause entity.
+     *
+     * @Route("/{id}", name="pause_show")
+     * @Method("GET")
+     * @Template()
+     */
+    #[Route("/{id}", name: "pause_show", methods: ['GET'])]
+    public function showAction(
+        $id,
+        PauseRepository $pauseRepository,
+    )
+    {
+        $entity = $pauseRepository->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Pause entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('Pause/show.html.twig', array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm,
+        ));
+    }
+
+    /**
+     * Displays a form to edit an existing Pause entity.
+     *
+     * @Route("/{id}/edit", name="pause_edit")
+     * @Method("GET")
+     * @Template()
+     */
+    #[Route("/{id}/edit", name: "pause_edit", methods: ['GET'])]
+    public function editAction(
+        $id,
+        PauseRepository $pauseRepository,
+    )
+    {
+        $entity = $pauseRepository->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Pause entity.');
+        }
+
+        $editForm = $this->createEditForm($entity);
+        //$deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('Pause/edit.html.twig', array(
+            'pause'      => $entity,
+            'form'   => $editForm,
+        ));
+    }
+
+    /**
+    * Creates a form to edit a Pause entity.
+    *
+    * @param Pause $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Pause $entity)
+    {
+        $form = $this->createForm(PauseType::class, $entity, array(
+            'action' => $this->generateUrl('pause_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        //$form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+    /**
+     * Edits an existing Pause entity.
+     *
+     * @Route("/{id}", name="pause_update")
+     * @Method("PUT")
+     * @Template("AppBundle:Pause:edit.html.twig")
+     */
+    #[Route("/{id}", name: "pause_update", methods: ['PUT'])]
+    public function updateAction(
+        Request $request,
+        $id,
+        EntityManagerInterface $em,
+    )
+    {
+        $entity = $pauseRepository->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Pause entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('pause_edit', array('id' => $id)));
+        }
+
+        return $this->render('Pause/edit.html.twig', array(
+            'pause'      => $entity,
+            'form'   => $editForm,
+            //'delete_form' => $deleteForm,
+        ));
+    }
+    /**
+     * Deletes a Pause entity.
+     *
+     * @Route("/{id}", name="pause_delete")
+     * @Method("DELETE")
+     */
+    #[Route("/{id}", name: "pause_delete", methods: ['DELETE'])]
+    public function deleteAction(
+        $id,
+        Request $request,
+        EntityManagerInterface $em,
+    )
+    {
+        $form = $this->createDeleteForm($id);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $entity = $pauseRepository->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Pause entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('pause'));
+    }
+
+    /**
+     * Creates a form to delete a Pause entity by id.
+     *
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('pause_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            //->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm()
+        ;
+    }
+}

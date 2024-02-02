@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Race index{% endblock %}
+
+{% block body %}
+    <h1>Race index</h1>
+
+    <table class="records_list table table-condensed table-hover table-stripped table-datatable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Start</th>
+                <th>Km</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for race in races %}
+            <tr>
+                <td>{{ race.id }}</td>
+                <td>{{ race.name }}</td>
+                <td>{{ race.start ? race.start|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ race.km }}</td>
+                <td>
+                    <a href="{{ path('race_show', {'id': race.id}) }}">show</a>
+                    <a href="{{ path('race_edit', {'id': race.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('race_new') }}">Create new</a>
+{% endblock %}

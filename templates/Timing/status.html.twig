@@ -1,0 +1,259 @@
+{% extends 'base.html.twig' %}
+
+{% block body -%}
+
+<h1>Statut</h1>
+<!--<div id="progressbar" style="margin-left: 130px; margin-top: -45px; margin-bottom: 20px; width: 50%; "></div>-->
+<div id="progressbar" class="progress m-2" role="progressbar" aria-label="Basic example" style="height: 30px;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="30">
+  <div class="progress-bar overflow-visible text-black" style="width: 100%"><div id="progressbar-text" style="visibility: hidden;" class="text">Rafraichissement des données imminentes, ne touchez à rien</div></div>
+</div>
+
+{% if not race.isStarted %}
+<p>Waiting for race to start. It should start at {{ race.start|date('Y-m-d H:i:s') }} ... <a href="{{ path("race_start", {"id": race.id }) }}">Start the race now !</a></p>
+
+{% endif %}
+
+<div id="racers-prevision">
+    <div class="d-flex flex-row" id="racers-prevision-header">
+
+        {% if nb_after >= 3 %}<div class="racer-box p-2">Fini</div>{% endif %}
+        {% if nb_after >= 2 %}<div class="racer-box p-2">Fini</div>{% endif %}
+        {% if nb_after >= 1 %}<div class="racer-box p-2">Vient de finir</div>{% endif %}
+        <div class="racer-box p-2"><span id="remains"></span></div>
+        {% if nb_before >= 1 %}<div class="racer-box p-2">Sur la piste</div>{% endif %}
+        {% if nb_before >= 2 %}<div class="racer-box p-2">Doit se préparer</div>{% endif %}
+        {% if nb_before >= 3 %}<div class="racer-box p-2">A encore le temps</div>{% endif %}
+        {% if nb_before >= 4 %}<div class="racer-box p-2">--</div>{% endif %}
+        {% if nb_before >= 5 %}<div class="racer-box p-2">--</div>{% endif %}
+    </div>
+
+{% for team in teams %}
+    <div class="d-flex flex-row racers-prevision-data" id="timing-status-team-{{ team.id }}">
+        <div class="team-bg-color-{{ team.id }}">Chargement en cours</div>
+    </div>
+{% endfor %}
+</div> <!-- #racers-prevision -->
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+<script>
+reloadBasedOnScreen = function() {
+    var width = $(window).width();
+    var height = $(window).height();
+    var body = $("body");
+    var racersPrevision = $("#racers-prevision");
+    var racersPrevisionHeader = $("#racers-prevision-header");
+    var racerPrevisionData = $('.racers-prevision-data');
+
+    racersPrevision.removeClass("d-flex");
+    racersPrevisionHeader.removeClass('flex-row').removeClass('flex-column');
+    racerPrevisionData.removeClass('flex-row').removeClass('flex-column');
+    body.removeClass('screen-horizontal').removeClass('screen-vertical');
+
+    if (width > height)
+    {
+        // regular horizontal screen
+        console.log('screen is horizontal');
+        body.addClass('screen-horizontal');
+        racersPrevisionHeader.addClass('flex-row');
+        racerPrevisionData.addClass('flex-row');
+    }
+    else
+    {
+        // vertical screen, probably phone/tablet
+        console.log('screen is vertical');
+        body.addClass('screen-vertical');
+        racersPrevisionHeader.addClass('flex-column');
+        racerPrevisionData.addClass('flex-column');
+        racersPrevision.addClass("d-flex");
+
+    }
+
+};
+
+$(document).ready(function() {
+    raceIsStarted = {{ race.isStarted ? "true" : "false" }};
+    loadTeam = function(selector, url) {
+        $selector = $(selector);
+        $selector.find('.clock').countdown('destroy');
+        $selector.load(url, function() {
+            $this = $(this);
+            $clock = $this.find('.clock');
+
+            var clockOptions = {
+                compact: true,
+            }
+            var arrival = new Date($clock.data('arrival'));
+            var now = new Date();
+            if(arrival < now) {
+                /**
+                 * il est déjà censé être arrivé
+                 */
+                clockOptions.since = arrival;
+                $clock.css('color', 'red');
+            } else {
+                /**
+                 * pas encore arrivé
+                 */
+                clockOptions.until = arrival;
+            }
+            raceIsStarted && $clock.countdown(clockOptions);
+        });
+    }
+{% for team in teams %}
+    loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
+{% endfor %}
+
+    setInterval(function() {
+        //initialDataSelector.html(initialData);
+        setCountdown();
+{% for team in teams %}
+        loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
+{% endfor %}
+    }, 30000);
+
+
+    var remains = $('#remains');
+    var progressbar = $('#progressbar');
+    var progressbarInner = progressbar.children('div');
+    var progressbarText = $('#progressbar-text'); //progressbar.find('span');
+
+    disableButtons = function(periods) {
+        secPeriods = $.countdown.periodsToSeconds(periods);
+        if (secPeriods == 30)
+        {
+            progressbarText.css('visibility', 'hidden');
+            progressbarInner.removeClass('bg-danger').removeClass('progress-bar-striped');
+        }
+        else if (secPeriods == 10)
+        {
+            progressbarText.css('visibility', 'visible');
+            progressbarInner.addClass('bg-warning');
+        }
+        else if (secPeriods == 5)
+        {
+            progressbarInner.removeClass('bg-warning').addClass('bg-danger').addClass('progress-bar-striped');
+        }
+
+        var newProgressbarValue = secPeriods * 100 / 30;
+        progressbar.attr('aria-valuenow', secPeriods).css('width', newProgressbarValue + "%") ;
+        //console.log('setting to ', secPeriods);
+    }
+
+    setCountdown = function() {
+        remains.countdown('destroy');
+        remains.countdown({
+            until: '+30',
+            compact: true,
+            format: 'MS',
+            onTick: disableButtons
+        });
+    }
+    //setInterval(setCountdown, 30000);
+    raceIsStarted && setCountdown();
+
+    racerPrevisons = $('#racers-prevision');
+    //racerPrevisons.on('click', '.prediction-changer, .previous-changer', function() {
+    //    var $button = $(this);
+    //    var $parent = $button.parent();
+    //    var $teamId = $button.data('team-id');
+    //    var $racerId = $button.data('racer-id');
+    //    var $select = $('#selector-team-' + $teamId + ' select').clone();
+    //    $parent.append($select);
+    //    $parent.find('select option[value=' + $racerId + ']').attr('selected', 'selected');
+    //});
+
+    racerPrevisons.on('click', '.previous-remove', function() {
+        var $button = $(this);
+        var $teamId = $button.data('team-id');
+        var $racerId = $button.data('racer-id');
+        var $timingId = $button.data('timing');
+
+        var currentRacer = $("#prediction-team-" + $teamId + "-pos-1").text().trim();
+        var arrivedRacer = $('#previous-team-' + $teamId + "-pos-3").text().trim();
+
+        if(!confirm('Voulez-vous annuler le départ de ' + currentRacer + '?' + "\n\n" + 'Finalement ' + arrivedRacer + ' n\'est pas encore arrivé(e) et ' + currentRacer + ' pas encore parti(e) ?')) {
+            return;
+        }
+
+        $.post(
+            '{{ path("timing_revert_departure") }}',
+            { timing: $timingId },
+            function(data, textStatus, jqXHR) {
+                //window.location = window.location;
+                loadTeam("#timing-status-team-" + $teamId, "{{ path('timing_status') }}/" + $teamId);
+            }
+        );
+
+    });
+
+
+    racerPrevisons.on('click', '.team-racer-manual-selector', function() {
+        var $select = $(this);
+        var $selectedRacerId = $select.data('racerid');
+        var $button = $select.parent().parent().parent().find('button');
+        console.log($button);
+
+        var postData = [];
+        var $teamId = $button.data('team-id');
+
+        var timingId = $button.data('timing');
+
+        postData.push({
+            racerid: $selectedRacerId,
+            timing: timingId
+        });
+
+        var postUrl = '{{ path("timing_update_data") }}';
+        console.log('posting new datas', postData);
+
+        $.post(
+            postUrl,
+            { data: postData, teamId: $teamId },
+            function(data, textStatus, jqXHR) {
+                //window.location = window.location;
+                loadTeam("#timing-status-team-" + $teamId, "{{ path('timing_status') }}/" + $teamId);
+            }
+        );
+    });
+
+    // passage manual des coureurs
+    racerPrevisons.on('click', 'button.add-manual', function() {
+        console.log('button add manual clicked');
+        var $button = $(this);
+        $button.attr('disabled', 'disabled').removeClass('btn-warning').addClass('btn-info');
+        var $parent = $button.parent();
+        var $teamId = $button.data('team-id');
+        var $racerId = $button.data('racer-id');
+        var $timingid = $button.data('timing');
+        var postData = {};
+        postData.racerid = $racerId;
+        postData.teamid = $teamId;
+        postData.timing = $timingid;
+        //console.log(postData);
+        $.post(
+            '{{ path("timing_add_manual") }}',
+            { data: postData },
+            function(data, textStatus, jqXHR) {
+                loadTeam("#timing-status-team-" + $teamId, "{{ path('timing_status') }}/" + $teamId);
+                //window.location = window.location;
+            }
+        );
+
+        return true;
+    });
+    reloadBasedOnScreen();
+    //$('.team-racer-manual-selector').selectmenu();
+});
+
+$(window).on('resize', reloadBasedOnScreen)
+
+</script>
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="{{ asset('jqcountdown/jquery.countdown.css') }}" />
+{% endblock %}

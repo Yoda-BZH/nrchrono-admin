@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello StatisticsController!{% endblock %}
+
+{% block body %}
+<ul>
+    <li><a href="{{ path('stats_arrivals') }}">Prochaines arrivées</a></li>
+    <li><a href="{{ path('stats_best_laps') }}">Meilleurs tours</a></li>
+</ul>
+
+{% endblock %}

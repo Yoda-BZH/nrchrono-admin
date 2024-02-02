@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello StatisticsController!{% endblock %}
+
+{% block body %}
+<p>Meilleurs tours :</p>
+<ul>
+{% for d in data %}
+<li>{{ d.label }}: {{ d.value }}</li>
+{% endfor %}
+<ul>
+
+{% endblock %}

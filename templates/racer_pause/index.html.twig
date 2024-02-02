@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RacerPause index{% endblock %}
+
+{% block body %}
+    <h1>RacerPause index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Porder</th>
+                <th>Racer</th>
+                <th>Team</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for racer_pause in racer_pauses %}
+            <tr>
+                <td>{{ racer_pause.id }}</td>
+                <td>{{ racer_pause.porder }}</td>
+                <td><a href="{{ path('racer_show', { 'id': racer_pause.racer.id }) }}">{{ racer_pause.racer.nickname }}</a></td>
+                <td class="team-color-grad-{{ racer_pause.racer.team.id }}"><a href="{{ path('team_show', { 'id': racer_pause.racer.team.id }) }}">{{ racer_pause.racer.team.name }}</a></td>
+                <td>
+                    <a href="{{ path('racer_pause_show', {'id': racer_pause.id}) }}">show</a>
+                    <a href="{{ path('racer_pause_edit', {'id': racer_pause.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('racer_pause_new') }}">Create new</a>
+{% endblock %}

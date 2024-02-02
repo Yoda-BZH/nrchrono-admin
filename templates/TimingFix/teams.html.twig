@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<ul>
+{% for team in teams %}
+    <li><a href="{{ path('timing_fix_team', { 'id': team.id } ) }}">{{ team.name }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

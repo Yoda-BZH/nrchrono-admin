@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Command;
+
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+
+#[AsCommand(
+    name: 'timer:fetch',
+    description: 'Fetch timers.',
+    hidden: false,
+    aliases: []
+)]
+class TimerFetchCommand extends Command
+{
+    protected function configure()
+    {
+        $this
+            ->setDescription('Fetch timers')
+            ->addArgument('provider', InputArgument::REQUIRED, 'Provider to use')
+            //->addOption('yell', null, InputOption::VALUE_NONE, 'Si définie, la tâche criera en majuscules')
+        ;
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $providerName = $input->getArgument('provider');
+        $verbose = $input->getOption('verbose');
+
+        try {
+            $provider = $this->getContainer()->get(sprintf('timer.provider.%s', $providerName));
+        } catch(ServiceNotFoundException $e) {
+            $output->writeln(sprintf('<error>Provider "%s" unknown.</error>', $providerName));
+            return 1;
+        }
+
+        $timer = $this->getContainer()->get('timer.timer');
+        $timer->setProvider($provider);
+        $timer->setIo($input, $verbose ? $output : null);
+
+        return $timer->run();
+    }
+}

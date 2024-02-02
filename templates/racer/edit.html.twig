@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Racer{% endblock %}
+
+{% block body %}
+    <h1>Edit Racer</h1>
+
+    {{ include('racer/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('racer_index') }}">back to list</a>
+
+    {{ include('racer/_delete_form.html.twig') }}
+{% endblock %}

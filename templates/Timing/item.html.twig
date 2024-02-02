@@ -1,0 +1,36 @@
+
+
+    <table class="record_properties table table-condensed table-stripped table-hover">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td class="timing-edit-id">{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Timing</th>
+                <td class="timing-edit-timing">{{ entity.timing|date('H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td class="timing-edit-createdAt">{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Isrelay</th>
+                <td class="timing-edit-isRelay">{{ entity.isRelay }}</td>
+            </tr>
+            <tr>
+                <th>Clock</th>
+                <td class="timing-edit-clock">{{ entity.clock|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>IdRacer</th>
+                <td class="timing-edit-idRacer">{% if entity.racer %}
+                    <a href="{{ path('racer_show', { 'id': entity.racer.id }) }}">{{ entity.racer.nickname }}</a>
+                {% endif %}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ entity.type }}</td>
+            </tr>
+        </tbody>
+    </table>

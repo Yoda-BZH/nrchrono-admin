@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Racer index{% endblock %}
+
+{% block body %}
+    <h1>Racer index</h1>
+
+    <table class="table records_list table-condensed table-stripped table-bordered table-hover table-datatable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Nickname</th>
+                <th>Team</th>
+                <th>TimingMin</th>
+                <th>TimingMax</th>
+                <th>TimingAvg</th>
+                <th>Position</th>
+                <th>Paused</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for racer in racers %}
+            <tr>
+                <td>{{ racer.id }}</td>
+                <td>{{ racer.firstname }}</td>
+                <td>{{ racer.lastname }}</td>
+                <td>{{ racer.nickname }}</td>
+                <td class="team-color-grad-{{ racer.team.id }}"><a href="{{ path('team_show', {'id': racer.team.id }) }}">{{ racer.team }}</a></td>
+                <td>{{ racer.timingMin ? racer.timingMin|date('H:i:s') : '' }}</td>
+                <td>{{ racer.timingMax ? racer.timingMax|date('H:i:s') : '' }}</td>
+                <td>{{ racer.timingAvg ? racer.timingAvg|date('H:i:s') : '' }}</td>
+                <td>{{ racer.position }}</td>
+                <td>{{ racer.paused ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('racer_show', {'id': racer.id}) }}">show</a>
+                    <a href="{{ path('racer_edit', {'id': racer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('racer_new') }}">Create new</a>
+{% endblock %}

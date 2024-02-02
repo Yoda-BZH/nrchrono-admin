@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body -%}
+    <h1>Ranking creation</h1>
+
+    {{ include('Ranking/_form.html.twig') }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('ranking') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

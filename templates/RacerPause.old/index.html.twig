@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body -%}
+    <h1>RacerPause list</h1>
+
+    <table class="records_list table table-condensed table-stripped table-hover table-datatable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Porder</th>
+                <th>{% trans %}IdTeam{% endtrans %}</th>
+                <th>{% trans %}IdRacer{% endtrans %}</th>
+                <th>{% trans %}PauseHourStart{% endtrans %}</th>
+                <th>{% trans %}PauseHourStop{% endtrans %}</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('racerpause_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.porder }}</td>
+                <td class="team-color-grad-{{ entity.racer.team.id }}"><a href="{{ path('team_show', { 'id': entity.racer.team.id }) }}">{{ entity.racer.team.name }}</a></td>
+                <td><a href="{{ path('racer_show', { 'id': entity.racer.id }) }}">{{ entity.racer.nickname }}</a></td>
+                <td>{{ entity.pause.hourStart|date('H:i') }}</td>
+                <td>{{ entity.pause.hourStop|date('H:i') }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('racerpause_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('racerpause_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('racerpause_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

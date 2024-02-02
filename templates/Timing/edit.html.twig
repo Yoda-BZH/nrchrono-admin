@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body -%}
+    <h1>Timing edit</h1>
+
+    {{ include('Timing/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('timing') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+    {{ include('Timing/_delete_form.html.twig') }}
+{% endblock %}

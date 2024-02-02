@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block body -%}
+    <h1>Timing edit</h1>
+
+<div id="" class="container">
+    <div id="timing-fix-edit-orig" class="col-md-6">
+{% include "Timing/item.html.twig" with { 'entity': entity } %}
+    </div>
+
+    <div id="timing-fix-edit-new" class="col-md-6">
+{% include "Timing/item.html.twig" with { 'entity': newEntity } %}
+    </div>
+</div>
+
+
+<ul class="">
+    <li id="timing-orig">Timing de départ: <span class="">{{ entity.timing|date('H:i:s') }}</span></li>
+    <li id="timing-diff">Différence: <span data-seconds="0" class=""></span></li>
+</ul>
+
+
+    {{ include('TimingFix/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('timing') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}
+
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+$(document).ready(function() {
+    timingDiff = $('#timing-fix-edit-new .timing-edit-timing');
+    timingOrig = $('#timing-fix-edit-orig .timing-edit-timing');
+    origTs = {{ (entity.timing|date('H') * 3600) + (entity.timing|date('i') * 60) + (entity.timing|date('s')) }};
+
+    console.log('orig ts: ' + origTs);
+
+    origHours   = $('#appbundle_timing_timing_time_hour');
+    origMinutes = $('#appbundle_timing_timing_time_minute');
+    origSeconds = $('#appbundle_timing_timing_time_second');
+
+    updateTotalValue = function() {
+        console.log('changed');
+        newValueHour   = parseInt(origHours.val());
+        newValueMinute = parseInt(origMinutes.val());
+        newValueSecond = parseInt(origSeconds.val());
+        console.log('hour: ' + newValueHour);
+        console.log('minute: ' + newValueMinute);
+        console.log('seconds: ' + newValueSecond);
+
+        newTotalValue = (newValueHour * 3600) + (newValueMinute * 60) + newValueSecond;
+        console.log('new total value: ' + newTotalValue);
+
+        difference = origTs - newTotalValue;
+
+        d = new Date();
+        dt = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, difference) // convert to ms
+
+        //timingDiff.text(dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds());
+        timingDiff.text(dt.toTimeString().split(/ /)[0]);
+
+        dt2 = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, newTotalValue) // convert to ms
+        timingOrig.text(dt2.toTimeString().split(/ /)[0]);
+    }
+
+    origHours.change(updateTotalValue);
+    origMinutes.change(updateTotalValue);
+    origSeconds.change(updateTotalValue);
+
+    selectRacer = $('#appbundle_timing_idRacer');
+    selectRacer.change(function(a, c) {
+        newRacerName = selectRacer.find(':selected').text();
+        $('#timing-fix-edit-new .timing-edit-idRacer').text(newRacerName);
+    });
+
+    //origMinutes.change(function(a, c) {
+    //    console.log('minutes changed');
+    //    newValue = origMinutes.val();
+    //    console.log('switched to : ' + newValue);
+    //
+    //    newTotalValue = newValue * 60 + origSeconds.val();
+    //    console.log('new total value: ' + newTotalValue);
+    //});
+    //
+    //origSeconds.change(function(a, c) {
+    //    console.log('seconds changed');
+    //    newValue = origSeconds.val();
+    //    console.log('switched to : ' + newValue);
+    //});
+});
+</script>
+{% endblock %}

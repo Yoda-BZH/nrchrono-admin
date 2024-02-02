@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body -%}
+    <h1>Timing creation</h1>
+
+    {{ include('Timing/_form.html.twig') }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('timing') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

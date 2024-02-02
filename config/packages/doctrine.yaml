@@ -22,6 +22,10 @@ doctrine:
                 prefix: 'App\Entity'
                 alias: App
 
+        dql:
+            string_functions:
+                time_to_sec: App\Doctrine\Mysql\TimeToSec
+                time: App\Doctrine\Mysql\Time
 when@test:
     doctrine:
         dbal:

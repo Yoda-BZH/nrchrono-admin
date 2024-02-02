@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pause index{% endblock %}
+
+{% block body %}
+    <h1>Pause index</h1>
+
+    <table class="records_list table table-condensed table-hover table-stripped table-datatable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Porder</th>
+                <th>Team</th>
+                <th>HourStart</th>
+                <th>HourStop</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pause in pauses %}
+            <tr>
+                <td>{{ pause.id }}</td>
+                <td>{{ pause.porder }}</td>
+                <td class="team-color-grad-{{ pause.team.id }}">{{ pause.team }}</td>
+                <td>{{ pause.hourStart ? pause.hourStart|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ pause.hourStop ? pause.hourStop|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('pause_show', {'id': pause.id}) }}">show</a>
+                    <a href="{{ path('pause_edit', {'id': pause.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('pause_new') }}">Create new</a>
+{% endblock %}

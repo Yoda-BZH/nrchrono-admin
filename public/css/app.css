@@ -1,0 +1,39 @@
+.table-line-separator td {
+    border-top: 2px solid black !important;
+}
+
+.timing-separator p {
+    color: white;
+    font-size: 1.5em;
+}
+.timing-separator p a {
+    color: white;
+}
+
+#racers-prevision .btn-primary:hover {
+    color: #fff;
+    background-color: #ec971f;
+    border-color: #d58512;
+}
+#racers-prevision .btn-primary {
+    font-size: 1.1em;
+}
+
+body .is-countdown {
+    border: 0 none;
+    background-color: transparent;
+}
+
+.racer-box {
+    width: 200px;
+    border: 1px solid black;
+}
+
+
+body.screen-vertical .racer-box {
+    height: 115px;
+}
+
+body.screen-horizontal .racer-box {
+    height: auto;
+}

@@ -1,0 +1,211 @@
+{% extends 'base.html.twig' %}
+
+{% block body -%}
+
+<h1>Statut</h1>
+<div id="progressbar" style="margin-left: 130px; margin-top: -45px; margin-bottom: 20px; width: 50%; "></div>
+
+{% if not race.isStarted %}
+<p>Waiting for race to start. It should start at {{ race.start|date('Y-m-d H:i:s') }} ... <a href="{{ path("race_start", {"id": race.id }) }}">Start the race now !</a></p>
+
+{% endif %}
+
+<div class="">
+<table class="table table-condensed table-stripped table-bordered">
+    <thead>
+        <tr>
+            {% if nb_after >= 3 %}<th>Fini</th>{% endif %}
+            {% if nb_after >= 2 %}<th>Fini</th>{% endif %}
+            {% if nb_after >= 1 %}<th>Vient de finir</th>{% endif %}
+            <th><span id="remains"></span></th>
+            {% if nb_before >= 1 %}<th>Sur la piste</th>{% endif %}
+            {% if nb_before >= 2 %}<th>Doit se préparer</th>{% endif %}
+            {% if nb_before >= 3 %}<th>A encore le temps</th>{% endif %}
+            {% if nb_before >= 4 %}<th>--</th>{% endif %}
+            {% if nb_before >= 5 %}<th>--</th>{% endif %}
+        </tr>
+    </thead>
+    <tbody id="racers-prevision">
+{% for team in teams %}
+        <tr class="timing-status-teams" id="timing-status-team-{{ team.id }}">
+            <td colspan="9" class="team-bg-color-{{ team.id }}">Chargement en cours</td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+<script>
+$(document).ready(function() {
+    raceIsStarted = {{ race.isStarted ? "true" : "false" }};
+    loadTeam = function(selector, url) {
+        $selector = $(selector);
+        $selector.find('.clock').countdown('destroy');
+        $selector.load(url, function() {
+            $this = $(this);
+            $clock = $this.find('.clock');
+
+            var clockOptions = {
+                compact: true,
+            }
+            var arrival = new Date($clock.data('arrival'));
+            var now = new Date();
+            if(arrival < now) {
+                /**
+                 * il est déjà censé être arrivé
+                 */
+                clockOptions.since = arrival;
+                $clock.css('color', 'red');
+            } else {
+                /**
+                 * pas encore arrivé
+                 */
+                clockOptions.until = arrival;
+            }
+            raceIsStarted && $clock.countdown(clockOptions);
+        });
+    }
+{% for team in teams %}
+    loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
+{% endfor %}
+
+    setInterval(function() {
+        //initialDataSelector.html(initialData);
+        setCountdown();
+{% for team in teams %}
+        loadTeam("#timing-status-team-{{ team.id }}", "{{ path('timing_status_team', { 'id': team.id }) }}");
+{% endfor %}
+    }, 30000);
+
+
+    var remains = $('#remains');
+    var progressbar = $('#progressbar');
+    disableButtons = function(periods) {
+        secPeriods = $.countdown.periodsToSeconds(periods);
+        if(secPeriods >= 10) {
+            progressbar.progressbar('value', secPeriods - 10);
+        }
+        if(secPeriods === 10) {
+            progressbar.progressbar('value', false);
+            //$('#racers-prevision button').hide(); //addClass('btn-error');
+        }
+    }
+    progressbar.progressbar({
+        max: 20,
+        value: 20,
+    });
+
+    setCountdown = function() {
+        remains.countdown('destroy');
+        remains.countdown({
+            until: '+30',
+            compact: true,
+            format: 'MS',
+            onTick: disableButtons
+        });
+    }
+    //setInterval(setCountdown, 30000);
+    raceIsStarted && setCountdown();
+
+    racerPrevisons = $('#racers-prevision');
+    //racerPrevisons.on('click', '.prediction-changer, .previous-changer', function() {
+    //    var $button = $(this);
+    //    var $parent = $button.parent();
+    //    var $teamId = $button.data('team-id');
+    //    var $racerId = $button.data('racer-id');
+    //    var $select = $('#selector-team-' + $teamId + ' select').clone();
+    //    $parent.append($select);
+    //    $parent.find('select option[value=' + $racerId + ']').attr('selected', 'selected');
+    //});
+
+    racerPrevisons.on('click', '.previous-remove', function() {
+        var $button = $(this);
+        var $teamId = $button.data('team-id');
+        var $racerId = $button.data('racer-id');
+        var $timingId = $button.data('timing');
+
+        var currentRacer = $("#prediction-team-" + $teamId + "-pos-1").text().trim();
+        var arrivedRacer = $('#previous-team-' + $teamId + "-pos-3").text().trim();
+
+        if(!confirm('Voulez-vous annuler le départ de ' + currentRacer + '?' + "\n\n" + 'Finalement ' + arrivedRacer + ' n\'est pas encore arrivé(e) et ' + currentRacer + ' pas encore parti(e) ?')) {
+            return;
+        }
+
+        $.post(
+            '{{ path("timing_revert_departure") }}',
+            { timing: $timingId },
+            function(data, textStatus, jqXHR) {
+                //window.location = window.location;
+                loadTeam("#timing-status-team-" + $teamId, "{{ path('timing_status') }}/" + $teamId);
+            }
+        );
+
+    });
+
+
+    racerPrevisons.on('click', '.team-racer-manual-selector', function() {
+        var $select = $(this);
+        var $selectedRacerId = $select.data('racerid');
+        var $button = $select.parent().parent().parent().find('button');
+        console.log($button);
+
+        var postData = [];
+        var $teamId = $button.data('team-id');
+
+        var timingId = $button.data('timing');
+
+        postData.push({
+            racerid: $selectedRacerId,
+            timing: timingId
+        });
+
+        var postUrl = '{{ path("timing_update_data") }}';
+        console.log('posting new datas', postData);
+
+        $.post(
+            postUrl,
+            { data: postData, teamId: $teamId },
+            function(data, textStatus, jqXHR) {
+                //window.location = window.location;
+                loadTeam("#timing-status-team-" + $teamId, "{{ path('timing_status') }}/" + $teamId);
+            }
+        );
+    });
+
+    // passage manual des coureurs
+    racerPrevisons.on('click', 'button.add-manual', function() {
+        var $button = $(this);
+        $button.attr('disabled', 'disabled').removeClass('btn-warning').addClass('btn-info');
+        var $parent = $button.parent();
+        var $teamId = $button.data('team-id');
+        var $racerId = $button.data('racer-id');
+        var $timingid = $button.data('timing');
+        var postData = {};
+        postData.racerid = $racerId;
+        postData.teamid = $teamId;
+        postData.timing = $timingid;
+        //console.log(postData);
+        $.post(
+            '{{ path("timing_add_manual") }}',
+            { data: postData },
+            function(data, textStatus, jqXHR) {
+                loadTeam("#timing-status-team-" + $teamId, "{{ path('timing_status') }}/" + $teamId);
+                //window.location = window.location;
+            }
+        );
+
+        return true;
+    });
+    //$('.team-racer-manual-selector').selectmenu();
+});
+</script>
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="{{ asset('jqcountdown/jquery.countdown.css') }}" />
+{% endblock %}

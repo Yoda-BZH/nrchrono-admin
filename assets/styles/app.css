@@ -1,3 +1,28 @@
-body {
-    background-color: skyblue;
+.table-line-separator td {
+    border-top: 2px solid black !important;
+}
+
+.timing-separator {
+    background-color: black;
+}
+.timing-separator p {
+    color: white;
+    font-size: 1.5em;
+}
+.timing-separator p a {
+    color: white;
+}
+
+#racers-prevision .btn-primary:hover {
+    color: #fff;
+    background-color: #ec971f;
+    border-color: #d58512;
+}
+#racers-prevision .btn-primary {
+    font-size: 1.1em;
+}
+
+#racers-prevision .is-countdown {
+    border: 0 none;
+    background-color: none;
 }

@@ -1,0 +1,260 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion visuelle des pauses{% endblock %}
+
+{% block body %}
+
+<div id="dialog-team-select" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+{% for team in teams %}
+    <button type="button" class="btn btn-primary button-team" data-team-id="{{ team.id }}" data-team-color="{{ team.color }}">{{ team }}</button>
+{% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% for team in teams %}
+<div id="dialog-team-racer-select-{{ team.id }}" class="modal dialog-team-racer-select" tabindex="-1" data-eventid="">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+{%   for racer in team.racers %}
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{ racer.id }}" id="pauseEditRacer{{ racer.id }}">
+            <label class="form-check-label" for="pauseEditRacer{{ racer.id }}">
+                {{ racer }}
+            </label>
+        </div>
+{%   endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger team-racer-select-delete">Delete</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary team-racer-select-save">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+<div id='calendar'></div>
+{% endblock %}
+
+{% block javascripts_script %}
+<script type="text/javascript" src="/extra/fullcalendar-6.1.10/dist/index.global.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function()
+{
+
+    var pendingEvent;
+    var calendarEl = document.getElementById('calendar');
+
+    const modalTeamSelect = new bootstrap.Modal('#dialog-team-select', {});
+
+    optionsModalTeamRacerSelect = {}
+
+    var modalTeamRacerSelect = [];
+{% for team in teams %}
+    modalTeamRacerSelect[{{ team.id }}] = new bootstrap.Modal('#dialog-team-racer-select-' + {{ team.id }}, optionsModalTeamRacerSelect);
+{% endfor %}
+
+    var calendarOptions =  {
+        locale: 'fr',
+        //height: '100%',
+        height: "90vh",
+        initialView: 'timeGridThreeDay',
+        initialDate: '{{ startDate }}',
+        views: {
+            timeGridThreeDay: {
+                type: 'timeGrid',
+                duration: { days: 3 },
+            },
+        },
+        nowIndicator: true,
+        selectable: true,
+        select: function(selectionInfo) {
+            pendingEvent = selectionInfo;
+            //console.log(pendingEvent);
+            modalTeamSelect.show();
+        },
+        editable: true,
+        eventClick: function(editInfo)
+        {
+            //console.log(editInfo);
+            event = editInfo.event;
+            team_id = event['extendedProps']['team_id'];
+            racerIds = event['extendedProps']['racer_ids'];
+            mainObj = $("#dialog-team-racer-select-" + team_id);
+            //console.log("event id", event.id);
+            mainObj.data('eventid', event.id);
+            mainObj.find('input[type=checkbox]').prop('checked', false);
+
+            nbCheckedRacer = 0;
+            for(racerIdPos in racerIds)
+            {
+                racerId = racerIds[racerIdPos];
+                $('#pauseEditRacer' + racerId).prop('checked', true);
+                //console.log('forcing check for racer id', racerId);
+                nbCheckedRacer++;
+            }
+
+            $('.team-racer-select-delete').attr('disabled', !!nbCheckedRacer);
+
+            //console.log('editing event for team', team_id);
+            modalTeamRacerSelect[team_id].show();
+
+        },
+        eventDrop: function(editInfo)
+        {
+            //oldEvent = editInfo.oldEvent;
+            newEvent = editInfo.event;
+
+            //console.log('eventdrop', oldEvent.id, newEvent.id, oldEvent.startStr, newEvent.startStr);
+
+            payload = {
+                'id': newEvent.id,
+                'start': newEvent.startStr,
+                'stop': newEvent.endStr,
+            };
+            $.post('/pause/edit2', payload, function(data, textStatus, jqXHR)
+            {
+                //console.log('posted', textStatus);
+                if ("success" == textStatus)
+                {
+                    calendar.refetchEvents();
+                }
+            });
+        },
+        eventResize: function(eventResizeInfo)
+        {
+            //oldEvent = eventResizeInfo.oldEvent;
+            newEvent = eventResizeInfo.event;
+
+            //console.log('eventdrop', oldEvent.id, newEvent.id, oldEvent.startStr, newEvent.startStr);
+
+            payload = {
+                'id': newEvent.id,
+                'start': newEvent.startStr,
+                'stop': newEvent.endStr,
+            };
+            $.post('/pause/edit2', payload, function(data, textStatus, jqXHR)
+            {
+                //console.log('posted', textStatus);
+                if ("success" == textStatus)
+                {
+                    calendar.refetchEvents();
+                }
+            });
+        },
+        events: '/pause/list',
+    }
+
+    calendar = new FullCalendar.Calendar(calendarEl, calendarOptions);
+    calendar.render();
+
+    $("#dialog-team-select").on('click', '.button-team', function() {
+        var button = $(this);
+        var team_id = button.data('team-id');
+
+        event = { ...pendingEvent };
+        event['title'] = button.text();
+        event['color'] = button.data('team-color');
+        event['editable'] = true;
+        event['extendedProps'] = {
+            team_id: team_id,
+        }
+
+        payload = {
+            'team_id': team_id,
+            'start': event.startStr,
+            'stop': event.endStr,
+        };
+        $.post('/pause/visual/create-pause', payload, function(data, textStatus, jqXHR)
+        {
+            //console.log("data", data);
+            //console.log("textStatus", textStatus);
+            //console.log("jqXHR", jqXHR);
+            event['id'] = data['id'];
+            calendar.addEvent(event);
+        });
+
+        modalTeamSelect.hide();
+    });
+
+    $('.dialog-team-racer-select').on('click', '.team-racer-select-save', function()
+    {
+        button = $(this);
+        form = button.parents('.dialog-team-racer-select');
+        //console.log('button', button);
+        //console.log('parent form', form);
+
+        selectedRacers = form.find('.form-check-input:checked');
+        selectedRacersIds = selectedRacers.map(function(el)
+        {
+            return $(this).attr('value');
+        }).get();
+
+        //console.log('selected racers', selectedRacersIds);
+        eventid = form.data('eventid');
+        event = calendar.getEventById(eventid);
+        team_id = event['extendedProps']['team_id']
+        //console.log('event id', eventid);
+        payload = {
+            'pause_id': eventid,
+            'racers': selectedRacersIds || array(),
+        };
+        console.log(payload);
+        $.post("/pause/visual/edit/" + eventid, payload, function(data, textStatus, jqXHR)
+        {
+            //console.log('posted', textStatus);
+            if ("success" == textStatus)
+            {
+                event.remove();
+                calendar.refetchEvents();
+                modalTeamRacerSelect[team_id].hide();
+            }
+        });
+        calendar.refetchEvents();
+    });
+
+    $('.dialog-team-racer-select').on('click', '.team-racer-select-delete', function()
+    {
+        button = $(this);
+        form = button.parents('.dialog-team-racer-select');
+        pauseId = form.data('eventid');
+        event = calendar.getEventById(pauseId);
+
+        if (confirm('Supprimer ce temps de pause ?'))
+        {
+            $.post('/pause/visual/delete/' + pauseId, {}, function() {
+                modalTeamRacerSelect[team_id].hide();
+                event.remove();
+                calendar.refetchEvents();
+            });
+        }
+    });
+
+});
+</script>
+{% endblock %}
+
+{% block javascripts_end %}
+{% endblock %}

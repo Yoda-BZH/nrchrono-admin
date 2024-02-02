@@ -1,0 +1,147 @@
+<?php
+
+namespace App\Command;
+
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Doctrine\ORM\NoResultException;
+
+use App\Entity\Timing;
+
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+
+#[AsCommand(
+    name: 'faker:matsport:gen',
+    description: 'Faker for matsport stats generation',
+    hidden: false,
+    aliases: []
+)]
+class FakerMatsportGenCommand extends Command
+{
+    protected function configure()
+    {
+        $this
+            ->setDescription('Faker for matsport stats generation')
+            //->addArgument('team', InputArgument::REQUIRED, 'team to use')
+        ;
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output, TeamRepository $repoTeam): int
+    {
+        $verbose = $input->getOption('verbose');
+        $container = $this->getContainer();
+        $rootDir = $container->getParameter('kernel.root_dir');
+        $file = $rootDir . DIRECTORY_SEPARATOR . 'matsport.html';
+
+        $twig = $container->get('twig');
+
+        $template = $twig->loadTemplate('AppBundle:Matsport:main.html.twig');
+
+        $data = array();
+
+        $em = $container->get('doctrine')->getManager();
+
+        $repoTeams = $em->getRepository('AppBundle:Team');
+        $teams = $repoTeams->findAll();
+
+        $race = $this->getContainer()->get('race')->get(); //$em->getRepository('AppBundle:Race')->find(1);
+
+        $raceStart = $race->getStart();
+
+        $repoMatsport = $em->getRepository('AppBundle:Matsport');
+        $verbose && $output->writeln(sprintf('Iterating over %d teams ...', count($teams)));
+
+        foreach($teams as $team) {
+            try {
+                $lastTiming = $repoMatsport->findLatestForTeam($team->getId());
+            } catch(NoResultException $e) {
+                //$output->writeln('No timing (yet) for '.$team->getName());
+                continue;
+            }
+            $nbLap = $repoMatsport->nbLapForTeam($team->getId());
+            $verbose && $output->writeln(sprintf('Team %s %s ran %d laps', $team->getId(), $team->getName(), $nbLap[1]));
+
+            $time = $lastTiming->getClock()->diff($raceStart);
+            $secs = $time->format('%H') * 3600 + $time->format('%I') * 60 + $time->format('%S');
+            //$kmh = ((1 * ($nbLap[1] * $race->getKm())) / ($secs/3600));
+            $kmh = (1 * $race->getKm()) / ($secs / 3600);
+
+            //$elapsed = clone $lastTiming->getTiming();
+            //$interval = \DateInterval::createFromDateString($elapsed->format('H:i:s'));
+            //$elapsed->add($interval);
+            $lastClock = clone $lastTiming->getClock();
+            $verbose && $output->writeln('Lastclock: '.$lastClock->format('H:i:s'));
+
+            $verbose && $output->writeln('Started at: '.$raceStart->format('H:i:s'));
+            $interval = $raceStart->diff($lastClock);
+            $elapsed = $interval->format('%H:%I:%S');
+            $verbose && $output->writeln('elapsed: '.$elapsed);
+
+            $data[] = array(
+                'id' => $team->getId(),
+                'pos' => rand(20, 100),
+                'team' => $team->getName(),
+                'timing' => $lastTiming,
+                'laps' => $nbLap[1],
+                'km' => $nbLap[1] * $race->getKm(),
+                'type' => 'Prestige',
+                //'time' => $elapsed->format('%H:%I:%S'),
+                'time' => $elapsed,
+                'vitesse' => round($kmh, 1),
+                'ecart' => sprintf('%02d:%02d:%02d.%03d', rand(0,2), rand(0,59), rand(0,59), rand(0,999)),
+                'bestlap' => sprintf('%02d:%02d.%03d', rand(0,59), rand(0,59), rand(0,999)),
+                'poscat' => rand(15, 40),
+            );
+        }
+
+        $fakeTeams = array(
+            array('id' => 21,  'name' => 'POWERSLIDE Ligne Droite',),
+            array('id' => 22,  'name' => 'CH-CHAUVIN ARNOUX',),
+            array('id' => 23,  'name' => 'MRS-EO HOMMES',),
+            array('id' => 24,  'name' => 'BERLINS TOP 6 MEN',),
+            array('id' => 25,  'name' => 'MASTER EUSKADI TEAM',),
+            array('id' => 26,  'name' => 'MASTER BASQUE COUNTRY',),
+            array('id' => 7,  'name' => '_LONGCHAMP ROLLER TEAM',),
+            array('id' => 8,  'name' => 'TEAM GROL DC ENERGIE',),
+            array('id' => 9,  'name' => 'LONDON LSST ENDURO',),
+            array('id' => 10, 'name' => 'ROLLINGVIKINGSVETERANS',),
+            array('id' => 11, 'name' => 'PUC ENDURO',),
+            array('id' => 12, 'name' => 'TEAM GROL CLIC\'N CUP',),
+            array('id' => 13, 'name' => 'ULTEAM RAGE SKATING',),
+            array('id' => 14, 'name' => 'SORINIERES LES RAPIDES',),
+            array('id' => 15, 'name' => 'PREMIO RACE TEAM MIXTE',),
+            array('id' => 16, 'name' => '_CHIPO CHISAII',),
+            array('id' => 17, 'name' => 'ADEL RS',),
+            array('id' => 18, 'name' => 'TRROLLS',),
+            array('id' => 19, 'name' => 'CARAVELA ROLLER TEAM',),
+        );
+        foreach ($fakeTeams as $fakeTeam)
+        {
+            $data[] = array(
+                'id' => $fakeTeam['id'],
+                'pos' => rand(20, 100),
+                'team' => $fakeTeam['name'],
+                'timing' => sprintf('%02d:%02d:%02d.%03d', rand(0,2), rand(0,59), rand(0,59), rand(0,999)),
+                'laps' => $laps = rand(0, 999),
+                'km' => $laps * $race->getKm(),
+                'type' => 'Prestige',
+                //'time' => $elapsed->format('%H:%I:%S'),
+                'time' => sprintf('%02d:%02d:%02d.%03d', rand(0,2), rand(0,59), rand(0,59), rand(0,999)),
+                'vitesse' => round(25, 1),
+                'ecart' => sprintf('%02d:%02d:%02d.%03d', rand(0,2), rand(0,59), rand(0,59), rand(0,999)),
+                'bestlap' => sprintf('%02d:%02d.%03d', rand(0,59), rand(0,59), rand(0,999)),
+                'poscat' => rand(15, 40),
+            );
+        }
+
+        shuffle($data);
+
+        //$data = $twig->render($template, $data);
+        $html = $template->render(array('entries' => $data));
+        file_put_contents($file, $html);
+
+        return 0;
+    }
+}

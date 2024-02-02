@@ -1,0 +1,268 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+
+use App\Entity\RacerPause;
+use App\Repository\RacerPauseRepository;
+use App\Form\RacerPauseType;
+
+/**
+ * RacerPause controller.
+ *
+ * @Route("/racerpause")
+ */
+#[Route('/racerpause')]
+class RacerPauseController extends AbstractController
+{
+
+    /**
+     * Lists all RacerPause entities.
+     *
+     * @Route("/", name="racerpause")
+     * @Method("GET")
+     * @Template()
+     */
+    #[Route("/", name: "racerpause", methods: ['GET'])]
+    public function indexAction(
+        RacerPauseRepository $racerPauseRepository,
+    )
+    {
+        $entities = $racerPauseRepository->findAllWithRacerTeamPause();
+
+        return $this->render('RacerPause/index.html.twig', array(
+            'entities' => $entities,
+        ));
+    }
+    /**
+     * Creates a new RacerPause entity.
+     *
+     * @Route("/", name="racerpause_create")
+     * @Method("POST")
+     * @Template("AppBundle:RacerPause:new.html.twig")
+     */
+    #[Route("/", name: "racerpause_create", methods: ['POST'])]
+    public function createAction(
+        Request $request,
+        EntityManagerInterface $em
+    )
+    {
+        $entity = new RacerPause();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
+
+        if ($form->isValid())
+        {
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('racerpause_show', array('id' => $entity->getId())));
+        }
+
+        return $this->render('RacerPause/new.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form,
+        ));
+    }
+
+    /**
+     * Creates a form to create a RacerPause entity.
+     *
+     * @param RacerPause $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(RacerPause $entity)
+    {
+        $form = $this->createForm(RacerPauseType::class, $entity, array(
+            'action' => $this->generateUrl('racerpause_create'),
+            'method' => 'POST',
+        ));
+
+        //$form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    /**
+     * Displays a form to create a new RacerPause entity.
+     *
+     * @Route("/new", name="racerpause_new")
+     * @Method("GET")
+     * @Template()
+     */
+    #[Route("/new", name: "racerpause_new", methods: ['GET'])]
+    public function newAction()
+    {
+        $entity = new RacerPause();
+        $form   = $this->createCreateForm($entity);
+
+        return $this->render("RacerPause/new.html.twig", array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
+
+    /**
+     * Finds and displays a RacerPause entity.
+     *
+     * @Route("/{id}", name="racerpause_show")
+     * @Method("GET")
+     * @Template()
+     */
+    #[Route("/{id}", name: "racerpause_show", methods: ['GET'])]
+    public function showAction(
+        $id,
+        RacerPauseRepository $racerPauseRepository,
+    )
+    {
+        $entity = $racerPauseRepository->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find RacerPause entity.');
+        }
+
+        //$deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('RacerPause/show.html.twig', array(
+            'entity'      => $entity,
+            //'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Displays a form to edit an existing RacerPause entity.
+     *
+     * @Route("/{id}/edit", name="racerpause_edit")
+     * @Method("GET")
+     * @Template()
+     */
+    #[Route("/{id}/edit", name: "racerpause_edit", methods: ['GET'])]
+    public function editAction(
+        $id,
+        RacerPauseRepository $racerPauseRepository,
+    )
+    {
+        $entity = $racerPauseRepository->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find RacerPause entity.');
+        }
+
+        $editForm = $this->createEditForm($entity);
+        //$deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('RacerPause/edit.html.twig', array(
+            'racerpause'      => $entity,
+            'form'   => $editForm,
+            //'delete_form' => $deleteForm,
+        ));
+    }
+
+    /**
+    * Creates a form to edit a RacerPause entity.
+    *
+    * @param RacerPause $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(RacerPause $entity)
+    {
+        $form = $this->createForm(RacerPauseType::class, $entity, array(
+            'action' => $this->generateUrl('racerpause_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        //$form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+    /**
+     * Edits an existing RacerPause entity.
+     *
+     * @Route("/{id}", name="racerpause_update")
+     * @Method("PUT")
+     * @Template("AppBundle:RacerPause:edit.html.twig")
+     */
+    #[Route("/{id}", name: "racerpause_update", methods: ['PUT'])]
+    public function updateAction(
+        $id,
+        EntityManagerInterface $em,
+        RacerPauseRepository $racerPauseRepository,
+        )
+    {
+        $request = Request::createFromGlobals();
+        $entity = $racerPauseRepository->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find RacerPause entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('racerpause_edit', array('id' => $id)));
+        }
+
+        return $this->render('RacerPause/edit.html.twig', array(
+            'racerpause'      => $entity,
+            'form'   => $editForm,
+            //'delete_form' => $deleteForm,
+        ));
+    }
+    /**
+     * Deletes a RacerPause entity.
+     *
+     * @Route("/{id}", name="racerpause_delete")
+     * @Method("DELETE")
+     */
+    #[Route("/delete/{id}", name: "racerpause_delete", methods: ['POST'])]
+    public function deleteAction(
+        $id,
+        EntityManagerInterface $em,
+        RacerPauseRepository $racerPauseRepository,
+    )
+    {
+        $request = Request::createFromGlobals();
+        $form = $this->createDeleteForm($id);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entity = $racerPauseRepository->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find RacerPause entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('racerpause'));
+    }
+
+    /**
+     * Creates a form to delete a RacerPause entity by id.
+     *
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('racerpause_delete', array('id' => $id)))
+            //->setMethod('DELETE')
+            //->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm()
+        ;
+    }
+}

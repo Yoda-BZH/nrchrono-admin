@@ -1,0 +1,61 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<table data-datatable-sorting-col="0" data-datatable-sorting-type="desc" class="records_list table table-hover table-condensed table-stripped table-datatable">
+    <thead>
+        <tr>
+            <th>{% trans %}Id{% endtrans %}</th>
+            <th>{% trans %}Timing{% endtrans %}</th>
+            <th>{% trans %}Clock{% endtrans %}</th>
+            <th>{% trans %}Createdat{% endtrans %}</th>
+            <th>{% trans %}Since{% endtrans %}</th>
+            <th>{% trans %}IdRacer{% endtrans %}</th>
+            <th>{% trans %}Type{% endtrans %}</th>
+            <th>{% trans %}IdTeam{% endtrans %}</th>
+            <th>{% trans %}position{% endtrans %}</th>
+            <th>{% trans %}type{% endtrans %}</th>
+            <th>{% trans %}Actions{% endtrans %}</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>{% trans %}Id{% endtrans %}</th>
+            <th>{% trans %}Timing{% endtrans %}</th>
+            <th>{% trans %}Clock{% endtrans %}</th>
+            <th>{% trans %}Createdat{% endtrans %}</th>
+            <th>{% trans %}Since{% endtrans %}</th>
+            <th>{% trans %}IdRacer{% endtrans %}</th>
+            <th>{% trans %}Type{% endtrans %}</th>
+            <th>{% trans %}IdTeam{% endtrans %}</th>
+            <th>{% trans %}position{% endtrans %}</th>
+            <th>{% trans %}type{% endtrans %}</th>
+            <th>{% trans %}Actions{% endtrans %}</th>
+        </tr>
+    </tfoot>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('timing_fix_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.timing|date('i:s') }}</td>
+            <td>{{ entity.clock|date('Y-m-d H:i:s') }}</td>
+            <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td></td>
+            <td><a href="{{ path('racer_show', { 'id': entity.racer.id }) }}">{{ entity.racer.nickname }}</a></td>
+            <td>{{ entity.type }}</td>
+            <td class="team-color-grad-{{ entity.racer.team.id }}"><a href="{{ path('team_show', { 'id': entity.racer.team.id }) }}">{{ entity.racer.team.name }}</a></td>
+            <td>{{ entity.racer.position }}</td>
+            <td>{{ entity.type }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('timing_fix_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello StatisticsController!{% endblock %}
+
+{% block body %}
+<p>Prochains arrivées :</p>
+<ul>
+{% for arrival in arrivals %}
+<li>{{ arrival.team.name }}: {{ arrival.racer }} {{ arrival.arrival | date('H:i:s') }}</li>
+{% endfor %}
+<ul>
+
+{% endblock %}

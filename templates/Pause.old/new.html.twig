@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body -%}
+    <h1>Pause creation</h1>
+
+    {{ include('Pause/_form.html.twig') }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('pause') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}
