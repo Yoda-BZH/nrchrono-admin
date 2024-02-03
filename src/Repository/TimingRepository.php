@@ -396,4 +396,26 @@ class TimingRepository extends ServiceEntityRepository
             ->getSingleResult()
             ;
     }
+
+    public function getFutureOf(Timing $timing, Team $team)
+    {
+        $qb = $this->createQueryBuilder('ti');
+
+        $qb
+            ->select('ti', 'r', 't')
+                ->leftJoin('ti.racer', 'r')
+                    ->leftJoin('r.team', 't')
+            ->andWhere($qb->expr()->in('ti.type', array(Timing::MANUAL, Timing::PREDICTION)))
+            ->andWhere('t.id = :teamid')
+                ->setParameter('teamid', $team->getId())
+            ->andWhere('ti.id >= :timingid')
+                ->setParameter('timingid', $timing->getId())
+            ->addOrderBy('ti.id', 'ASC')
+            ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

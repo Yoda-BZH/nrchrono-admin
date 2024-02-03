@@ -209,7 +209,7 @@ class TimingController extends AbstractController
         EntityManagerInterface $em,
         TimingRepository $timingRepository,
         RacerRepository $racerRepository,
-        LoggerInterface $logger
+        LoggerInterface $logger,
     )
     {
         $postData = $request->request->all();
@@ -227,11 +227,36 @@ class TimingController extends AbstractController
         $racerId = $data[0]['racerid'];
         // FIXME, Check if racer is in the correct team !
         $racer = $racerRepository->find($racerId);
-        $timing->setRacer($racer);
+        if ($racer->isPaused())
+        {
+            $predictions = $timingRepository->getFutureOf($timing, $racer->getTeam());
+
+            foreach($predictions as $k => $prediction)
+            {
+                if (0 == $k)
+                {
+                    $racerForNext = $prediction->getRacer();
+
+                    $prediction->setRacer($racer);
+                    $em->persist($prediction);
+                }
+                else
+                {
+                    $r = $prediction->getRacer();
+                    $prediction->setRacer($racerForNext);
+                    $em->persist($prediction);
+                    $racerForNext = $r;
+                }
+            }
+        }
+        else
+        {
+            $timing->setRacer($racer);
+            $em->persist($timing);
+        }
 
         $logger->info(sprintf('Changing racer for timing %d from %s to %s', $timing->getId(), $oldRacer->getNickname(), $racer->getNickname()));
 
-        $em->persist($timing);
         $em->flush();
 
         return new Response();
