@@ -60,16 +60,21 @@ class RacerRepository extends ServiceEntityRepository
     /**
      * used: src/AppBundle/Controller/PredictionController.php
      */
-    public function getAllByTeam($team = null)
+    public function getAllByTeam($team = null, bool $guest = false)
     {
         $qb = $this->createQueryBuilder('r');
 
         $qb
             ->leftJoin('r.team', 'te')
-            ->andWhere('te.guest = :guest')
-            ->setParameter('guest', false)
             ->orderBy('r.position', 'ASC')
         ;
+        if (!$guest)
+        {
+            $qb
+                ->andWhere('te.guest = :guest')
+                ->setParameter('guest', $guest)
+            ;
+        }
 
         if ($team)
         {
