@@ -116,7 +116,7 @@ class Team
     public function __construct()
     {
         $this->racers = new ArrayCollection();
-        $this->rankins = new ArrayCollection();
+        $this->rankings = new ArrayCollection();
         $this->pauses = new ArrayCollection();
     }
 
