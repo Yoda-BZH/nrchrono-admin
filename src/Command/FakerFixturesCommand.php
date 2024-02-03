@@ -78,13 +78,15 @@ class FakerFixturesCommand extends Command
         foreach($teamsTypes as $k => $teamType) {
             $team = new Team;
             $name = $teamType[2];
+            $randMin = 100 * (count($teamType[3]) - 1);
+            $randMax = $randMin + 99;
             $team
                 ->setName($name)
                 ->setNbHeurePause(0)
                 ->setNbPerson($teamType[0])
                 ->setRace($race)
                 ->setColor($teamType[1])
-                ->setIdReference($k + 1)
+                ->setIdReference(rand($randMin, $randMax))
                 ->setGuest($teamType[4])
                 ;
             $this->em->persist($team);

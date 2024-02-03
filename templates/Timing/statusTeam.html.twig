@@ -61,7 +61,8 @@
 <!-- separator with the team name -->
 {# separator #}
 <div id="separator-{{ team.id }}" class="racer-box p-2 team-bg-color-{{ team.id }} timing-separator">
-<p><a href="{{ path('team_show', {'id': team.id }) }}">{{ team.name }}</a></p>
+<p class="m-0"><a href="{{ path('team_show', {'id': team.id }) }}">{{ team.name }}</a></p>
+<p class="m-0">#{{ team.idReference }}</p>
 </div>
 <!-- end separator -->
 
