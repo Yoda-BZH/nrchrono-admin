@@ -98,14 +98,6 @@ class Team
     #[ORM\OneToMany(targetEntity: Pause::class, mappedBy: "team")]
     private Collection $pauses;
 
-    /**
-     * @var Collection
-     *
-     * @ORM\OneToMany(targetEntity="Prediction", mappedBy="idTeam")
-     */
-    #[ORM\OneToMany(targetEntity: Prediction::class, mappedBy: "team")]
-    private Collection $predictions;
-
 
     /**
      * description

@@ -70,14 +70,6 @@ class Racer
     private Collection $timings;
 
     /**
-     * @var Collection
-     *
-     * @ORM\OneToMany(targetEntity="Prediction", mappedBy="idRacer")
-     */
-    #[ORM\OneToMany(targetEntity: Prediction::class, mappedBy: "racer")]
-    private Collection $predictions;
-
-    /**
      * @var RacerPause
      *
      * @ORM\OneToMany(targetEntity="RacerPause", mappedBy="idRacer")
@@ -97,7 +89,6 @@ class Racer
     {
         $this->timings = new ArrayCollection();
         $this->racerpauses = new ArrayCollection();
-        $this->predictions = new ArrayCollection();
     }
 
     public function getId(): ?int
