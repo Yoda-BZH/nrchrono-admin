@@ -21,6 +21,7 @@ $team1 = array(
     array('Arnaud'),
     array('Cédric'),
     array('Gérard'),
+    array('< Personne >'),
 );
 
 $team2 = array(
@@ -30,6 +31,7 @@ $team2 = array(
     array('Olivier'),
     array('Alexx'),
     array('Baptiste'),
+    array('< Personne >'),
 );
 
 $team3 = array(
@@ -39,15 +41,18 @@ $team3 = array(
     array('Marine'),
     array('Sébastien'),
     array('Anne Laure'),
+    array('< Personne >'),
 );
 
 $team4 = array(
     array('Clémence'),
     array('Véronique'),
+    array('< Personne >'),
 );
 
 $team5 = array(
-    array('Arnaud')
+    array('Arnaud'),
+    array('< Personne >'),
 );
 
 

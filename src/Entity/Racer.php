@@ -46,8 +46,8 @@ class Racer
     #[ORM\Column]
     private ?int $position = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $paused = null;
+    #[ORM\Column(type: "boolean", nullable: true)]
+    private ?bool $paused = false;
 
     /**
      * @var \Team

@@ -128,6 +128,8 @@ class RacerRepository extends ServiceEntityRepository
             ->setParameter('position', $position)
             ->setParameter('nbPerson', $team->getNbPerson())
             ->setParameter('idTeam', $team)
+            ->andWhere('r.paused = :paused')
+            ->setParameter('paused', false)
 
             ->addSelect('rp')
             ->leftJoin('r.racerpauses', 'rp')

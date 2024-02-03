@@ -57,7 +57,7 @@ class FakerFixturesCommand extends Command
 
         $race = new Race;
         $race
-            ->setName('24H du Mans Roller 2016')
+            ->setName('24H du Mans Roller 2024')
             ->setStart(new \Datetime("now + 5 minutes"))
             ->setKm('4.185')
             ;
@@ -91,7 +91,9 @@ class FakerFixturesCommand extends Command
             $output->writeln('Adding team '.$team->getName());
 
 
-            for($i = 0; $i < $teamType[0]; $i++) {
+            //for($i = 0; $i < $teamType[0]; $i++) {
+            foreach($teamType[3] as $i => $racerInfos)
+            {
                 $racer = new Racer;
                 $tmin = new \Datetime('00:00:00');
                 $tmax = new \Datetime('00:00:00');
@@ -112,7 +114,7 @@ class FakerFixturesCommand extends Command
                 $tavg->modify(sprintf('+ %d seconds', ($tmn + $tmx) / 2));
 
                 if (isset($teamType[3])) {
-                    $firstname = $teamType[3][$i][0];
+                    $firstname = $racerInfos[0];
                 } else {
                     $firstname = $faker->firstname;
                 }
@@ -127,6 +129,10 @@ class FakerFixturesCommand extends Command
                     ->setTimingMin($tmin)
                     ->setTimingMax($tmax)
                     ;
+                if ($firstname == '< Personne >')
+                {
+                    $racer->setPaused(true);
+                }
 
                 $output->writeln(sprintf('Adding %s in team %s', $racer->getNickname(), $team->getName()));
                 $this->em->persist($racer);

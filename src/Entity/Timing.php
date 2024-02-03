@@ -128,7 +128,7 @@ class Timing
         return $this->racer;
     }
 
-    public function setRacer(Racer $racer): static
+    public function setRacer(Racer|null $racer): static
     {
         $this->racer = $racer;
 
