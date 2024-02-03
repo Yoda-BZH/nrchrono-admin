@@ -18,7 +18,7 @@ class RacerController extends AbstractController
     public function index(RacerRepository $racerRepository): Response
     {
         return $this->render('racer/index.html.twig', [
-            'racers' => $racerRepository->getAllByTeam(),
+            'racers' => $racerRepository->getAllByTeam(guest: true),
         ]);
     }
 
