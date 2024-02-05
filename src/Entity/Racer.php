@@ -77,8 +77,6 @@ class Racer
     #[ORM\OneToMany(targetEntity: RacerPause::class, mappedBy: "racer")]
     private Collection $racerpauses;
 
-    private $currentPrediction = null;
-
     /**
      * description
      *
