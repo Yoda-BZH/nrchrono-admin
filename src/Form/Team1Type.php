@@ -16,7 +16,6 @@ class Team1Type extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('nbHeurePause')
             ->add('nbPerson')
             ->add('idReference')
             ->add('color', ColorType::class)

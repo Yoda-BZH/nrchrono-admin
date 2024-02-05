@@ -83,7 +83,6 @@ class FakerFixturesCommand extends Command
             $randMax = $randMin + 99;
             $team
                 ->setName($name)
-                ->setNbHeurePause(0)
                 ->setNbPerson($teamType[0])
                 ->setRace($race)
                 ->setColor($teamType[1])

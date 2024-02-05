@@ -25,14 +25,6 @@ class Team
     /**
      * @var integer
      *
-     * @ORM\Column(name="nb_heure_pause", type="integer", nullable=true)
-     */
-    #[ORM\Column(name: "nb_heure_pause")]
-    private ?int $nbHeurePause = null;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="nb_person", type="integer", nullable=true)
      */
     #[ORM\Column(name: "nb_person")]
@@ -139,29 +131,6 @@ class Team
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * Set nbHeurePause
-     *
-     * @param integer $nbHeurePause
-     * @return Team
-     */
-    public function setNbHeurePause($nbHeurePause): static
-    {
-        $this->nbHeurePause = $nbHeurePause;
-
-        return $this;
-    }
-
-    /**
-     * Get nbHeurePause
-     *
-     * @return integer
-     */
-    public function getNbHeurePause()
-    {
-        return $this->nbHeurePause;
     }
 
     /**
