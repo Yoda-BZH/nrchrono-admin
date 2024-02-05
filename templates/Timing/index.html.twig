@@ -73,3 +73,10 @@
         </li>
     </ul>
 {% endblock %}
+
+{% block stylesheets %}
+{% include "datatables/css.twig" %}
+{% endblock %}
+{% block javascripts_end %}
+{% include "datatables/js.twig" %}
+{% endblock %}

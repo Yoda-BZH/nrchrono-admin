@@ -39,3 +39,11 @@
 
     <a href="{{ path('pause_new') }}">Create new</a>
 {% endblock %}
+
+
+{% block stylesheets %}
+{% include "datatables/css.twig" %}
+{% endblock %}
+{% block javascripts_end %}
+{% include "datatables/js.twig" %}
+{% endblock %}
