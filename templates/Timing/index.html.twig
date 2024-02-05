@@ -3,14 +3,6 @@
 {% block body -%}
     <h1>Timing list</h1>
 
-{#
-<div id="team-racer-predictions">
-{% for team in teams %}
-    <p id="prediction-team-{{ team.id }}">...</p>
-{% endfor %}
-</div>
-#}
-
     <table data-datatable-sorting-col="0" data-datatable-sorting-type="desc" class="records_list table table-hover table-condensed table-stripped table-datatable">
         <thead>
             <tr>
@@ -80,20 +72,4 @@
             </a>
         </li>
     </ul>
-    {% endblock %}
-
-{#{% block javascripts %}
-<script type="text/javascript">
-$(document).ready(function() {
-{% for team in teams %}
-    $.getJSON('{{ path('timing_next', { 'id': team.id }) }}', function(data) {
-        //console.log(data);
-        s = "Team {{ team.name }}: " + data.nickname + " (" + data.firstname  + " " + data.lastname + ")";
-        $('#prediction-team-{{ team.id }}').html(s);
-    }).fail(function() {
-        $("#prediction-team-{{ team.id }}").html('Impossible de fournir des prédictions. Aucun tour n\'a encore été fait');
-    });
-{% endfor %}
-});
-</script>
-{% endblock %}#}
+{% endblock %}

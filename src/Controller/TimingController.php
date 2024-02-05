@@ -46,10 +46,7 @@ class TimingController extends AbstractController
     {
         $entities = $timingRepository->findAllWithRacerTeam();
 
-        $teams = $teamRepository->findAll();
-
         return $this->render('Timing/index.html.twig', array(
-            'teams' => $teams,
             'entities' => $entities,
         ));
     }
