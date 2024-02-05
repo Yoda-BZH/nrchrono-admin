@@ -75,7 +75,8 @@ class FakerFixturesCommand extends Command
 
         include __DIR__.'/fixtures.db';
 
-        foreach($teamsTypes as $k => $teamType) {
+        foreach($teamsTypes as $k => $teamType)
+        {
             $team = new Team;
             $name = $teamType[2];
             $randMin = 100 * (count($teamType[3]) - 1);
@@ -100,24 +101,34 @@ class FakerFixturesCommand extends Command
                 $tmin = new \Datetime('00:00:00');
                 $tmax = new \Datetime('00:00:00');
 
-                if($mediumTiming == 12) {
+                if($mediumTiming == 12)
+                {
                     $tmin->modify(sprintf('+ %s seconds', $tmn = rand(9 * 60, 11 * 60)));
                     $tmax->modify(sprintf('+ %s seconds', $tmx = rand(11 * 60, 13 * 60)));
-                } elseif($mediumTiming == 3) {
+                }
+                elseif($mediumTiming == 3)
+                {
                     $tmin->modify(sprintf('+ %s seconds', $tmn = rand(2.5 * 60, 4 * 60)));
                     $tmax->modify(sprintf('+ %s seconds', $tmx = rand(3.5 * 60, 4.5 * 60)));
-                } elseif($mediumTiming == 8) {
+                }
+                elseif($mediumTiming == 8)
+                {
                     $tmin->modify(sprintf('+ %s seconds', $tmn = rand(6.5 * 60, 9 * 60)));
                     $tmax->modify(sprintf('+ %s seconds', $tmx = rand(7.5 * 60, 10.5 * 60)));
-                } else {
+                }
+                else
+                {
                     throw new \Exception('Bad --timing');
                 }
                 $tavg = new \Datetime('00:00:00');
                 $tavg->modify(sprintf('+ %d seconds', ($tmn + $tmx) / 2));
 
-                if (isset($teamType[3])) {
+                if (isset($teamType[3]))
+                {
                     $firstname = $racerInfos[0];
-                } else {
+                }
+                else
+                {
                     $firstname = $faker->firstname;
                 }
 
@@ -147,7 +158,8 @@ class FakerFixturesCommand extends Command
         $teams = $this->teamRepository->findAll();
 
         $this->logger->info('starting initialize');
-        foreach($teams as $team) {
+        foreach($teams as $team)
+        {
             //$nextGuesser = $this->getContainer()->get('racer.next');
             $nextRacers = $this->nextGuesser
                 ->setTeam($team)

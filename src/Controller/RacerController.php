@@ -29,7 +29,8 @@ class RacerController extends AbstractController
         $form = $this->createForm(Racer1Type::class, $racer);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $entityManager->persist($racer);
             $entityManager->flush();
 
@@ -56,7 +57,8 @@ class RacerController extends AbstractController
         $form = $this->createForm(Racer1Type::class, $racer);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $entityManager->flush();
 
             return $this->redirectToRoute('racer_index', [], Response::HTTP_SEE_OTHER);
@@ -71,7 +73,8 @@ class RacerController extends AbstractController
     #[Route('/{id}', name: 'racer_delete', methods: ['POST'])]
     public function delete(Request $request, Racer $racer, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$racer->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$racer->getId(), $request->request->get('_token')))
+        {
             $entityManager->remove($racer);
             $entityManager->flush();
         }

@@ -57,13 +57,17 @@ class StatisticsController extends AbstractController
 
             $latestRacer = $nextGuesser->getLatest();
 
-            try {
+            try
+            {
                 $latestTeamTiming = $nextGuesser->getLatestTiming();
-                if(!$latestTeamTiming) {
+                if(!$latestTeamTiming)
+                {
                     throw new \Exception();
                 }
                 $clock = clone $latestTeamTiming->getClock();
-            } catch(\Exception $e) {
+            }
+            catch(\Exception $e)
+            {
                 $race = $raceManager->get();
                 $clock = clone $race->getStart();
             }
@@ -101,9 +105,12 @@ class StatisticsController extends AbstractController
 
         foreach($teamRepository->findAll() as $team)
         {
-            try {
+            try
+            {
                 $timing = $timingRepository->getBestTeamLap($team);
-            } catch(NoResultException $e) {
+            }
+            catch(NoResultException $e)
+            {
                 $data[] = array(
                     'label' => sprintf('%s', str_replace('NR-', '', $team->getName())),
                     'value' => 'Aucun tour',

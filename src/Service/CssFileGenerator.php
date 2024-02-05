@@ -39,8 +39,10 @@ class CssFileGenerator
     background: linear-gradient(45deg,         %2$s 0%%, %2$s %3$d%%, rgba(255,255,255,0) %3$d%%, rgba(255,255,255,0) %4$d%%, %2$s %4$d%%, %2$s 100%%, %2$s 100%%);
 }';
 
-        foreach($this->teams as $team) {
-            if(!$team->getColor()) {
+        foreach($this->teams as $team)
+        {
+            if(!$team->getColor())
+            {
                 continue;
             }
             $colors[] = sprintf($declarationBgTemplate,
@@ -94,7 +96,8 @@ class CssFileGenerator
      * http://mekshq.com/how-to-convert-hexadecimal-color-code-to-rgb-or-rgba-using-php/
      * Convert hexdec color string to rgb(a) string
      */
-    public function hex2rgba($color, $opacity = false) {
+    public function hex2rgba($color, $opacity = false)
+    {
 
         $default = 'rgb(0,0,0)';
 
@@ -111,11 +114,16 @@ class CssFileGenerator
         }
 
         //Check if color has 6 or 3 characters and get values
-        if (\strlen($color) == 6) {
+        if (\strlen($color) == 6)
+        {
             $hex = array( $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] );
-        } elseif (\strlen( $color ) == 3 ) {
+        }
+        elseif (\strlen( $color ) == 3 )
+        {
             $hex = array( $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2] );
-        } else {
+        }
+        else
+        {
             return $default;
         }
 
@@ -128,7 +136,9 @@ class CssFileGenerator
             if(abs($opacity) > 1)
                 $opacity = 1.0;
             $output = 'rgba('.implode(",",$rgb).','.$opacity.')';
-        } else {
+        }
+        else
+        {
             $output = 'rgb('.implode(",",$rgb).')';
         }
 

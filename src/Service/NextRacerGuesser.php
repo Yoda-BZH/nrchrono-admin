@@ -70,7 +70,9 @@ class NextRacerGuesser {
             $this->latestTiming[$teamId] = $this->timingRepository->getLatestTeamTiming($this->team->getId());
             $this->latestRacer[$teamId] = $this->latestTiming[$teamId]->getRacer();
             $position = $this->latestRacer[$teamId]->getPosition();
-        } catch(NoResultException $e) {
+        }
+        catch(NoResultException $e)
+        {
             $this->latestRacer[$teamId] = $this->racerRepository->getFirstOfTeam($this->team);
             $this->latestTiming[$teamId] = null;
             // Fix, no racer is on track, so, really find the first one.
@@ -219,7 +221,8 @@ class NextRacerGuesser {
         return $this->nextRacers[$this->team->getId()][0];
     }
 
-    public function getLatest() {
+    public function getLatest()
+    {
         return $this->latestRacer[$this->team->getId()];
     }
 

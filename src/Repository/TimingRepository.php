@@ -190,7 +190,8 @@ class TimingRepository extends ServiceEntityRepository
     /**
      * used: many
      */
-    public function getLatestRacers($teamId) {
+    public function getLatestRacers($teamId)
+    {
         return $this->getLatestRacerQuery($teamId)
             ->getQuery()
             ->getResult()
@@ -200,14 +201,16 @@ class TimingRepository extends ServiceEntityRepository
     /**
      * used: many
      */
-    public function getLatestTeamTiming($teamId, $limit = 1) {
+    public function getLatestTeamTiming($teamId, $limit = 1)
+    {
         $qb = $this->getLatestRacerQuery($teamId)
             ->setMaxResults($limit)
             ;
 
         $query = $qb->getQuery();
 
-        if(1 == $limit) {
+        if(1 == $limit)
+        {
             return $query
                 ->getSingleResult()
                 ;
@@ -242,7 +245,8 @@ class TimingRepository extends ServiceEntityRepository
     /**
      * used: src/AppBundle/Controller/StatRacerController.php
      */
-    public function getRacerStats($racer) {
+    public function getRacerStats($racer)
+    {
         $qb = $this->createQueryBuilder('ti');
 
         $qb
@@ -261,7 +265,8 @@ class TimingRepository extends ServiceEntityRepository
     /**
      * used: many
      */
-    public function getTeamStats($team) {
+    public function getTeamStats($team)
+    {
         $qb = $this->createQueryBuilder('ti');
 
         $qb

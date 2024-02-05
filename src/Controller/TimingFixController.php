@@ -83,7 +83,8 @@ class TimingFixController extends AbstractController
         //$entity = $em->getRepository('AppBundle:Timing')->find($id);
         $timing = $timingRepository->find($id);
 
-        if (!$timing) {
+        if (!$timing)
+        {
             throw $this->createNotFoundException('Unable to find Timing entity.');
         }
 
@@ -140,7 +141,8 @@ class TimingFixController extends AbstractController
 
         $entity = $timingRepository->find($id);
 
-        if (!$entity) {
+        if (!$entity)
+        {
             throw $this->createNotFoundException('Unable to find Timing entity.');
         }
 
@@ -153,7 +155,8 @@ class TimingFixController extends AbstractController
         $newTiming = clone $entity;
 
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isSubmitted() && $editForm->isValid())
+        {
             //$timingSeparator = $this->get('timing.separator');
             $timingSeparator
                 ->setOriginal($entity)

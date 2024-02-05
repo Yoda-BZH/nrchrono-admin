@@ -31,7 +31,8 @@ class TeamController extends AbstractController
         $form = $this->createForm(Team1Type::class, $team);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $entityManager->persist($team);
             $entityManager->flush();
 
@@ -72,7 +73,8 @@ class TeamController extends AbstractController
         $form = $this->createForm(Team1Type::class, $team);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $entityManager->flush();
 
             return $this->redirectToRoute('team_index', [], Response::HTTP_SEE_OTHER);
@@ -87,7 +89,8 @@ class TeamController extends AbstractController
     #[Route('/{id}', name: 'team_delete', methods: ['POST'])]
     public function delete(Request $request, Team $team, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$team->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$team->getId(), $request->request->get('_token')))
+        {
             $entityManager->remove($team);
             $entityManager->flush();
         }

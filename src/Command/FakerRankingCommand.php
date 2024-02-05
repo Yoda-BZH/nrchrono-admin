@@ -39,7 +39,8 @@ class FakerRankingCommand extends Command
     {
         $teams = $this->teamRepository->findAll();
 
-        foreach($teams as $team) {
+        foreach($teams as $team)
+        {
             $position = 30 + $team->getId() * 10 + rand(0, 50);
             $ranking = new Ranking();
             $ranking

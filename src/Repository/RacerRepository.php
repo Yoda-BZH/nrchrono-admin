@@ -151,7 +151,8 @@ class RacerRepository extends ServiceEntityRepository
     /**
      * used: src/AppBundle/Service/NextRacerGuesser.php
      */
-    public function getNextRacerAvailable(Team $team, $position, \DatetimeInterface $clock = null) {
+    public function getNextRacerAvailable(Team $team, $position, \DatetimeInterface $clock = null)
+    {
         $qb = $this->getNextRacerAvailableQuery($team, $position, $clock)
             ->setMaxResults(1)
             ;
@@ -163,7 +164,8 @@ class RacerRepository extends ServiceEntityRepository
     /**
      * src/AppBundle/Service/NextRacerGuesser.php x 2
      */
-    public function getAllRacersAvailable(Team $team, $position, \DatetimeInterface $clock = null) {
+    public function getAllRacersAvailable(Team $team, $position, \DatetimeInterface $clock = null)
+    {
         $qb = $this->getNextRacerAvailableQuery($team, $position, $clock)
             ;
         //var_dump($qb->getQuery()->getSQL(), $position, $team->getNbPerson(), $team->getId());
@@ -174,7 +176,8 @@ class RacerRepository extends ServiceEntityRepository
     /**
      * used: src/AppBundle/Controller/PredictionController.php
      */
-    public function getNextRacersAvailable(Team $team, $position, \DatetimeInterface $clock = null) {
+    public function getNextRacersAvailable(Team $team, $position, \DatetimeInterface $clock = null)
+    {
         return $this->getNextRacerAvailableQuery($team, $position, $clock)
             ->andWhere('r.position > :position')
             ->getQuery()
@@ -185,7 +188,8 @@ class RacerRepository extends ServiceEntityRepository
     /**
      * used: src/AppBundle/Service/NextRacerGuesser.php
      */
-    public function getFirstOfTeam($team) {
+    public function getFirstOfTeam($team)
+    {
         $qb = $this->createQueryBuilder('r');
 
         $qb

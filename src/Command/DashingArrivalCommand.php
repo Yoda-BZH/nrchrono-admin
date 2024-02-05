@@ -53,7 +53,8 @@ class DashingArrivalCommand extends Command
 
         foreach($teams as $team)
         {
-            if(!$racerIsStarted) {
+            if(!$racerIsStarted)
+            {
                 $verbose && $output->writeln('Race has not started yet ...');
                 $url = sprintf('http://localhost:3030/widgets/team%d', $team->getId());
                 $curl = curl_init($url);
@@ -76,14 +77,18 @@ class DashingArrivalCommand extends Command
 
             $latestRacer = $this->nextGuesser->getLatest();
 
-            try {
+            try
+            {
                 //$latestTeamTiming = $timingRepository->getLatestTeamTiming($team);
                 $latestTeamTiming = $this->nextGuesser->getLatestTiming();
-                if(!$latestTeamTiming) {
+                if(!$latestTeamTiming)
+                {
                     throw new \Exception();
                 }
                 $clock = clone $latestTeamTiming->getClock();
-            } catch(\Exception $e) {
+            }
+            catch(\Exception $e)
+            {
                 $race = $raceManager->get();
                 $clock = clone $race->getStart();
             }

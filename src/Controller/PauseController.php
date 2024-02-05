@@ -38,7 +38,8 @@ class PauseController extends AbstractController
         $form = $this->createForm(Pause1Type::class, $pause);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $entityManager->persist($pause);
             $entityManager->flush();
 
@@ -204,7 +205,8 @@ class PauseController extends AbstractController
         $form = $this->createForm(Pause1Type::class, $pause);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $entityManager->flush();
 
             return $this->redirectToRoute('pause', [], Response::HTTP_SEE_OTHER);
@@ -249,7 +251,8 @@ class PauseController extends AbstractController
     #[Route('/{id}', name: 'pause_delete', methods: ['POST'])]
     public function delete(Request $request, Pause $pause, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$pause->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$pause->getId(), $request->request->get('_token')))
+        {
             $entityManager->remove($pause);
             $entityManager->flush();
         }

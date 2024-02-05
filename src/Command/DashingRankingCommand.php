@@ -64,7 +64,8 @@ class DashingRankingCommand extends Command
             }
 
             $ranking = $this->rankingRepository->getLatestRankingForTeam($team);
-            if(!$ranking) {
+            if(!$ranking)
+            {
                 $rankingGeneral[] = array(
                     'label' => $team->getName(),
                     'value' => 'N/A'
@@ -87,7 +88,8 @@ class DashingRankingCommand extends Command
             );
         }
 
-        if(!$rankingGeneral) {
+        if(!$rankingGeneral)
+        {
             return 0;
         }
 

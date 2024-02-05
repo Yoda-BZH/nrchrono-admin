@@ -147,7 +147,8 @@ class TimingController extends AbstractController
         {
             //$latestTeamTiming = $timingRepositor->getLatestTeamTiming($team);
             $latestTeamTiming = $nextGuesser->getLatestTiming();
-            if(!$latestTeamTiming) {
+            if(!$latestTeamTiming)
+            {
                 throw new \Exception();
             }
             $clock = clone $latestTeamTiming->getClock();
@@ -276,7 +277,8 @@ class TimingController extends AbstractController
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isValid())
+        {
             $em->persist($entity);
             $em->flush();
 
@@ -341,7 +343,8 @@ class TimingController extends AbstractController
     {
         $entity = $timingRepository->findLatests($id);
 
-        if (!$entity) {
+        if (!$entity)
+        {
             throw $this->createNotFoundException('Unable to find Timing entity.');
         }
 
@@ -368,7 +371,8 @@ class TimingController extends AbstractController
     {
         $entity = $timingRepository->findLatests($id);
 
-        if (!$entity) {
+        if (!$entity)
+        {
             throw $this->createNotFoundException('Unable to find Timing entity.');
         }
 
@@ -417,7 +421,8 @@ class TimingController extends AbstractController
     {
         $entity = $timingRepository->find($id);
 
-        if (!$entity) {
+        if (!$entity)
+        {
             throw $this->createNotFoundException('Unable to find Timing entity.');
         }
 
@@ -425,7 +430,8 @@ class TimingController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) {
+        if ($editForm->isValid())
+        {
             $em->flush();
 
             return $this->redirect($this->generateUrl('timing_edit', array('id' => $id)));
@@ -454,10 +460,12 @@ class TimingController extends AbstractController
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isValid())
+        {
             $entity = $timingRepository->find($id);
 
-            if (!$entity) {
+            if (!$entity)
+            {
                 throw $this->createNotFoundException('Unable to find Timing entity.');
             }
 
@@ -552,12 +560,15 @@ class TimingController extends AbstractController
         //$teamRepository = $em->getRepository('AppBundle:Team');
         $team = $teamRepository->find($data['teamid']);
 
-        try {
+        try
+        {
             //$timingRepository = $em->getRepository('AppBundle:Timing');
             $latestTeamTiming = $timingRepository->getLatestTeamTiming($team, 1);
             $previousClock = clone $latestTeamTiming->getClock();
         // FIXME no result exception
-        } catch(NoResultException $e) {
+        }
+        catch(NoResultException $e)
+        {
             //$raceRepository = $em->getRepository('AppBundle:Race');
             $race = $raceManager->get();
             $previousClock = clone $race->getStart();

@@ -64,7 +64,8 @@ class DashingRacerRunningCommand extends Command
             $nextRacer = $nextRacers[0];
 
             $racers[] = array('label' => $team->getName(), 'value' => $nextRacer->getNickname());
-            if(isset($nextRacers[1])) {
+            if(isset($nextRacers[1]))
+            {
                 $preparing[] = array('label' => $team->getName(), 'value' => $nextRacers[1]->getNickname());
             }
         }

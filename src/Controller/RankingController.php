@@ -55,7 +55,8 @@ class RankingController extends AbstractController
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isValid())
+        {
             $em->persist($entity);
             $em->flush();
 
@@ -121,7 +122,8 @@ class RankingController extends AbstractController
     {
         $entity = $rankingRepository->find($id);
 
-        if (!$entity) {
+        if (!$entity)
+        {
             throw $this->createNotFoundException('Unable to find Ranking entity.');
         }
 
@@ -148,7 +150,8 @@ class RankingController extends AbstractController
     {
         $entity = $rankingRepository->find($id);
 
-        if (!$entity) {
+        if (!$entity)
+        {
             throw $this->createNotFoundException('Unable to find Ranking entity.');
         }
 
@@ -198,7 +201,8 @@ class RankingController extends AbstractController
 
         $entity = $rankingRepository->find($id);
 
-        if (!$entity) {
+        if (!$entity)
+        {
             throw $this->createNotFoundException('Unable to find Ranking entity.');
         }
 
@@ -206,7 +210,8 @@ class RankingController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) {
+        if ($editForm->isValid())
+        {
             $em->flush();
 
             return $this->redirect($this->generateUrl('ranking_edit', array('id' => $id)));
@@ -235,10 +240,12 @@ class RankingController extends AbstractController
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isValid())
+        {
             $entity = $rankingRepository->find($id);
 
-            if (!$entity) {
+            if (!$entity)
+            {
                 throw $this->createNotFoundException('Unable to find Ranking entity.');
             }
 

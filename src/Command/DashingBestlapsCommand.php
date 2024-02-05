@@ -60,9 +60,12 @@ class DashingBestlapsCommand extends Command
                 );
                 continue;
             }
-            try {
+            try
+            {
                 $timing = $this->timingRepository->getBestTeamLap($team);
-            } catch(NoResultException $e) {
+            }
+            catch(NoResultException $e)
+            {
                 $verbose && $output->writeln('no team lap for ' . $team->getName());
                 $data[] = array(
                     'label' => sprintf('%s', str_replace('NR-', '', $team->getName())),

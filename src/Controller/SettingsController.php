@@ -96,7 +96,8 @@ class SettingsController extends AbstractController
 
         $session->set('theme', $url);
 
-        if($session->has('theme_previous')) {
+        if($session->has('theme_previous'))
+        {
             $next = $session->get('theme_previous');
             $session->remove('theme_previous');
             return $this->redirect($next);

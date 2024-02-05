@@ -70,14 +70,18 @@ class DashingNextsCommand extends Command
 
             $latestRacer = $this->nextGuesser->getLatest();
 
-            try {
+            try
+            {
                 //$latestTeamTiming = $timingRepository->getLatestTeamTiming($team);
                 $latestTeamTiming = $this->nextGuesser->getLatestTiming();
-                if(!$latestTeamTiming) {
+                if(!$latestTeamTiming)
+                {
                     throw new \Exception();
                 }
                 $clock = clone $latestTeamTiming->getClock();
-            } catch(\Exception $e) {
+            }
+            catch(\Exception $e)
+            {
                 $race = $this->raceManager->get();
                 $clock = clone $race->getStart();
             }
@@ -85,7 +89,8 @@ class DashingNextsCommand extends Command
             $arrival = clone $clock;
 
             $data = array();
-            for($i = 1; $i < 6; $i++) {
+            for($i = 1; $i < 6; $i++)
+            {
                 if (!isset($nextRacers[$i]))
                 {
                     break;

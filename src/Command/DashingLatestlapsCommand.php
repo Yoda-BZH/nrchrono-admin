@@ -57,9 +57,13 @@ class DashingLatestlapsCommand extends Command
                 );
                 continue;
             }
-            try {
+
+            try
+            {
                 $timing = $this->timingRepository->getLatestTeamLap($team);
-            } catch(NoResultException $e) {
+            }
+            catch(NoResultException $e)
+            {
                 $data[$team->getId()] = array(
                     'label' => sprintf('%s', str_replace('NR-', '', $team->getName())),
                     'value' => 'Aucun tour',

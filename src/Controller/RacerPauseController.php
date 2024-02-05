@@ -29,7 +29,8 @@ class RacerPauseController extends AbstractController
         $form = $this->createForm(RacerPauseType::class, $racerPause);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $entityManager->persist($racerPause);
             $entityManager->flush();
 
@@ -56,7 +57,8 @@ class RacerPauseController extends AbstractController
         $form = $this->createForm(RacerPauseType::class, $racerPause);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $entityManager->flush();
 
             return $this->redirectToRoute('racerpause', [], Response::HTTP_SEE_OTHER);
@@ -71,7 +73,8 @@ class RacerPauseController extends AbstractController
     #[Route('/{id}', name: 'racer_pause_delete', methods: ['POST'])]
     public function delete(Request $request, RacerPause $racerPause, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$racerPause->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$racerPause->getId(), $request->request->get('_token')))
+        {
             $entityManager->remove($racerPause);
             $entityManager->flush();
         }
