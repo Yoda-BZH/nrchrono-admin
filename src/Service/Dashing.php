@@ -51,7 +51,6 @@ class Dashing
 
     public function send(string $uri, array $data): int
     {
-        var_dump($data);
         $data['auth_token'] = $this->token;
 
         $url = $this->getUrl($uri);
@@ -63,7 +62,6 @@ class Dashing
         curl_exec($curl);
 
         $infos = curl_getinfo($curl);
-        //var_dump($infos);
         $http_code = $infos['http_code'];
         if (204 != $http_code)
         {
