@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Racer;
 use App\Form\Racer1Type;
 use App\Repository\RacerRepository;
+use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,8 +18,39 @@ class RacerController extends AbstractController
     #[Route('/', name: 'racer_index', methods: ['GET'])]
     public function index(RacerRepository $racerRepository): Response
     {
+        $racers = $racerRepository->getAllByTeam(guest: true);
+        $teams = array();
+
+        foreach($racers as $racer)
+        {
+            $teamId = $racer->getTeam()->getId();
+            if (!isset($teams[$teamId]))
+            {
+                $teams[$teamId] = $racer->getTeam();
+            }
+        }
+
         return $this->render('racer/index.html.twig', [
-            'racers' => $racerRepository->getAllByTeam(guest: true),
+            'selected' => 0,
+            'racers' => $racers,
+            'teams' => $teams,
+        ]);
+    }
+
+    #[Route('/team/{id}', name: 'racer_index_by_team', methods: ['GET'])]
+    public function indexByTeam(
+        TeamRepository $teamRepository,
+        RacerRepository $racerRepository,
+        $id
+    ): Response
+    {
+        $racers = $racerRepository->getAllByTeam(guest: true, team: $id);
+        $teams = $teamRepository->findAll();
+
+        return $this->render('racer/index.html.twig', [
+            'selected' => $id,
+            'racers' => $racers,
+            'teams' => $teams,
         ]);
     }
 
@@ -80,5 +112,34 @@ class RacerController extends AbstractController
         }
 
         return $this->redirectToRoute('racer_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route("/update-order/{racer}", name: "racer_update_order", methods: ['POST'])]
+    public function updateOrder(
+        Racer $racer,
+        EntityManagerInterface $entityManager,
+        Request $request,
+    ): Response
+    {
+        $oldPosition = $request->getPayload()->get('oldPosition', null);
+        $newPosition = $request->getPayload()->get('newPosition', null);
+        if (!$oldPosition)
+        {
+            throw $this->createNotFoundException("no old position given"); // FIXME
+        }
+        if (!$newPosition)
+        {
+            throw $this->createNotFoundException("no new position given"); // FIXME
+        }
+        if ($oldPosition != $racer->getPosition())
+        {
+            throw $this->createNotFoundException(sprintf("Racer %s is position %d, not %d", (string) $racer, $racer->getPosition(), $oldPosition)); // FIXME
+        }
+
+        $racer->setPosition($newPosition);
+        $entityManager->persist($racer);
+        $entityManager->flush();
+
+        return new Response();
     }
 }

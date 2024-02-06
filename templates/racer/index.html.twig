@@ -5,7 +5,18 @@
 {% block body %}
     <h1>Racer index</h1>
 
-    <table class="table records_list table-condensed table-stripped table-bordered table-hover table-datatable">
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Filter by team
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item {{ selected == 0 ? "active" : "" }}" href="{{ path('racer_index') }}">All teams</a></li>
+{% for team in teams %}
+        <li><a class="dropdown-item {{ selected == team.id ? "active" : "" }}" href="{{ path('racer_index_by_team', { 'id': team.id }) }}">{{ team }}</a></li>
+{% endfor %}
+    </ul>
+</div>
+    <table class="table records_list table-condensed table-stripped table-bordered table-hover table-datatable table-reorder" data-datatable-sorting-col="4,8">
         <thead>
             <tr>
                 <th>Id</th>
@@ -23,20 +34,21 @@
         </thead>
         <tbody>
         {% for racer in racers %}
-            <tr>
-                <td>{{ racer.id }}</td>
-                <td>{{ racer.firstname }}</td>
-                <td>{{ racer.lastname }}</td>
-                <td>{{ racer.nickname }}</td>
-                <td class="team-color-grad-{{ racer.team.id }}"><a href="{{ path('team_show', {'id': racer.team.id }) }}">{{ racer.team }}</a></td>
-                <td>{{ racer.timingMin ? racer.timingMin|date('H:i:s') : '' }}</td>
-                <td>{{ racer.timingMax ? racer.timingMax|date('H:i:s') : '' }}</td>
-                <td>{{ racer.timingAvg ? racer.timingAvg|date('H:i:s') : '' }}</td>
-                <td>{{ racer.position }}</td>
-                <td>{{ racer.paused ? 'Yes' : 'No' }}</td>
-                <td>
+            <tr data-racerid="{{ racer.id }}">
+                <td class="racer-id">{{ racer.id }}</td>
+                <td class="racer-firstname">{{ racer.firstname }}</td>
+                <td class="racer-lastname">{{ racer.lastname }}</td>
+                <td class="racer-nickname">{{ racer.nickname }}</td>
+                <td class="racer-team" class="team-color-grad-{{ racer.team.id }}"><a href="{{ path('team_show', {'id': racer.team.id }) }}">{{ racer.team }}</a></td>
+                <td class="racer-timing-min">{{ racer.timingMin ? racer.timingMin|date('H:i:s') : '' }}</td>
+                <td class="racer-timing-max">{{ racer.timingMax ? racer.timingMax|date('H:i:s') : '' }}</td>
+                <td class="racer-timing-avg">{{ racer.timingAvg ? racer.timingAvg|date('H:i:s') : '' }}</td>
+                <td class="racer-position">{{ racer.position }}</td>
+                <td class="racer-paused">{{ racer.paused ? 'Yes' : 'No' }}</td>
+                <td class="racer-action">
                     <a href="{{ path('racer_show', {'id': racer.id}) }}">show</a>
                     <a href="{{ path('racer_edit', {'id': racer.id}) }}">edit</a>
+                    {% if selected %}<button type="button" class="btn btn-secondary"><i class="bi bi-arrow-down-up"></i></button>{% endif %}
                 </td>
             </tr>
         {% else %}

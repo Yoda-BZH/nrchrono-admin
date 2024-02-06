@@ -22,7 +22,7 @@ class Team1Type extends AbstractType
             ->add('guest')
             ->add('race', EntityType::class, [
                 'class' => Race::class,
-'choice_label' => 'id',
+                'choice_label' => 'id',
             ])
         ;
     }

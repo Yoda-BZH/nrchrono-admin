@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use App\Repository\TeamRepository;
 use App\Repository\RankingRepository;
 use App\Service\RaceManager;
+use App\Service\Dashing;
 
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
@@ -24,7 +25,8 @@ class DashingRankingCommand extends Command
     public function __construct(
         private TeamRepository $teamRepository,
         private RankingRepository $rankingRepository,
-        private RaceManager $raceManager
+        private RaceManager $raceManager,
+        private Dashing $dashing,
     )
     {
         parent::__construct();
@@ -93,23 +95,8 @@ class DashingRankingCommand extends Command
             return 0;
         }
 
-        $url = 'http://localhost:3030/widgets/rankingGen';
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
-            "auth_token" => "ttrtyuijk",
-            "items" => $rankingGeneral,
-        )));
-        curl_exec($curl);
-
-        $url = 'http://localhost:3030/widgets/rankingCat';
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
-            "auth_token" => "ttrtyuijk",
-            "items" => $rankingCategory,
-        )));
-        curl_exec($curl);
+        $this->dashing->send('/widgets/rankingGen', array('items' => $rankingGeneral));
+        $this->dashing->send('/widgets/rankingCat', array('items' => $rankingCategory));
 
         return Command::SUCCESS;
     }

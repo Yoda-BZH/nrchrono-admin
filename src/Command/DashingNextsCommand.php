@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use App\Repository\TeamRepository;
 use App\Service\RaceManager;
 use App\Service\NextRacerGuesser;
+use App\Service\Dashing;
 
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
@@ -25,6 +26,7 @@ class DashingNextsCommand extends Command
         private TeamRepository $teamRepository,
         private RaceManager $raceManager,
         private NextRacerGuesser $nextGuesser,
+        private Dashing $dashing,
     )
     {
         parent::__construct();
@@ -104,14 +106,7 @@ class DashingNextsCommand extends Command
                 );
             }
 
-            $url = sprintf('http://localhost:3030/widgets/racer-next-%d', $team->getId());
-            $curl = curl_init($url);
-            curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
-                "auth_token" => "ttrtyuijk",
-                "items" => $data,
-            )));
-            curl_exec($curl);
+            $this->dashing->send(sprintf('/widgets/racer-next-%d', $team->getId()), array('items' => $data));
         }
 
         return Command::SUCCESS;

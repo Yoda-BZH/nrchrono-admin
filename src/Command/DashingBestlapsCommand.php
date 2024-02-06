@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use App\Repository\TeamRepository;
 use App\Repository\TimingRepository;
 use App\Service\RaceManager;
+use App\Service\Dashing;
 
 use Doctrine\ORM\NoResultException;
 
@@ -26,7 +27,8 @@ class DashingBestlapsCommand extends Command
     public function __construct(
         private TeamRepository $teamRepository,
         private TimingRepository $timingRepository,
-        private RaceManager $raceManager
+        private RaceManager $raceManager,
+        private Dashing $dashing,
     )
     {
         parent::__construct();
@@ -106,14 +108,7 @@ class DashingBestlapsCommand extends Command
         #    return 0;
         #}
 
-        $url = 'http://localhost:3030/widgets/bestlaps';
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
-            "auth_token" => "ttrtyuijk",
-            "items" => $data,
-        )));
-        curl_exec($curl);
+        $this->dashing->send('/widgets/bestlaps', array('items' => $data));
 
         return Command::SUCCESS;
     }

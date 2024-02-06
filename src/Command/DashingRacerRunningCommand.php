@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use App\Repository\TeamRepository;
 use App\Service\RaceManager;
 use App\Service\NextRacerGuesser;
+use App\Service\Dashing;
 
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
@@ -24,7 +25,8 @@ class DashingRacerRunningCommand extends Command
     public function __construct(
         private TeamRepository $teamRepository,
         private RaceManager $raceManager,
-        private NextRacerGuesser $nextGuesser
+        private NextRacerGuesser $nextGuesser,
+        private Dashing $dashing,
     )
     {
         parent::__construct();
@@ -71,23 +73,9 @@ class DashingRacerRunningCommand extends Command
         }
 
 
-        $url = 'http://localhost:3030/widgets/sur-la-piste';
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
-            "auth_token" => "ttrtyuijk",
-            "items" => $racers,
-        )));
-        curl_exec($curl);
+        $this->dashing->send('/widgets/sur-la-piste', array('items' => $racers));
 
-        $url = 'http://localhost:3030/widgets/preparation';
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
-            "auth_token" => "ttrtyuijk",
-            "items" => $preparing,
-        )));
-        curl_exec($curl);
+        $this->dashing->send('/widgets/preparation', array('items' => $preparing));
 
         return Command::SUCCESS;
     }

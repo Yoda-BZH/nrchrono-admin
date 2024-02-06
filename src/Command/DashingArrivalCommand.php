@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use App\Repository\TeamRepository;
 use App\Service\RaceManager;
 use App\Service\NextRacerGuesser;
+use App\Service\Dashing;
 
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
@@ -25,6 +26,7 @@ class DashingArrivalCommand extends Command
         private TeamRepository $teamRepository,
         private RaceManager $raceManager,
         private NextRacerGuesser $nextGuesser,
+        private Dashing $dashing,
     )
     {
         parent::__construct();
@@ -55,15 +57,8 @@ class DashingArrivalCommand extends Command
         {
             if(!$racerIsStarted)
             {
+                $this->dashing->send(sprintf('/widgets/team%d', $team->getId()), array('end' => ''));
                 $verbose && $output->writeln('Race has not started yet ...');
-                $url = sprintf('http://localhost:3030/widgets/team%d', $team->getId());
-                $curl = curl_init($url);
-                curl_setopt($curl, CURLOPT_POST, true);
-                curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
-                    "auth_token" => "ttrtyuijk",
-                    "end" => "",
-                )));
-                curl_exec($curl);
             }
 
             $nextRacer = $this->nextGuesser
@@ -89,7 +84,7 @@ class DashingArrivalCommand extends Command
             }
             catch(\Exception $e)
             {
-                $race = $raceManager->get();
+                $race = $this->raceManager->get();
                 $clock = clone $race->getStart();
             }
 
@@ -103,16 +98,9 @@ class DashingArrivalCommand extends Command
                 $arrival->format('Y-m-d H:i:s')
             ));
 
-            $url = sprintf('http://localhost:3030/widgets/team%d', $team->getId());
-            $curl = curl_init($url);
-            $verbose && curl_setopt($curl, CURLOPT_VERBOSE, true);
-            curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $json = json_encode(array(
-                "auth_token" => "ttrtyuijk",
-                "end" => $arrival->format('Y-m-d H:i:s'),
-            )));
-            curl_exec($curl);
-            $verbose && $output->writeln(sprintf('Sent payload: %s', $json));
+            $this->dashing->send(sprintf('/widgets/team%d', $team->getId()), array("end" => $arrival->format('Y-m-d H:i:s')));
+
+            //$verbose && $output->writeln(sprintf('Sent payload: %s', $json));
         }
 
         return Command::SUCCESS;
