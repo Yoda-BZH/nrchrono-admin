@@ -58,37 +58,33 @@ class DashingNextsCommand extends Command
         $now = new \Datetime();
         #$nextGuesser = $this->getContainer()->get('racer.next');
 
-
         foreach($teams as $team)
         {
             $nextRacers = $this->nextGuesser
                 ->setTeam($team)
                 ->getNexts()
                 ;
+            $predictions = $this->nextGuesser
+                ->getPredictions($team->getId())
+                ;
 
-            //if(!$nextRacer) {
-            //    $nextRacer = $this->racerRepository->getFirstOfTeam($team);
+            //try
+            //{
+            //    //$latestTeamTiming = $timingRepository->getLatestTeamTiming($team);
+            //    $latestTeamTiming = $this->nextGuesser->getLatestTiming();
+            //    if(!$latestTeamTiming)
+            //    {
+            //        throw new \Exception();
+            //    }
+            //    $clock = clone $latestTeamTiming->getClock();
             //}
-
-            $latestRacer = $this->nextGuesser->getLatest();
-
-            try
-            {
-                //$latestTeamTiming = $timingRepository->getLatestTeamTiming($team);
-                $latestTeamTiming = $this->nextGuesser->getLatestTiming();
-                if(!$latestTeamTiming)
-                {
-                    throw new \Exception();
-                }
-                $clock = clone $latestTeamTiming->getClock();
-            }
-            catch(\Exception $e)
-            {
-                $race = $this->raceManager->get();
-                $clock = clone $race->getStart();
-            }
-
-            $arrival = clone $clock;
+            //catch(\Exception $e)
+            //{
+            //    $race = $this->raceManager->get();
+            //    $clock = clone $race->getStart();
+            //}
+            //
+            //$arrival = clone $clock;
 
             $data = array();
             for($i = 1; $i < 6; $i++)
@@ -97,12 +93,13 @@ class DashingNextsCommand extends Command
                 {
                     break;
                 }
-                $interval = new \DateInterval($nextRacers[$i]->getTimingAvg()->format('\P\TH\Hi\Ms\S'));
-                $arrival->add($interval);
+                //$interval = new \DateInterval($nextRacers[$i]->getTimingAvg()->format('\P\TH\Hi\Ms\S'));
+                //$arrival->add($interval);
+                $arrival = $predictions[$i]->getClock();
 
                 $data[] = array(
                     'label' => $nextRacers[$i]->getNickname(),
-                    'value' => $arrival->format('H:i'),
+                    'value' => $arrival->format('H:i:s'),
                 );
             }
 

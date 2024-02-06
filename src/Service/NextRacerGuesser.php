@@ -26,6 +26,7 @@ class NextRacerGuesser {
         private TimingRepository $timingRepository,
         private RacerRepository $racerRepository,
         private EntityManagerInterface $em,
+        private RaceManager $raceManager,
     ) {
         //$this->logger = new NullLogger();
     }
@@ -113,7 +114,8 @@ class NextRacerGuesser {
 
                 if(0 == $i)
                 {
-                    $clock = new \Datetime();
+                    //$clock = new \Datetime();
+                    $clock = clone $this->raceManager->getRace()->getStart();
                 }
                 else
                 {
