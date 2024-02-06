@@ -115,7 +115,7 @@ class NextRacerGuesser {
                 if(0 == $i)
                 {
                     //$clock = new \Datetime();
-                    $clock = clone $this->raceManager->getRace()->getStart();
+                    $clock = clone $this->raceManager->get()->getStart();
                 }
                 else
                 {
