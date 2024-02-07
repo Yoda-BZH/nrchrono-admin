@@ -22,6 +22,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use App\Service\NextRacerGuesser;
 use App\Service\RaceManager;
+use App\Service\TimingConsolidate;
 
 use Psr\Log\LoggerInterface;
 
@@ -98,7 +99,7 @@ class TimingController extends AbstractController
     public function statusTeamAction(
         $id,
         TeamRepository $teamRepository,
-        RacerRepository $racerRepository,
+        //RacerRepository $racerRepository,
         TimingRepository $timingRepository,
         NextRacerGuesser $nextGuesser,
         RaceManager $raceManager,
@@ -130,68 +131,32 @@ class TimingController extends AbstractController
         // end previous timings
 
         $nbNext = $session->get('pref_status_list_team_before', 5);
-        //$nextGuesser = $this->get('racer.next');
         $nextRacers = $nextGuesser
             ->setTeam($team)
             ->getNexts($nbNext)
             ;
 
-        //if(!$nextRacer) {
-        //    $racerRepository = $em->getRepository('AppBundle:Racer');
-        //    $nextRacer = $racerRepository->getFirstOfTeam($team);
+        //try
+        //{
+        //    $latestTeamTiming = $nextGuesser->getLatestTiming();
+        //    if(!$latestTeamTiming)
+        //    {
+        //        throw new \Exception();
+        //    }
+        //    $clock = clone $latestTeamTiming->getClock();
+        //}
+        //catch(\Exception $e)
+        //{
+        //    $race = $raceManager->get();
+        //    $clock = clone $race->getStart();
         //}
 
-        $latestRacer = $nextGuesser->getLatest();
-
-        try
-        {
-            //$latestTeamTiming = $timingRepositor->getLatestTeamTiming($team);
-            $latestTeamTiming = $nextGuesser->getLatestTiming();
-            if(!$latestTeamTiming)
-            {
-                throw new \Exception();
-            }
-            $clock = clone $latestTeamTiming->getClock();
-        }
-        catch(\Exception $e)
-        {
-            $race = $raceManager->get(); //$em->getRepository('AppBundle:Race')->find(1);
-            $clock = clone $race->getStart();
-        }
-
-        //if(!$latestRacer) {
-        //    $latestRacer = $racerRepository->getFirstOfTeam($team);
-        //    //return new JsonResponse(array(), 404);
-        //}
-        $arrivals = [];
-        for($i = 0; $i < $nbNext; $i++)
-        {
-            if ($i == 0)
-            {
-                $arrivals[$i] = clone $clock;
-            }
-            else
-            {
-                $arrivals[$i] = clone $arrivals[$i - 1];
-            }
-            $interval = new \DateInterval($nextRacers[$i]->getTimingAvg()->format('\P\TH\Hi\Ms\S'));
-            // $this->logger()->error(sprintf('calculating interval for team %s racer %s to %s', $team->getName(), $nextRacers[0]->getFirstName(), $arrival->format('r')));
-            $arrivals[$i]->add($interval);
-        }
-
-        $delta = $arrivals[0]->diff($now);
         return $this->render('Timing/statusTeam.html.twig', array(
             'racers' => $nextRacers,
-            //'latest' => $latestRacer,
-            'clock' => $clock,
+            //'clock' => $clock,
             'team'  => $team,
-            'arrivals' => $arrivals,
-            'delta' => $delta,
             'previous' => $previousTimings,
             'predictions' => $nextGuesser->getPredictions($id),
-            //'arrivalhis' => $arrival->format('H:i:s'),
-            //'arrivalc' => $arrival->format('c'),
-            //'arrivalr' => $arrivals[0]->format('r'),
         ));
     }
 
@@ -543,11 +508,11 @@ class TimingController extends AbstractController
     public function manualAction(
         RaceManager $raceManager,
         RacerRepository $racerRepository,
-        RaceRepository $raceRepository,
         TeamRepository $teamRepository,
         TimingRepository $timingRepository,
         EntityManagerInterface $em,
         Request $request,
+        TimingConsolidate $timingConsolidate,
     )
     {
         $postData = $request->request->all();
@@ -569,7 +534,6 @@ class TimingController extends AbstractController
         }
         catch(NoResultException $e)
         {
-            //$raceRepository = $em->getRepository('AppBundle:Race');
             $race = $raceManager->get();
             $previousClock = clone $race->getStart();
         }
@@ -594,14 +558,15 @@ class TimingController extends AbstractController
         $em->persist($timing);
         $em->flush();
 
+        $timingConsolidate->run($team);
+
         return new JsonResponse(array('id' => $timing->getId()));
     }
 
     /**
      * Annule un départ
      *
-     * @Route("/timing/revert-departure", name="timing_revert_departure")
-     * @Method("POST")
+     * FIXME optimiser pour les requêtes ->getRacer()->getTeam()
      */
     #[Route("/timing/revert-departure", name: "timing_revert_departure", methods: ['POST'])]
     public function revertDeparture(
@@ -609,6 +574,7 @@ class TimingController extends AbstractController
         EntityManagerInterface $em,
         LoggerInterface $logger,
         Request $request,
+        TimingConsolidate $timingConsolidate,
     )
     {
         $timingId = $request->request->get('timing');
@@ -621,6 +587,8 @@ class TimingController extends AbstractController
         $em->persist($timing);
         $em->flush();
         $logger->info(sprintf('reset timing id %d to prediction for racer "%s"', $timing->getId(), $timing->getRacer()->getNickname()));
+
+        $timingConsolidate->run($timing->getRacer()->getTeam());
 
         return new Response();
     }

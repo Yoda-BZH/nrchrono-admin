@@ -95,11 +95,11 @@ class DashingNextsCommand extends Command
                 }
                 //$interval = new \DateInterval($nextRacers[$i]->getTimingAvg()->format('\P\TH\Hi\Ms\S'));
                 //$arrival->add($interval);
-                $arrival = $predictions[$i]->getClock();
+                $arrival = $predictions[$i - 1]->getClock();
 
                 $data[] = array(
                     'label' => $nextRacers[$i]->getNickname(),
-                    'value' => $arrival->format('H:i:s'),
+                    'value' => $arrival->format('H:i'),
                 );
             }
 

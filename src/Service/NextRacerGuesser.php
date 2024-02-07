@@ -7,6 +7,8 @@ use App\Entity\Timing;
 Use App\Repository\TimingRepository;
 Use App\Repository\RacerRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
+
 
 use Psr\Log\LoggerInterface;
 
@@ -27,6 +29,7 @@ class NextRacerGuesser {
         private RacerRepository $racerRepository,
         private EntityManagerInterface $em,
         private RaceManager $raceManager,
+        private Stopwatch $stopwatch,
     ) {
         //$this->logger = new NullLogger();
     }
@@ -58,6 +61,7 @@ class NextRacerGuesser {
 
     public function computeNexts($fixFirstLap = false): array
     {
+        $this->stopwatch->start('next-race-guesser-compute');
         $this->logger->info(sprintf('Computing next predictions, with first lap: %d', $fixFirstLap));
         $teamId = $this->team->getId();
 
@@ -201,6 +205,7 @@ class NextRacerGuesser {
         //    return null;
         //}
         $this->nextRacers[$teamId] = array_values($this->nextRacers[$teamId]);
+        $this->stopwatch->stop('next-race-guesser-compute');
 
         return $this->nextRacers[$teamId];
     }
