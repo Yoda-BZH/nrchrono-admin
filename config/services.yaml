@@ -7,6 +7,8 @@ parameters:
     dashing.host: '%env(DASHING_HOST)%'
     dashing.port: '%env(DASHING_PORT)%'
     dashing.token: '%env(DASHING_TOKEN)%'
+    dashing.dashboard.paddock: '%env(DASHING_DASHBOARD_PADDOCK)%'
+    dashing.dashboard.track: '%env(DASHING_DASHBOARD_TRACK)%'
 
 services:
     # default configuration for services in *this* file

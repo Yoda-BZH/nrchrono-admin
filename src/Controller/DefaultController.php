@@ -11,6 +11,12 @@ class DefaultController extends AbstractController
     #[Route('/', name: 'homepage')]
     public function index(): Response
     {
-        return $this->render('homepage.html.twig');
+        $dashboardPaddock = $this->getParameter('dashing.dashboard.paddock');
+        $dashboardTrack = $this->getParameter('dashing.dashboard.track');
+
+        return $this->render('homepage.html.twig', array(
+            'link_paddock' => $dashboardPaddock,
+            'link_track' => $dashboardTrack,
+        ));
     }
 }
