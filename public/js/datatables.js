@@ -8,7 +8,6 @@ $(document).ready(function() {
     }
 
     options = {
-        //stateSave: true,
         "pagingType": "full_numbers",
         "lengthMenu": [ 15, 25, 50, 75, 100 ]
     };
@@ -17,10 +16,11 @@ $(document).ready(function() {
     if (tableReorder)
     {
         options['rowReorder'] = {
-            selector: 'td i'
+            selector: 'tr'
         };
         console.log('enabling row reordering');
     }
+
     var sortingCol = tables.data('datatable-sorting-col');
     console.log('sortingcol', sortingCol);
     if (sortingCol != undefined)
@@ -51,38 +51,34 @@ $(document).ready(function() {
     }
 
     datatable = tables.DataTable(options);
+    var buttonUpdateOrder = $("#update-list");
 
     if (tableReorder)
     {
         console.log('enabling row reordering event');
-        //datatable.on('row-reorder-changed', function (e, { insertPlacement, insertPoint }) {
-        //    console.log('Row moved ' + insertPlacement + ' the ' + insertPoint + '. row');
-        //});
+        $('#update-list').on('click', function()
+        {
+            //button = $(this);
+            trs = tables.find('tbody tr');
+            nb_trs = trs.length;
+            order = [];
+            for(var i = 0; i < nb_trs; i++)
+            {
+                order.push($(trs[i]).data('racerid'));
+            }
+            console.log('new order is', order);
+            teamid = $('#teamid').val();
+            payload = {
+                'order': order,
+            };
+            $.post('/racer/update-order/' + teamid, payload, function(data, textStatus, jqXHR)
+            {
+            });
+
+        });
         datatable.on('row-reordered', function (e, diff, edit)
         {
-            console.log('e', e);
-            console.log('diff', diff);
-            console.log('edit', edit);
-            for (var i = 0, ien = diff.length; i < ien; i++)
-            {
-                $(diff[i].node).addClass('reordered').css('border', '1px solid red');
-                jqObj = edit[i];
-                racerId = edit.nodes[i].dataset['racerid'];
-                payload = {
-                    'oldPosition': diff[i]['oldPosition'] + 1,
-                    'newPosition': diff[i]['newPosition'] + 1
-                };
-                console.log('updated racer id', racerId, 'with', payload);
-                console.log('obj', $(edit.nodes[i]), $(edit.nodes[i]).find('td.racer-position'), $(edit.nodes[i]).find('td.racer-position').text());
-                $(edit.nodes[i]).find('td.racer-position').text(payload['newPosition']);
-
-                $.post('/racer/update-order/' + racerId, payload, function(data, textStatus, jqXHR)
-                {
-                    console.log('racer id', racerId, 'updated');
-                });
-            }
-
-            return true;
+            buttonUpdateOrder.removeAttr('disabled');
         });
     }
 });

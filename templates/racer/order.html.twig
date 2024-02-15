@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Racer index{% endblock %}
+
+{% block body %}
+    <h1>Racer index</h1>
+
+    <table class="table records_list table-condensed table-stripped table-bordered table-hover table-datatable table-reorder">
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Nickname</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for racer in racers %}
+            <tr data-racerid="{{ racer.id }}">
+                <td class="racer-position">{{ racer.position }}</td>
+                <td class="racer-firstname">{{ racer.firstname }}</td>
+                <td class="racer-lastname">{{ racer.lastname }}</td>
+                <td class="racer-nickname">{{ racer.nickname }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<input type="hidden" name="teamid" value="{{ racers[0].team.id }}" id="teamid" />
+<button type="button" class="btn btn-primary" id="update-list" disabled="disabled">Mettre à jour l'ordre des coureurs</button>
+
+{% endblock %}
+
+{% block stylesheets %}
+{% include "datatables/css.twig" %}
+{% endblock %}
+{% block javascripts_end %}
+{% include "datatables/js.twig" %}
+{% endblock %}

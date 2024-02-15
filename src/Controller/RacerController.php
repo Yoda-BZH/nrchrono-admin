@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Racer;
+use App\Entity\Team;
 use App\Form\Racer1Type;
 use App\Repository\RacerRepository;
 use App\Repository\TeamRepository;
@@ -39,18 +40,16 @@ class RacerController extends AbstractController
 
     #[Route('/team/{id}', name: 'racer_index_by_team', methods: ['GET'])]
     public function indexByTeam(
-        TeamRepository $teamRepository,
+        //TeamRepository $teamRepository,
         RacerRepository $racerRepository,
         $id
     ): Response
     {
         $racers = $racerRepository->getAllByTeam(guest: true, team: $id);
-        $teams = $teamRepository->findAll();
 
-        return $this->render('racer/index.html.twig', [
+        return $this->render('racer/order.html.twig', [
             'selected' => $id,
             'racers' => $racers,
-            'teams' => $teams,
         ]);
     }
 
@@ -114,30 +113,33 @@ class RacerController extends AbstractController
         return $this->redirectToRoute('racer_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route("/update-order/{racer}", name: "racer_update_order", methods: ['POST'])]
+    #[Route("/update-order/{id}", name: "racer_update_order", methods: ['POST'])]
     public function updateOrder(
-        Racer $racer,
         EntityManagerInterface $entityManager,
+        RacerRepository $racerRepository,
         Request $request,
+        Team $team,
     ): Response
     {
-        $oldPosition = $request->getPayload()->get('oldPosition', null);
-        $newPosition = $request->getPayload()->get('newPosition', null);
-        if (!$oldPosition)
+        $postData = $request->getPayload()->all();
+        $newOrder = $postData['order'];
+
+        $racers = $racerRepository->getAllByTeam(guest: true, team: $team->getId());
+        $racersById = array();
+        foreach($racers as $racer)
         {
-            throw $this->createNotFoundException("no old position given"); // FIXME
-        }
-        if (!$newPosition)
-        {
-            throw $this->createNotFoundException("no new position given"); // FIXME
-        }
-        if ($oldPosition != $racer->getPosition())
-        {
-            throw $this->createNotFoundException(sprintf("Racer %s is position %d, not %d", (string) $racer, $racer->getPosition(), $oldPosition)); // FIXME
+            $racersById[$racer->getId()] = $racer;
         }
 
-        $racer->setPosition($newPosition);
-        $entityManager->persist($racer);
+        foreach($newOrder as $pos => $racerId)
+        {
+            $racer = $racersById[$racerId];
+            $racer->setPosition($pos + 1);
+            $entityManager->persist($racer);
+        }
+
+        //$racer->setPosition($newPosition);
+        //$entityManager->persist($racer);
         $entityManager->flush();
 
         return new Response();
