@@ -55,8 +55,8 @@ class SettingsController extends AbstractController
         $session->set('theme_previous', $request->headers->get('referer'));
 
         $session = $request->getSession();
-        $nb_after = $session->get('pref_status_list_team_after', 5);
-        $nb_before = $session->get('pref_status_list_team_before', 3);
+        $nb_after = $session->get('pref_status_list_team_after', 3);
+        $nb_before = $session->get('pref_status_list_team_before', 5);
 
         $teams = $teamRepository->getAll();
         $team_filter = $session->get('team_filter', 0);
