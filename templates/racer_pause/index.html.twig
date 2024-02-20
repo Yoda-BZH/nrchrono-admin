@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}RacerPause index{% endblock %}
+{% block title %}{% trans %}RacerPause index{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>RacerPause index</h1>
+    <h1>{% trans %}RacerPause index{% endtrans %}</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Porder</th>
-                <th>Racer</th>
-                <th>Team</th>
-                <th>actions</th>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <th>{% trans %}Porder{% endtrans %}</th>
+                <th>{% trans %}Racer{% endtrans %}</th>
+                <th>{% trans %}Team{% endtrans %}</th>
+                <th>{% trans %}actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
@@ -23,17 +23,17 @@
                 <td><a href="{{ path('racer_show', { 'id': racer_pause.racer.id }) }}">{{ racer_pause.racer.nickname }}</a></td>
                 <td class="team-color-grad-{{ racer_pause.racer.team.id }}"><a href="{{ path('team_show', { 'id': racer_pause.racer.team.id }) }}">{{ racer_pause.racer.team.name }}</a></td>
                 <td>
-                    <a href="{{ path('racer_pause_show', {'id': racer_pause.id}) }}">show</a>
-                    <a href="{{ path('racer_pause_edit', {'id': racer_pause.id}) }}">edit</a>
+                    <a href="{{ path('racer_pause_show', {'id': racer_pause.id}) }}">{% trans %}show{% endtrans %}</a>
+                    <a href="{{ path('racer_pause_edit', {'id': racer_pause.id}) }}">{% trans %}edit{% endtrans %}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">{% trans %}no records found{% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('racer_pause_new') }}">Create new</a>
+    <a href="{{ path('racer_pause_new') }}">{% trans %}Create new{% endtrans %}</a>
 {% endblock %}

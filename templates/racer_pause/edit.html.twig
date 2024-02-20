@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit RacerPause{% endblock %}
+{% block title %}{% trans %}Edit RacerPause{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Edit RacerPause</h1>
+    <h1>{% trans %}Edit RacerPause{% endtrans %}</h1>
 
     {{ include('racer_pause/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('racerpause') }}">back to list</a>
+    <a href="{{ path('racerpause') }}">{% trans %}back to list{% endtrans %}</a>
 
     {{ include('racer_pause/_delete_form.html.twig') }}
 {% endblock %}

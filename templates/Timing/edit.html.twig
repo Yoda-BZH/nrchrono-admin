@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body -%}
-    <h1>Timing edit</h1>
+    <h1>{% trans %}Timing edit{% endtrans %}</h1>
 
     {{ include('Timing/_form.html.twig', {'button_label': 'Update'}) }}
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('timing') }}">
-            Back to the list
+            {% trans %}Back to the list{% endtrans %}
         </a>
     </li>
 </ul>

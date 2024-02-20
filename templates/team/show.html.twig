@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Team{% endblock %}
+{% block title %}{% trans %}Team{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Team</h1>
+    <h1>{% trans %}Team{% endtrans %}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{% trans %}Id{% endtrans %}</th>
                 <td>{{ team.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>{% trans %}Name{% endtrans %}</th>
                 <td>{{ team.name }}</td>
             </tr>
             <tr>
-                <th>NbPerson</th>
+                <th>{% trans %}NbPerson{% endtrans %}</th>
                 <td>{{ team.nbPerson }}</td>
             </tr>
             <tr>
@@ -24,19 +24,19 @@
                 <td>{{ team.idReference }}</td>
             </tr>
             <tr>
-                <th>Color</th>
+                <th>{% trans %}Color{% endtrans %}</th>
                 <td>{{ team.color }}</td>
             </tr>
             <tr>
-                <th>Guest</th>
+                <th>{% trans %}Guest{% endtrans %}</th>
                 <td>{{ team.guest ? 'Yes' : 'No' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('team_index') }}">back to list</a>
+    <a href="{{ path('team_index') }}">{% trans %}back to list{% endtrans %}</a>
 
-    <a href="{{ path('team_edit', {'id': team.id}) }}">edit</a>
+    <a href="{{ path('team_edit', {'id': team.id}) }}">{% trans %}edit{% endtrans %}</a>
 
     {{ include('team/_delete_form.html.twig') }}
 {% endblock %}

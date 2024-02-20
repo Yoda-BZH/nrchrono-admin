@@ -3,9 +3,9 @@
 {% block title %}New Pause{% endblock %}
 
 {% block body %}
-    <h1>Create new Pause</h1>
+    <h1>{% trans %}Create new Pause{% endtrans %}</h1>
 
     {{ include('pause/_form.html.twig') }}
 
-    <a href="{{ path('pause') }}">back to list</a>
+    <a href="{{ path('pause') }}">{% trans %}back to list{% endtrans %}</a>
 {% endblock %}

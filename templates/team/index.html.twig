@@ -3,19 +3,19 @@
 {% block title %}Team index{% endblock %}
 
 {% block body %}
-    <h1>Team index</h1>
+    <h1>{% trans %}Team index{% endtrans %}</h1>
 
     <table class="records_list table table-condensed table-hover table-stripped table-datatable">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>NbPerson</th>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <th>{% trans %}Name{% endtrans %}</th>
+                <th>{% trans %}NbPerson{% endtrans %}</th>
                 <th>Numéro de dossard</th>
-                <th>Color</th>
-                <th>Guest</th>
-                <th>Race</th>
-                <th>actions</th>
+                <th>{% trans %}Color{% endtrans %}</th>
+                <th>{% trans %}Guest{% endtrans %}</th>
+                <th>{% trans %}Race{% endtrans %}</th>
+                <th>{% trans %}actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
@@ -29,21 +29,21 @@
                 <td>{{ team.guest ? 'Yes' : 'No' }}</td>
                 <td>{{ team.race }}</td>
                 <td>
-                    <a href="{{ path('team_show', {'id': team.id}) }}">show</a>
-                    <a href="{{ path('team_edit', {'id': team.id}) }}">edit</a>
-                    <a href="{{ path('racer_index_by_team', { 'id': team.id } ) }}">Manage order</a>
+                    <a href="{{ path('team_show', {'id': team.id}) }}">{% trans %}show{% endtrans %}</a>
+                    <a href="{{ path('team_edit', {'id': team.id}) }}">{% trans %}edit{% endtrans %}</a>
+                    <a href="{{ path('racer_index_by_team', { 'id': team.id } ) }}">{% trans %}Manage order{% endtrans %}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">{% trans %}no records found{% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('team_new') }}">Create new</a>
-    <a href="{{ path('team_update_colors') }}">Update team colors</a>
+    <a href="{{ path('team_new') }}">{% trans %}Create new{% endtrans %}</a>
+    <a href="{{ path('team_update_colors') }}">{% trans %}Update team colors{% endtrans %}</a>
 {% endblock %}
 
 {% block stylesheets %}

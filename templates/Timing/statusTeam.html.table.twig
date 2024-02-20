@@ -48,8 +48,8 @@
             class="btn btn-xs btn-warning timing-editor"
             data-id="{{ previousRacer.id }}" href="{{ path('timing_fix_edit', { 'id': previousRacer.id }) }}"><i class="bi bi-pencil"></i></a>
     </li>
-    <li>Arrived: {{ previousRacer.clock|date('H:i:s') }}</li>
-    <li>Lap: {{ previousRacer.timing|date('H:i:s') }}</li>
+    <li>{% trans %}Arrived{% endtrans %}: {{ previousRacer.clock|date('H:i:s') }}</li>
+    <li>{% trans %}Lap{% endtrans %}: {{ previousRacer.timing|date('H:i:s') }}</li>
 </ul>
 {%- else -%}
     --
@@ -112,14 +112,14 @@
 {% endif %}
     </li>
     {% if loop.index0 == 0 %}
-    <li>Arrivée: {{ arrivals[loop.index0]|date('H:i:s') }}</li>
+    <li>{% trans %}Arrivée{% endtrans %}: {{ arrivals[loop.index0]|date('H:i:s') }}</li>
     <li
             data-arrival="{{ arrivals[loop.index0]|date('r') }}"
             class="clock"
             id="clock-team-{{ team.id }}"
         ></li>
     {% else %}
-    <li>Départ: {{ arrivals[loop.index0 - 1]|date('H:i:s') }}</li>
+    <li>{% trans %}Départ{% endtrans %}: {{ arrivals[loop.index0 - 1]|date('H:i:s') }}</li>
     {% endif %}
 </ul>
 </td>

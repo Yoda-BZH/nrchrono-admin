@@ -2,11 +2,11 @@
 
 {% block body -%}
 
-<h1>Statut</h1>
+<h1>{% trans %}Statut{% endtrans %}</h1>
 <div id="progressbar" style="margin-left: 130px; margin-top: -45px; margin-bottom: 20px; width: 50%; "></div>
 
 {% if not race.isStarted %}
-<p>Waiting for race to start. It should start at {{ race.start|date('Y-m-d H:i:s') }} ... <a href="{{ path("race_start", {"id": race.id }) }}">Start the race now !</a></p>
+<p>{% trans %}Waiting for race to start. It should start at{% endtrans %} {{ race.start|date('Y-m-d H:i:s') }} ... <a href="{{ path('race_start', {'id': race.id }) }}">{% trans %}Start the race now !{% endtrans %}</a></p>
 
 {% endif %}
 
@@ -14,21 +14,21 @@
 <table class="table table-condensed table-stripped table-bordered">
     <thead>
         <tr>
-            {% if nb_after >= 3 %}<th>Fini</th>{% endif %}
-            {% if nb_after >= 2 %}<th>Fini</th>{% endif %}
-            {% if nb_after >= 1 %}<th>Vient de finir</th>{% endif %}
+            {% if nb_after >= 3 %}<th>{% trans %}Fini{% endtrans %}</th>{% endif %}
+            {% if nb_after >= 2 %}<th>{% trans %}Fini{% endtrans %}</th>{% endif %}
+            {% if nb_after >= 1 %}<th>{% trans %}Vient de finir{% endtrans %}</th>{% endif %}
             <th><span id="remains"></span></th>
-            {% if nb_before >= 1 %}<th>Sur la piste</th>{% endif %}
-            {% if nb_before >= 2 %}<th>Doit se préparer</th>{% endif %}
-            {% if nb_before >= 3 %}<th>A encore le temps</th>{% endif %}
-            {% if nb_before >= 4 %}<th>--</th>{% endif %}
-            {% if nb_before >= 5 %}<th>--</th>{% endif %}
+            {% if nb_before >= 1 %}<th>{% trans %}Sur la piste{% endtrans %}</th>{% endif %}
+            {% if nb_before >= 2 %}<th>{% trans %}Doit se préparer{% endtrans %}</th>{% endif %}
+            {% if nb_before >= 3 %}<th>{% trans %}A encore le temps{% endtrans %}</th>{% endif %}
+            {% if nb_before >= 4 %}<th>{% trans %}--{% endtrans %}</th>{% endif %}
+            {% if nb_before >= 5 %}<th>{% trans %}--{% endtrans %}</th>{% endif %}
         </tr>
     </thead>
     <tbody id="racers-prevision">
 {% for team in teams %}
         <tr class="timing-status-teams" id="timing-status-team-{{ team.id }}">
-            <td colspan="9" class="team-bg-color-{{ team.id }}">Chargement en cours</td>
+            <td colspan="9" class="team-bg-color-{{ team.id }}">{% trans %}Chargement en cours{% endtrans %}</td>
         </tr>
 {% endfor %}
     </tbody>

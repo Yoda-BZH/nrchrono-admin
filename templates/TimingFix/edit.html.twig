@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body -%}
-    <h1>Timing edit</h1>
+    <h1>{% trans %}Timing edit{% endtrans %}</h1>
 
 <div id="" class="container">
     <div id="timing-fix-edit-orig" class="col-md-6">
@@ -15,8 +15,8 @@
 
 
 <ul class="">
-    <li id="timing-orig">Timing de départ: <span class="">{{ entity.timing|date('H:i:s') }}</span></li>
-    <li id="timing-diff">Différence: <span data-seconds="0" class=""></span></li>
+    <li id="timing-orig">{% trans %}Timing de départ{% endtrans %}: <span class="">{{ entity.timing|date('H:i:s') }}</span></li>
+    <li id="timing-diff">{% trans %}Différence{% endtrans %}: <span data-seconds="0" class=""></span></li>
 </ul>
 
 
@@ -25,7 +25,7 @@
         <ul class="record_actions">
     <li>
         <a href="{{ path('timing') }}">
-            Back to the list
+            {% trans %}Back to the list{% endtrans %}
         </a>
     </li>
 </ul>
@@ -51,12 +51,12 @@ $(document).ready(function() {
         newValueHour   = parseInt(origHours.val());
         newValueMinute = parseInt(origMinutes.val());
         newValueSecond = parseInt(origSeconds.val());
-        console.log('hour: ' + newValueHour);
-        console.log('minute: ' + newValueMinute);
-        console.log('seconds: ' + newValueSecond);
+        //console.log('hour: ' + newValueHour);
+        //console.log('minute: ' + newValueMinute);
+        //console.log('seconds: ' + newValueSecond);
 
         newTotalValue = (newValueHour * 3600) + (newValueMinute * 60) + newValueSecond;
-        console.log('new total value: ' + newTotalValue);
+        //console.log('new total value: ' + newTotalValue);
 
         difference = origTs - newTotalValue;
 

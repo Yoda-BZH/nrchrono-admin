@@ -1,54 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Racer{% endblock %}
+{% block title %}{% trans %}Racer{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Racer</h1>
+    <h1>{% trans %}Racer{% endtrans %}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{% trans %}Id{% endtrans %}</th>
                 <td>{{ racer.id }}</td>
             </tr>
             <tr>
-                <th>Firstname</th>
+                <th>{% trans %}Firstname{% endtrans %}</th>
                 <td>{{ racer.firstname }}</td>
             </tr>
             <tr>
-                <th>Lastname</th>
+                <th>{% trans %}Lastname{% endtrans %}</th>
                 <td>{{ racer.lastname }}</td>
             </tr>
             <tr>
-                <th>Nickname</th>
+                <th>{% trans %}Nickname{% endtrans %}</th>
                 <td>{{ racer.nickname }}</td>
             </tr>
             <tr>
-                <th>TimingMin</th>
+                <th>{% trans %}TimingMin{% endtrans %}</th>
                 <td>{{ racer.timingMin ? racer.timingMin|date('H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>TimingMax</th>
+                <th>{% trans %}TimingMax{% endtrans %}</th>
                 <td>{{ racer.timingMax ? racer.timingMax|date('H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>TimingAvg</th>
+                <th>{% trans %}TimingAvg{% endtrans %}</th>
                 <td>{{ racer.timingAvg ? racer.timingAvg|date('H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Position</th>
+                <th>{% trans %}Position{% endtrans %}</th>
                 <td>{{ racer.position }}</td>
             </tr>
             <tr>
-                <th>Paused</th>
+                <th>{% trans %}Paused{% endtrans %}</th>
                 <td>{{ racer.paused ? 'Yes' : 'No' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('racer_index') }}">back to list</a>
+    <a href="{{ path('racer_index') }}">{% trans %}back to list{% endtrans %}</a>
 
-    <a href="{{ path('racer_edit', {'id': racer.id}) }}">edit</a>
+    <a href="{{ path('racer_edit', {'id': racer.id}) }}">{% trans %}edit{% endtrans %}</a>
 
     {{ include('racer/_delete_form.html.twig') }}
 {% endblock %}

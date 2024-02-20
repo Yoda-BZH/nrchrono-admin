@@ -3,7 +3,7 @@
 {% block title %}Hello StatisticsController!{% endblock %}
 
 {% block body %}
-<p>Prochains arrivées :</p>
+<p>{% trans %}Prochains arrivées{% endtrans %} :</p>
 <ul>
 {% for arrival in arrivals %}
 <li>{{ arrival.team.name }}: {{ arrival.racer }} {{ arrival.arrival | date('H:i:s') }}</li>

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Racer{% endblock %}
+{% block title %}{% trans %}New Racer{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Create new Racer</h1>
+    <h1>{% trans %}Create new Racer{% endtrans %}</h1>
 
     {{ include('racer/_form.html.twig') }}
 
-    <a href="{{ path('racer_index') }}">back to list</a>
+    <a href="{{ path('racer_index') }}">{% trans %}back to list{% endtrans %}</a>
 {% endblock %}

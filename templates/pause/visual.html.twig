@@ -17,8 +17,8 @@
 {% endfor %}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+        <button type="button" class="btn btn-primary">{% trans %}Save changes{% endtrans %}</button>
       </div>
     </div>
   </div>
@@ -43,9 +43,9 @@
 {%   endfor %}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger team-racer-select-delete">Delete</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary team-racer-select-save">Save changes</button>
+        <button type="button" class="btn btn-danger team-racer-select-delete">{% trans %}Delete{% endtrans %}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+        <button type="button" class="btn btn-primary team-racer-select-save">{% trans %}Save changes{% endtrans %}</button>
       </div>
     </div>
   </div>
@@ -242,7 +242,7 @@ $(document).ready(function()
         pauseId = form.data('eventid');
         event = calendar.getEventById(pauseId);
 
-        if (confirm('Supprimer ce temps de pause ?'))
+        if (confirm('{% trans %}Supprimer ce temps de pause ?{% endtrans %}'))
         {
             $.post('/pause/visual/delete/' + pauseId, {}, function() {
                 modalTeamRacerSelect[team_id].hide();

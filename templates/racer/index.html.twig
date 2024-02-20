@@ -1,25 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Racer index{% endblock %}
+{% block title %}{% trans %}Racer index{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Racer index</h1>
+    <h1>{% trans %}Racer index{% endtrans %}</h1>
 
 </div>
     <table class="table records_list table-condensed table-stripped table-bordered table-hover table-datatable" data-datatable-sorting-col="1,2">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Team</th>
-                <th>Position</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Nickname</th>
-                <th>TimingMin</th>
-                <th>TimingMax</th>
-                <th>TimingAvg</th>
-                <th>Paused</th>
-                <th>actions</th>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <th>{% trans %}Team{% endtrans %}</th>
+                <th>{% trans %}Position{% endtrans %}</th>
+                <th>{% trans %}Firstname{% endtrans %}</th>
+                <th>{% trans %}Lastname{% endtrans %}</th>
+                <th>{% trans %}Nickname{% endtrans %}</th>
+                <th>{% trans %}TimingMin{% endtrans %}</th>
+                <th>{% trans %}TimingMax{% endtrans %}</th>
+                <th>{% trans %}TimingAvg{% endtrans %}</th>
+                <th>{% trans %}Paused{% endtrans %}</th>
+                <th>{% trans %}actions{% endtrans %}</th>
             </tr>
         </thead>
 
@@ -37,20 +37,20 @@
                 <td class="racer-timing-avg">{{ racer.timingAvg ? racer.timingAvg|date('H:i:s') : '' }}</td>
                 <td class="racer-paused">{{ racer.paused ? 'Yes' : 'No' }}</td>
                 <td class="racer-action">
-                    <a href="{{ path('racer_show', {'id': racer.id}) }}">show</a>
-                    <a href="{{ path('racer_edit', {'id': racer.id}) }}">edit</a>
+                    <a href="{{ path('racer_show', {'id': racer.id}) }}">{% trans %}show{% endtrans %}</a>
+                    <a href="{{ path('racer_edit', {'id': racer.id}) }}">{% trans %}edit{% endtrans %}</a>
                     {% if selected %}<button type="button" class="btn btn-secondary"><i class="bi bi-arrow-down-up"></i></button>{% endif %}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="10">no records found</td>
+                <td colspan="10">{% trans %}no records found{% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('racer_new') }}">Create new</a>
+    <a href="{{ path('racer_new') }}">{% trans %}Create new{% endtrans %}</a>
 
 {% endblock %}
 

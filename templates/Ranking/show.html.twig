@@ -1,48 +1,48 @@
 {% extends 'base.html.twig' %}
 
 {% block body -%}
-    <h1>Ranking</h1>
+    <h1>{% trans %}Ranking{% endtrans %}</h1>
 
     <table class="record_properties table table-cendensed table-hover table-stripped">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{% trans %}Id{% endtrans %}</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Position</th>
+                <th>{% trans %}Position{% endtrans %}</th>
                 <td>{{ entity.position }}</td>
             </tr>
             <tr>
-                <th>Createdat</th>
+                <th>{% trans %}Createdat{% endtrans %}</th>
                 <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Time</th>
+                <th>{% trans %}Time{% endtrans %}</th>
                 <td>{{ entity.time|date('H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Tour</th>
+                <th>{% trans %}Tour{% endtrans %}</th>
                 <td>{{ entity.tour }}</td>
             </tr>
             <tr>
-                <th>Ecart</th>
+                <th>{% trans %}Ecart{% endtrans %}</th>
                 <td>{{ entity.ecart|date('H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Distance</th>
+                <th>{% trans %}Distance{% endtrans %}</th>
                 <td>{{ entity.distance }}</td>
             </tr>
             <tr>
-                <th>Speed</th>
+                <th>{% trans %}Speed{% endtrans %}</th>
                 <td>{{ entity.speed }}</td>
             </tr>
             <tr>
-                <th>Bestlap</th>
+                <th>{% trans %}Bestlap{% endtrans %}</th>
                 <td>{{ entity.bestlap|date('H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Poscat</th>
+                <th>{% trans %}Poscat{% endtrans %}</th>
                 <td>{{ entity.poscat }}</td>
             </tr>
         </tbody>
@@ -51,12 +51,12 @@
         <ul class="record_actions">
     <li>
         <a href="{{ path('ranking') }}">
-            Back to the list
+            {% trans %}Back to the list{% endtrans %}
         </a>
     </li>
     <li>
         <a href="{{ path('ranking_edit', { 'id': entity.id }) }}">
-            Edit
+            {% trans %}Edit{% endtrans %}
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

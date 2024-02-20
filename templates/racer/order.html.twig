@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Racer index{% endblock %}
+{% block title %}{% trans %}Racer index{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Racer index</h1>
+    <h1>{% trans %}Racer index{% endtrans %}</h1>
 
     <table class="table records_list table-condensed table-stripped table-bordered table-hover table-datatable table-reorder">
         <thead>
             <tr>
-                <th>Position</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Nickname</th>
+                <th>{% trans %}Position{% endtrans %}</th>
+                <th>{% trans %}Firstname{% endtrans %}</th>
+                <th>{% trans %}Lastname{% endtrans %}</th>
+                <th>{% trans %}Nickname{% endtrans %}</th>
             </tr>
         </thead>
 
@@ -32,7 +32,7 @@
     </table>
 
 <input type="hidden" name="teamid" value="{{ racers[0].team.id }}" id="teamid" />
-<button type="button" class="btn btn-primary" id="update-list" disabled="disabled">Mettre à jour l'ordre des coureurs</button>
+<button type="button" class="btn btn-primary" id="update-list" disabled="disabled">{% trans %}Mettre à jour l'ordre des coureurs{% endtrans %}</button>
 
 {% endblock %}
 

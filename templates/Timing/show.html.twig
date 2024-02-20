@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body -%}
-    <h1>Timing</h1>
+    <h1>{% trans %}Timing{% endtrans %}</h1>
 
 {% include "Timing/item.html.twig" with { 'entity': entity } %}
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('timing') }}">
-            Back to the list
+            {% trans %}Back to the list{% endtrans %}
         </a>
     </li>
     <li>
         <a href="{{ path('timing_edit', { 'id': entity.id }) }}">
-            Edit
+            {% trans %}Edit{% endtrans %}
         </a>
     </li>
 </ul>

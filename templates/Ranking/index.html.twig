@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body -%}
-    <h1>Ranking list</h1>
+    <h1>{% trans %}Ranking list{% endtrans %}</h1>
 
     <table class="records_list table table-condensed table-stripped table-hover table-datatable">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Position</th>
-                <th>Createdat</th>
-                <th>Time</th>
-                <th>Tour</th>
-                <th>Ecart</th>
-                <th>Distance</th>
-                <th>Speed</th>
-                <th>Bestlap</th>
-                <th>Poscat</th>
-                <th>Actions</th>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <th>{% trans %}Position{% endtrans %}</th>
+                <th>{% trans %}Createdat{% endtrans %}</th>
+                <th>{% trans %}Time{% endtrans %}</th>
+                <th>{% trans %}Tour{% endtrans %}</th>
+                <th>{% trans %}Ecart{% endtrans %}</th>
+                <th>{% trans %}Distance{% endtrans %}</th>
+                <th>{% trans %}Speed{% endtrans %}</th>
+                <th>{% trans %}Bestlap{% endtrans %}</th>
+                <th>{% trans %}Poscat{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
@@ -35,10 +35,10 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('ranking_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('ranking_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
                     </li>
                     <li>
-                        <a href="{{ path('ranking_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('ranking_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
                     </li>
                 </ul>
                 </td>
@@ -50,7 +50,7 @@
         <ul>
         <li>
             <a href="{{ path('ranking_new') }}">
-                Create a new entry
+                {% trans %}Create a new entry{% endtrans %}
             </a>
         </li>
     </ul>

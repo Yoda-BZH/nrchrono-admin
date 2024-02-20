@@ -3,17 +3,17 @@
 {% block title %}Pause index{% endblock %}
 
 {% block body %}
-    <h1>Pause index</h1>
+    <h1>{% trans %}Pause index{% endtrans %}</h1>
 
     <table class="records_list table table-condensed table-hover table-stripped table-datatable">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Porder</th>
-                <th>Team</th>
-                <th>HourStart</th>
-                <th>HourStop</th>
-                <th>actions</th>
+                <th>{% trans %}Porder{% endtrans %}</th>
+                <th>{% trans %}Team{% endtrans %}</th>
+                <th>{% trans %}HourStart{% endtrans %}</th>
+                <th>{% trans %}HourStop{% endtrans %}</th>
+                <th>{% trans %}actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
@@ -25,19 +25,19 @@
                 <td>{{ pause.hourStart ? pause.hourStart|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ pause.hourStop ? pause.hourStop|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('pause_show', {'id': pause.id}) }}">show</a>
-                    <a href="{{ path('pause_edit', {'id': pause.id}) }}">edit</a>
+                    <a href="{{ path('pause_show', {'id': pause.id}) }}">{% trans %}show{% endtrans %}</a>
+                    <a href="{{ path('pause_edit', {'id': pause.id}) }}">{% trans %}edit{% endtrans %}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">{% trans %}no records found{% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('pause_new') }}">Create new</a>
+    <a href="{{ path('pause_new') }}">{% trans %}Create new{% endtrans %}</a>
 {% endblock %}
 
 

@@ -2,34 +2,34 @@
 
 {% block body -%}
 
-<h1>Statut</h1>
+<h1>{% trans %}Statut{% endtrans %}</h1>
 <!--<div id="progressbar" style="margin-left: 130px; margin-top: -45px; margin-bottom: 20px; width: 50%; "></div>-->
 <div id="progressbar" class="progress m-2" role="progressbar" aria-label="Basic example" style="height: 30px;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="30">
   <div class="progress-bar overflow-visible text-black" style="width: 100%"><div id="progressbar-text" style="visibility: hidden;" class="text">Rafraichissement des données imminentes, ne touchez à rien</div></div>
 </div>
 
 {% if not race.isStarted %}
-<p>Waiting for race to start. It should start at {{ race.start|date('Y-m-d H:i:s') }} ... <a href="{{ path("race_start", {"id": race.id }) }}">Start the race now !</a></p>
+<p>{% trans %}Waiting for race to start. It should start at{% endtrans %} {{ race.start|date('Y-m-d H:i:s') }} ... <a href="{{ path("race_start", {"id": race.id }) }}">{% trans %}Start the race now !{% endtrans %}</a></p>
 
 {% endif %}
 
 <div id="racers-prevision">
     <div class="d-flex flex-row" id="racers-prevision-header">
 
-        {% if nb_after >= 3 %}<div class="racer-box p-2">Fini</div>{% endif %}
-        {% if nb_after >= 2 %}<div class="racer-box p-2">Fini</div>{% endif %}
-        {% if nb_after >= 1 %}<div class="racer-box p-2">Vient de finir</div>{% endif %}
+        {% if nb_after >= 3 %}<div class="racer-box p-2">{% trans %}Fini{% endtrans %}</div>{% endif %}
+        {% if nb_after >= 2 %}<div class="racer-box p-2">{% trans %}Fini{% endtrans %}</div>{% endif %}
+        {% if nb_after >= 1 %}<div class="racer-box p-2">{% trans %}Vient de finir{% endtrans %}</div>{% endif %}
         <div class="racer-box p-2"><span id="remains"></span></div>
-        {% if nb_before >= 1 %}<div class="racer-box p-2">Sur la piste</div>{% endif %}
-        {% if nb_before >= 2 %}<div class="racer-box p-2">Doit se préparer</div>{% endif %}
-        {% if nb_before >= 3 %}<div class="racer-box p-2">A encore le temps</div>{% endif %}
-        {% if nb_before >= 4 %}<div class="racer-box p-2">--</div>{% endif %}
-        {% if nb_before >= 5 %}<div class="racer-box p-2">--</div>{% endif %}
+        {% if nb_before >= 1 %}<div class="racer-box p-2">{% trans %}Sur la piste{% endtrans %}</div>{% endif %}
+        {% if nb_before >= 2 %}<div class="racer-box p-2">{% trans %}Doit se préparer{% endtrans %}</div>{% endif %}
+        {% if nb_before >= 3 %}<div class="racer-box p-2">{% trans %}A encore le temps{% endtrans %}</div>{% endif %}
+        {% if nb_before >= 4 %}<div class="racer-box p-2">{% trans %}--{% endtrans %}</div>{% endif %}
+        {% if nb_before >= 5 %}<div class="racer-box p-2">{% trans %}--{% endtrans %}</div>{% endif %}
     </div>
 
 {% for team in teams %}
     <div class="d-flex flex-row racers-prevision-data" id="timing-status-team-{{ team.id }}">
-        <div class="team-bg-color-{{ team.id }}">Chargement en cours</div>
+        <div class="team-bg-color-{{ team.id }}">{% trans %}Chargement en cours{% endtrans %}</div>
     </div>
 {% endfor %}
 </div> <!-- #racers-prevision -->

@@ -3,11 +3,11 @@
 {% block title %}Edit Team{% endblock %}
 
 {% block body %}
-    <h1>Edit Team</h1>
+    <h1>{% trans %}Edit Team{% endtrans %}</h1>
 
     {{ include('team/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('team_index') }}">back to list</a>
+    <a href="{{ path('team_index') }}">{% trans %}back to list{% endtrans %}</a>
 
     {{ include('team/_delete_form.html.twig') }}
 {% endblock %}

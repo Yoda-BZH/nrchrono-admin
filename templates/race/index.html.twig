@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Race index{% endblock %}
+{% block title %}{% trans %}Race index{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Race index</h1>
+    <h1>{% trans %}Race index{% endtrans %}</h1>
 
     <table class="records_list table table-condensed table-hover table-stripped table-datatable">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Start</th>
-                <th>Km</th>
-                <th>actions</th>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <th>{% trans %}Name{% endtrans %}</th>
+                <th>{% trans %}Start{% endtrans %}</th>
+                <th>{% trans %}Km{% endtrans %}</th>
+                <th>{% trans %}actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
@@ -23,19 +23,19 @@
                 <td>{{ race.start ? race.start|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ race.km }}</td>
                 <td>
-                    <a href="{{ path('race_show', {'id': race.id}) }}">show</a>
-                    <a href="{{ path('race_edit', {'id': race.id}) }}">edit</a>
+                    <a href="{{ path('race_show', {'id': race.id}) }}">{% trans %}show{% endtrans %}</a>
+                    <a href="{{ path('race_edit', {'id': race.id}) }}">{% trans %}edit{% endtrans %}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">{% trans %}no records found{% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('race_new') }}">Create new</a>
+    <a href="{{ path('race_new') }}">{% trans %}Create new{% endtrans %}</a>
 {% endblock %}
 
 

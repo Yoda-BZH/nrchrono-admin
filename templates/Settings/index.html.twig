@@ -3,7 +3,7 @@
 {% block body %}
 
 <div>
-<p>Liste des thèmes</p>
+<p>{% trans %}Liste des thèmes{% endtrans %}</p>
 <ul id="theme-list">
 {% for theme, css_link in css_list %}
     <li><a data-css="{{ css_link }}" href="{{ path('css_set', { 'name': theme }) }}">{{ theme }} {{ theme == current_theme ? "(current)" : "" }}</a></li>
@@ -12,25 +12,25 @@
 </div>
 
 <div>
-<p>Préférence d'affichage dans la liste des équipes:
+<p>{% trans %}Préférence d'affichage dans la liste des équipes{% endtrans %}:
 <ul>
-    <li>Nombre de coureurs arrivés:
+    <li>{% trans %}Nombre de coureurs arrivés{% endtrans %}:
 {% for i in [1, 2, 3, 4] %}
-        <a class="btn btn-{{ nb_after == i ? "" : "outline-" }}{{ i == 3 ? "primary" : "secondary" }}" href="{{ path('settings_status_list_team_after', { nb: i }) }}">{{ i }}{% if nb_after == i %} (current){% endif %}</a>{{ loop.last ? "" : "," }}
+        <a class="btn btn-{{ nb_after == i ? '' : 'outline-' }}{{ i == 3 ? 'primary' : 'secondary' }}" href="{{ path('settings_status_list_team_after', { nb: i }) }}">{{ i }}{% if nb_after == i %} (current){% endif %}</a>{{ loop.last ? "" : "," }}
 {% endfor %}
     </li>
-    <li>Nombre de coureurs en préparation:
+    <li>{% trans %}Nombre de coureurs en préparation{% endtrans %}:
 {% for i in [1, 2, 3, 4, 5] %}
-        <a class="btn btn-{{ nb_before == i ? "" : "outline-" }}{{ i == 5 ? "primary" : "secondary" }}" href="{{ path('settings_status_list_team_before', { nb: i }) }}">{{ i }}{% if nb_before == i %} (current){% endif %}</a>{{ loop.last ? "" : "," }}
+        <a class="btn btn-{{ nb_before == i ? '' : 'outline-' }}{{ i == 5 ? 'primary' : 'secondary' }}" href="{{ path('settings_status_list_team_before', { nb: i }) }}">{{ i }}{% if nb_before == i %} (current){% endif %}</a>{{ loop.last ? "" : "," }}
 {% endfor %}
     </li>
 </ul>
 </div>
 
 <div>
-<p>Affichage des teams</p>
+<p>{% trans %}Affichage des teams{% endtrans %}</p>
 <ul>
-    <li><a href="{{ path('settings_team_filter', { id: 0 }) }}">Toutes les teams{% if team_filter == 0 %} (current){% endif %}</a></p>
+    <li><a href="{{ path('settings_team_filter', { id: 0 }) }}">{% trans %}Toutes les teams{% endtrans %}{% if team_filter == 0 %} (current){% endif %}</a></p>
 {% for team in teams%}
     <li><a href="{{ path('settings_team_filter', { id: team.id }) }}">Team {{ team.name }}{% if team_filter == team.id %} (current){% endif %}</a></p>
 {% endfor %}

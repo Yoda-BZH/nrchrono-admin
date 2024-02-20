@@ -48,8 +48,8 @@
             class="btn btn-xs btn-warning timing-editor"
             data-id="{{ previousRacer.id }}" href="{{ path('timing_fix_edit', { 'id': previousRacer.id }) }}"><i class="bi bi-pencil"></i></a>
     </li>
-    <li>Arrived: {{ previousRacer.clock|date('H:i:s') }}</li>
-    <li>Lap: {{ previousRacer.timing|date('H:i:s') }}</li>
+    <li>{% trans %}Arrived{% endtrans %}: {{ previousRacer.clock|date('H:i:s') }}</li>
+    <li>{% trans %}Lap{% endtrans %}: {{ previousRacer.timing|date('H:i:s') }}</li>
 </ul>
 {%- else -%}
     --
@@ -112,16 +112,15 @@
         </button>
 {% endif %}
     </li>
-    <li>Lap Avg: {{ racer.timingAvg|date('H:i:s') }}</li>
     {% if loop.index0 == 0 %}
-    <li>Arrivée: {{ predictions[loop.index0].clock|date('H:i:s') }}</li>
+    <li>{% trans %}Arrivée{% endtrans %}: {{ predictions[loop.index0].clock|date('H:i:s') }}</li>
     <li
             data-arrival="{{ predictions[loop.index0].clock|date('r') }}"
             class="clock"
             id="clock-team-{{ team.id }}"
         ></li>
     {% else %}
-    <li>Départ: {{ predictions[loop.index0 - 1].clock | date('H:i:s')}}</li>
+    <li>{% trans %}Départ{% endtrans %}: {{ predictions[loop.index0 - 1].clock | date('H:i:s')}}</li>
     {% endif %}
 </ul>
 </div>

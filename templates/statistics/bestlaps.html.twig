@@ -3,7 +3,7 @@
 {% block title %}Hello StatisticsController!{% endblock %}
 
 {% block body %}
-<p>Meilleurs tours :</p>
+<p>{% trans %}Meilleurs tours{% endtrans %} :</p>
 <ul>
 {% for d in data %}
 <li>{{ d.label }}: {{ d.value }}</li>
