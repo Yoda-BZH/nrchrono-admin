@@ -27,7 +27,7 @@ class FakerPauseUpdateCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Set the pauses to today')

@@ -27,7 +27,7 @@ class FakerTimingCleanupCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Delete old cleanups, older than 2 days')

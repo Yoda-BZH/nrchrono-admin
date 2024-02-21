@@ -34,7 +34,7 @@ class DashingBestlapsCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Best laps per team')

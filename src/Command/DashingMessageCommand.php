@@ -25,7 +25,7 @@ class DashingMessageCommand extends Command
     {
         parent::__construct();
     }
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('dashing:message') ->setDescription('Ranking')
