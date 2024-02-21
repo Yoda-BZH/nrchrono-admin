@@ -111,7 +111,7 @@ class TimingRepository extends ServiceEntityRepository
             ;
 
         $r = $qb->getQuery()->getSingleResult();
-	$stats[1] = $r[1];
+        $stats[1] = $r[1];
 
         $qb = $this->createQueryBuilder('ti');
         $qb
@@ -123,7 +123,7 @@ class TimingRepository extends ServiceEntityRepository
             ;
 
         $r = $qb->getQuery()->getSingleResult();
-	$stats[2] = $r[1];
+        $stats[2] = $r[1];
 
         $qb = $this->createQueryBuilder('ti');
         $qb
@@ -135,8 +135,8 @@ class TimingRepository extends ServiceEntityRepository
             ;
 
         $r = $qb->getQuery()->getSingleResult();
-	$stats[3] = $r[1];
-	return $stats;
+        $stats[3] = $r[1];
+        return $stats;
     }
 
     //public function getLatests() {
