@@ -60,9 +60,9 @@ class RacerTimingConsolidateCommand extends Command
             $racer->setTimingAvg($tAvg);
 
             $this->em->persist($racer);
-            $this->em->flush();
             $output->writeln(sprintf('Saving timings for %s', $racer->getNickname()));
         }
+        $this->em->flush();
 
         return Command::SUCCESS;
     }
