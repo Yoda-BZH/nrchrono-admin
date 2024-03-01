@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Service\NextRacerGuesser;
+
 #[Route('/race')]
 class RaceController extends AbstractController
 {
@@ -83,11 +85,32 @@ class RaceController extends AbstractController
     }
 
     #[Route("/{id}/start", name: "race_start", methods: ['GET'])]
-    public function raceStart(Request $request, Race $race, EntityManagerInterface $em): Response
+    public function raceStart(
+        Request $request,
+        Race $race,
+        EntityManagerInterface $em,
+        NextRacerGuesser $nextRaceGuesser,
+    ): Response
     {
         $now = new \DateTime();
         $race->setStart($now);
         $em->persist($race);
+        $em->flush();
+
+        $teams = $race->getTeams();
+
+        foreach($teams as $team)
+        {
+            $nextRaceGuesser
+                ->setTeam($team)
+                ->computeNexts()
+                ;
+            $timings = $nextRaceGuesser->getPredictions($team->getId());
+            foreach($timings as $t)
+            {
+                $em->remove($t);
+            }
+        }
         $em->flush();
 
         return $this->redirectToRoute('timing_status', [], Response::HTTP_SEE_OTHER);
