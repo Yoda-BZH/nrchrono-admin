@@ -73,7 +73,7 @@ class TimingConsolidate
                     {
                         // race has not started, or the first racer is still doing the very first lap
                         $previousPrediction = clone $this->raceManager->get()->getStart();
-                        $previousPrediction->add(new \DateInterval($prediction->getRacer()->getTimingAvg()->format('\P\TH\Hi\Ms\S')));
+                        //$previousPrediction->add(new \DateInterval($prediction->getRacer()->getTimingAvg()->format('\P\TH\Hi\Ms\S')));
                         //$this->logger->info(sprintf(
                         //    'Race has NOT started, using racer %s with average %s to arrive at %s',
                         //    (string) $prediction->getRacer(),
