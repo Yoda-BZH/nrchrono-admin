@@ -17,7 +17,7 @@ class TimeToSec extends FunctionNode
     /** @var \Doctrine\ORM\Query\AST\SimpleArithmeticExpression  */
     public $timeExpression = null;
 
-    public function parse(\Doctrine\ORM\Query\Parser $parser)
+    public function parse(\Doctrine\ORM\Query\Parser $parser): void
     {
         $parser->match(Lexer::T_IDENTIFIER);
         $parser->match(Lexer::T_OPEN_PARENTHESIS);
@@ -25,7 +25,7 @@ class TimeToSec extends FunctionNode
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
     }
 
-    public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
+    public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker): string
     {
         return 'TIME_TO_SEC(' .
             $this->timeExpression->dispatch($sqlWalker) .
