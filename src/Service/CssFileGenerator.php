@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\Collection;
 
 class CssFileGenerator
 {
+    private $teams = array();
+
     public function __construct(
         private ContainerBagInterface $params,
     )
