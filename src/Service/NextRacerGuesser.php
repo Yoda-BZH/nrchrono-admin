@@ -123,6 +123,11 @@ class NextRacerGuesser {
                 }
                 else
                 {
+			if (!isset($this->predictions[$teamId][$i - 1]))
+			{
+				$this->logger->info(sprintf('error, no previous racer found for team %d for $i', $teamId, $i));
+				continue;
+			}
                     $clock = clone $this->predictions[$teamId][$i - 1]->getClock();
                 }
 
@@ -134,10 +139,14 @@ class NextRacerGuesser {
                 else
                 {
                     $currentRacer = null;
-                    $iterations = 0;
+                    $iterations = (int) -1;
                     do {
+                        $iterations++;
+                        $this->logger->info(sprintf('trying iteration %d', $iterations));
                         $previousRacer = $this->nextRacers[$teamId][$i - 1];
                         $isCurrentRacer = $this->racerRepository->getNextRacerAvailable($this->team, $previousRacer->getPosition() + $iterations);
+                        //$isCurrentRacer = $this->racerRepository->getNextRacerAvailable($this->team, $previousRacer->getPosition() + $iterations % $this->team->getNbPerson());
+			$this->logger->info(sprintf('for team %d get next racer %s as pos %d and iter %d', $teamId, (string) $isCurrentRacer, $previousRacer->getPosition(), $iterations));
                         $racerPauses = $isCurrentRacer->getRacerPauses();
                         if (!\count($racerPauses))
                         {
@@ -176,12 +185,23 @@ class NextRacerGuesser {
                                 break;
                             }
                         }
-                        $iterations++;
-                        $this->logger->info(sprintf('trying iteration %d', $iterations));
-                    } while(!$currentRacer && $iterations < 20);
+                    } while(!$currentRacer && $iterations < 30);
 
                     //$this->logger->info(sprintf('could not find current racer, with "%s", determined to be "%s" next', $previousRacer->getNickname(), $currentRacer->getNickname()));
                 }
+		if (!$currentRacer)
+		{
+			$this->logger->error(sprintf('Cannot find another raceri for team %d, found null after %d iteration', $teamId, $iterations));
+			$personne = $this->racerRepository->getPersonne($teamId);
+			if($personne)
+			{
+				$currentRacer = $personne;
+			}
+			else
+			{
+				continue;
+			}
+		}
 
                 $timing = new Timing();
                 $created = new \Datetime();

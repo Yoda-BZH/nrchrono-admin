@@ -118,7 +118,7 @@ class RacerRepository extends ServiceEntityRepository
      * @param void
      * @return void
      */
-    protected function getNextRacerAvailableQuery(Team $team, $position, \DatetimeInterface $clock = null)
+    protected function getNextRacerAvailableQuery(Team $team, $position, \DatetimeInterface $clock = null, $teamModifier = 0)
     {
         $qb = $this->createQueryBuilder('r');
         $qb
@@ -126,7 +126,7 @@ class RacerRepository extends ServiceEntityRepository
             ->where('r.team = :idTeam')
             ->orderBy('nextPositions', 'asc')
             ->setParameter('position', $position)
-            ->setParameter('nbPerson', $team->getNbPerson())
+            ->setParameter('nbPerson', $team->getNbPerson() - $teamModifier)
             ->setParameter('idTeam', $team)
             ->andWhere('r.paused = :paused')
             ->setParameter('paused', false)
@@ -223,4 +223,19 @@ class RacerRepository extends ServiceEntityRepository
     //    return $racer;
     //
     //}
+    public function getPersonne($teamId)
+    {
+        $qb = $this->createQueryBuilder('r');
+
+        $qb
+            ->where('r.team = :team')
+            ->andWhere('r.firstname = :name')
+            ->setParameter('team', $teamId)
+            ->setParameter('name', '< Personne >')
+            ;
+
+        $racer = $qb->getQuery()->getSingleResult();
+
+        return $racer;
+    }
 }
