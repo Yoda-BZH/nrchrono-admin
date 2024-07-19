@@ -13,10 +13,12 @@ class DefaultController extends AbstractController
     {
         $dashboardPaddock = $this->getParameter('dashing.dashboard.paddock');
         $dashboardTrack = $this->getParameter('dashing.dashboard.track');
+        $dashboardTrackNight = $this->getParameter('dashing.dashboard.tracknight');
 
         return $this->render('homepage.html.twig', array(
             'link_paddock' => $dashboardPaddock,
             'link_track' => $dashboardTrack,
+            'link_track_night' => $dashboardTrackNight,
         ));
     }
 }

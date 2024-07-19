@@ -9,6 +9,7 @@ parameters:
     dashing.token: '%env(DASHING_TOKEN)%'
     dashing.dashboard.paddock: '%env(DASHING_DASHBOARD_PADDOCK)%'
     dashing.dashboard.track: '%env(DASHING_DASHBOARD_TRACK)%'
+    dashing.dashboard.tracknight: '%env(DASHING_DASHBOARD_TRACK_NIGHT)%'
 
 services:
     # default configuration for services in *this* file
