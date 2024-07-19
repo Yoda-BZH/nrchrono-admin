@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class RacerType extends AbstractType
 {
@@ -17,9 +18,9 @@ class RacerType extends AbstractType
             ->add('firstname')
             ->add('lastname')
             ->add('nickname')
-            ->add('timingMin')
-            ->add('timingMax')
-            ->add('timingAvg')
+            ->add('timingMin', Datetype::class, ['widget' => 'simple_text', 'format' => 'i:s'])
+            ->add('timingMax', Datetype::class, ['widget' => 'simple_text', 'format' => 'i:s'])
+            ->add('timingAvg', Datetype::class, ['widget' => 'simple_text', 'format' => 'i:s'])
             ->add('position')
             ->add('paused')
             ->add('idTeam', EntityType::class, [
