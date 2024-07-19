@@ -58,7 +58,8 @@ class FakerFixturesCommand extends Command
         $race = new Race;
         $race
             ->setName('24H du Mans Roller 2024')
-            ->setStart(new \Datetime("now + 5 minutes"))
+            //->setStart(new \Datetime("now + 5 minutes"))
+            ->setStart(new \Datetime("2024-06-29 16:15:00"))
             ->setKm('4.185')
             ;
         //$race = new Race;
@@ -81,12 +82,20 @@ class FakerFixturesCommand extends Command
             $name = $teamType[2];
             $randMin = 100 * (count($teamType[3]) - 1);
             $randMax = $randMin + 99;
+	    if(isset($teamType['id']))
+	    {
+		    $idEquipe = $teamType['id'];
+	    }
+	    else
+	    {
+		    $idEquipe = rand($randMin, $randMax);
+	    }
             $team
                 ->setName($name)
                 ->setNbPerson($teamType[0])
                 ->setRace($race)
                 ->setColor($teamType[1])
-                ->setIdReference(rand($randMin, $randMax))
+                ->setIdReference($idEquipe)
                 ->setGuest($teamType[4])
                 ;
             $this->em->persist($team);
@@ -97,30 +106,46 @@ class FakerFixturesCommand extends Command
             foreach($teamType[3] as $i => $racerInfos)
             {
                 $racer = new Racer;
-                $tmin = new \Datetime('00:00:00');
-                $tmax = new \Datetime('00:00:00');
-
-                if($mediumTiming == 12)
-                {
-                    $tmin->modify(sprintf('+ %s seconds', $tmn = rand(9 * 60, 11 * 60)));
-                    $tmax->modify(sprintf('+ %s seconds', $tmx = rand(11 * 60, 13 * 60)));
-                }
-                elseif($mediumTiming == 3)
-                {
-                    $tmin->modify(sprintf('+ %s seconds', $tmn = rand(2.5 * 60, 4 * 60)));
-                    $tmax->modify(sprintf('+ %s seconds', $tmx = rand(3.5 * 60, 4.5 * 60)));
-                }
-                elseif($mediumTiming == 8)
-                {
-                    $tmin->modify(sprintf('+ %s seconds', $tmn = rand(6.5 * 60, 9 * 60)));
-                    $tmax->modify(sprintf('+ %s seconds', $tmx = rand(7.5 * 60, 10.5 * 60)));
-                }
-                else
-                {
-                    throw new \Exception('Bad --timing');
-                }
-                $tavg = new \Datetime('00:00:00');
-                $tavg->modify(sprintf('+ %d seconds', ($tmn + $tmx) / 2));
+		if(isset($racerInfos['t']))
+		{
+			$tavg = new \Datetime('00:00:00');
+			$t = $racerInfos['t'][0] * 60 + $racerInfos['t'][1];
+			$tavg->modify(sprintf('+ %d seconds', $t));
+			$tmin = clone $tavg;
+			$tmax = clone $tavg;
+		}
+		else
+		{
+			$tavg = new \Datetime('00:00:00');
+			$t = 10 * 60;
+			$tavg->modify(sprintf('+ %d seconds', $t));
+			$tmin = clone $tavg;
+			$tmax = clone $tavg;
+//			$tmin = new \Datetime('00:00:00');
+//			$tmax = new \Datetime('00:00:00');
+//
+//			if($mediumTiming == 12)
+//			{
+//			    $tmin->modify(sprintf('+ %s seconds', $tmn = rand(9 * 60, 11 * 60)));
+//			    $tmax->modify(sprintf('+ %s seconds', $tmx = rand(11 * 60, 13 * 60)));
+//			}
+//			elseif($mediumTiming == 3)
+//			{
+//			    $tmin->modify(sprintf('+ %s seconds', $tmn = rand(2.5 * 60, 4 * 60)));
+//			    $tmax->modify(sprintf('+ %s seconds', $tmx = rand(3.5 * 60, 4.5 * 60)));
+//			}
+//			elseif($mediumTiming == 8)
+//			{
+//			    $tmin->modify(sprintf('+ %s seconds', $tmn = rand(6.5 * 60, 9 * 60)));
+//			    $tmax->modify(sprintf('+ %s seconds', $tmx = rand(7.5 * 60, 10.5 * 60)));
+//			}
+//			else
+//			{
+//			    throw new \Exception('Bad --timing');
+//			}
+//			$tavg = new \Datetime('00:00:00');
+//			$tavg->modify(sprintf('+ %d seconds', ($tmn + $tmx) / 2));
+		}
 
                 if (isset($teamType[3]))
                 {
