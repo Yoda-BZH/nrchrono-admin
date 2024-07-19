@@ -55,7 +55,7 @@ class DashingBestlapsCommand extends Command
         {
             if(!$raceIsStarted)
             {
-                $output->writeln('race has not started yet');
+                //$output->writeln('race has not started yet');
                 $data[] = array(
                     'label' => sprintf('%s', str_replace('NR-', '', $team->getName())),
                     'value' => '--:--',
