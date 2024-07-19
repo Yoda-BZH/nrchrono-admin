@@ -46,7 +46,7 @@ class RacerTimingConsolidateCommand extends Command
             $stats = $this->timingRepository->getStats($racer);
             if (!$stats || $stats[1] == null)
             {
-                $output->writeln(sprintf('It seems %s has no timing, skipping', $racer->getNickname()));
+                //$output->writeln(sprintf('It seems %s has no timing, skipping', $racer->getNickname()));
                 continue;
             }
             //var_dump($stats);
@@ -60,7 +60,7 @@ class RacerTimingConsolidateCommand extends Command
             $racer->setTimingAvg($tAvg);
 
             $this->em->persist($racer);
-            $output->writeln(sprintf('Saving timings for %s', $racer->getNickname()));
+            //$output->writeln(sprintf('Saving timings for %s', $racer->getNickname()));
         }
         $this->em->flush();
 
