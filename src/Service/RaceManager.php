@@ -88,6 +88,10 @@ class RaceManager {
         $now = new \Datetime();
 
         $race = $this->get();
+	if(!$race)
+	{
+		return false;
+	}
 
         $difference = $now->diff($race->getStart());
 
