@@ -9,5 +9,5 @@
 
     <a href="{{ path('pause') }}">{% trans %}back to list{% endtrans %}</a>
 
-    {{ include('pause/_delete_form.html.twig') }}
+    {{ include('pause/_delete_form.html.twig', {'pause': pause}) }}
 {% endblock %}
