@@ -43,9 +43,11 @@ class TimingController extends AbstractController
      * @Template()
      */
     #[Route("/", name: "timing")]
-    public function indexAction(TimingRepository $timingRepository, TeamRepository $teamRepository)
+    public function indexAction(TimingRepository $timingRepository, TeamRepository $teamRepository, Request $request)
     {
-        $entities = $timingRepository->findAllWithRacerTeam();
+	$teamId = $request->query->get('team', null);
+
+        $entities = $timingRepository->findAllWithRacerTeam($teamId);
 
         return $this->render('Timing/index.html.twig', array(
             'entities' => $entities,

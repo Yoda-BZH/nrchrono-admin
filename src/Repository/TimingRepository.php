@@ -49,7 +49,7 @@ class TimingRepository extends ServiceEntityRepository
 //    }
 
     // TimingController::indexAction
-    public function findAllWithRacerTeam()
+    public function findAllWithRacerTeam($team = null)
     {
         $qb = $this->createQueryBuilder('ti');
         $qb
@@ -59,9 +59,16 @@ class TimingRepository extends ServiceEntityRepository
             ->leftJoin('r.team', 'te')
             //->andWhere($qb->expr()->in('ti.type', array(Timing::MANUAL, Timing::PREDICTION)))
             ->orderBy('ti.createdAt', 'DESC')
-            ->setMaxResults(200)
+//            ->setMaxResults(200)
             ;
 
+	if($team)
+	{
+		$qb
+			->andWhere('te.id = :id')
+			->setParameter('id', $team)
+		;
+	}
         return $qb->getQuery()->getResult();
     }
 
